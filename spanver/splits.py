@@ -21,3 +21,15 @@ def ordered_pairs(pairs, ids):
     for pair in pairs:
         by_id[pair.get("pair_id")] = pair
     return [by_id[pair_id] for pair_id in ids if pair_id in by_id]
+
+
+def canonical_assignment(path=None):
+    try:
+        data = load_splits(path)
+    except (OSError, ValueError, KeyError):
+        return {}
+    mapping = {}
+    for name in ("test", "val", "train"):
+        for pair_id in data.get(name, []):
+            mapping[pair_id] = name
+    return mapping

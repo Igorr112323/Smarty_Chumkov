@@ -22,6 +22,19 @@ jobs:
           pip install pytest pyarrow
           pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install transformers huggingface_hub
+      - name: data
+        run: |
+          python tools/read_parquet.py --out artifacts
+          python -m spanver build --dataset Dataset --out artifacts
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          expected = "fddd62ce05baf028b64cb6db81b89053bdc5444a540c6e18e34e318577c8b32b"
+          found = hashlib.sha256(Path("artifacts/gold.jsonl").read_bytes()).hexdigest()
+          print(f"gold sha256 {found}")
+          assert found == expected, f"gold.jsonl расходится с эталоном: {found}"
+          PY
       - name: pytest
         run: python -m pytest -q
       - name: package
