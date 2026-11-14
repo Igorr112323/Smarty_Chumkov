@@ -26,7 +26,7 @@ VOCAB = [
 ]
 
 
-def build_tiny(directory, seed=0):
+def build_tiny(directory, seed=0, token_classification=False):
     import torch
     from transformers import BertConfig, BertModel, BertTokenizerFast
 
@@ -46,6 +46,12 @@ def build_tiny(directory, seed=0):
         max_position_embeddings=512,
         attn_implementation="eager",
     )
-    model = BertModel(config).eval()
+    if token_classification:
+        from transformers import BertForTokenClassification
+
+        config.num_labels = 2
+        model = BertForTokenClassification(config).eval()
+    else:
+        model = BertModel(config).eval()
     model.save_pretrained(str(target))
     return target

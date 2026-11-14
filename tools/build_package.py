@@ -37,10 +37,11 @@ def version():
 
 def collect():
     files = []
-    for path in sorted((ROOT / "spanver").glob("*.py")):
-        files.append(path)
-    for path in sorted((ROOT / "spanver").glob("*.json")):
-        files.append(path)
+    for pattern in ("**/*.py", "**/*.json"):
+        for path in sorted((ROOT / "spanver").glob(pattern)):
+            if "__pycache__" in path.parts:
+                continue
+            files.append(path)
     return files
 
 
@@ -53,7 +54,8 @@ def build(out="artifacts"):
     payload = README.format(version=version()).encode("utf-8")
     with zipfile.ZipFile(target, "w", compression=zipfile.ZIP_STORED) as archive:
         for path in files:
-            info = zipfile.ZipInfo(f"spanver/{path.name}", date_time=FIXED_TIME)
+            arcname = f"spanver/{path.relative_to(ROOT / 'spanver').as_posix()}"
+            info = zipfile.ZipInfo(arcname, date_time=FIXED_TIME)
             info.external_attr = 0o644 << 16
             info.compress_type = zipfile.ZIP_STORED
             archive.writestr(info, path.read_bytes())
@@ -70,7 +72,7 @@ def build(out="artifacts"):
         "limit_bytes": LIMIT_BYTES,
         "under_limit": size <= LIMIT_BYTES,
         "sha256": digest,
-        "files": [f"spanver/{path.name}" for path in files] + ["README.txt"],
+        "files": [f"spanver/{path.relative_to(ROOT / 'spanver').as_posix()}" for path in files] + ["README.txt"],
         "python_requires": ">=3.10",
         "version": version(),
     }
