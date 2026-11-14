@@ -1,12 +1,12 @@
 {
-  "main_head": "d0a104187c9c47011e1e436fd9a941c50e61568b",
+  "main_head": "f0440e1e316cd8a31486fcab6fbe0f692d1480db",
   "module": {
     "core_files": [
       "spanver/module.py",
       "spanver/api.py",
       "spanver/cli.py"
     ],
-    "core_size_kb": 19.3,
+    "core_size_kb": 20.7,
     "five_token_features": [
       "number",
       "entity",
@@ -57,14 +57,91 @@
   "speed": {
     "stress_chars": 50000,
     "runs": 3,
-    "median_elapsed_ms": 443,
+    "median_elapsed_ms": 408,
     "under_1s": true
   },
+  "ai_share_calib": {
+    "points": [
+      {
+        "share": 0.0,
+        "ai_share": 0.0,
+        "abs_err": 0.0,
+        "raw": 0.0,
+        "n_human": 40,
+        "n_ai": 0
+      },
+      {
+        "share": 0.25,
+        "ai_share": 0.25,
+        "abs_err": 0.0,
+        "raw": 0.173,
+        "n_human": 30,
+        "n_ai": 10
+      },
+      {
+        "share": 0.5,
+        "ai_share": 0.5,
+        "abs_err": 0.0,
+        "raw": 0.3321,
+        "n_human": 20,
+        "n_ai": 20
+      },
+      {
+        "share": 0.75,
+        "ai_share": 0.75,
+        "abs_err": 0.0,
+        "raw": 0.4892,
+        "n_human": 10,
+        "n_ai": 30
+      },
+      {
+        "share": 1.0,
+        "ai_share": 1.0,
+        "abs_err": 0.0,
+        "raw": 0.6542,
+        "n_human": 0,
+        "n_ai": 40
+      }
+    ],
+    "max_abs_err": 0.0,
+    "loo_max_abs_err": 0.25,
+    "curve": [
+      {
+        "raw": 0.0,
+        "share": 0.0
+      },
+      {
+        "raw": 0.173,
+        "share": 0.25
+      },
+      {
+        "raw": 0.3321,
+        "share": 0.5
+      },
+      {
+        "raw": 0.4892,
+        "share": 0.75
+      },
+      {
+        "raw": 0.6542,
+        "share": 1.0
+      }
+    ],
+    "mixtures": 5,
+    "sha256": "afbfd35f85731e8acc9cb0a584974f481c4ac6e8b1fe5c0ceb368d0e9fdef989"
+  },
+  "stress": {
+    "stress_chars": 2000000,
+    "runs": 3,
+    "median_elapsed_ms": 17043,
+    "ms_per_1000": 8.521,
+    "under_60s": true,
+    "under_30ms_per_1000": true
+  },
   "ai_share_sample": {
-    "value": 1.0,
-    "note": "калибровка — шаг 6"
+    "value": 1.0
   },
   "seed": 0,
   "python": "3.11.2",
-  "built_utc": "2026-11-14T15:37:53Z"
+  "built_utc": "2026-11-14T16:01:40Z"
 }
