@@ -94,7 +94,34 @@ def run_calibration(bundle, head, data):
         raw = ai_share(score_rows(rows_features, head), row["text"])
         points.append({"share": row["share"], "raw": raw, "abs_err": round(abs(raw - row["share"]), 4)})
     worst = max((point["abs_err"] for point in points), default=0.0)
-    return {"points": points, "max_abs_err": round(worst, 4), "sha256": found, "sha_match": found == CALIB_SHA256}
+    leave_one_out = 0.0
+    for index, point in enumerate(points):
+        rest = sorted((item["raw"], item["share"]) for position, item in enumerate(points) if position != index)
+        if not rest:
+            continue
+        value = max(0.0, min(1.0, point["raw"]))
+        if value <= rest[0][0]:
+            predicted = rest[0][1]
+        elif value >= rest[-1][0]:
+            predicted = rest[-1][1]
+        else:
+            predicted = rest[-1][1]
+            for position in range(1, len(rest)):
+                left_raw, left_share = rest[position - 1]
+                right_raw, right_share = rest[position]
+                if value <= right_raw:
+                    span = right_raw - left_raw
+                    weight = (value - left_raw) / span if span else 0.0
+                    predicted = left_share + weight * (right_share - left_share)
+                    break
+        leave_one_out = max(leave_one_out, abs(predicted - point["share"]))
+    return {
+        "points": points,
+        "max_abs_err": round(worst, 4),
+        "loo_max_abs_err": round(leave_one_out, 4),
+        "sha256": found,
+        "sha_match": found == CALIB_SHA256,
+    }
 
 
 def stress(bundle, document, answer):
