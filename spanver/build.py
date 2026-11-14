@@ -7,6 +7,8 @@ from .io_csv import read_gold
 from .locate import METHOD_EXACT, METHOD_NORMALIZED, METHOD_UNRESOLVED, locate
 from .pairs import doc_ids, ordered
 from .qc import inspect
+from .report import build_report
+from .split import UNUSED, assign, doc_overlap
 from .types import TYPE_KEYS, classify
 
 GOLD_FILES = (
@@ -90,6 +92,43 @@ def write_jsonl(path, pairs):
     return len(pairs)
 
 
+def read_jsonl(path):
+    target = Path(path)
+    if not target.exists():
+        return []
+    pairs = []
+    with open(target, encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if line:
+                pairs.append(json.loads(line))
+    return pairs
+
+
+def apply_split(out_path, gold):
+    unlabeled = read_jsonl(out_path / "pairs_unlabeled.jsonl")
+    everything = gold + unlabeled
+    assignment, stats = assign(everything)
+    for pair in everything:
+        pair["split"] = assignment[pair["pair_id"]]
+    write_jsonl(out_path / "gold.jsonl", gold)
+    if unlabeled:
+        write_jsonl(out_path / "pairs_unlabeled.jsonl", unlabeled)
+    stats["doc_overlap_across_splits"] = doc_overlap(everything, assignment)
+    stats["pairs_total"] = len(everything)
+    print(f"components = {stats['components']}")
+    counts = stats["split_counts"]
+    print(f"pairs train/val/test/unused = {counts['train']} {counts['val']} {counts['test']} {counts['unused']}")
+    print(f"test pairs = {counts['test']}")
+    print(f"test manual pairs = {stats['split_manual']['test']}")
+    print(f"test pairs with spans = {stats['test_pairs_with_spans']}")
+    print(f"doc overlap between splits = {stats['doc_overlap_across_splits']}")
+    print(f"max component size = {stats['max_component']}")
+    print(f"unused unlabeled = {stats['unused_unlabeled']}")
+    print(f"empty doc_ids = {stats['empty_doc_ids']}")
+    return stats
+
+
 def type_counts(pairs):
     counts = {key: 0 for key in TYPE_KEYS}
     for pair in pairs:
@@ -126,10 +165,15 @@ def build(dataset, out):
     print(f"overlaps = {report['overlaps']}")
     print(f"nested = {report['nested']}")
     print(f"qc: {'OK' if report['ok'] else 'FAIL'}")
+    split_stats = apply_split(out_path, pairs)
+    unlabeled = read_jsonl(out_path / "pairs_unlabeled.jsonl")
+    report_doc, report_path = build_report(dataset_path, out_path, pairs, unlabeled, counters, report, split_stats)
+    print(f"report written: {report_path}")
     target = out_path / "raw_stats.json"
     target.write_text(json.dumps(stats, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"json written: {target}")
-    return 0 if report["ok"] else 1
+    ok = report["ok"] and split_stats["doc_overlap_across_splits"] == 0
+    return 0 if ok else 1
 
 
 def main(argv=None):
