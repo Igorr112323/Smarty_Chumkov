@@ -1,4 +1,4 @@
-from spanver.module import FEATURE_NAMES, THRESHOLD, token_features, verify
+from spanver.module import FEATURE_NAMES, THRESHOLD, stem, token_features, verify
 
 TYPES = {"number", "temporal", "entity", "omission", "unsupported_addition", "contradiction", "scope"}
 ANSWER = "В 1990 году завод выпустил 1200 деталей. Плотность составила 45%. Возможно, это неверно."
@@ -45,3 +45,14 @@ def test_five_features_per_token():
 def test_supported_answer_has_no_spans():
     result = verify("Завод выпускает детали.", "Завод выпускает детали.")
     assert result["spans"] == []
+
+
+def test_stem_normalizes_forms():
+    assert stem("заводы") == stem("завода") == stem("завод")
+    assert stem("годы") == "год"
+    assert stem("два") == "2"
+
+
+def test_alias_normalization():
+    assert stem("км") == stem("километр")
+    assert stem("млн") == stem("миллион")

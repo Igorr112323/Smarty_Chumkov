@@ -67,7 +67,7 @@ def main():
     vector = fit(rows)
     print("weights = " + json.dumps([round(value, 4) for value in vector]))
     best = None
-    for threshold in [round(0.20 + step * 0.02, 2) for step in range(36)]:
+    for threshold in [round(0.20 + step * 0.01, 2) for step in range(80)]:
         metrics = evaluate_pairs(val, threshold=threshold, weights=vector)
         span = metrics["span_level"]
         print(f"threshold {threshold:.2f} F1 {span['f1']:.4f} P {span['precision']:.4f} R {span['recall']:.4f} FPR {metrics['fpr']:.4f} tp {span['tp']} fp {span['fp']} fn {span['fn']}")

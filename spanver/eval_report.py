@@ -6,8 +6,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .evaluate import evaluate_pairs, load_split, read_jsonl
-from .module import FEATURE_NAMES, IOU_THRESHOLD, THRESHOLD, verify
+from .evaluate import evaluate_pairs, iou, load_split, read_jsonl
+from .module import FEATURE_NAMES, IOU_THRESHOLD, THRESHOLD, candidate_spans, verify
 
 CORE_FILES = ("spanver/module.py", "spanver/api.py", "spanver/cli.py")
 STRESS_CHARS = 50000
@@ -37,6 +37,35 @@ def slice_of(pool, start, size):
         return pool
     offset = start % max(1, len(pool) - size)
     return pool[offset : offset + size]
+
+
+def ceiling(pairs):
+    gold_total = 0
+    covered = 0
+    pairs_with_gold = 0
+    pairs_coverable = 0
+    for pair in pairs:
+        gold = pair.get("spans") or []
+        if not gold:
+            continue
+        pairs_with_gold += 1
+        candidates = candidate_spans(pair.get("model_output") or "")
+        hit = False
+        for span in gold:
+            gold_total += 1
+            best = max((iou(start, end, span["start"], span["end"]) for start, end, _ in candidates), default=0.0)
+            if best >= IOU_THRESHOLD:
+                covered += 1
+                hit = True
+        if hit:
+            pairs_coverable += 1
+    return {
+        "gold_spans": gold_total,
+        "oracle_covered": covered,
+        "oracle_recall": round(covered / gold_total, 4) if gold_total else 0.0,
+        "pairs_with_gold": pairs_with_gold,
+        "pairs_coverable": pairs_coverable,
+    }
 
 
 def main_head():
@@ -76,6 +105,7 @@ def make_report(out="artifacts", data="artifacts/gold.jsonl"):
             "threshold_val": THRESHOLD,
             "iou_threshold": IOU_THRESHOLD,
         },
+        "metric_rule": "IoU>=0.5, no type match",
         "eval_test": {
             "n_pairs": metrics["n_pairs"],
             "n_pairs_with_spans": metrics["n_pairs_with_spans"],
@@ -84,11 +114,13 @@ def make_report(out="artifacts", data="artifacts/gold.jsonl"):
             "token_level": metrics["token_level"],
             "pair_level": metrics["pair_level"],
             "fpr": metrics["fpr"],
+            "type_accuracy": metrics["type_accuracy"],
             "contract_pass": {
                 "f1_ge_0.50": metrics["span_level"]["f1"] >= 0.50,
                 "fpr_le_0.40": metrics["fpr"] <= 0.40,
             },
         },
+        "ceiling": ceiling(test_pairs),
         "speed": {
             "stress_chars": len(answer),
             "runs": RUNS,

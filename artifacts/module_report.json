@@ -1,12 +1,12 @@
 {
-  "main_head": "820a893834201c7113a50a89f93dd168b7d5f17a",
+  "main_head": "d0a104187c9c47011e1e436fd9a941c50e61568b",
   "module": {
     "core_files": [
       "spanver/module.py",
       "spanver/api.py",
       "spanver/cli.py"
     ],
-    "core_size_kb": 16.6,
+    "core_size_kb": 19.3,
     "five_token_features": [
       "number",
       "entity",
@@ -17,38 +17,47 @@
     "threshold_val": 0.98,
     "iou_threshold": 0.5
   },
+  "metric_rule": "IoU>=0.5, no type match",
   "eval_test": {
     "n_pairs": 301,
     "n_pairs_with_spans": 94,
     "n_neg_pairs": 207,
     "span_level": {
-      "tp": 25,
-      "fp": 107,
-      "fn": 98,
-      "precision": 0.1894,
-      "recall": 0.2033,
-      "f1": 0.1961
+      "tp": 36,
+      "fp": 95,
+      "fn": 87,
+      "precision": 0.2748,
+      "recall": 0.2927,
+      "f1": 0.2835
     },
     "token_level": {
-      "precision": 0.2839,
-      "recall": 0.6297,
-      "f1": 0.3913
+      "precision": 0.2856,
+      "recall": 0.6259,
+      "f1": 0.3923
     },
     "pair_level": {
-      "precision": 0.2577,
-      "recall": 0.266,
-      "f1": 0.2618
+      "precision": 0.3303,
+      "recall": 0.383,
+      "f1": 0.3547
     },
-    "fpr": 0.3478,
+    "fpr": 0.3527,
+    "type_accuracy": 0.75,
     "contract_pass": {
       "f1_ge_0.50": false,
       "fpr_le_0.40": true
     }
   },
+  "ceiling": {
+    "gold_spans": 123,
+    "oracle_covered": 107,
+    "oracle_recall": 0.8699,
+    "pairs_with_gold": 94,
+    "pairs_coverable": 84
+  },
   "speed": {
     "stress_chars": 50000,
     "runs": 3,
-    "median_elapsed_ms": 470,
+    "median_elapsed_ms": 443,
     "under_1s": true
   },
   "ai_share_sample": {
@@ -57,5 +66,5 @@
   },
   "seed": 0,
   "python": "3.11.2",
-  "built_utc": "2026-11-14T15:25:42Z"
+  "built_utc": "2026-11-14T15:37:53Z"
 }

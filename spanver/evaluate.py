@@ -23,17 +23,18 @@ def iou(first_start, first_end, second_start, second_end):
 def match_spans(predicted, gold, iou_threshold=IOU_THRESHOLD):
     used = set()
     matched = 0
+    type_correct = 0
     for span in predicted:
         for index, truth in enumerate(gold):
             if index in used:
                 continue
-            if truth.get("type") != span.get("type"):
-                continue
             if iou(span["start"], span["end"], truth["start"], truth["end"]) >= iou_threshold:
                 used.add(index)
                 matched += 1
+                if truth.get("type") == span.get("type"):
+                    type_correct += 1
                 break
-    return matched, used
+    return matched, used, type_correct
 
 
 def token_positions(text):
@@ -68,6 +69,7 @@ def evaluate_pairs(pairs, threshold=None, iou_threshold=IOU_THRESHOLD, max_spans
     negatives = 0
     negatives_flagged = 0
     token_tp = token_fp = token_fn = 0
+    type_correct = 0
     with_spans = 0
     for pair in pairs:
         answer = pair.get("model_output") or ""
@@ -75,7 +77,8 @@ def evaluate_pairs(pairs, threshold=None, iou_threshold=IOU_THRESHOLD, max_spans
         if gold:
             with_spans += 1
         predicted = verify(answer, pair.get("document_text") or "", threshold=threshold, weights=weights, max_spans=max_spans, nms_iou=nms_iou)["spans"]
-        matched, used = match_spans(predicted, gold, iou_threshold)
+        matched, used, correct = match_spans(predicted, gold, iou_threshold)
+        type_correct += correct
         tp += matched
         fp += len(predicted) - matched
         fn += len(gold) - matched
@@ -125,6 +128,8 @@ def evaluate_pairs(pairs, threshold=None, iou_threshold=IOU_THRESHOLD, max_spans
             "f1": round(f1(pair_precision, pair_recall), 4),
         },
         "fpr": round(ratio(negatives_flagged, negatives), 4),
+        "type_accuracy": round(ratio(type_correct, tp), 4),
+        "type_correct": type_correct,
         "iou_threshold": iou_threshold,
     }
 

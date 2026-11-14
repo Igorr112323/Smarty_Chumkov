@@ -30,22 +30,22 @@ MODEL_FEATURES = (
     "doc_coverage",
 )
 WEIGHTS = (
-    -2.496943,
-    -7.52433,
-    -4.720016,
-    -6.44629,
-    0.294724,
-    1.725247,
-    1.614409,
-    4.555928,
-    3.386565,
-    -0.08418,
-    2.168339,
-    14.429875,
-    21.036521,
-    5.895571,
-    -9.011252,
-    -8.105989,
+    -2.723566,
+    -4.670586,
+    -4.085528,
+    -6.658842,
+    0.596939,
+    1.848816,
+    1.740967,
+    5.600354,
+    3.513775,
+    -0.407672,
+    2.232592,
+    13.903439,
+    21.343035,
+    5.365126,
+    -11.1283,
+    -7.996501,
 )
 
 TOKEN_RE = re.compile(r"[0-9A-Za-zА-Яа-яЁё]+(?:[-'][0-9A-Za-zА-Яа-яЁё]+)*")
@@ -103,9 +103,65 @@ def tokens(text):
     return TOKEN_RE.findall(normalize(text or ""))
 
 
+ENDINGS = (
+    "иями", "ями", "ами", "ыми", "ими", "ов", "ев", "ий", "ый", "ая", "ое", "ые", "ей", "ом", "ем", "ах", "ях",
+    "ую", "юю", "ия", "ии", "ой", "ть", "тся", "ться", "ешь", "ишь", "ует", "ают", "ять", "ать", "ить", "ла",
+    "ло", "ли", "ет", "ут", "ют", "ит", "ат", "ят", "ся", "сь", "а", "е", "и", "о", "у", "ы", "ь", "я", "й",
+)
+
+EXCEPTIONS = {
+    "россии": "росси",
+    "россия": "росси",
+    "люди": "люд",
+    "человек": "человек",
+    "годы": "год",
+    "лет": "год",
+    "года": "год",
+    "году": "год",
+    "время": "врем",
+    "имени": "имен",
+}
+
+NUMBER_WORDS_DIGITS = {
+    "ноль": "0", "один": "1", "одна": "1", "одно": "1", "два": "2", "две": "2", "три": "3",
+    "четыре": "4", "пять": "5", "шесть": "6", "семь": "7", "восемь": "8", "девять": "9",
+    "десять": "10", "одиннадцать": "11", "двенадцать": "12", "тринадцать": "13", "четырнадцать": "14",
+    "пятнадцать": "15", "шестнадцать": "16", "семнадцать": "17", "восемнадцать": "18", "девятнадцать": "19",
+    "двадцать": "20", "тридцать": "30", "сорок": "40", "пятьдесят": "50", "шестьдесят": "60",
+    "семьдесят": "70", "восемьдесят": "80", "девяносто": "90", "сто": "100", "двести": "200",
+    "триста": "300", "четыреста": "400", "пятьсот": "500", "тысяча": "1000", "тысячи": "1000",
+    "тысяч": "1000", "миллион": "1000000", "миллиона": "1000000", "миллионов": "1000000",
+    "миллиард": "1000000000", "миллиарда": "1000000000", "миллиардов": "1000000000",
+}
+
+ALIASES = {
+    "км": "километр",
+    "кг": "килограмм",
+    "млн": "миллион",
+    "млрд": "миллиард",
+    "тыс": "тысяча",
+    "гг": "год",
+    "г": "год",
+    "вв": "век",
+    "в": "век",
+    "проц": "процент",
+    "руб": "рубль",
+    "шт": "штука",
+}
+
+
 def stem(token):
     lowered = token.lower()
-    return lowered[:5] if len(lowered) > 5 else lowered
+    if lowered in EXCEPTIONS:
+        return EXCEPTIONS[lowered]
+    if lowered in ALIASES:
+        lowered = ALIASES[lowered]
+    if lowered in NUMBER_WORDS_DIGITS:
+        return NUMBER_WORDS_DIGITS[lowered]
+    for ending in ENDINGS:
+        if lowered.endswith(ending) and len(lowered) - len(ending) >= 4:
+            return lowered[: -len(ending)]
+    return lowered
 
 
 def ngram_set(text, size=4):
@@ -122,7 +178,9 @@ def document_context(document):
 def document_token_set(document):
     found = set()
     for token in tokens(document):
-        found.add(token.lower())
+        lowered = token.lower()
+        found.add(lowered)
+        found.add(stem(lowered))
     for token in SPACE_NUMBERS.findall(document or ""):
         found.add(token)
     return found
@@ -154,7 +212,7 @@ def token_features(text, document_tokens):
         entity = bool(CAPITAL_RE.match(original or "")) and start > 0
         uncertainty = any(left - 25 <= start <= right + 25 for left, right in markers)
         negation = any(left - 12 <= start <= right + 12 for left, right in negations)
-        overlap = lowered in document_tokens or token in document_tokens
+        overlap = lowered in document_tokens or token in document_tokens or stem(lowered) in document_tokens
         result.append((token, number, entity, uncertainty, negation, overlap))
     return result
 
