@@ -75,6 +75,6 @@ jobs:
       - name: upload package
         uses: actions/upload-artifact@v4
         with:
-          name: spanver-package-py${{ matrix.python-version }}
+          name: spanver-package-py${{ matrix.python-version }}-${{ steps.pkg.outputs.short }}
           path: artifacts/spanver-0.2.0.zip
           if-no-files-found: error
