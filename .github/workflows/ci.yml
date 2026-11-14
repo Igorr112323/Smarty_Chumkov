@@ -19,7 +19,8 @@ jobs:
       - name: install
         run: |
           python -m pip install --upgrade pip
-          pip install pytest pyarrow torch --index-url https://download.pytorch.org/whl/cpu
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install transformers huggingface_hub
       - name: pytest
         run: python -m pytest -q
