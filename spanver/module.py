@@ -342,9 +342,49 @@ def predict_type(text, support):
     return "contradiction"
 
 
+CALIBRATION_POINTS = (
+    (0.0, 0.0),
+    (0.173, 0.25),
+    (0.3321, 0.5),
+    (0.4892, 0.75),
+    (0.6542, 1.0),
+)
+
+
+def calibrate_share(raw):
+    value = max(0.0, min(1.0, raw))
+    points = CALIBRATION_POINTS
+    if value <= points[0][0]:
+        return round(points[0][1], 4)
+    for index in range(1, len(points)):
+        left_raw, left_share = points[index - 1]
+        right_raw, right_share = points[index]
+        if value <= right_raw:
+            span = right_raw - left_raw
+            if span <= 0:
+                return round(right_share, 4)
+            weight = (value - left_raw) / span
+            return round(left_share + weight * (right_share - left_share), 4)
+    return round(points[-1][1], 4)
+
+
 def confidence(risk):
     span = max(1e-9, 1.0 - THRESHOLD)
     return round(min(1.0, 0.5 + (risk - THRESHOLD) / span * 0.5), 4)
+
+
+def sentence_spans(answer):
+    text = answer or ""
+    result = []
+    for match in SENTENCE_RE.finditer(text):
+        piece = match.group(0)
+        stripped = piece.strip()
+        if not stripped:
+            continue
+        offset = piece.find(stripped)
+        start = match.start() + (offset if offset >= 0 else 0)
+        result.append((start, start + len(stripped) - 1))
+    return result
 
 
 def select(scored, limit, nms_iou=NMS_IOU):
@@ -404,10 +444,15 @@ def verify(answer, document, threshold=None, weights=None, max_spans=None, nms_i
                 "confidence": confidence(item["risk"]),
             }
         )
+    support_by_span = {(item["start"], item["end"]): item["support"] for item in scored}
     covered = 0.0
-    for span in spans:
-        covered += (span["end"] - span["start"] + 1) * span["risk"]
-    ai_share = round(min(1.0, covered / len(text)), 4) if text else 0.0
+    total = 0.0
+    for start, end in sentence_spans(text):
+        length = end - start + 1
+        total += length
+        covered += length * (1.0 - support_by_span.get((start, end), 1.0))
+    raw_share = covered / total if total else 0.0
+    ai_share = calibrate_share(raw_share)
     elapsed = int(round((time.perf_counter() - started) * 1000))
     return {
         "spans": spans,
@@ -416,6 +461,7 @@ def verify(answer, document, threshold=None, weights=None, max_spans=None, nms_i
             "answer_len": len(text),
             "doc_len": len(doc),
             "n_spans": len(spans),
+            "ai_share_raw": round(raw_share, 4),
             "elapsed_ms": elapsed,
         },
     }

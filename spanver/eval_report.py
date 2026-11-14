@@ -1,3 +1,4 @@
+import hashlib
 import json
 import platform
 import statistics
@@ -11,8 +12,10 @@ from .module import FEATURE_NAMES, IOU_THRESHOLD, THRESHOLD, candidate_spans, ve
 
 CORE_FILES = ("spanver/module.py", "spanver/api.py", "spanver/cli.py")
 STRESS_CHARS = 50000
+STRESS_LONG_CHARS = 2000000
 RUNS = 3
 SEED = 0
+CALIB = "artifacts/calib_mixture.jsonl"
 
 
 def core_size_kb():
@@ -65,6 +68,91 @@ def ceiling(pairs):
         "oracle_recall": round(covered / gold_total, 4) if gold_total else 0.0,
         "pairs_with_gold": pairs_with_gold,
         "pairs_coverable": pairs_coverable,
+    }
+
+
+def calibrate_interp(raw, points):
+    value = max(0.0, min(1.0, raw))
+    if value <= points[0][0]:
+        return points[0][1]
+    for index in range(1, len(points)):
+        left_raw, left_share = points[index - 1]
+        right_raw, right_share = points[index]
+        if value <= right_raw:
+            width = right_raw - left_raw
+            if width <= 0:
+                return right_share
+            return left_share + (value - left_raw) / width * (right_share - left_share)
+    return points[-1][1]
+
+
+def leave_one_out(pairs):
+    worst = 0.0
+    for index in range(len(pairs)):
+        rest = [item for position, item in enumerate(pairs) if position != index]
+        table = [(item["raw"], item["share"]) for item in rest]
+        table.sort()
+        predicted = calibrate_interp(pairs[index]["raw"], table)
+        worst = max(worst, abs(predicted - pairs[index]["share"]))
+    return round(worst, 4)
+
+
+def calibration(path=CALIB):
+    target = Path(path)
+    if not target.exists():
+        return {"points": [], "max_abs_err": None, "note": "нет файла калибровки"}
+    rows = read_jsonl(target)
+    points = []
+    for row in rows:
+        result = verify(row["text"], row["document"])
+        measured = result["ai_share"]
+        points.append(
+            {
+                "share": row["share"],
+                "ai_share": measured,
+                "abs_err": round(abs(measured - row["share"]), 4),
+                "raw": result["meta"].get("ai_share_raw", 0.0),
+                "n_human": row["n_human"],
+                "n_ai": row["n_ai"],
+            }
+        )
+    worst = max((item["abs_err"] for item in points), default=0.0)
+    return {
+        "points": points,
+        "max_abs_err": round(worst, 4),
+        "loo_max_abs_err": leave_one_out(points),
+        "curve": [{"raw": item["raw"], "share": item["share"]} for item in points],
+        "mixtures": len(points),
+        "sha256": hashlib.sha256(target.read_bytes()).hexdigest(),
+    }
+
+
+def stress(path, chars):
+    lines = read_jsonl(Path(path))
+    parts = []
+    total = 0
+    for pair in lines:
+        document = pair.get("document_text") or ""
+        if not document:
+            continue
+        parts.append(document + " ")
+        total += len(document) + 1
+        if total >= chars:
+            break
+    document = "".join(parts)[:chars]
+    timings = []
+    for _ in range(RUNS):
+        started = time.perf_counter()
+        verify(document, document)
+        timings.append((time.perf_counter() - started) * 1000.0)
+    median_ms = int(round(statistics.median(timings)))
+    return {
+        "stress_chars": len(document),
+        "runs": RUNS,
+        "median_elapsed_ms": median_ms,
+        "ms_per_1000": round(median_ms / (len(document) / 1000.0), 3) if document else None,
+        "under_60s": median_ms <= 60000,
+        "under_30ms_per_1000": median_ms <= 30 * (len(document) / 1000.0),
     }
 
 
@@ -127,7 +215,9 @@ def make_report(out="artifacts", data="artifacts/gold.jsonl"):
             "median_elapsed_ms": median_ms,
             "under_1s": median_ms <= 1000,
         },
-        "ai_share_sample": {"value": sample["ai_share"], "note": "калибровка — шаг 6"},
+        "ai_share_calib": calibration(),
+        "stress": stress(data, STRESS_LONG_CHARS),
+        "ai_share_sample": {"value": sample["ai_share"]},
         "seed": SEED,
         "python": platform.python_version(),
         "built_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
