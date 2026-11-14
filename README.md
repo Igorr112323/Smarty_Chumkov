@@ -137,6 +137,60 @@ python -m spanver serve --port 8765 --backend model --weights models\ruSciBERT
 
 Workflow **ci** проверяет тесты на Python 3.10 и 3.11, размер пакета (≤ 614 400 байт) и sha256 пакета.
 
+## Основано на
+
+Модуль разработан на основе открытой архитектуры LettuceDetect (MIT), адаптированной для русского языка: русский энкодер rubert-tiny2, калибровка доли ИИ, 7 типов расхождений, признаки внимания. Принятые файлы, коммит и список изменений — в `THIRD_PARTY.md`, лицензия — `LICENSE-LETTUCEDETECT`.
+
+## Приём весов модели
+
+Веса приходят обычными git-файлами кусками (Git LFS из этой среды недоступен). Куски лежат в `weights/rubert-tiny2/`, собираются командой и проверяются по официальному sha256.
+
+Команды на машине с весами (по одной строке):
+
+```
+chcp 65001
+python tools\split_weights.py models\rubert-tiny2\pytorch_model.bin weights\rubert-tiny2
+git add weights\rubert-tiny2 models\rubert-tiny2
+git commit -m "Веса rubert-tiny2: куски и конфиг"
+git push
+```
+
+Ожидаемые значения для cointegrated/rubert-tiny2:
+
+| параметр | значение |
+|---|---|
+| размер pytorch_model.bin | 117 546 024 байта |
+| полный sha256 | `137fa2b1d944dae19c74456dfe8fac2f780d9acf34e037f5d1e37acba1157768` |
+| размер куска | 83 886 080 байт |
+| число кусков | 2 |
+
+Сборка в песочнице и в Actions:
+
+```
+python tools\assemble_weights.py weights\rubert-tiny2 models\rubert-tiny2
+```
+
+Сборщик сверяет sha256 каждого куска с `manifest.json`, склеивает файл, сверяет полный sha256 с официальным и при любом расхождении файл не пишет. Собранный `models/rubert-tiny2/pytorch_model.bin` в git не попадает, куски и мелкие файлы (`config.json`, `vocab.txt` и прочие) — попадают.
+
+## Соответствие договору
+
+Таблица соответствия собирается из двух отчётов (`artifacts/module_report.json`, `artifacts/model_eval_report.json`) и печатается первой в Summary workflow **evaluate**:
+
+```
+python -m spanver compliance --markdown
+```
+
+Файл `artifacts/compliance.json` содержит пункты 1–9 договора со статусом (`выполнено`, `частично`, `не выполнено`, `нет данных`) и числами, взятыми только из отчётов. Бэкенд по умолчанию — `lexical`.
+
+## Что осталось
+
+| задача | состояние |
+|---|---|
+| веса rubert-tiny2 (`weights/rubert-tiny2`) | ждём куски от куратора, инструменты и workflow готовы |
+| обучение span-детектора на rubert-tiny2 | после весов: smoke ≤ 200 пар, затем полный прогон на 1624 парах |
+| переключение дефолтного бэкенда на модель | только если val F1 модели > 0,2595 (val F1 лексического) |
+| F1 ≥ 0,50 на test | не достигнут, текущий договорный факт 0,2835 (лексический бэкенд) |
+
 ## Состояние работ
 
 Текущее состояние, фактические метрики и открытые вопросы ведутся в `STATUS.md`.
