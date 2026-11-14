@@ -63,7 +63,7 @@ def f1(precision, recall):
     return 2 * precision * recall / (precision + recall) if precision + recall else 0.0
 
 
-def evaluate_pairs(pairs, threshold=None, iou_threshold=IOU_THRESHOLD, max_spans=None, nms_iou=None, weights=None):
+def metrics(pairs, predictor, iou_threshold=IOU_THRESHOLD):
     tp = fp = fn = 0
     pair_tp = pair_fp = pair_fn = 0
     negatives = 0
@@ -76,7 +76,7 @@ def evaluate_pairs(pairs, threshold=None, iou_threshold=IOU_THRESHOLD, max_spans
         gold = pair.get("spans") or []
         if gold:
             with_spans += 1
-        predicted = verify(answer, pair.get("document_text") or "", threshold=threshold, weights=weights, max_spans=max_spans, nms_iou=nms_iou)["spans"]
+        predicted = predictor(pair)
         matched, used, correct = match_spans(predicted, gold, iou_threshold)
         type_correct += correct
         tp += matched
@@ -132,6 +132,20 @@ def evaluate_pairs(pairs, threshold=None, iou_threshold=IOU_THRESHOLD, max_spans
         "type_correct": type_correct,
         "iou_threshold": iou_threshold,
     }
+
+
+def evaluate_pairs(pairs, threshold=None, iou_threshold=IOU_THRESHOLD, max_spans=None, nms_iou=None, weights=None):
+    def predictor(pair):
+        return verify(
+            pair.get("model_output") or "",
+            pair.get("document_text") or "",
+            threshold=threshold,
+            weights=weights,
+            max_spans=max_spans,
+            nms_iou=nms_iou,
+        )["spans"]
+
+    return metrics(pairs, predictor, iou_threshold)
 
 
 def load_split(path, split):

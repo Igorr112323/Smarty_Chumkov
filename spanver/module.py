@@ -370,7 +370,7 @@ def calibrate_share(raw):
 
 def confidence(risk):
     span = max(1e-9, 1.0 - THRESHOLD)
-    return round(min(1.0, 0.5 + (risk - THRESHOLD) / span * 0.5), 4)
+    return round(min(1.0, max(0.0, 0.5 + (risk - THRESHOLD) / span * 0.5)), 4)
 
 
 def sentence_spans(answer):
