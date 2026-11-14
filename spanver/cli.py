@@ -5,6 +5,8 @@ from pathlib import Path
 from .api import serve
 from .build import build
 from .evaluate import evaluate_pairs, load_split
+from .model_features import ModelUnavailable
+from .model_score import HeadMissing, verify_model
 from .module import verify
 
 
@@ -25,9 +27,15 @@ def main(argv=None):
     verify_parser.add_argument("--answer", required=True)
     verify_parser.add_argument("--document", required=True)
     verify_parser.add_argument("--json", action="store_true")
+    verify_parser.add_argument("--backend", choices=("lexical", "model"), default="lexical")
+    verify_parser.add_argument("--weights", default=None)
+    verify_parser.add_argument("--head", default="artifacts/model_head.json")
     serve_parser = subparsers.add_parser("serve")
     serve_parser.add_argument("--port", type=int, default=8765)
     serve_parser.add_argument("--host", default="0.0.0.0")
+    serve_parser.add_argument("--backend", choices=("lexical", "model"), default="lexical")
+    serve_parser.add_argument("--weights", default=None)
+    serve_parser.add_argument("--head", default="artifacts/model_head.json")
     evaluate_parser = subparsers.add_parser("evaluate")
     evaluate_parser.add_argument("--data", default="artifacts/gold.jsonl")
     evaluate_parser.add_argument("--split", default="test")
@@ -38,11 +46,25 @@ def main(argv=None):
     if args.command == "build":
         return build(args.dataset, args.out)
     if args.command == "verify":
-        result = verify(value_of(args.answer), value_of(args.document))
+        if args.backend == "model":
+            if not args.weights:
+                print("укажите каталог весов: --weights models\\ruSciBERT")
+                return 2
+            try:
+                result = verify_model(value_of(args.answer), value_of(args.document), args.weights, args.head)
+            except (ModelUnavailable, HeadMissing) as error:
+                print(str(error))
+                return 2
+        else:
+            result = verify(value_of(args.answer), value_of(args.document))
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     if args.command == "serve":
-        serve(args.port, args.host)
+        try:
+            serve(args.port, args.host, args.backend, args.weights, args.head)
+        except (ModelUnavailable, HeadMissing) as error:
+            print(str(error))
+            return 2
         return 0
     if args.command == "evaluate":
         pairs = load_split(args.data, args.split)

@@ -12,10 +12,18 @@ README = """spanver {version}
 Локальная проверка ответа модели против документа.
 
 Установка: распаковать архив рядом с рабочим каталогом, Python 3.10+.
+
+Лексический режим (по умолчанию, только стандартная библиотека, без torch):
   python -m spanver verify --answer answer.txt --document doc.txt
   python -m spanver serve --port 8765
   страница: http://127.0.0.1:8765/
-Только стандартная библиотека, сеть и GPU не используются.
+
+Модельный режим (нужны torch, transformers и каталог весов ruSciBERT):
+  python -m spanver verify --backend model --weights models\\ruSciBERT --answer a.txt --document d.txt
+  python -m spanver serve --port 8765 --backend model --weights models\\ruSciBERT
+  головка и порог берутся из artifacts/model_head.json (создаёт tools/run_model_eval.py)
+
+Сеть и GPU не используются. Канонический сплит: spanver/splits.json.
 """
 
 
@@ -30,6 +38,8 @@ def version():
 def collect():
     files = []
     for path in sorted((ROOT / "spanver").glob("*.py")):
+        files.append(path)
+    for path in sorted((ROOT / "spanver").glob("*.json")):
         files.append(path)
     return files
 

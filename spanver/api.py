@@ -2,6 +2,8 @@ import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse
 
+from .model_features import ModelUnavailable
+from .model_score import HeadMissing, verify_model
 from .module import verify
 
 PAGE = """<!DOCTYPE html>
@@ -130,6 +132,17 @@ runButton.addEventListener('click', run);
 
 
 class Handler(BaseHTTPRequestHandler):
+    backend = "lexical"
+    weights = None
+    head = "artifacts/model_head.json"
+
+    def payload(self, answer, document):
+        if self.backend == "model":
+            if not self.weights:
+                raise ModelUnavailable("укажите каталог весов: --weights models\\ruSciBERT")
+            return verify_model(answer, document, self.weights, self.head)
+        return verify(answer, document)
+
     def send_json(self, code, payload):
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
         self.send_response(code)
@@ -168,15 +181,23 @@ class Handler(BaseHTTPRequestHandler):
         except (ValueError, UnicodeDecodeError):
             self.send_json(400, {"error": "invalid json"})
             return
-        self.send_json(200, verify(answer, document))
+        try:
+            result = self.payload(answer, document)
+        except (ModelUnavailable, HeadMissing) as error:
+            self.send_json(503, {"error": str(error)})
+            return
+        self.send_json(200, result)
 
     def log_message(self, format, *args):
         return
 
 
-def serve(port=8765, host="0.0.0.0"):
+def serve(port=8765, host="0.0.0.0", backend="lexical", weights=None, head="artifacts/model_head.json"):
+    Handler.backend = backend
+    Handler.weights = weights
+    Handler.head = head
     server = ThreadingHTTPServer((host, port), Handler)
-    print(f"listening on http://localhost:{port}")
+    print(f"listening on http://localhost:{port} (backend {backend})")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

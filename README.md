@@ -75,7 +75,37 @@ python tools/build_package.py
 
 Веб-интерфейс: `http://localhost:8765/` — поля «ответ» и «документ», кнопка «Проверить», таблица найденных фрагментов (координаты, риск, тип, confidence). Страница самодостаточна, внешних ресурсов не использует.
 
-Переносимый пакет: `artifacts/spanver-0.1.0.zip` (28 521 байт, sha256 306025d8503f84a3cda6b97a2132605b39377d388a57e10c335d27fbc28476d4), собирается `python tools/build_package.py`; в архив входят только файлы пакета `spanver/` и краткая инструкция, без данных, артефактов, тестов и кэша.
+Переносимый пакет: `artifacts/spanver-0.2.0.zip` (43 025 байт, sha256 cde7945292b4b23fc8a0a35574118a0d0d6720060f6f521ccbbe6e2e7e36cdb8), собирается `python tools/build_package.py`; в архив входят только файлы пакета `spanver/` (оба бэкенда и канонический сплит) и краткая инструкция, без данных, артефактов, тестов и кэша.
+
+## Модельный режим
+
+Два бэкенда: `lexical` (по умолчанию, только стандартная библиотека, пакет ≤ 0,6 МБ) и `model` (torch + transformers + локальные веса `ai-forever/ruSciBERT`). Импорт torch/transformers выполняется только внутри модельных функций, поэтому лексический режим и переносимый пакет работают без них.
+
+Модельный режим считает три договорных признака внимания — `doc_attention_share`, `attention_entropy`, `cos_proximity` — и добавляет к ним лексические `doc_overlap` и `uncertainty`. Агрегация во фрагмент — mean и max по токенам, головка получает 10 чисел. Документ не гоняется целиком: на фрагмент берутся top-2 сегмента по лексическому совпадению (≤ 256 токенов), на пару — не более 50 кандидатов.
+
+Канонический сплит зафиксирован в `spanver/splits.json` (test 301, val 637, train 1624), оценка идёт строго по нему.
+
+### Команды на машине с весами
+
+```
+chcp 65001
+git pull
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install transformers huggingface_hub
+python -m spanver build --dataset Dataset --out artifacts
+huggingface-cli download ai-forever/ruSciBERT --local-dir models\ruSciBERT
+python tools\run_model_eval.py --weights models\ruSciBERT --limit 20
+python tools\run_model_eval.py --weights models\ruSciBERT
+```
+
+Скрипт `tools/run_model_eval.py` проверяет sha256 `artifacts/gold.jsonl` (должен быть `fddd62ce05baf028b64cb6db81b89053bdc5444a540c6e18e34e318577c8b32b`), пересобирает калибровочные смеси, считает модельные признаки с кэшем `artifacts/model_cache.jsonl`, обучает головку на подмножестве train (≤ 400 пар), выбирает порог на полном val (сетка 0,50…0,99, FPR ≤ 0,40), оценивает test по splits.json, снимает стресс на 2 000 000 знаков документа и ответа и печатает `artifacts/model_eval_report.json`. Полный прогон — 1–3 часа.
+
+Проверка после прогона:
+
+```
+python -m spanver verify --backend model --weights models\ruSciBERT --answer answer.txt --document doc.txt
+python -m spanver serve --port 8765 --backend model --weights models\ruSciBERT
+```
 
 ## Состояние работ
 

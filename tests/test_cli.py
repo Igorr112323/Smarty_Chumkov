@@ -28,3 +28,23 @@ def test_verify_cli_reads_files(tmp_path):
     assert result.returncode == 0
     payload = json.loads(result.stdout)
     assert payload["meta"]["answer_len"] == 40
+
+
+def test_model_backend_without_weights_prints_message():
+    result = run_cli(["verify", "--backend", "model", "--weights", "models/none", "--answer", "а", "--document", "б"])
+    assert result.returncode == 2
+    assert "веса не найдены" in result.stdout
+    assert "Traceback" not in result.stdout + result.stderr
+
+
+def test_model_backend_without_head_prints_message(tmp_path):
+    weights = tmp_path / "weights"
+    weights.mkdir()
+    (weights / "config.json").write_text("{}", encoding="utf-8")
+    (weights / "model.safetensors").write_bytes(b"stub")
+    result = run_cli(
+        ["verify", "--backend", "model", "--weights", str(weights), "--head", str(tmp_path / "none.json"), "--answer", "а", "--document", "б"]
+    )
+    assert result.returncode == 2
+    assert "веса головки не найдены" in result.stdout
+    assert "Traceback" not in result.stdout + result.stderr
