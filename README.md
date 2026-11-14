@@ -61,6 +61,22 @@ sha256sum Dataset/7_ruscibench/ru_sci_bench_ru.parquet
 
 Предупреждение: файлы `Dataset/2_rushallu_rag_pairs/ruscibench-train-rag.parquet` (133 байта) и `Dataset/7_ruscibench/ru_sci_bench_ru.parquet` (134 байта) в дереве репозитория выглядят как мусор, но это нормально. Это указатели Git LFS с хэшем и реальным размером объекта; сами данные лежат в LFS-хранилище и подставляются клиентом при `git lfs pull`. Считать признаком порчи файла размер меньше 100 КБ можно только для файлов, не перечисленных в `.gitattributes`.
 
+## Использование
+
+Python 3.10+, только стандартная библиотека, из корня репозитория.
+
+```
+python -m spanver verify --answer answer.txt --document doc.txt
+python -m spanver serve --port 8765
+python -m spanver report
+python tools/make_calibration.py
+python tools/build_package.py
+```
+
+Веб-интерфейс: `http://localhost:8765/` — поля «ответ» и «документ», кнопка «Проверить», таблица найденных фрагментов (координаты, риск, тип, confidence). Страница самодостаточна, внешних ресурсов не использует.
+
+Переносимый пакет: `artifacts/spanver-0.1.0.zip` (28 521 байт, sha256 306025d8503f84a3cda6b97a2132605b39377d388a57e10c335d27fbc28476d4), собирается `python tools/build_package.py`; в архив входят только файлы пакета `spanver/` и краткая инструкция, без данных, артефактов, тестов и кэша.
+
 ## Состояние работ
 
 Текущее состояние, фактические метрики и открытые вопросы ведутся в `STATUS.md`.

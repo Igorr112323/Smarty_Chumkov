@@ -55,3 +55,21 @@ def test_unknown_path():
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_root_serves_local_ui():
+    server = start_server()
+    try:
+        port = server.server_address[1]
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/", timeout=20) as response:
+            assert response.headers["Content-Type"].startswith("text/html")
+            page = response.read().decode("utf-8")
+        assert "Проверить" in page
+        assert 'id="answer"' in page
+        assert 'id="doc"' in page
+        assert 'fetch(\'/verify\'' in page
+        assert "http://" not in page and "https://" not in page
+        assert "<link" not in page
+    finally:
+        server.shutdown()
+        server.server_close()

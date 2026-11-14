@@ -156,6 +156,22 @@ def stress(path, chars):
     }
 
 
+def package_info(path="artifacts/package.json"):
+    target = Path(path)
+    if not target.exists():
+        return {"built": False}
+    data = json.loads(target.read_text(encoding="utf-8"))
+    return {
+        "built": True,
+        "package": data.get("package"),
+        "bytes": data.get("bytes"),
+        "size_kb": data.get("size_kb"),
+        "under_limit": data.get("under_limit"),
+        "sha256": data.get("sha256"),
+        "python_requires": data.get("python_requires"),
+    }
+
+
 def main_head():
     try:
         result = subprocess.run(
@@ -216,6 +232,7 @@ def make_report(out="artifacts", data="artifacts/gold.jsonl"):
             "under_1s": median_ms <= 1000,
         },
         "ai_share_calib": calibration(),
+        "package": package_info(),
         "stress": stress(data, STRESS_LONG_CHARS),
         "ai_share_sample": {"value": sample["ai_share"]},
         "seed": SEED,
