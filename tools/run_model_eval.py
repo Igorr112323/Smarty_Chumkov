@@ -104,6 +104,7 @@ def stress(bundle, document, answer):
         candidates = len(rows)
     median_ms = int(round(statistics.median(timings)))
     return {
+        "stress_chars": len(answer),
         "chars": len(answer),
         "document_chars": len(document),
         "runs": STRESS_RUNS,
