@@ -53,6 +53,8 @@ jobs:
           sha = data["sha256"]
           assert size <= limit, f"пакет {size} байт больше лимита {limit}"
           match = bool(expected) and sha == expected
+          if expected and not match:
+              print(f"::error::sha256 пакета {sha} не равен эталону {expected}")
           print(f"package {data['package']}")
           print(f"bytes {size}")
           print(f"limit {limit} ok")
@@ -69,12 +71,12 @@ jobs:
           ]
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as handle:
               handle.write("\n".join(lines) + "\n")
-          if not match:
-              print("::warning::sha256 пакета отличается от эталона; zip детерминирован по содержимому и времени, причина в версии zlib интерпретатора")
+          assert match, "sha256 пакета не совпал с эталоном package.sha256"
+          print("sha256 совпал с эталоном")
           PY
       - name: upload package
         uses: actions/upload-artifact@v4
         with:
-          name: spanver-package-py${{ matrix.python-version }}-${{ steps.pkg.outputs.short }}
+          name: spanver-package-py${{ matrix.python-version }}
           path: artifacts/spanver-0.2.0.zip
           if-no-files-found: error

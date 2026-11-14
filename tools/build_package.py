@@ -51,15 +51,15 @@ def build(out="artifacts"):
     target = target_dir / name
     files = collect()
     payload = README.format(version=version()).encode("utf-8")
-    with zipfile.ZipFile(target, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+    with zipfile.ZipFile(target, "w", compression=zipfile.ZIP_STORED) as archive:
         for path in files:
             info = zipfile.ZipInfo(f"spanver/{path.name}", date_time=FIXED_TIME)
             info.external_attr = 0o644 << 16
-            info.compress_type = zipfile.ZIP_DEFLATED
+            info.compress_type = zipfile.ZIP_STORED
             archive.writestr(info, path.read_bytes())
         info = zipfile.ZipInfo("README.txt", date_time=FIXED_TIME)
         info.external_attr = 0o644 << 16
-        info.compress_type = zipfile.ZIP_DEFLATED
+        info.compress_type = zipfile.ZIP_STORED
         archive.writestr(info, payload)
     digest = hashlib.sha256(target.read_bytes()).hexdigest()
     size = target.stat().st_size
