@@ -58,6 +58,8 @@ def assemble(source_dir, destination, official=None):
     if expected and full != expected:
         raise AssembleError(f"sha256 не совпал с официальным: {full} != {expected}")
     target = Path(destination)
+    if target.is_dir() or not target.suffix:
+        target = target / manifest.get("source", "pytorch_model.bin")
     target.parent.mkdir(parents=True, exist_ok=True)
     with open(target, "wb") as handle:
         for data in payload:

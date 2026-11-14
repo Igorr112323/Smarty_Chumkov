@@ -18,9 +18,9 @@ README = """spanver {version}
   python -m spanver serve --port 8765
   страница: http://127.0.0.1:8765/
 
-Модельный режим (нужны torch, transformers и каталог весов ruSciBERT):
-  python -m spanver verify --backend model --weights models\\ruSciBERT --answer a.txt --document d.txt
-  python -m spanver serve --port 8765 --backend model --weights models\\ruSciBERT
+Модельный режим (нужны torch, transformers и каталог весов rubert-tiny2):
+  python -m spanver verify --backend model --weights models\\rubert-tiny2 --answer a.txt --document d.txt
+  python -m spanver serve --port 8765 --backend model --weights models\\rubert-tiny2
   головка и порог берутся из artifacts/model_head.json (создаёт tools/run_model_eval.py)
 
 Сеть и GPU не используются. Канонический сплит: spanver/splits.json.
