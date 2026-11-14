@@ -42,6 +42,11 @@ def main(argv=None):
     report_parser = subparsers.add_parser("report")
     report_parser.add_argument("--data", default="artifacts/gold.jsonl")
     report_parser.add_argument("--out", default="artifacts")
+    compliance_parser = subparsers.add_parser("compliance")
+    compliance_parser.add_argument("--module", default="artifacts/module_report.json")
+    compliance_parser.add_argument("--model", default="artifacts/model_eval_report.json")
+    compliance_parser.add_argument("--out", default="artifacts/compliance.json")
+    compliance_parser.add_argument("--markdown", action="store_true")
     args = parser.parse_args(argv)
     if args.command == "build":
         return build(args.dataset, args.out)
@@ -70,6 +75,10 @@ def main(argv=None):
         pairs = load_split(args.data, args.split)
         print(json.dumps(evaluate_pairs(pairs), ensure_ascii=False, indent=2))
         return 0
+    if args.command == "compliance":
+        from .compliance import main as compliance_main
+
+        return compliance_main(["--module", args.module, "--model", args.model, "--out", args.out] + (["--markdown"] if args.markdown else []))
     if args.command == "report":
         from .eval_report import make_report
 

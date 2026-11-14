@@ -32,24 +32,43 @@ jobs:
           print(f"gold sha256 {found}")
           assert found == expected, f"gold.jsonl расходится с эталоном: {found}"
           PY
+      - name: weights
+        run: |
+          if [ -f weights/rubert-tiny2/manifest.json ]; then
+            python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2
+            echo "MODEL_DIR=models/rubert-tiny2" >> "$GITHUB_ENV"
+            echo "WEIGHTS_MODE=rubert-tiny2" >> "$GITHUB_ENV"
+          elif [ -f weights/ruSciBERT/manifest.json ]; then
+            python tools/assemble_weights.py weights/ruSciBERT models/ruSciBERT
+            echo "MODEL_DIR=models/ruSciBERT" >> "$GITHUB_ENV"
+            echo "WEIGHTS_MODE=ruSciBERT" >> "$GITHUB_ENV"
+          else
+            echo "веса куратора не найдены, используется малая модель models/"
+            echo "MODEL_DIR=models" >> "$GITHUB_ENV"
+            echo "WEIGHTS_MODE=local" >> "$GITHUB_ENV"
+          fi
       - name: model
         run: |
-          if [ -f models/local_encoder.pt ]; then
+          if [ "$WEIGHTS_MODE" = "local" ]; then
             sha256sum models/local_encoder.pt
             python - <<'PY'
           import hashlib
           from pathlib import Path
 
           committed = hashlib.sha256(Path("models/local_encoder.pt").read_bytes()).hexdigest()
-          record = Path("models/local_encoder.sha256")
-          if record.exists():
-              expected = record.read_text(encoding="utf-8").split()[0]
-              print(f"committed model sha256 {committed}")
-              print(f"recorded sha256 {expected}")
-              assert committed == expected, "закоммиченная модель не совпадает с контрольной суммой"
+          expected = Path("models/local_encoder.sha256").read_text(encoding="utf-8").split()[0]
+          print(f"committed model sha256 {committed}")
+          assert committed == expected, "закоммиченная модель не совпадает с контрольной суммой"
           PY
           else
-            python tools/train_local_model.py
+            python - <<'PY'
+          import json
+          from pathlib import Path
+
+          config = json.loads(Path("models", "rubert-tiny2", "config.json").read_text(encoding="utf-8"))
+          print("архитектура:", json.dumps({k: config.get(k) for k in ("model_type", "hidden_size", "num_hidden_layers", "num_attention_heads", "intermediate_size", "vocab_size", "num_labels")}, ensure_ascii=False))
+          print(Path("models", "rubert-tiny2", "pytorch_model.bin").stat().st_size, "байт весов")
+          PY
           fi
       - name: determinism
         continue-on-error: true
@@ -69,7 +88,12 @@ jobs:
       - name: package
         run: python tools/build_package.py
       - name: evaluate
-        run: python tools/run_model_eval.py --weights models
+        run: python tools/run_model_eval.py --weights "$MODEL_DIR"
+      - name: compliance
+        run: |
+          python -m spanver compliance --markdown > /tmp/compliance.md
+          cat /tmp/compliance.md
+          cat /tmp/compliance.md >> "$GITHUB_STEP_SUMMARY"
       - name: summary
         run: python tools/summary.py --report artifacts/model_eval_report.json >> "$GITHUB_STEP_SUMMARY"
       - name: upload results
@@ -79,6 +103,7 @@ jobs:
           path: |
             models/local_encoder.pt
             artifacts/model_eval_report.json
+            artifacts/compliance.json
             artifacts/spanver-0.2.0.zip
             artifacts/package.json
           if-no-files-found: error

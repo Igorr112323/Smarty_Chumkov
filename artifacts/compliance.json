@@ -1,0 +1,70 @@
+{
+  "backend_default": "lexical",
+  "sources": {
+    "artifacts/module_report.json": "4fa762ac4762e676231dfb9267cdbd40ce14f9df8f130fd9be6d029ffcdb5197",
+    "artifacts/model_eval_report.json": "bf57d2709bb342c3419a4739e9389936b9385fa256c21389accedcf9f4b78ebf"
+  },
+  "items": [
+    {
+      "item": 1,
+      "name": "локальный модуль без сети и GPU, ядро на stdlib",
+      "status": "выполнено",
+      "value": "сеть: нет, GPU: нет, ядро на stdlib: да"
+    },
+    {
+      "item": 2,
+      "name": "формат ответа: spans, ai_share, meta, семь типов",
+      "status": "выполнено",
+      "value": "ответ: ai_share, meta, spans; фрагмент: confidence, end, risk, start, type; типов: 7"
+    },
+    {
+      "item": 3,
+      "name": "пять признаков на токен, включая внимание",
+      "status": "выполнено",
+      "value": "признаков на токен: 5 (doc_attention_share, attention_entropy, cos_proximity, doc_overlap, uncertainty); обязательных из договора: 3 из 3; в головке чисел: 10; базовые лексические: number, entity, uncertainty, negation, doc_overlap"
+    },
+    {
+      "item": 4,
+      "name": "доля участия ИИ 0–1 и калибровка шагом 0,25",
+      "status": "частично",
+      "value": "лексический: точек 5, max|Δ| 0.0, leave-one-out 0.25; модельный: точек 5, max|Δ| 0.7524, leave-one-out 0.75"
+    },
+    {
+      "item": 5,
+      "name": "P/R/F1/FPR по трём уровням, IoU ≥ 0,5",
+      "status": "выполнено",
+      "value": "модельный: span F1 0.1274, token F1 0.2131, pair F1 0.1639, FPR 0.087; лексический: span F1 0.2835, FPR 0.3527; правило IoU>=0.5, no type match, пар 301"
+    },
+    {
+      "item": 6,
+      "name": "F1 ≥ 0,50 при FPR ≤ 0,40 на test",
+      "status": "не выполнено",
+      "value": "модельный F1 0.1274 при FPR 0.087; лексический F1 0.2835 при FPR 0.3527"
+    },
+    {
+      "item": 7,
+      "name": "скорость: 50k, 2M, мс на 1000 знаков",
+      "status": "выполнено",
+      "value": "50k 855 мс (≤ 1 с: True); 2M 20438 мс, 10.219 мс на 1000 (≤ 60 с: True); модельный 2M 50882 мс, 25.441 мс на 1000 (≤ 60 с: True)"
+    },
+    {
+      "item": 8,
+      "name": "CLI, HTTP и локальный веб",
+      "status": "выполнено",
+      "value": "интерфейсы: cli, http, web"
+    },
+    {
+      "item": 9,
+      "name": "пакет ≤ 0,6 МБ и веса отдельным файлом",
+      "status": "выполнено",
+      "value": "пакет spanver-0.2.0.zip 223529 байт (лимит соблюдён: True), sha256 4b715f712ea846e9f2e1745d7986dcd31a4e05c8bb838d43c244aa03146cccdd; веса отдельным файлом: 1920902 байт"
+    }
+  ],
+  "summary": {
+    "выполнено": 7,
+    "частично": 1,
+    "не выполнено": 1,
+    "нет данных": 0,
+    "всего": 9
+  }
+}

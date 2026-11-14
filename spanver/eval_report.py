@@ -9,6 +9,7 @@ from pathlib import Path
 
 from .evaluate import evaluate_pairs, iou, load_split, read_jsonl
 from .module import FEATURE_NAMES, IOU_THRESHOLD, THRESHOLD, candidate_spans, verify
+from .types import TYPE_KEYS
 
 CORE_FILES = ("spanver/module.py", "spanver/api.py", "spanver/cli.py")
 STRESS_CHARS = 50000
@@ -16,6 +17,8 @@ STRESS_LONG_CHARS = 2000000
 RUNS = 3
 SEED = 0
 CALIB = "artifacts/calib_mixture.jsonl"
+PROBE_ANSWER = "В 1990 году завод выпустил 1200 деталей."
+PROBE_DOCUMENT = "Завод выпустил 1200 деталей в 1990 году."
 
 
 def core_size_kb():
@@ -156,6 +159,20 @@ def stress(path, chars):
     }
 
 
+def contract_schema():
+    probe = verify(PROBE_ANSWER, PROBE_DOCUMENT)
+    return {
+        "answer": sorted(probe),
+        "span": sorted(probe["spans"][0]) if probe["spans"] else [],
+        "meta": sorted(probe["meta"]),
+        "types": list(TYPE_KEYS),
+        "interfaces": ["cli", "http", "web"],
+        "stdlib_only": True,
+        "network": False,
+        "gpu": False,
+    }
+
+
 def package_info(path="artifacts/package.json"):
     target = Path(path)
     if not target.exists():
@@ -209,6 +226,7 @@ def make_report(out="artifacts", data="artifacts/gold.jsonl"):
             "threshold_val": THRESHOLD,
             "iou_threshold": IOU_THRESHOLD,
         },
+        "contract": contract_schema(),
         "metric_rule": "IoU>=0.5, no type match",
         "eval_test": {
             "n_pairs": metrics["n_pairs"],

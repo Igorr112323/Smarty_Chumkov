@@ -1,12 +1,12 @@
 {
-  "main_head": "b202dad53216a7c951d87d84582b1e3e9c3b67cd",
+  "main_head": "ddfc35d58bdd2bfdbd6516abfe95ef54d5624b70",
   "module": {
     "core_files": [
       "spanver/module.py",
       "spanver/api.py",
       "spanver/cli.py"
     ],
-    "core_size_kb": 26.0,
+    "core_size_kb": 28.6,
     "five_token_features": [
       "number",
       "entity",
@@ -16,6 +16,44 @@
     ],
     "threshold_val": 0.98,
     "iou_threshold": 0.5
+  },
+  "contract": {
+    "answer": [
+      "ai_share",
+      "meta",
+      "spans"
+    ],
+    "span": [
+      "confidence",
+      "end",
+      "risk",
+      "start",
+      "type"
+    ],
+    "meta": [
+      "ai_share_raw",
+      "answer_len",
+      "doc_len",
+      "elapsed_ms",
+      "n_spans"
+    ],
+    "types": [
+      "contradiction",
+      "number",
+      "entity",
+      "omission",
+      "unsupported_addition",
+      "temporal",
+      "scope"
+    ],
+    "interfaces": [
+      "cli",
+      "http",
+      "web"
+    ],
+    "stdlib_only": true,
+    "network": false,
+    "gpu": false
   },
   "metric_rule": "IoU>=0.5, no type match",
   "eval_test": {
@@ -57,7 +95,7 @@
   "speed": {
     "stress_chars": 50000,
     "runs": 3,
-    "median_elapsed_ms": 429,
+    "median_elapsed_ms": 855,
     "under_1s": true
   },
   "ai_share_calib": {
@@ -132,18 +170,18 @@
   },
   "package": {
     "built": true,
-    "package": "spanver-0.1.0.zip",
-    "bytes": 28521,
-    "size_kb": 27.9,
+    "package": "spanver-0.2.0.zip",
+    "bytes": 223529,
+    "size_kb": 218.3,
     "under_limit": true,
-    "sha256": "306025d8503f84a3cda6b97a2132605b39377d388a57e10c335d27fbc28476d4",
+    "sha256": "4b715f712ea846e9f2e1745d7986dcd31a4e05c8bb838d43c244aa03146cccdd",
     "python_requires": ">=3.10"
   },
   "stress": {
     "stress_chars": 2000000,
     "runs": 3,
-    "median_elapsed_ms": 16734,
-    "ms_per_1000": 8.367,
+    "median_elapsed_ms": 20438,
+    "ms_per_1000": 10.219,
     "under_60s": true,
     "under_30ms_per_1000": true
   },
@@ -152,5 +190,5 @@
   },
   "seed": 0,
   "python": "3.11.2",
-  "built_utc": "2026-11-14T16:04:55Z"
+  "built_utc": "2026-11-14T18:00:54Z"
 }

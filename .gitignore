@@ -1,13 +1,14 @@
 artifacts/*
 !artifacts/report.json
 !artifacts/module_report.json
+!artifacts/compliance.json
 __pycache__/
 *.pyc
 .venv/
 venv/
 model_weights/
-weights/
 *.bin
+!weights/**/*.bin
 *.safetensors
 *.gguf
 build/
@@ -19,3 +20,5 @@ out/
 .env
 tmp/
 stress/
+models/rubert-tiny2/pytorch_model.bin
+models/ruSciBERT/pytorch_model.bin

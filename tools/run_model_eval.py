@@ -188,6 +188,7 @@ def main(argv=None):
 
     bundle = load_model(args.weights)
     sha = bundle["sha"]
+    weights_bytes = sum(path.stat().st_size for path in sorted(Path(args.weights).glob("*")) if path.is_file())
     cache = read_cache(args.cache)
     cached_before = len(cache)
 
@@ -254,6 +255,7 @@ def main(argv=None):
             "directory": bundle["directory"],
             "weights_sha256": sha,
             "weights_key": sha[:16],
+            "weights_bytes": weights_bytes,
             "seed": MODEL_SEED,
             "threads": MODEL_THREADS,
             "torch": bundle["torch"].__version__,
