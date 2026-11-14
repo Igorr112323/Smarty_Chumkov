@@ -1,0 +1,88 @@
+{
+  "pairs_total": 1000,
+  "pairs_manual": 1000,
+  "pairs_unlabeled": 1626,
+  "spans_total": 423,
+  "spans_located_exact": 423,
+  "spans_located_normalized": 0,
+  "spans_unresolved": 0,
+  "negative_pairs": 667,
+  "type_counts": {
+    "contradiction": 45,
+    "number": 125,
+    "entity": 32,
+    "omission": 15,
+    "unsupported_addition": 170,
+    "temporal": 14,
+    "scope": 22
+  },
+  "type_src_counts": {
+    "Contradiction": 68,
+    "Unconfirmed": 116,
+    "Missing": 56,
+    "Excess": 22,
+    "Partial": 125,
+    "Oversight": 36
+  },
+  "split_counts": {
+    "test": 301,
+    "val": 637,
+    "train": 1624,
+    "unused": 64
+  },
+  "test_pairs_with_spans": 94,
+  "components": 2127,
+  "max_component": 5,
+  "doc_overlap_across_splits": 0,
+  "coverage": 1.0,
+  "out_of_bounds": 0,
+  "span_text_mismatch": 0,
+  "overlaps": 0,
+  "nested": 49,
+  "perturbed_rows": {
+    "gold_rel_position": 834,
+    "gold_score": 834,
+    "train_rel_position": 1355,
+    "train_score": 1355
+  },
+  "doc_len_chars": {
+    "mean": 1312.2,
+    "median": 725.0,
+    "max": 17241,
+    "min": 85
+  },
+  "span_len_chars": {
+    "mean": 243.33,
+    "median": 145.0,
+    "max": 1363,
+    "min": 5
+  },
+  "unavailable_inputs": [
+    {
+      "path": "Dataset/2_rushallu_rag_pairs/ruscibench-train-rag.parquet",
+      "reason": "указатель LFS, данные не получены"
+    }
+  ],
+  "candidates": {
+    "pool": 1421,
+    "count": 200,
+    "per_doc_cap": 2,
+    "doc_overlap_with_gold": 0,
+    "candidates_sha256": "656cd33c574244c0be64dcfddab6b30af55193b885cdec43840865bd5a02743b",
+    "check_sha256": "1f79b2097a33da517fb1f017473ea5d50904dbd6a64d24832438887de6d3b6f4"
+  },
+  "files": {
+    "gold.jsonl": {
+      "sha256": "fddd62ce05baf028b64cb6db81b89053bdc5444a540c6e18e34e318577c8b32b",
+      "bytes": 5315573,
+      "lines": 1000
+    },
+    "pairs_unlabeled.jsonl": {
+      "sha256": "ddd604a2d25132c2916b3b13eb79f5cfba782f1a96d6f4445096e6fdb091299e",
+      "bytes": 4404407,
+      "lines": 1626
+    }
+  },
+  "python": "3.11.2",
+  "built_utc": "2026-11-14T14:48:41Z"
+}

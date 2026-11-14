@@ -1,1 +1,20 @@
-# большие parquet-файлы хранятся в Git LFS (см. .gitattributes)
+artifacts/*
+!artifacts/report.json
+__pycache__/
+*.pyc
+.venv/
+venv/
+model_weights/
+weights/
+*.bin
+*.safetensors
+*.gguf
+build/
+dist/
+.pytest_cache/
+cache/
+out/
+*.log
+.env
+tmp/
+stress/
