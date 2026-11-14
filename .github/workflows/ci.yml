@@ -45,13 +45,14 @@ jobs:
           import os
           from pathlib import Path
 
-          expected = "cde7945292b4b23fc8a0a35574118a0d0d6720060f6f521ccbbe6e2e7e36cdb8"
+          record = Path("package.sha256")
+          expected = record.read_text(encoding="utf-8").split()[0] if record.exists() else ""
           limit = 614400
           data = json.loads(Path("artifacts/package.json").read_text(encoding="utf-8"))
           size = data["bytes"]
           sha = data["sha256"]
           assert size <= limit, f"пакет {size} байт больше лимита {limit}"
-          match = sha == expected
+          match = bool(expected) and sha == expected
           print(f"package {data['package']}")
           print(f"bytes {size}")
           print(f"limit {limit} ok")

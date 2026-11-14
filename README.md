@@ -107,6 +107,36 @@ python -m spanver verify --backend model --weights models\ruSciBERT --answer ans
 python -m spanver serve --port 8765 --backend model --weights models\ruSciBERT
 ```
 
+## Модель
+
+Модельный бэкенд работает на собственном маленьком энкодере, обученном с нуля в этой среде (pretrained-веса из HuggingFace/LFS недоступны):
+
+| параметр | значение |
+|---|---|
+| файл | `models/local_encoder.pt` (обычный git-файл, не LFS) |
+| размер | 1 920 837 байт (1,9 МБ) |
+| параметров | 476 546 |
+| архитектура | char-level энкодер: словарь 102 символа, dim 128, 3 слоя, 4 головы, ff 256 |
+| обучение | train-сплит, 549 пар, 730 примеров, 6 эпох, seed 0, loss 0,454 |
+| sha256 | записан в `models/local_encoder.sha256` |
+| детерминизм | две независимые сборки дают побайтно одинаковый файл |
+
+Признаки на токен из этой модели: `doc_attention_share`, `attention_entropy`, `cos_proximity`; плюс лексические `doc_overlap`, `uncertainty` и лексический риск как вход каскада. Агрегация mean/max, головка — 10 чисел.
+
+## Как считаются метрики
+
+Метрики считаются workflow **evaluate** (`.github/workflows/evaluate.yml`) на каждом пуше и по кнопке `workflow_dispatch`:
+
+1. собирает данные (`tools/read_parquet.py`, `python -m spanver build`) и проверяет sha256 `gold.jsonl`;
+2. берёт закоммиченную модель `models/local_encoder.pt` (и переобучает её, если файла нет), сверяет sha256 с `models/local_encoder.sha256`, отдельным шагом повторяет обучение и сравнивает байты;
+3. собирает пакет и печатает его размер и sha256;
+4. запускает `python tools/run_model_eval.py --weights models`: калибровка доли ИИ, головка, порог на val, test по `spanver/splits.json`, стресс 2 000 000 знаков;
+5. печатает таблицу всех метрик договора в лог и в Summary рана, грузит модель, отчёт и пакет артефактами.
+
+Чтобы посмотреть: вкладка **Actions** → workflow **evaluate** → последний ран → блок Summary. Там же внизу артефакт `model-eval`.
+
+Workflow **ci** проверяет тесты на Python 3.10 и 3.11, размер пакета (≤ 614 400 байт) и sha256 пакета.
+
 ## Состояние работ
 
 Текущее состояние, фактические метрики и открытые вопросы ведутся в `STATUS.md`.

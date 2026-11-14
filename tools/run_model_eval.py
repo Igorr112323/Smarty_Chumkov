@@ -26,6 +26,7 @@ from spanver.model_features import (
     write_cache,
 )
 from spanver.model_score import (
+    COMBINE,
     THRESHOLD_GRID,
     save_head,
     TRAIN_LIMIT,
@@ -38,6 +39,7 @@ from spanver.model_score import (
     train_head,
     training_subset,
 )
+from spanver.eval_report import package_info
 from spanver.evaluate import metrics
 from spanver.splits import load_splits, ordered_pairs
 
@@ -253,6 +255,7 @@ def main(argv=None):
             "mean": head["mean"],
             "scale": head["scale"],
         },
+        "cascade": {"combine": COMBINE, "note": "риск = модельная головка; лексический риск идёт признаком в головку"},
         "threshold": {
             "value": threshold,
             "grid": "0.50..0.99 шаг 0.01",
@@ -281,6 +284,7 @@ def main(argv=None):
             "type_accuracy": lexical["type_accuracy"],
         },
         "calibration": calibration,
+        "package": package_info(),
         "stress": stress_report,
         "cache": {"path": args.cache, "entries_before": cached_before, "entries_after": len(cache)},
         "seed": MODEL_SEED,

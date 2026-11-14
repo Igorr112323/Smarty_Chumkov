@@ -11,9 +11,9 @@ HEAD_NAMES = HEAD_FEATURES
 THRESHOLD_GRID = tuple(round(0.50 + 0.01 * step, 2) for step in range(50))
 MAX_FPR = 0.40
 TRAIN_LIMIT = 400
-TRAIN_ITERATIONS = 300
-TRAIN_RATE = 0.5
-TRAIN_L2 = 0.001
+TRAIN_ITERATIONS = 1200
+TRAIN_RATE = 1.5
+TRAIN_L2 = 0.0005
 TAIL = 6
 
 
@@ -42,22 +42,29 @@ def normalize_row(row, mean, scale):
     return [1.0] + [(row[index] - mean[index]) / scale[index] if scale[index] else 0.0 for index in range(1, len(row))]
 
 
-def train_head(vectors, labels):
+def train_head(vectors, labels, balance=True):
     mean, scale = column_stats(vectors)
     rows = [normalize_row(row, mean, scale) for row in vectors]
     width = len(rows[0])
     weights = [0.0] * width
     count = len(rows)
+    positives = sum(labels)
+    negatives = count - positives
+    positive_weight = 1.0
+    if balance and positives and negatives:
+        positive_weight = min(50.0, negatives / positives)
+    sample_weights = [positive_weight if label else 1.0 for label in labels]
+    total_weight = sum(sample_weights) or 1.0
     for _ in range(TRAIN_ITERATIONS):
         gradient = [0.0] * width
-        for row, label in zip(rows, labels):
+        for row, label, sample in zip(rows, labels, sample_weights):
             total = sum(weight * value for weight, value in zip(weights, row))
-            error = sigmoid(total) - label
+            error = (sigmoid(total) - label) * sample
             for index in range(width):
                 gradient[index] += error * row[index]
         for index in range(width):
             penalty = TRAIN_L2 * weights[index] if index else 0.0
-            weights[index] -= TRAIN_RATE * (gradient[index] / count + penalty)
+            weights[index] -= TRAIN_RATE * (gradient[index] / total_weight + penalty)
     return {"weights": [round(value, 6) for value in weights], "mean": [round(value, 6) for value in mean], "scale": [round(value, 6) for value in scale]}
 
 
@@ -67,16 +74,25 @@ def head_risk(values, head):
     return round(sigmoid(total), 4)
 
 
-def score_rows(rows, head):
+COMBINE = "head"
+
+
+def score_rows(rows, head, combine=False):
     scored = []
     for row in rows:
+        values = row["values"]
+        model_risk = head_risk(values, head)
+        lexical_risk = values[-1] if values else 0.0
+        risk = max(model_risk, lexical_risk) if combine else model_risk
         scored.append(
             {
                 "start": row["start"],
                 "end": row["end"],
                 "support": row.get("support", 0.0),
-                "risk": head_risk(row["values"], head),
-                "values": row["values"],
+                "risk": round(risk, 4),
+                "model_risk": model_risk,
+                "lexical_risk": round(lexical_risk, 4),
+                "values": values,
             }
         )
     return scored

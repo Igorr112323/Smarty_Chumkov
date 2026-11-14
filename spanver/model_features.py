@@ -3,6 +3,8 @@ import json
 import math
 from pathlib import Path
 
+from . import local_model
+
 from .module import (
     LONG_ANSWER,
     SENTENCE_RE,
@@ -44,7 +46,7 @@ HEAD_FEATURES = (
     "cos_max",
     "doc_overlap",
     "uncertainty",
-    "relative_length",
+    "lexical_risk",
 )
 
 
@@ -66,6 +68,9 @@ def weights_files(directory):
     path = Path(directory)
     if not path.is_dir():
         raise ModelUnavailable(f"веса не найдены: {path}")
+    local = path / local_model.LOCAL_FILE
+    if local.is_file():
+        return [local]
     files = sorted(item for item in path.iterdir() if item.is_file() and item.suffix in WEIGHT_SUFFIXES)
     config = path / "config.json"
     if not config.is_file() or not files:
@@ -83,7 +88,38 @@ def weights_sha(directory):
     return digest.hexdigest()
 
 
-def load_model(directory):
+def load_local(directory):
+    try:
+        torch, model, tokenizer, config, sha = local_model.load(directory)
+    except FileNotFoundError as error:
+        raise ModelUnavailable(str(error)) from error
+    except RuntimeError as error:
+        raise ModelUnavailable(str(error)) from error
+
+    def encode(segment_text, fragment_text, segment_limit, fragment_limit):
+        return local_model.encode(tokenizer, segment_text, fragment_text, segment_limit, fragment_limit)
+
+    def forward(ids):
+        tensor = torch.tensor([ids], dtype=torch.long)
+        with torch.no_grad():
+            _, attentions, hidden = model(tensor)
+        return attentions, hidden[0]
+
+    return {
+        "torch": torch,
+        "model": model,
+        "tokenizer": tokenizer,
+        "config": config,
+        "sha": sha,
+        "name": f"{local_model.MODEL_NAME}:{config['dim']}x{config['layers']}",
+        "kind": "local",
+        "encode": encode,
+        "forward": forward,
+        "directory": str(directory),
+    }
+
+
+def load_hf(directory):
     torch = runtime()
     try:
         from transformers import AutoModel, AutoTokenizer
@@ -95,14 +131,50 @@ def load_model(directory):
     model.eval()
     for parameter in model.parameters():
         parameter.requires_grad_(False)
+
+    def encode(segment_text, fragment_text, segment_limit, fragment_limit):
+        segment = tokenizer(segment_text, truncation=True, max_length=segment_limit, add_special_tokens=False)["input_ids"]
+        fragment = tokenizer(fragment_text, truncation=True, max_length=fragment_limit, add_special_tokens=False)["input_ids"]
+        if not segment or not fragment:
+            return None
+        sequence = [tokenizer.cls_token_id] + segment + [tokenizer.sep_token_id] + fragment + [tokenizer.sep_token_id]
+        limit = int(getattr(model.config, "max_position_embeddings", 512))
+        sequence = sequence[:limit]
+        answer_start = len(segment) + 2
+        answer_stop = min(answer_start + len(fragment), len(sequence))
+        return {"ids": sequence, "doc": (1, 1 + len(segment)), "ans": (answer_start, answer_stop)}
+
+    def forward(ids):
+        input_ids = torch.tensor([ids], dtype=torch.long)
+        attention_mask = torch.ones_like(input_ids)
+        with torch.no_grad():
+            output = model(
+                input_ids=input_ids,
+                attention_mask=attention_mask,
+                output_attentions=True,
+                output_hidden_states=True,
+            )
+        return output.attentions, output.last_hidden_state[0]
+
     return {
         "torch": torch,
         "model": model,
         "tokenizer": tokenizer,
         "sha": weights_sha(directory),
         "name": MODEL_NAME,
+        "kind": "hf",
+        "encode": encode,
+        "forward": forward,
         "directory": str(directory),
     }
+
+
+def load_model(directory):
+    path = Path(directory)
+    weights_files(directory)
+    if (path / local_model.LOCAL_FILE).is_file():
+        return load_local(path)
+    return load_hf(path)
 
 
 def chunk_text(text, size=DOC_CHUNK_CHARS):
@@ -188,32 +260,16 @@ def mean_max(values):
 
 
 def token_attention(bundle, segment_text, fragment_text):
-    torch = bundle["torch"]
-    tokenizer = bundle["tokenizer"]
-    model = bundle["model"]
-    seg_ids = tokenizer(segment_text, truncation=True, max_length=SEGMENT_TOKENS, add_special_tokens=False)["input_ids"]
-    frag_ids = tokenizer(fragment_text, truncation=True, max_length=FRAGMENT_TOKENS, add_special_tokens=False)["input_ids"]
-    if not seg_ids or not frag_ids:
+    encoded = bundle["encode"](segment_text, fragment_text, SEGMENT_TOKENS, FRAGMENT_TOKENS)
+    if encoded is None:
         return None
-    sequence = [tokenizer.cls_token_id] + seg_ids + [tokenizer.sep_token_id] + frag_ids + [tokenizer.sep_token_id]
-    limit = int(getattr(model.config, "max_position_embeddings", 512))
-    sequence = sequence[:limit]
-    doc_start = 1
-    doc_stop = doc_start + len(seg_ids)
-    answer_start = doc_stop + 1
-    answer_stop = min(answer_start + len(frag_ids), len(sequence))
+    doc_start, doc_stop = encoded["doc"]
+    answer_start, answer_stop = encoded["ans"]
     if answer_stop <= answer_start or doc_stop <= doc_start:
         return None
-    input_ids = torch.tensor([sequence], dtype=torch.long)
-    attention_mask = torch.ones_like(input_ids)
-    with torch.no_grad():
-        output = model(
-            input_ids=input_ids,
-            attention_mask=attention_mask,
-            output_attentions=True,
-            output_hidden_states=True,
-        )
-    layers = output.attentions[-ATTENTION_LAYERS:]
+    torch = bundle["torch"]
+    attentions, hidden_full = bundle["forward"](encoded["ids"])
+    layers = attentions[-ATTENTION_LAYERS:]
     stacked = torch.stack([layer[0].mean(dim=0) for layer in layers])
     doc_matrix = stacked[:, answer_start:answer_stop, doc_start:doc_stop].mean(dim=0)
     share = doc_matrix.sum(dim=1).clamp(0.0, 1.0)
@@ -224,11 +280,13 @@ def token_attention(bundle, segment_text, fragment_text):
     else:
         entropy = torch.zeros_like(share)
     entropy = entropy.clamp(0.0, 1.0)
-    hidden = output.last_hidden_state[0]
+    hidden = hidden_full
     segment_vector = hidden[doc_start:doc_stop].mean(dim=0)
     answer_vectors = hidden[answer_start:answer_stop]
     cosines = torch.nn.functional.cosine_similarity(answer_vectors, segment_vector.unsqueeze(0), dim=1)
     cosines = cosines.clamp(-1.0, 1.0)
+    if cosines.numel() == 0 or share.numel() == 0:
+        return None
     return {
         "share": [float(value) for value in share],
         "entropy": [float(value) for value in entropy],
@@ -250,7 +308,7 @@ def fragment_attention(bundle, fragment, pieces, stems):
     return best_values
 
 
-def head_vector(values, doc_overlap, uncertainty, relative_length):
+def head_vector(values, doc_overlap, uncertainty, lexical_risk):
     if values is None:
         share_mean = share_max = entropy_mean = entropy_max = cos_mean = cos_max = 0.0
     else:
@@ -267,7 +325,7 @@ def head_vector(values, doc_overlap, uncertainty, relative_length):
         cos_max,
         doc_overlap,
         uncertainty,
-        relative_length,
+        lexical_risk,
     ]
 
 
@@ -282,13 +340,12 @@ def pair_features(bundle, answer, document, limit=MAX_MODEL_CANDIDATES):
             fragment, len(text), document_tokens, False, document_stems, document_ngrams, start, len(doc)
         )
         attention = fragment_attention(bundle, fragment, pieces, stems)
-        relative = (end - start + 1) / len(text) if text else 0.0
         rows.append(
             {
                 "start": start,
                 "end": end,
                 "support": round(support, 6),
-                "values": [round(value, 6) for value in head_vector(attention, values[4], values[2], relative)],
+                "values": [round(value, 6) for value in head_vector(attention, values[4], values[2], score(values))],
             }
         )
     return rows
