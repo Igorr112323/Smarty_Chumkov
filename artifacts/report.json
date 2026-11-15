@@ -4373,5 +4373,1617 @@
       "elapsed_s": 803.2
     }
   },
-  "frozen_config_sha256": "8d07caaecfa521cd434b8d90565566edebfd81ddb69f5b1c33a5f54e6d9a72f8"
+  "frozen_config_sha256": "8d07caaecfa521cd434b8d90565566edebfd81ddb69f5b1c33a5f54e6d9a72f8",
+  "speed_batched": {
+    "rows": [
+      {
+        "length": 200,
+        "documents": 5,
+        "doc_chars": 1000,
+        "answer_chars": 1223,
+        "batch": 16,
+        "model_ms_per_1000_doc": 37.26,
+        "ensemble_ms_per_1000_doc": 58.17,
+        "model_ms_per_pair": 7.45,
+        "ensemble_ms_per_pair": 11.63,
+        "model_ms_per_1000_answer": 30.47
+      },
+      {
+        "length": 1000,
+        "documents": 5,
+        "doc_chars": 5000,
+        "answer_chars": 1092,
+        "batch": 16,
+        "model_ms_per_1000_doc": 15.13,
+        "ensemble_ms_per_1000_doc": 19.93,
+        "model_ms_per_pair": 15.13,
+        "ensemble_ms_per_pair": 19.93,
+        "model_ms_per_1000_answer": 69.27
+      },
+      {
+        "length": 5000,
+        "documents": 5,
+        "doc_chars": 25000,
+        "answer_chars": 3095,
+        "batch": 16,
+        "model_ms_per_1000_doc": 16.99,
+        "ensemble_ms_per_1000_doc": 20.6,
+        "model_ms_per_pair": 84.97,
+        "ensemble_ms_per_pair": 103.02,
+        "model_ms_per_1000_answer": 137.27
+      },
+      {
+        "length": 20000,
+        "documents": 5,
+        "doc_chars": 100000,
+        "answer_chars": 1223,
+        "batch": 16,
+        "model_ms_per_1000_doc": 6.19,
+        "ensemble_ms_per_1000_doc": 8.33,
+        "model_ms_per_pair": 123.81,
+        "ensemble_ms_per_pair": 166.58,
+        "model_ms_per_1000_answer": 506.17
+      }
+    ],
+    "batch": 16,
+    "norm_ms_per_1000_doc_chars": 30,
+    "verdict": "на документах 200 знаков норма не достигается: модель 37,26, ансамбль 58,17 — блокер по договору"
+  },
+  "hysteresis": {
+    "grid": {
+      "0.25/0.10": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0668
+        },
+        "token_recall": {
+          "mean": 0.6495,
+          "std": 0.0467
+        },
+        "token_f1": {
+          "mean": 0.5138,
+          "std": 0.063
+        },
+        "span_precision": {
+          "mean": 0.3836,
+          "std": 0.0875
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3068,
+          "std": 0.0525
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9364,
+          "std": 0.0499
+        }
+      },
+      "0.25/0.15": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0668
+        },
+        "token_recall": {
+          "mean": 0.6495,
+          "std": 0.0467
+        },
+        "token_f1": {
+          "mean": 0.5138,
+          "std": 0.063
+        },
+        "span_precision": {
+          "mean": 0.3836,
+          "std": 0.0875
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3068,
+          "std": 0.0525
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9364,
+          "std": 0.0499
+        }
+      },
+      "0.25/0.20": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0668
+        },
+        "token_recall": {
+          "mean": 0.6495,
+          "std": 0.0467
+        },
+        "token_f1": {
+          "mean": 0.5138,
+          "std": 0.063
+        },
+        "span_precision": {
+          "mean": 0.3823,
+          "std": 0.0888
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3062,
+          "std": 0.0529
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9364,
+          "std": 0.0499
+        }
+      },
+      "0.30/0.10": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0668
+        },
+        "token_recall": {
+          "mean": 0.6495,
+          "std": 0.0467
+        },
+        "token_f1": {
+          "mean": 0.5138,
+          "std": 0.063
+        },
+        "span_precision": {
+          "mean": 0.3836,
+          "std": 0.0875
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3068,
+          "std": 0.0525
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9364,
+          "std": 0.0499
+        }
+      },
+      "0.30/0.15": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0668
+        },
+        "token_recall": {
+          "mean": 0.6495,
+          "std": 0.0467
+        },
+        "token_f1": {
+          "mean": 0.5138,
+          "std": 0.063
+        },
+        "span_precision": {
+          "mean": 0.3836,
+          "std": 0.0875
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3068,
+          "std": 0.0525
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9364,
+          "std": 0.0499
+        }
+      },
+      "0.30/0.20": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0668
+        },
+        "token_recall": {
+          "mean": 0.6495,
+          "std": 0.0467
+        },
+        "token_f1": {
+          "mean": 0.5138,
+          "std": 0.063
+        },
+        "span_precision": {
+          "mean": 0.3823,
+          "std": 0.0888
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3062,
+          "std": 0.0529
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9364,
+          "std": 0.0499
+        }
+      },
+      "0.30/0.25": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0668
+        },
+        "token_recall": {
+          "mean": 0.6495,
+          "std": 0.0467
+        },
+        "token_f1": {
+          "mean": 0.5138,
+          "std": 0.063
+        },
+        "span_precision": {
+          "mean": 0.3518,
+          "std": 0.0665
+        },
+        "span_recall": {
+          "mean": 0.2615,
+          "std": 0.043
+        },
+        "span_f1": {
+          "mean": 0.2987,
+          "std": 0.0497
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.937,
+          "std": 0.05
+        }
+      },
+      "0.35/0.10": {
+        "token_precision": {
+          "mean": 0.4256,
+          "std": 0.0657
+        },
+        "token_recall": {
+          "mean": 0.6466,
+          "std": 0.0455
+        },
+        "token_f1": {
+          "mean": 0.5121,
+          "std": 0.0615
+        },
+        "span_precision": {
+          "mean": 0.3836,
+          "std": 0.0875
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3068,
+          "std": 0.0525
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9253,
+          "std": 0.053
+        }
+      },
+      "0.35/0.15": {
+        "token_precision": {
+          "mean": 0.4256,
+          "std": 0.0657
+        },
+        "token_recall": {
+          "mean": 0.6466,
+          "std": 0.0455
+        },
+        "token_f1": {
+          "mean": 0.5121,
+          "std": 0.0615
+        },
+        "span_precision": {
+          "mean": 0.3836,
+          "std": 0.0875
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3068,
+          "std": 0.0525
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9253,
+          "std": 0.053
+        }
+      },
+      "0.35/0.20": {
+        "token_precision": {
+          "mean": 0.4256,
+          "std": 0.0657
+        },
+        "token_recall": {
+          "mean": 0.6466,
+          "std": 0.0455
+        },
+        "token_f1": {
+          "mean": 0.5121,
+          "std": 0.0615
+        },
+        "span_precision": {
+          "mean": 0.3823,
+          "std": 0.0888
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.04
+        },
+        "span_f1": {
+          "mean": 0.3062,
+          "std": 0.0529
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.9253,
+          "std": 0.053
+        }
+      },
+      "0.35/0.25": {
+        "token_precision": {
+          "mean": 0.4256,
+          "std": 0.0657
+        },
+        "token_recall": {
+          "mean": 0.6466,
+          "std": 0.0455
+        },
+        "token_f1": {
+          "mean": 0.5121,
+          "std": 0.0615
+        },
+        "span_precision": {
+          "mean": 0.363,
+          "std": 0.0765
+        },
+        "span_recall": {
+          "mean": 0.2615,
+          "std": 0.043
+        },
+        "span_f1": {
+          "mean": 0.3026,
+          "std": 0.0532
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4323,
+          "std": 0.0319
+        },
+        "type_accuracy": {
+          "mean": 0.937,
+          "std": 0.05
+        }
+      },
+      "0.40/0.10": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0666
+        },
+        "token_recall": {
+          "mean": 0.6457,
+          "std": 0.0452
+        },
+        "token_f1": {
+          "mean": 0.5125,
+          "std": 0.062
+        },
+        "span_precision": {
+          "mean": 0.3878,
+          "std": 0.0899
+        },
+        "span_recall": {
+          "mean": 0.2614,
+          "std": 0.0449
+        },
+        "span_f1": {
+          "mean": 0.3104,
+          "std": 0.0568
+        },
+        "pair_f1": {
+          "mean": 0.3876,
+          "std": 0.0708
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4299,
+          "std": 0.031
+        },
+        "type_accuracy": {
+          "mean": 0.9427,
+          "std": 0.032
+        }
+      },
+      "0.40/0.15": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0666
+        },
+        "token_recall": {
+          "mean": 0.6457,
+          "std": 0.0452
+        },
+        "token_f1": {
+          "mean": 0.5125,
+          "std": 0.062
+        },
+        "span_precision": {
+          "mean": 0.3878,
+          "std": 0.0899
+        },
+        "span_recall": {
+          "mean": 0.2614,
+          "std": 0.0449
+        },
+        "span_f1": {
+          "mean": 0.3104,
+          "std": 0.0568
+        },
+        "pair_f1": {
+          "mean": 0.3876,
+          "std": 0.0708
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4299,
+          "std": 0.031
+        },
+        "type_accuracy": {
+          "mean": 0.9427,
+          "std": 0.032
+        }
+      },
+      "0.40/0.20": {
+        "token_precision": {
+          "mean": 0.4267,
+          "std": 0.0666
+        },
+        "token_recall": {
+          "mean": 0.6457,
+          "std": 0.0452
+        },
+        "token_f1": {
+          "mean": 0.5125,
+          "std": 0.062
+        },
+        "span_precision": {
+          "mean": 0.3865,
+          "std": 0.0913
+        },
+        "span_recall": {
+          "mean": 0.2614,
+          "std": 0.0449
+        },
+        "span_f1": {
+          "mean": 0.3099,
+          "std": 0.0572
+        },
+        "pair_f1": {
+          "mean": 0.3876,
+          "std": 0.0708
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4299,
+          "std": 0.031
+        },
+        "type_accuracy": {
+          "mean": 0.9427,
+          "std": 0.032
+        }
+      },
+      "0.40/0.25": {
+        "token_precision": {
+          "mean": 0.4262,
+          "std": 0.0661
+        },
+        "token_recall": {
+          "mean": 0.6435,
+          "std": 0.0451
+        },
+        "token_f1": {
+          "mean": 0.5114,
+          "std": 0.0612
+        },
+        "span_precision": {
+          "mean": 0.3687,
+          "std": 0.0758
+        },
+        "span_recall": {
+          "mean": 0.2614,
+          "std": 0.0449
+        },
+        "span_f1": {
+          "mean": 0.3047,
+          "std": 0.0543
+        },
+        "pair_f1": {
+          "mean": 0.3835,
+          "std": 0.0662
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4292,
+          "std": 0.0308
+        },
+        "type_accuracy": {
+          "mean": 0.9427,
+          "std": 0.032
+        }
+      },
+      "0.45/0.10": {
+        "token_precision": {
+          "mean": 0.4257,
+          "std": 0.0645
+        },
+        "token_recall": {
+          "mean": 0.6339,
+          "std": 0.0348
+        },
+        "token_f1": {
+          "mean": 0.5077,
+          "std": 0.0563
+        },
+        "span_precision": {
+          "mean": 0.3821,
+          "std": 0.0822
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.0433
+        },
+        "span_f1": {
+          "mean": 0.3063,
+          "std": 0.0528
+        },
+        "pair_f1": {
+          "mean": 0.3835,
+          "std": 0.0662
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4241,
+          "std": 0.0314
+        },
+        "type_accuracy": {
+          "mean": 0.9398,
+          "std": 0.0384
+        }
+      },
+      "0.45/0.15": {
+        "token_precision": {
+          "mean": 0.4257,
+          "std": 0.0645
+        },
+        "token_recall": {
+          "mean": 0.6339,
+          "std": 0.0348
+        },
+        "token_f1": {
+          "mean": 0.5077,
+          "std": 0.0563
+        },
+        "span_precision": {
+          "mean": 0.3821,
+          "std": 0.0822
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.0433
+        },
+        "span_f1": {
+          "mean": 0.3063,
+          "std": 0.0528
+        },
+        "pair_f1": {
+          "mean": 0.3835,
+          "std": 0.0662
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4241,
+          "std": 0.0314
+        },
+        "type_accuracy": {
+          "mean": 0.9398,
+          "std": 0.0384
+        }
+      },
+      "0.45/0.20": {
+        "token_precision": {
+          "mean": 0.4257,
+          "std": 0.0645
+        },
+        "token_recall": {
+          "mean": 0.6339,
+          "std": 0.0348
+        },
+        "token_f1": {
+          "mean": 0.5077,
+          "std": 0.0563
+        },
+        "span_precision": {
+          "mean": 0.3808,
+          "std": 0.0837
+        },
+        "span_recall": {
+          "mean": 0.2582,
+          "std": 0.0433
+        },
+        "span_f1": {
+          "mean": 0.3058,
+          "std": 0.0532
+        },
+        "pair_f1": {
+          "mean": 0.3835,
+          "std": 0.0662
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4241,
+          "std": 0.0314
+        },
+        "type_accuracy": {
+          "mean": 0.9398,
+          "std": 0.0384
+        }
+      },
+      "0.45/0.25": {
+        "token_precision": {
+          "mean": 0.4254,
+          "std": 0.0641
+        },
+        "token_recall": {
+          "mean": 0.6316,
+          "std": 0.0357
+        },
+        "token_f1": {
+          "mean": 0.5067,
+          "std": 0.0557
+        },
+        "span_precision": {
+          "mean": 0.3778,
+          "std": 0.0848
+        },
+        "span_recall": {
+          "mean": 0.2614,
+          "std": 0.0449
+        },
+        "span_f1": {
+          "mean": 0.3073,
+          "std": 0.0562
+        },
+        "pair_f1": {
+          "mean": 0.3835,
+          "std": 0.0662
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4229,
+          "std": 0.0309
+        },
+        "type_accuracy": {
+          "mean": 0.93,
+          "std": 0.0546
+        }
+      },
+      "0.50/0.10": {
+        "token_precision": {
+          "mean": 0.4221,
+          "std": 0.0818
+        },
+        "token_recall": {
+          "mean": 0.5721,
+          "std": 0.0541
+        },
+        "token_f1": {
+          "mean": 0.4837,
+          "std": 0.0721
+        },
+        "span_precision": {
+          "mean": 0.39,
+          "std": 0.1082
+        },
+        "span_recall": {
+          "mean": 0.2399,
+          "std": 0.0523
+        },
+        "span_f1": {
+          "mean": 0.2951,
+          "std": 0.0678
+        },
+        "pair_f1": {
+          "mean": 0.3702,
+          "std": 0.0833
+        },
+        "fpr_pair": {
+          "mean": 0.1644,
+          "std": 0.0446
+        },
+        "fpr_token": {
+          "mean": 0.3903,
+          "std": 0.0375
+        },
+        "type_accuracy": {
+          "mean": 0.9347,
+          "std": 0.0603
+        }
+      },
+      "0.50/0.15": {
+        "token_precision": {
+          "mean": 0.4221,
+          "std": 0.0818
+        },
+        "token_recall": {
+          "mean": 0.5721,
+          "std": 0.0541
+        },
+        "token_f1": {
+          "mean": 0.4837,
+          "std": 0.0721
+        },
+        "span_precision": {
+          "mean": 0.39,
+          "std": 0.1082
+        },
+        "span_recall": {
+          "mean": 0.2399,
+          "std": 0.0523
+        },
+        "span_f1": {
+          "mean": 0.2951,
+          "std": 0.0678
+        },
+        "pair_f1": {
+          "mean": 0.3702,
+          "std": 0.0833
+        },
+        "fpr_pair": {
+          "mean": 0.1644,
+          "std": 0.0446
+        },
+        "fpr_token": {
+          "mean": 0.3903,
+          "std": 0.0375
+        },
+        "type_accuracy": {
+          "mean": 0.9347,
+          "std": 0.0603
+        }
+      },
+      "0.50/0.20": {
+        "token_precision": {
+          "mean": 0.4243,
+          "std": 0.0813
+        },
+        "token_recall": {
+          "mean": 0.5721,
+          "std": 0.0541
+        },
+        "token_f1": {
+          "mean": 0.4852,
+          "std": 0.0719
+        },
+        "span_precision": {
+          "mean": 0.39,
+          "std": 0.1082
+        },
+        "span_recall": {
+          "mean": 0.2399,
+          "std": 0.0523
+        },
+        "span_f1": {
+          "mean": 0.2951,
+          "std": 0.0678
+        },
+        "pair_f1": {
+          "mean": 0.3702,
+          "std": 0.0833
+        },
+        "fpr_pair": {
+          "mean": 0.1644,
+          "std": 0.0446
+        },
+        "fpr_token": {
+          "mean": 0.3864,
+          "std": 0.0356
+        },
+        "type_accuracy": {
+          "mean": 0.9347,
+          "std": 0.0603
+        }
+      },
+      "0.50/0.25": {
+        "token_precision": {
+          "mean": 0.4242,
+          "std": 0.0817
+        },
+        "token_recall": {
+          "mean": 0.569,
+          "std": 0.0545
+        },
+        "token_f1": {
+          "mean": 0.4841,
+          "std": 0.0725
+        },
+        "span_precision": {
+          "mean": 0.3808,
+          "std": 0.1091
+        },
+        "span_recall": {
+          "mean": 0.2361,
+          "std": 0.0511
+        },
+        "span_f1": {
+          "mean": 0.2896,
+          "std": 0.068
+        },
+        "pair_f1": {
+          "mean": 0.366,
+          "std": 0.0847
+        },
+        "fpr_pair": {
+          "mean": 0.1644,
+          "std": 0.0446
+        },
+        "fpr_token": {
+          "mean": 0.3844,
+          "std": 0.034
+        },
+        "type_accuracy": {
+          "mean": 0.9325,
+          "std": 0.0632
+        }
+      }
+    },
+    "best": {
+      "pair": "0.50/0.20",
+      "summary": {
+        "token_precision": {
+          "mean": 0.4243,
+          "std": 0.0813
+        },
+        "token_recall": {
+          "mean": 0.5721,
+          "std": 0.0541
+        },
+        "token_f1": {
+          "mean": 0.4852,
+          "std": 0.0719
+        },
+        "span_precision": {
+          "mean": 0.39,
+          "std": 0.1082
+        },
+        "span_recall": {
+          "mean": 0.2399,
+          "std": 0.0523
+        },
+        "span_f1": {
+          "mean": 0.2951,
+          "std": 0.0678
+        },
+        "pair_f1": {
+          "mean": 0.3702,
+          "std": 0.0833
+        },
+        "fpr_pair": {
+          "mean": 0.1644,
+          "std": 0.0446
+        },
+        "fpr_token": {
+          "mean": 0.3864,
+          "std": 0.0356
+        },
+        "type_accuracy": {
+          "mean": 0.9347,
+          "std": 0.0603
+        }
+      }
+    },
+    "contrast": {
+      "1.0": {
+        "token_precision": {
+          "mean": 0.4169,
+          "std": 0.083
+        },
+        "token_recall": {
+          "mean": 0.4797,
+          "std": 0.0667
+        },
+        "token_f1": {
+          "mean": 0.4418,
+          "std": 0.0667
+        },
+        "span_precision": {
+          "mean": 0.0269,
+          "std": 0.0096
+        },
+        "span_recall": {
+          "mean": 0.1993,
+          "std": 0.0646
+        },
+        "span_f1": {
+          "mean": 0.047,
+          "std": 0.0162
+        },
+        "pair_f1": {
+          "mean": 0.2503,
+          "std": 0.0943
+        },
+        "fpr_pair": {
+          "mean": 0.1644,
+          "std": 0.0446
+        },
+        "fpr_token": {
+          "mean": 0.3348,
+          "std": 0.0486
+        },
+        "type_accuracy": {
+          "mean": 0.6875,
+          "std": 0.0451
+        }
+      },
+      "1.5": {
+        "token_precision": {
+          "mean": 0.1444,
+          "std": 0.2889
+        },
+        "token_recall": {
+          "mean": 0.0029,
+          "std": 0.0058
+        },
+        "token_f1": {
+          "mean": 0.0057,
+          "std": 0.0114
+        },
+        "span_precision": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "span_recall": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "span_f1": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "pair_f1": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "fpr_pair": {
+          "mean": 0.0022,
+          "std": 0.0044
+        },
+        "fpr_token": {
+          "mean": 0.001,
+          "std": 0.0013
+        },
+        "type_accuracy": {
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "2.0": {
+        "token_precision": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "token_recall": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "token_f1": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "span_precision": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "span_recall": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "span_f1": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "pair_f1": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "fpr_pair": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "fpr_token": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "type_accuracy": {
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "3.0": {
+        "token_precision": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "token_recall": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "token_f1": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "span_precision": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "span_recall": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "span_f1": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "pair_f1": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "fpr_pair": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "fpr_token": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "type_accuracy": {
+          "mean": 0.0,
+          "std": 0.0
+        }
+      }
+    },
+    "verdict": "гистерезис снижает FPR_token до 0,3864 при потере token F1 до 0,4852; контраст по медиане вырождается (все спаны отсекаются при K ≥ 1,5)"
+  },
+  "cv_variants": {
+    "base_1epoch": {
+      "token_f1": {
+        "mean": 0.4351,
+        "std": 0.0818
+      },
+      "span_f1": {
+        "mean": 0.047,
+        "std": 0.0088
+      },
+      "pair_f1": {
+        "mean": 0.2506,
+        "std": 0.0511
+      },
+      "fpr_pair": {
+        "mean": 0.0961,
+        "std": 0.0267
+      },
+      "fpr_token": {
+        "mean": 0.2355,
+        "std": 0.0532
+      },
+      "token_precision": {
+        "mean": 0.4678,
+        "std": 0.1005
+      },
+      "token_recall": {
+        "mean": 0.4158,
+        "std": 0.0888
+      },
+      "span_precision": {
+        "mean": 0.0276,
+        "std": 0.0048
+      },
+      "span_recall": {
+        "mean": 0.1602,
+        "std": 0.0442
+      },
+      "type_accuracy": {
+        "mean": 0.6349,
+        "std": 0.0611
+      }
+    },
+    "hard_negatives_1epoch": {
+      "token_f1": {
+        "mean": 0.4282,
+        "std": 0.064
+      },
+      "span_f1": {
+        "mean": 0.0501,
+        "std": 0.0169
+      },
+      "pair_f1": {
+        "mean": 0.2554,
+        "std": 0.073
+      },
+      "fpr_pair": {
+        "mean": 0.0912,
+        "std": 0.0353
+      },
+      "fpr_token": {
+        "mean": 0.2202,
+        "std": 0.0672
+      },
+      "token_precision": {
+        "mean": 0.4816,
+        "std": 0.0881
+      },
+      "token_recall": {
+        "mean": 0.4093,
+        "std": 0.1024
+      },
+      "span_precision": {
+        "mean": 0.0296,
+        "std": 0.0092
+      },
+      "span_recall": {
+        "mean": 0.1699,
+        "std": 0.08
+      },
+      "type_accuracy": {
+        "mean": 0.635,
+        "std": 0.0811
+      }
+    },
+    "lexical_features_1epoch": {
+      "token_f1": {
+        "mean": 0.5138,
+        "std": 0.063
+      },
+      "span_f1": {
+        "mean": 0.2982,
+        "std": 0.0501
+      },
+      "pair_f1": {
+        "mean": 0.3841,
+        "std": 0.0672
+      },
+      "fpr_pair": {
+        "mean": 0.1871,
+        "std": 0.0383
+      },
+      "fpr_token": {
+        "mean": 0.4324,
+        "std": 0.0319
+      },
+      "token_precision": {
+        "mean": 0.4267,
+        "std": 0.0668
+      },
+      "token_recall": {
+        "mean": 0.6495,
+        "std": 0.0467
+      },
+      "span_precision": {
+        "mean": 0.3508,
+        "std": 0.0679
+      },
+      "span_recall": {
+        "mean": 0.2615,
+        "std": 0.043
+      },
+      "type_accuracy": {
+        "mean": 0.937,
+        "std": 0.05
+      }
+    },
+    "lexical_features_3epochs": {
+      "token_f1": {
+        "mean": 0.5166,
+        "std": 0.104
+      },
+      "span_f1": {
+        "mean": 0.3003,
+        "std": 0.072
+      },
+      "pair_f1": {
+        "mean": 0.3882,
+        "std": 0.095
+      },
+      "fpr_pair": {
+        "mean": 0.175,
+        "std": 0.0535
+      },
+      "fpr_token": {
+        "mean": 0.4284,
+        "std": 0.0415
+      },
+      "token_precision": {
+        "mean": 0.4288,
+        "std": 0.0937
+      },
+      "token_recall": {
+        "mean": 0.6528,
+        "std": 0.1205
+      },
+      "span_precision": {
+        "mean": 0.3692,
+        "std": 0.1066
+      },
+      "span_recall": {
+        "mean": 0.2591,
+        "std": 0.0635
+      },
+      "type_accuracy": {
+        "mean": 0.9187,
+        "std": 0.0667
+      }
+    },
+    "lexical_features_focal": {
+      "token_f1": {
+        "mean": 0.5362,
+        "std": 0.069
+      },
+      "span_f1": {
+        "mean": 0.3263,
+        "std": 0.0517
+      },
+      "pair_f1": {
+        "mean": 0.4083,
+        "std": 0.0646
+      },
+      "fpr_pair": {
+        "mean": 0.2085,
+        "std": 0.0293
+      },
+      "fpr_token": {
+        "mean": 0.4709,
+        "std": 0.0259
+      },
+      "token_precision": {
+        "mean": 0.4299,
+        "std": 0.0684
+      },
+      "token_recall": {
+        "mean": 0.717,
+        "std": 0.0555
+      },
+      "span_precision": {
+        "mean": 0.3819,
+        "std": 0.0817
+      },
+      "span_recall": {
+        "mean": 0.2876,
+        "std": 0.0397
+      },
+      "type_accuracy": {
+        "mean": 0.9346,
+        "std": 0.0446
+      }
+    },
+    "lexical_features_class_weight": {
+      "token_f1": {
+        "mean": 0.2821,
+        "std": 0.1793
+      },
+      "span_f1": {
+        "mean": 0.0814,
+        "std": 0.0615
+      },
+      "pair_f1": {
+        "mean": 0.1979,
+        "std": 0.121
+      },
+      "fpr_pair": {
+        "mean": 0.0827,
+        "std": 0.052
+      },
+      "fpr_token": {
+        "mean": 0.2271,
+        "std": 0.1227
+      },
+      "token_precision": {
+        "mean": 0.2806,
+        "std": 0.1583
+      },
+      "token_recall": {
+        "mean": 0.2956,
+        "std": 0.2038
+      },
+      "span_precision": {
+        "mean": 0.0595,
+        "std": 0.0467
+      },
+      "span_recall": {
+        "mean": 0.1328,
+        "std": 0.0938
+      },
+      "type_accuracy": {
+        "mean": 0.5031,
+        "std": 0.2871
+      }
+    },
+    "epochs_curve": {
+      "1": {
+        "token_f1": {
+          "mean": 0.5138,
+          "std": 0.063
+        },
+        "span_f1": {
+          "mean": 0.2982,
+          "std": 0.0501
+        },
+        "pair_f1": {
+          "mean": 0.3841,
+          "std": 0.0672
+        },
+        "fpr_pair": {
+          "mean": 0.1871,
+          "std": 0.0383
+        },
+        "fpr_token": {
+          "mean": 0.4324,
+          "std": 0.0319
+        }
+      },
+      "2": {
+        "token_f1": {
+          "mean": 0.5212,
+          "std": 0.0684
+        },
+        "span_f1": {
+          "mean": 0.3099,
+          "std": 0.062
+        },
+        "pair_f1": {
+          "mean": 0.389,
+          "std": 0.0772
+        },
+        "fpr_pair": {
+          "mean": 0.1836,
+          "std": 0.0426
+        },
+        "fpr_token": {
+          "mean": 0.4388,
+          "std": 0.0275
+        }
+      },
+      "3": {
+        "token_f1": {
+          "mean": 0.5166,
+          "std": 0.104
+        },
+        "span_f1": {
+          "mean": 0.3003,
+          "std": 0.072
+        },
+        "pair_f1": {
+          "mean": 0.3882,
+          "std": 0.095
+        },
+        "fpr_pair": {
+          "mean": 0.175,
+          "std": 0.0535
+        },
+        "fpr_token": {
+          "mean": 0.4284,
+          "std": 0.0415
+        }
+      }
+    }
+  },
+  "three_lines": {
+    "one_shot_test_301": {
+      "token_f1": 0.4217,
+      "span_f1": 0.0876,
+      "pair_f1": 0.2717,
+      "fpr_pair": 0.314,
+      "fpr_token": 0.3913,
+      "note": "единственный честный прогон, повторов нет"
+    },
+    "cv_scheme12_1epoch": {
+      "token_f1": 0.5138,
+      "token_std": 0.063,
+      "span_f1": 0.2982,
+      "span_std": 0.0501,
+      "pair_f1": 0.3841,
+      "fpr_pair": 0.1871,
+      "fpr_token": 0.4324
+    },
+    "cv_best_after_steps": {
+      "config": "1 эпоха + гистерезис T_start 0,50 / T_extend 0,20, гейт пары 0,45, expand",
+      "token_f1": 0.4852,
+      "span_f1": 0.2951,
+      "pair_f1": null,
+      "fpr_pair": 0.1644,
+      "fpr_token": 0.3864,
+      "note": "единственная конфигурация, где оба FPR <= 0,40; token F1 0,4852 < 0,50",
+      "std": "см. sweep_hyst.json (24 пары порогов)"
+    }
+  },
+  "vs_lexical_test_only": {
+    "lexical_test_301": {
+      "token_f1": 0.3923,
+      "span_f1": 0.2835,
+      "pair_f1": 0.3547,
+      "fpr_pair": 0.3527
+    },
+    "model_test_301": {
+      "token_f1": 0.4217,
+      "span_f1": 0.0876,
+      "pair_f1": 0.2717,
+      "fpr_pair": 0.314
+    },
+    "note": "CV-числа с test не сравниваются, новые прогоны test не делались"
+  },
+  "governance_22": {
+    "fpr_lead": "FPR_pair — ведущий в отчёте, FPR_token — строгая оценка рядом",
+    "checkpoints": "манифесты + голова + fp16-слепок лучшего чекпоинта (53,2 МБ, sha256 cb86f5e9…2349); git-lfs недоступен в песочнице",
+    "test": "не трогался"
+  }
 }

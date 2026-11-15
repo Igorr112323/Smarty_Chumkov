@@ -127,3 +127,23 @@ def sweep(cache, pairs, grid=GRID, neighbor=NEIGHBOR, min_chars=MIN_CHARS):
         row["type_accuracy"] = spans["type_accuracy"]
         rows.append(row)
     return rows
+
+
+def hysteresis_flags(pieces, t_start, t_extend):
+    scores = [score for _, _, score in pieces]
+    flags = []
+    active = False
+    for score in scores:
+        if active:
+            if score >= t_extend:
+                flags.append(True)
+                continue
+            active = False
+            flags.append(False)
+            continue
+        if score >= t_start:
+            active = True
+            flags.append(True)
+            continue
+        flags.append(False)
+    return flags
