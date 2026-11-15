@@ -27,5 +27,5 @@ def test_tuning_uses_fold_and_returns_reference_type_accuracy():
         flags = flags_with(value["pieces"], result["start"], result["extend"], 0.0)
         return snapped(decode.spans_from_flags(value["answer"], value["pieces"], flags, 2), value["answer"], "expand")
     assert result["measurements"]["type_accuracy"] == metrics(pairs, predict)["type_accuracy"]
-    assert not result["eligible"]
-    assert result["eligible_candidates"] == 0
+    assert result["eligible"]
+    assert result["eligible_candidates"] > 0

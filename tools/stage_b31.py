@@ -15,7 +15,7 @@ from spanver.evaluate import metrics
 from spanver.snap import snapped
 from spanver.stage_train import ENCODER_RATE, HEAD_RATE
 from tools.preflight_13 import components, digest, id_digest, our_keys, our_rows, split_groups
-from tools.sweep_hyst import EXTEND_GRID, START_GRID, flags_with
+from tools.sweep_hyst import flags_with
 from tools.sweep_ragtruth30 import compute, prepare, within_fpr_limits
 from tools.train_bce29 import weighted_loss
 from tools.train_cv_feat import token_fpr
@@ -26,6 +26,8 @@ BATCH = 16
 MICRO = 4
 EPOCHS = 3
 GATE = 0.45
+START_GRID = (0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95)
+EXTEND_GRID = (0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90)
 METRICS = ("token_precision", "token_recall", "token_f1", "span_precision", "span_recall", "span_f1", "pair_f1", "fpr_pair", "fpr_token", "type_accuracy")
 CHECKPOINTS = {"bce": "artifacts/checkpoints/stage_a_bce_w11_e1", "focal": "artifacts/checkpoints/stage_a_full_e2"}
 
