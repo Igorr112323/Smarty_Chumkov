@@ -4,9 +4,25 @@
 
 ## Текущий шаг
 
-Промт 23: конвейер перевода RAGTruth_en на русский готов, но перевод НЕ ВЫПОЛНЕН — из песочницы недоступны ни один HTTP-переводчик, ни HuggingFace. Переведено 0 кусков, кэш `artifacts/translate_cache.jsonl` создан пустым, `artifacts/ragtruth_report.json` содержит причину останова и точные коды ответов.
+Промт 24: правка канала перевода внесена (client=dict-chrome-ex, четыре канала с переключением, пауза 0,45 с, нарезка по 4000 знаков). Проба 200 кусков: **переведено 0 из 200**, все четыре канала падают на TLS-рукопожатии.
 
-Проверка каналов: translate.googleapis.com 000 (TLS closed), api-free.deepl.com 000, translate.yandex.net 000, translate.api.cloud.yandex.net 000, libretranslate.com 000, huggingface.co 000. Доступны только github.com, codeload, api.github.com, registry.npmjs.org, pypi.org, files.pythonhosted.org. Моделей машинного перевода на PyPI нет (argostranslate — движок без весов, веса лежат на argosopentech.com).
+Причина не в лимите 429 и не в IP: egress-прокси песочницы принимает TCP за 0 мс и рвёт TLS (`SSLZeroReturnError`) для всех хостов вне белого списка. Проверено: `translate.googleapis.com` (173.194.203.95), `simplytranslate.org` (185.248.13.232), `api.mymemory.translated.net` (3.70.80.26), `lingva.ml` (172.67.210.15) — везде TLS FAIL; `pypi.org` (151.101.0.223) — TLS OK. Ни одного HTTP-ответа не получено, счётчики 429 остаются нулевыми.
+
+## RAGTruth_en: проба перевода (200 кусков, промт 24)
+
+| показатель | результат |
+|---|---|
+| каналов в цепочке | dict-chrome-ex → simplytranslate → mymemory → lingva |
+| запрошено кусков | 200 (лимит остановки: 3 неудачи подряд при нуле успехов) |
+| переведено | 0 |
+| ошибок по каналам | по 3 на каждый из 4 каналов |
+| 429 / 5xx | 0 (до HTTP не доходит) |
+| медиана отношения длин | нет данных |
+| обратный перевод 20 кусков | не выполнялся, переводить нечего |
+| 10 примеров | нет |
+| время пробы | 5,4 с |
+
+Отчёт с диагностикой: `artifacts/translate_probe.json`.
 
 ## RAGTruth_en: план перевода (шаг 1-3)
 

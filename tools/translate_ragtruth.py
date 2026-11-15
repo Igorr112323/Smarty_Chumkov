@@ -39,7 +39,7 @@ class GoogleTranslator:
         self.last = 0.0
 
     def _call(self, text):
-        query = urllib.parse.urlencode({"client": "gtx", "sl": "en", "tl": "ru", "dt": "t", "q": text})
+        query = urllib.parse.urlencode({"client": "dict-chrome-ex", "sl": "en", "tl": "ru", "dt": "t", "q": text})
         request = urllib.request.Request(f"{GOOGLE_URL}?{query}", headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
             payload = json.loads(response.read().decode("utf-8"))
@@ -121,6 +121,129 @@ class NllbTranslator:
         return self.tokenizer.batch_decode(output, skip_special_tokens=True)[0]
 
 
+
+SIMPLYTRANSLATE_URL = "https://simplytranslate.org/api/translate/"
+MYMEMORY_URL = "https://api.mymemory.translated.net/get"
+LINGVA_URL = "https://lingva.ml/api/v1"
+CHANNEL_ORDER = ("dict-chrome-ex", "simplytranslate", "mymemory", "lingva")
+PAUSE = 0.45
+MAX_PART = 4000
+COOLDOWN = 600.0
+CHANNEL_ERROR_LIMIT = 5
+
+
+def split_parts(text, limit=MAX_PART):
+    parts = []
+    rest = text or ""
+    while len(rest) > limit:
+        cut = rest.rfind(" ", 0, limit)
+        if cut <= 0:
+            cut = limit
+        parts.append(rest[:cut])
+        rest = rest[cut:]
+    if rest:
+        parts.append(rest)
+    return parts
+
+
+class MultiTranslator:
+    name = "multi"
+
+    def __init__(self):
+        self.last = 0.0
+        self.errors = {channel: 0 for channel in CHANNEL_ORDER}
+        self.consecutive = {channel: 0 for channel in CHANNEL_ORDER}
+        self.disabled_until = {channel: 0.0 for channel in CHANNEL_ORDER}
+        self.used = {channel: 0 for channel in CHANNEL_ORDER}
+        self.log = []
+
+    def status(self):
+        return {
+            "used": dict(self.used),
+            "errors": dict(self.errors),
+            "disabled": [channel for channel, until in self.disabled_until.items() if until > time.time()],
+        }
+
+    def _pace(self):
+        wait = PAUSE - (time.time() - self.last)
+        if wait > 0:
+            time.sleep(wait)
+        self.last = time.time()
+
+    def _fetch(self, channel, text, source, target):
+        self._pace()
+        headers = {"User-Agent": "Mozilla/5.0"}
+        if channel == "dict-chrome-ex":
+            query = urllib.parse.urlencode({"client": "dict-chrome-ex", "sl": source, "tl": target, "dt": "t", "q": text})
+            request = urllib.request.Request(f"{GOOGLE_URL}?{query}", headers=headers)
+            with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            return "".join(part[0] for part in payload[0] if part and part[0])
+        if channel == "simplytranslate":
+            query = urllib.parse.urlencode({"engine": "google", "from": source, "to": target, "text": text})
+            request = urllib.request.Request(f"{SIMPLYTRANSLATE_URL}?{query}", headers=headers)
+            with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+                raw = response.read().decode("utf-8")
+            try:
+                payload = json.loads(raw)
+            except ValueError:
+                return raw
+            if isinstance(payload, dict):
+                for key in ("translated-text", "translation", "result", "text"):
+                    if isinstance(payload.get(key), str):
+                        return payload[key]
+            return raw
+        if channel == "mymemory":
+            query = urllib.parse.urlencode({"q": text, "langpair": f"{source}|{target}"})
+            request = urllib.request.Request(f"{MYMEMORY_URL}?{query}", headers=headers)
+            with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            return payload["responseData"]["translatedText"]
+        path = urllib.parse.quote(text, safe="")
+        request = urllib.request.Request(f"{LINGVA_URL}/{source}/{target}/{path}", headers=headers)
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        return payload.get("translation", "")
+
+    def translate(self, text, source="en", target="ru"):
+        if not text:
+            return ""
+        return "".join(self._translate_part(part, source, target) for part in split_parts(text))
+
+    def _translate_part(self, text, source, target):
+        problems = []
+        for channel in CHANNEL_ORDER:
+            if self.disabled_until[channel] > time.time():
+                problems.append(f"{channel}: остывает")
+                continue
+            for pause in (0,) + BACKOFF:
+                if pause:
+                    time.sleep(pause)
+                try:
+                    value = self._fetch(channel, text, source, target)
+                    self.used[channel] += 1
+                    self.consecutive[channel] = 0
+                    return value
+                except urllib.error.HTTPError as error:
+                    self.errors[channel] += 1
+                    self.consecutive[channel] += 1
+                    problems.append(f"{channel}: HTTP {error.code}")
+                    if self.consecutive[channel] >= CHANNEL_ERROR_LIMIT:
+                        self.disabled_until[channel] = time.time() + COOLDOWN
+                        break
+                    if error.code not in (429, 500, 502, 503, 504):
+                        break
+                except (urllib.error.URLError, OSError, ValueError) as error:
+                    self.errors[channel] += 1
+                    self.consecutive[channel] += 1
+                    problems.append(f"{channel}: {getattr(error, 'reason', error)}")
+                    if self.consecutive[channel] >= CHANNEL_ERROR_LIMIT:
+                        self.disabled_until[channel] = time.time() + COOLDOWN
+                    break
+        self.log.append(problems)
+        raise NetworkBlocked("; ".join(problems[:6]))
+
+
 class Cache:
     def __init__(self, path):
         self.path = Path(path)
@@ -188,7 +311,7 @@ def main(argv=None):
     parser.add_argument("--negatives-out", default="artifacts/ragtruth_ru_negative.jsonl")
     parser.add_argument("--cache", default="artifacts/translate_cache.jsonl")
     parser.add_argument("--report", default="artifacts/ragtruth_report.json")
-    parser.add_argument("--translator", default="google", choices=("google", "deepl", "yandex", "nllb", "echo"))
+    parser.add_argument("--translator", default="multi", choices=("multi", "google", "deepl", "yandex", "nllb", "echo"))
     parser.add_argument("--nllb-path", default="models/nllb-200-distilled-600M")
     parser.add_argument("--limit", type=int, default=6000)
     parser.add_argument("--negatives", type=int, default=1500)
@@ -230,8 +353,8 @@ def main(argv=None):
 
     if args.translator == "echo":
         translator = EchoTranslator()
-    elif args.translator == "google":
-        translator = GoogleTranslator()
+    elif args.translator in ("multi", "google"):
+        translator = MultiTranslator()
     elif args.translator == "deepl":
         translator = DeepLTranslator(need_env("DEEPL_KEY"))
     elif args.translator == "yandex":
@@ -281,6 +404,8 @@ def main(argv=None):
             )
     except NetworkBlocked as error:
         report.update({"error": str(error), "status": "сеть недоступна", "stats": stats})
+        if hasattr(translator, "status"):
+            report["channels"] = translator.status()
         report["elapsed_s"] = round(time.perf_counter() - started, 1)
         cache.close()
         Path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
