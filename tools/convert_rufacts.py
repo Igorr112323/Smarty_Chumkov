@@ -15,6 +15,9 @@ PAIRLEVEL = "rufacts_pairlevel.jsonl"
 NEGATIVE = "rufacts_negative.jsonl"
 
 
+CLAMPED = []
+
+
 def doc_id(evidence):
     return hashlib.sha256((evidence or "").encode("utf-8")).hexdigest()[:16]
 
@@ -39,7 +42,12 @@ def convert_spans(claim, record):
         if len(rng) != 2 or not isinstance(text, str):
             return None, "bad_range"
         start, end = int(rng[0]), int(rng[1])
-        if start < 0 or end > len(claim) or end <= start:
+        if 0 <= start and end <= len(claim) and end > start:
+            pass
+        elif 0 <= start and claim[start : start + len(text)] == text:
+            end = start + len(text)
+            CLAMPED.append(record.get("idx"))
+        else:
             return None, "range_out_of_bounds"
         if claim[start:end] != text:
             return None, "span_mismatch"
@@ -115,6 +123,8 @@ def convert_files(paths, out_dir, limit=0, report_path=""):
         "negative": len(buckets["negative"]),
         "rejected": sum(reasons.values()),
         "reasons": reasons,
+        "clamped": len(CLAMPED),
+        "clamped_idx": sorted(CLAMPED),
         "spans": sum(len(pair["spans"]) for pair in buckets["localized"]),
         "files": [str(target / LOCALIZED), str(target / PAIRLEVEL), str(target / NEGATIVE)],
     }
