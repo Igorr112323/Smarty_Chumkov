@@ -1,0 +1,106 @@
+{
+  "split": "val",
+  "pairs": 150,
+  "config": {
+    "token_threshold": 0.25,
+    "pair_gate": 0.45,
+    "nms_iou": 0.1,
+    "max_spans": 1,
+    "min_chars": 2,
+    "snap": "expand",
+    "neighbor": null,
+    "checkpoint": "artifacts/negatives/epoch_1",
+    "checkpoint_files": {
+      "model.safetensors": "31ea7a1882f4e078f0f0f63eca3382d25dbff7cf702c3191a72ac3dc19f66e69",
+      "config.json": "453cc1784104ce84e9c76014f82d83401cce878b445de96ffa8dd68d3fcf5f73",
+      "tokenizer.json": "ce51cde5df60ecb167abec4c90db11360482150628f7a91f3e316df6d6ff6f6f",
+      "tokenizer_config.json": "f102ec53400edfc18d5ccef72ae29be94bef53da38c1d7d478f788893f001472"
+    },
+    "checkpoint_sha256": "7ce65ff664a4fa16f95011e7cab4efae198c8e7e942c7792847b9a684f8cb518",
+    "seed": 0,
+    "git_sha": "d69f8b299fe83b592bed014763e2bc847417905a",
+    "decode": "decode.flags_for(pieces, token_threshold, None) -> spans_from_flags(min_chars=2) -> snap.expand",
+    "selection": "max token F1 при FPR_pair <= 0.40 и FPR_token <= 0.40 на val150",
+    "dataset": "artifacts/gold.jsonl, splits.json",
+    "frozen_at": "2026-11-14"
+  },
+  "table": {
+    "lexical": {
+      "span_precision": 0.2237,
+      "span_recall": 0.3091,
+      "span_f1": 0.2595,
+      "token_precision": 0.3437,
+      "token_recall": 0.8902,
+      "token_f1": 0.496,
+      "pair_f1": 0.3366,
+      "fpr_pair": 0.3654,
+      "fpr_token": 0.6999,
+      "type_accuracy": 0.6471
+    },
+    "model": {
+      "span_precision": 0.068,
+      "span_recall": 0.2545,
+      "span_f1": 0.1073,
+      "token_precision": 0.5207,
+      "token_recall": 0.6423,
+      "token_f1": 0.5751,
+      "pair_f1": 0.325,
+      "fpr_pair": 0.2019,
+      "fpr_token": 0.2435,
+      "type_accuracy": 0.7143
+    },
+    "A_union_nms040": {
+      "span_precision": 0.1224,
+      "span_recall": 0.4364,
+      "span_f1": 0.1912,
+      "token_precision": 0.3454,
+      "token_recall": 0.9855,
+      "token_f1": 0.5116,
+      "pair_f1": 0.3833,
+      "fpr_pair": 0.4904,
+      "fpr_token": 0.7691,
+      "type_accuracy": 0.75
+    },
+    "B_intersection": {
+      "span_precision": 0.4828,
+      "span_recall": 0.2545,
+      "span_f1": 0.3333,
+      "token_precision": 0.5157,
+      "token_recall": 0.6789,
+      "token_f1": 0.5862,
+      "pair_f1": 0.4118,
+      "fpr_pair": 0.0769,
+      "fpr_token": 0.2625,
+      "type_accuracy": 0.7143
+    },
+    "C_confidence": {
+      "span_precision": 0.1641,
+      "span_recall": 0.3818,
+      "span_f1": 0.2295,
+      "token_precision": 0.3454,
+      "token_recall": 0.9855,
+      "token_f1": 0.5116,
+      "pair_f1": 0.3419,
+      "fpr_pair": 0.4904,
+      "fpr_token": 0.7691,
+      "type_accuracy": 0.7143
+    },
+    "D_token_average": {
+      "span_precision": 0.157,
+      "span_recall": 0.3455,
+      "span_f1": 0.2159,
+      "token_precision": 0.3431,
+      "token_recall": 0.9627,
+      "token_f1": 0.5059,
+      "pair_f1": 0.3304,
+      "fpr_pair": 0.4808,
+      "fpr_token": 0.7591,
+      "type_accuracy": 0.8947
+    }
+  },
+  "best_token": "B_intersection",
+  "best_span": "B_intersection",
+  "lexical_span_f1": 0.2595,
+  "confirmed_on_test": false,
+  "seconds": 9.1
+}
