@@ -5985,5 +5985,31 @@
     "fpr_lead": "FPR_pair — ведущий в отчёте, FPR_token — строгая оценка рядом",
     "checkpoints": "манифесты + голова + fp16-слепок лучшего чекпоинта (53,2 МБ, sha256 cb86f5e9…2349); git-lfs недоступен в песочнице",
     "test": "не трогался"
+  },
+  "ragtruth_ru": {
+    "status": "перевод не выполнен: сеть песочницы блокирует все переводчики и HuggingFace",
+    "translated_chunks": 0,
+    "plan": {
+      "positives": 6000,
+      "negatives": 1500,
+      "spans": 10007,
+      "unique_documents": 2539,
+      "total_chars": 9069348
+    },
+    "selftest": {
+      "pairs": 300,
+      "negatives": 100,
+      "spans": 378,
+      "bounds_violations": 0,
+      "span_text_matches": "378/378"
+    },
+    "blockers": {
+      "google": "000",
+      "deepl": "000",
+      "yandex": "000",
+      "libretranslate": "000",
+      "huggingface": "000"
+    },
+    "metrics_policy": "отдельный источник, с нашими 1000 парами не смешивается"
   }
 }
