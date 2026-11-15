@@ -84,5 +84,23 @@
     }
   },
   "python": "3.11.2",
-  "built_utc": "2026-11-14T15:32:25Z"
+  "built_utc": "2026-11-14T15:32:25Z",
+  "headline": {
+    "target": "token F1 >= 0,50 при FPR <= 0,40 на val150",
+    "token_f1": 0.5592,
+    "token_precision": 0.4931,
+    "token_recall": 0.6457,
+    "fpr_pair": 0.2019,
+    "fpr_token": 0.2736,
+    "fpr_limit": 0.4,
+    "span_f1_model": 0.1255,
+    "pair_f1_model": 0.3855,
+    "type_accuracy": 0.7059,
+    "span_f1_lexical": 0.2835,
+    "pair_f1_lexical": 0.3547,
+    "checkpoint": "artifacts/negatives/epoch_1",
+    "decode": "порог токена 0.2, минимум 2 знака, гейт пары 0.45, привязка к клаузам expand",
+    "val_pairs": 150,
+    "gate_passed": true
+  }
 }

@@ -8,6 +8,8 @@ GRID = tuple(round(0.30 + 0.05 * step, 2) for step in range(13))
 
 def flags_for(pieces, threshold, neighbor=NEIGHBOR):
     scores = [score for _, _, score in pieces]
+    if neighbor is None:
+        return [score >= threshold for score in scores]
     flags = []
     for index, score in enumerate(scores):
         if score < threshold:
