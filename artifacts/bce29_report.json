@@ -1,0 +1,82 @@
+{
+  "status": "готово",
+  "checkpoint": "artifacts/checkpoints/stage_a_bce_w11_e1",
+  "training_loss": 1.1674362784925183,
+  "epoch_seconds": 2107.359,
+  "before_training": {
+    "model": "stage_a_full_e2, focal; веса fp32",
+    "batch_pair_ids": [
+      "rtru-10396",
+      "rtru-15106",
+      "rtru-2751",
+      "rtru-neg-8946",
+      "rtru-2378",
+      "rtru-7880",
+      "rtru-7242",
+      "rtru-neg-13898",
+      "rtru-11845",
+      "rtru-2501",
+      "rtru-208",
+      "rtru-neg-7176",
+      "rtru-11594",
+      "rtru-1412",
+      "rtru-neg-3278",
+      "rtru-5157"
+    ],
+    "labels": {
+      "positive": 148,
+      "negative": 2324
+    },
+    "pos_weight": 11,
+    "loss": {
+      "model": 1.076103506736385,
+      "constant_near_zero": 13.647847098440028,
+      "constant_099": 4.336075569819478,
+      "constant_05": 1.1081383467492163
+    },
+    "constant_zero_exact_loss": "infinity при наличии положительных меток",
+    "near_zero_probability": 1e-09,
+    "strictly_below_all": true,
+    "model_checkpoint_fp16_sha256": "e55e399602f491c660a4518bb63c38c1e94ae3ee417d5e11676372b242313421"
+  },
+  "after_training": {
+    "loss": {
+      "model": 0.9958432457111415,
+      "near_zero": 13.647846701461521,
+      "p099": 4.336075645048641,
+      "p05": 1.1081383540310135
+    },
+    "labels": {
+      "positive": 148,
+      "negative": 2324
+    },
+    "pos_weight": 11.0,
+    "strictly_below_all": true,
+    "near_zero_probability": 1e-09,
+    "exact_zero_loss": "infinity при наличии положительных меток"
+  },
+  "holdout": {
+    "pairs": 1458,
+    "token": {
+      "precision": 0.0845,
+      "recall": 0.9992,
+      "f1": 0.1558
+    },
+    "span": {
+      "tp": 178,
+      "fp": 11242,
+      "fn": 1319,
+      "precision": 0.0156,
+      "recall": 0.1189,
+      "f1": 0.0276
+    },
+    "pair": {
+      "precision": 0.3608,
+      "recall": 0.1383,
+      "f1": 0.2
+    },
+    "fpr_pair": 1.0,
+    "fpr_token": 0.9824
+  },
+  "total_seconds": 2448.873
+}
