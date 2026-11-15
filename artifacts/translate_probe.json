@@ -1,0 +1,46 @@
+{
+  "count": 200,
+  "channel_order": [
+    "dict-chrome-ex",
+    "simplytranslate",
+    "mymemory",
+    "lingva"
+  ],
+  "translated": 0,
+  "failed": 3,
+  "parts": 3,
+  "channel_status": {
+    "used": {
+      "dict-chrome-ex": 0,
+      "simplytranslate": 0,
+      "mymemory": 0,
+      "lingva": 0
+    },
+    "errors": {
+      "dict-chrome-ex": 3,
+      "simplytranslate": 3,
+      "mymemory": 3,
+      "lingva": 3
+    },
+    "disabled": []
+  },
+  "failure_samples": [
+    "dict-chrome-ex: TLS/SSL connection has been closed (EOF) (_ssl.c:992); simplytranslate: TLS/SSL connection has been closed (EOF) (_ssl.c:992); mymemory: TLS/SSL connection has been closed (EOF) (_ssl.c:992); lingva: TLS/SSL connection has been closed (EOF) (_ssl.c:992)"
+  ],
+  "elapsed_s": 5.4,
+  "status": "ни один канал не ответил",
+  "diagnosis": {
+    "level": "TLS-перехват egress-прокси песочницы, не 429",
+    "dns": "все хосты резолвятся",
+    "tcp_443": "соединение принимается за 0 мс",
+    "tls": "SSLZeroReturnError: TLS/SSL connection has been closed (EOF) — прокси рвёт рукопожатие для хостов вне белого списка",
+    "allowed_proof": "pypi.org проходит TLS успешно",
+    "http_429": "не получено ни одного ответа: до HTTP дело не доходит",
+    "hosts_blocked": [
+      "translate.googleapis.com",
+      "simplytranslate.org",
+      "api.mymemory.translated.net",
+      "lingva.ml"
+    ]
+  }
+}

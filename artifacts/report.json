@@ -5987,8 +5987,21 @@
     "test": "не трогался"
   },
   "ragtruth_ru": {
-    "status": "перевод не выполнен: сеть песочницы блокирует все переводчики и HuggingFace",
-    "translated_chunks": 0,
+    "status": "перевод невозможен из песочницы: TLS-перехват на всех четырёх каналах",
+    "channels": [
+      "dict-chrome-ex",
+      "simplytranslate",
+      "mymemory",
+      "lingva"
+    ],
+    "probe": {
+      "requested": 200,
+      "translated": 0,
+      "errors_per_channel": 4,
+      "http_429": 0,
+      "elapsed_s": 5.4
+    },
+    "diagnosis": "TCP принимается, TLS рвётся прокси; pypi.org проходит",
     "plan": {
       "positives": 6000,
       "negatives": 1500,
@@ -6000,15 +6013,7 @@
       "pairs": 300,
       "negatives": 100,
       "spans": 378,
-      "bounds_violations": 0,
-      "span_text_matches": "378/378"
-    },
-    "blockers": {
-      "google": "000",
-      "deepl": "000",
-      "yandex": "000",
-      "libretranslate": "000",
-      "huggingface": "000"
+      "bounds_violations": 0
     },
     "metrics_policy": "отдельный источник, с нашими 1000 парами не смешивается"
   }

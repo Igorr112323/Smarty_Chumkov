@@ -74,3 +74,26 @@ def test_select_pairs_balances_and_limits():
     assert len(positives) == 9
     assert len(negatives) == 3
     assert all(spans for _, spans in positives)
+
+
+def test_split_parts_respects_limit_and_keeps_text():
+    from tools.translate_ragtruth import MAX_PART, split_parts
+
+    text = ("word " * 2000).strip()
+    parts = split_parts(text)
+    assert parts
+    assert all(len(part) <= MAX_PART for part in parts)
+    assert "".join(parts) == text
+
+
+def test_split_parts_handles_short_text():
+    from tools.translate_ragtruth import split_parts
+
+    assert split_parts("hello") == ["hello"]
+    assert split_parts("") == []
+
+
+def test_channel_order_matches_contract():
+    from tools.translate_ragtruth import CHANNEL_ORDER
+
+    assert CHANNEL_ORDER == ("dict-chrome-ex", "simplytranslate", "mymemory", "lingva")
