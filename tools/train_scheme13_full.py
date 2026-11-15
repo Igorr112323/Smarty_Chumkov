@@ -1,5 +1,6 @@
 import argparse
 import gzip
+import hashlib
 import json
 import math
 import os
@@ -220,6 +221,10 @@ def main():
         manifest = json.loads((folder / "manifest.json").read_text(encoding="utf-8"))
         if manifest["epoch"] != args.epoch - 1 or manifest["train_id_sha256"] != id_digest(training) or manifest["holdout_id_sha256"] != id_digest(heldout) or manifest["training_code_sha256"] != digest(Path(__file__)):
             raise ValueError("манифест не подходит для продолжения")
+        for name in ("spanver/lexfeat.py", "spanver/span_detector.py"):
+            original = subprocess.check_output(["git", "show", f"{manifest['git_sha']}:{name}"], cwd=ROOT)
+            if hashlib.sha256(original).hexdigest() != digest(ROOT / name):
+                raise ValueError(f"код разметки изменён относительно чекпоинта: {name}")
         state = load_state(folder, manifest["training_state_parts"], torch)
         model.load_state_dict(state["model"], strict=True)
         optimizer.load_state_dict(state["optimizer"])

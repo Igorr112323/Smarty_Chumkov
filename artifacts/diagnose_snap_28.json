@@ -1,0 +1,265 @@
+{
+  "pairs": 50,
+  "raw_spans": 848,
+  "snapped_spans": 848,
+  "unique_snapped_spans": 668,
+  "duplicate_snapped_spans": 180,
+  "examples": [
+    {
+      "pair_id": "rtru-5741",
+      "raw": 27,
+      "expanded": 27,
+      "unique_expanded": 18,
+      "example_expanded_bounds": [
+        [
+          15,
+          34
+        ],
+        [
+          36,
+          65
+        ],
+        [
+          79,
+          109
+        ],
+        [
+          111,
+          152
+        ],
+        [
+          111,
+          152
+        ],
+        [
+          154,
+          229
+        ],
+        [
+          154,
+          247
+        ],
+        [
+          284,
+          346
+        ]
+      ]
+    },
+    {
+      "pair_id": "rtru-6417",
+      "raw": 44,
+      "expanded": 44,
+      "unique_expanded": 24,
+      "example_expanded_bounds": [
+        [
+          186,
+          219
+        ],
+        [
+          221,
+          245
+        ],
+        [
+          221,
+          245
+        ],
+        [
+          247,
+          250
+        ],
+        [
+          252,
+          260
+        ],
+        [
+          303,
+          328
+        ],
+        [
+          303,
+          328
+        ],
+        [
+          348,
+          369
+        ]
+      ]
+    },
+    {
+      "pair_id": "rtru-neg-239",
+      "raw": 26,
+      "expanded": 26,
+      "unique_expanded": 23,
+      "example_expanded_bounds": [
+        [
+          0,
+          87
+        ],
+        [
+          0,
+          128
+        ],
+        [
+          89,
+          170
+        ],
+        [
+          130,
+          170
+        ],
+        [
+          130,
+          170
+        ],
+        [
+          172,
+          196
+        ],
+        [
+          172,
+          240
+        ],
+        [
+          241,
+          278
+        ]
+      ]
+    },
+    {
+      "pair_id": "rtru-9689",
+      "raw": 49,
+      "expanded": 49,
+      "unique_expanded": 29,
+      "example_expanded_bounds": [
+        [
+          0,
+          23
+        ],
+        [
+          46,
+          72
+        ],
+        [
+          46,
+          72
+        ],
+        [
+          86,
+          117
+        ],
+        [
+          175,
+          190
+        ],
+        [
+          225,
+          259
+        ],
+        [
+          225,
+          259
+        ],
+        [
+          261,
+          277
+        ]
+      ]
+    },
+    {
+      "pair_id": "rtru-6430",
+      "raw": 48,
+      "expanded": 48,
+      "unique_expanded": 34,
+      "example_expanded_bounds": [
+        [
+          7,
+          38
+        ],
+        [
+          8,
+          38
+        ],
+        [
+          40,
+          94
+        ],
+        [
+          40,
+          106
+        ],
+        [
+          108,
+          151
+        ],
+        [
+          153,
+          235
+        ],
+        [
+          170,
+          236
+        ],
+        [
+          237,
+          259
+        ]
+      ]
+    }
+  ],
+  "raw_metrics_on_50_with_corrected_evaluator": {
+    "n_pairs": 50,
+    "n_pairs_with_spans": 37,
+    "n_neg_pairs": 13,
+    "span_level": {
+      "tp": 22,
+      "fp": 826,
+      "fn": 24,
+      "precision": 0.0259,
+      "recall": 0.4783,
+      "f1": 0.0492
+    },
+    "token_level": {
+      "precision": 0.0974,
+      "recall": 1.0,
+      "f1": 0.1775
+    },
+    "pair_level": {
+      "precision": 0.6061,
+      "recall": 0.5405,
+      "f1": 0.5714
+    },
+    "fpr": 1.0,
+    "type_accuracy": 0.0,
+    "type_correct": 0,
+    "iou_threshold": 0.5
+  },
+  "deduplicated_metrics_on_50_with_corrected_evaluator": {
+    "n_pairs": 50,
+    "n_pairs_with_spans": 37,
+    "n_neg_pairs": 13,
+    "span_level": {
+      "tp": 22,
+      "fp": 646,
+      "fn": 24,
+      "precision": 0.0329,
+      "recall": 0.4783,
+      "f1": 0.0616
+    },
+    "token_level": {
+      "precision": 0.0974,
+      "recall": 1.0,
+      "f1": 0.1775
+    },
+    "pair_level": {
+      "precision": 0.6061,
+      "recall": 0.5405,
+      "f1": 0.5714
+    },
+    "fpr": 1.0,
+    "type_accuracy": 0.0,
+    "type_correct": 0,
+    "iou_threshold": 0.5
+  },
+  "note": "checkpoint e2; RAGTruth held-out, случайные 50 пар; пороги не менялись; удаление дублей исследовано только для диагностики",
+  "seconds": 42.165
+}

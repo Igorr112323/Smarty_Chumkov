@@ -1,0 +1,457 @@
+{
+  "status": "диагностика завершена; новое обучение не выполнялось",
+  "audit_50": {
+    "before": {
+      "train_positive_subwords": 598,
+      "eval_positive_words_total": 431,
+      "visible_words": 5749,
+      "unrepresented_words": 0,
+      "train_positive_visible_words": 431,
+      "eval_positive_visible_words": 431,
+      "disagreements": 0,
+      "strict_subword_disagreements": 0
+    },
+    "after": {
+      "train_positive_subwords": 598,
+      "eval_positive_words_total": 431,
+      "visible_words": 5749,
+      "unrepresented_words": 0,
+      "train_positive_visible_words": 431,
+      "eval_positive_visible_words": 431,
+      "disagreements": 0,
+      "strict_subword_disagreements": 0
+    },
+    "examples": [
+      {
+        "pair_id": "rtru-596",
+        "train_positive_subwords": 19,
+        "eval_positive_words_total": 12,
+        "matched_positive_positions": [
+          {
+            "start": 142,
+            "end_inclusive": 146,
+            "text": "Новая",
+            "train_projection": 1,
+            "eval": 1
+          },
+          {
+            "start": 148,
+            "end_inclusive": 152,
+            "text": "книга",
+            "train_projection": 1,
+            "eval": 1
+          },
+          {
+            "start": 154,
+            "end_inclusive": 162,
+            "text": "расскажет",
+            "train_projection": 1,
+            "eval": 1
+          }
+        ],
+        "disagreement_fraction": 0.0
+      },
+      {
+        "pair_id": "rtru-13760",
+        "train_positive_subwords": 49,
+        "eval_positive_words_total": 33,
+        "matched_positive_positions": [
+          {
+            "start": 447,
+            "end_inclusive": 450,
+            "text": "Этот",
+            "train_projection": 1,
+            "eval": 1
+          },
+          {
+            "start": 452,
+            "end_inclusive": 456,
+            "text": "метод",
+            "train_projection": 1,
+            "eval": 1
+          },
+          {
+            "start": 458,
+            "end_inclusive": 465,
+            "text": "применим",
+            "train_projection": 1,
+            "eval": 1
+          }
+        ],
+        "disagreement_fraction": 0.0
+      },
+      {
+        "pair_id": "rtru-16484",
+        "train_positive_subwords": 48,
+        "eval_positive_words_total": 35,
+        "matched_positive_positions": [
+          {
+            "start": 338,
+            "end_inclusive": 346,
+            "text": "Напротив,",
+            "train_projection": 1,
+            "eval": 1
+          },
+          {
+            "start": 348,
+            "end_inclusive": 353,
+            "text": "диабет",
+            "train_projection": 1,
+            "eval": 1
+          },
+          {
+            "start": 355,
+            "end_inclusive": 355,
+            "text": "1",
+            "train_projection": 1,
+            "eval": 1
+          }
+        ],
+        "disagreement_fraction": 0.0
+      }
+    ],
+    "detail": "artifacts/diagnose_scheme13_before.json и artifacts/diagnose_scheme13_after.json"
+  },
+  "dataset_token_stats_before_fix": {
+    "ragtruth_all": {
+      "pairs": 7500,
+      "train_subwords": 1281312,
+      "train_positive_subwords": 103185,
+      "train_positive_per_pair": 13.758,
+      "train_positive_fraction": 0.08053073724432457,
+      "eval_whitespace_tokens": 889550,
+      "eval_positive_tokens": 72470,
+      "eval_positive_per_pair": 9.662666666666667,
+      "eval_positive_fraction": 0.08146815805744477
+    },
+    "ours_699": {
+      "pairs": 699,
+      "train_subwords": 36857,
+      "train_positive_subwords": 12244,
+      "train_positive_per_pair": 17.51645207439199,
+      "train_positive_fraction": 0.3322028379954961,
+      "eval_whitespace_tokens": 25557,
+      "eval_positive_tokens": 8522,
+      "eval_positive_per_pair": 12.19170243204578,
+      "eval_positive_fraction": 0.3334507180028955
+    }
+  },
+  "loss_batch_before_fix": {
+    "pair_ids": [
+      "rtru-10396",
+      "rtru-15106",
+      "rtru-2751",
+      "rtru-neg-8946",
+      "rtru-2378",
+      "rtru-7880",
+      "rtru-7242",
+      "rtru-neg-13898",
+      "rtru-11845",
+      "rtru-2501",
+      "rtru-208",
+      "rtru-neg-7176",
+      "rtru-11594",
+      "rtru-1412",
+      "rtru-neg-3278",
+      "rtru-5157"
+    ],
+    "labels": {
+      "zero": 2324,
+      "one": 148
+    },
+    "counterfactual_probability_note": "все единицы/нули заданы конечными вероятностями 0,99/0,01; loss зависит от уверенности",
+    "values": {
+      "trained_e2": {
+        "focal_token_loss": 0.07913414761424065,
+        "pair_loss": 0.6646129190921783,
+        "total_loss": 0.2785180233418941,
+        "probabilities_by_true_class": {
+          "0": {
+            "mean_probability": 0.2775056603654783,
+            "fraction_ge_025": 0.5679862306368331,
+            "fraction_ge_050": 0.034853700516351116
+          },
+          "1": {
+            "mean_probability": 0.33236469197514895,
+            "fraction_ge_025": 0.8243243243243243,
+            "fraction_ge_050": 0.07432432432432433
+          }
+        }
+      },
+      "all_positive_p099": {
+        "focal_token_loss": 4.026210427284241,
+        "pair_loss": 1.1588302850723267,
+        "total_loss": 4.3738595128059385,
+        "probabilities_by_true_class": {
+          "0": {
+            "mean_probability": 0.9900000691413879,
+            "fraction_ge_025": 1.0,
+            "fraction_ge_050": 1.0
+          },
+          "1": {
+            "mean_probability": 0.9900000691413879,
+            "fraction_ge_025": 1.0,
+            "fraction_ge_050": 1.0
+          }
+        }
+      },
+      "all_negative_p001": {
+        "focal_token_loss": 0.26215752214193344,
+        "pair_loss": 3.4563903212547302,
+        "total_loss": 1.2990746185183524,
+        "probabilities_by_true_class": {
+          "0": {
+            "mean_probability": 0.009999999776482582,
+            "fraction_ge_025": 0.0,
+            "fraction_ge_050": 0.0
+          },
+          "1": {
+            "mean_probability": 0.009999999776482582,
+            "fraction_ge_025": 0.0,
+            "fraction_ge_050": 0.0
+          }
+        }
+      },
+      "all_positive_p026": {
+        "focal_token_loss": 0.06577017437666655,
+        "pair_loss": 1.0855814218521118,
+        "total_loss": 0.3914446009323001,
+        "probabilities_by_true_class": {
+          "0": {
+            "mean_probability": 0.25999999046325684,
+            "fraction_ge_025": 1.0,
+            "fraction_ge_050": 0.0
+          },
+          "1": {
+            "mean_probability": 0.25999999046325684,
+            "fraction_ge_025": 1.0,
+            "fraction_ge_050": 0.0
+          }
+        }
+      }
+    }
+  },
+  "negatives_before_fix": {
+    "train_negative_count": 1213,
+    "negatives_with_positive_labels": 0,
+    "examples_20": [
+      {
+        "pair_id": "rtru-neg-11341",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-11998",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-12183",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-13711",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-14195",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-14471",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-15075",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-15138",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-15864",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-15870",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-15898",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-17712",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-2964",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-306",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-320",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-3233",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-3278",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-4860",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-6301",
+        "positive_subwords": 0
+      },
+      {
+        "pair_id": "rtru-neg-8599",
+        "positive_subwords": 0
+      }
+    ]
+  },
+  "chunking_before_fix": {
+    "implementation": "документ разбивается на чанки; ответ не разбивается на окна, longest_first обрезает пару до 512 токенов",
+    "rag_pairs_checked": 7500,
+    "rag_pairs_with_answer_over_512_subwords": 0,
+    "answer_subword_median": 163.0,
+    "answer_subword_max": 467,
+    "rag_pairs_with_truncated_answer_subwords": 33,
+    "positive_spans_checked": 7830,
+    "positive_spans_fully_unrepresented": 0,
+    "positive_spans_partially_represented": 5,
+    "positive_spans_without_subwords": 0,
+    "long_examples_note": "20 самых длинных ответов; ответов длиннее 512 subword может быть меньше 20"
+  },
+  "twenty_longest_answers": "artifacts/diagnose_scheme13_before.json: chunking.long_examples",
+  "truncation_detail": {
+    "pairs": 33,
+    "partial_spans": 5,
+    "file": "artifacts/diagnose_scheme13_truncated.json"
+  },
+  "boundary_check_all": {
+    "pairs": 7500,
+    "old_subword_differences": 77,
+    "fixed_subword_differences": 0,
+    "subwords_in_positive_pairs_checked": 1056847,
+    "pairs_with_old_subword_differences": 77,
+    "old_metric_word_differences": 5,
+    "fixed_metric_word_differences": 0,
+    "pairs_with_old_metric_differences": 5,
+    "seconds": 216.03
+  },
+  "boundary_examples": "artifacts/diagnose_scheme13_boundaries.json",
+  "duplicate_spans_diagnostic": {
+    "pairs": 50,
+    "raw_spans": 848,
+    "snapped_spans": 848,
+    "unique_snapped_spans": 668,
+    "duplicate_snapped_spans": 180,
+    "raw_metrics_on_50_with_corrected_evaluator": {
+      "n_pairs": 50,
+      "n_pairs_with_spans": 37,
+      "n_neg_pairs": 13,
+      "span_level": {
+        "tp": 22,
+        "fp": 826,
+        "fn": 24,
+        "precision": 0.0259,
+        "recall": 0.4783,
+        "f1": 0.0492
+      },
+      "token_level": {
+        "precision": 0.0974,
+        "recall": 1.0,
+        "f1": 0.1775
+      },
+      "pair_level": {
+        "precision": 0.6061,
+        "recall": 0.5405,
+        "f1": 0.5714
+      },
+      "fpr": 1.0,
+      "type_accuracy": 0.0,
+      "type_correct": 0,
+      "iou_threshold": 0.5
+    },
+    "deduplicated_metrics_on_50_with_corrected_evaluator": {
+      "n_pairs": 50,
+      "n_pairs_with_spans": 37,
+      "n_neg_pairs": 13,
+      "span_level": {
+        "tp": 22,
+        "fp": 646,
+        "fn": 24,
+        "precision": 0.0329,
+        "recall": 0.4783,
+        "f1": 0.0616
+      },
+      "token_level": {
+        "precision": 0.0974,
+        "recall": 1.0,
+        "f1": 0.1775
+      },
+      "pair_level": {
+        "precision": 0.6061,
+        "recall": 0.5405,
+        "f1": 0.5714
+      },
+      "fpr": 1.0,
+      "type_accuracy": 0.0,
+      "type_correct": 0,
+      "iou_threshold": 0.5
+    }
+  },
+  "reference_cv": {
+    "scheme12_bce": {
+      "loss": "bce по умолчанию",
+      "span_precision": {
+        "mean": 0.3508,
+        "std": 0.0679
+      },
+      "span_f1": {
+        "mean": 0.2982,
+        "std": 0.0501
+      }
+    },
+    "focal2": {
+      "loss": "focal2",
+      "span_precision": {
+        "mean": 0.3819,
+        "std": 0.0817
+      },
+      "span_f1": {
+        "mean": 0.3263,
+        "std": 0.0517
+      }
+    },
+    "note": "разные данные и состав батчей; эти ранее сохранённые CV-метрики не пересчитывались после исправления метрики"
+  },
+  "changes": [
+    "исправлено пересечение half-open субтокена с включительной границей спана в обучающих метках",
+    "токен метрики засчитывается при любом пересечении со спаном",
+    "исправлена лишняя единица в координатах выходных субтокенов обоих методов инференса",
+    "на будущее продолжение обучения защищено проверкой исходного кода; старые чекпоинты автоматически не продолжаются с новой разметкой"
+  ],
+  "not_done": [
+    "третья эпоха и ступень B не запускались",
+    "окна ответов и потеря частично обрезанных спанов не исправлены",
+    "BCE с весами не запускался: диагностические проверки не все чистые",
+    "полные метрики старых чекпоинтов после изменения оценки не пересчитывались",
+    "test 301 не запускался"
+  ],
+  "time_seconds": {
+    "full_before": 281.194,
+    "audit_after": 4.314,
+    "boundary_check": 216.03,
+    "truncation_detail": 93.537,
+    "snap_sample": 42.165
+  }
+}

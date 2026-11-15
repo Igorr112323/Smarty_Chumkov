@@ -63,7 +63,7 @@ def build_row(tokenizer, pair, max_length=512):
     for index, start, end in encoded["answer_tokens"]:
         answer_mask[index] = 1
         features[index] = aligned(rows, start, end + 1)
-        labels[index] = 1 if any(min(end, span["end"]) - max(start, span["start"]) >= 0 for span in gold) else 0
+        labels[index] = 1 if any(min(end, span["end"] + 1) > max(start, span["start"]) for span in gold) else 0
     return {
         "pair_id": pair.get("pair_id"),
         "input_ids": encoded["input_ids"],
@@ -177,7 +177,7 @@ def pair_probabilities(tokenizer, model, pair, top=4, max_length=512):
             value = float(probabilities[position][index])
             previous = best.get(start)
             if previous is None or value > previous[2]:
-                best[start] = (start, end + 1, value)
+                best[start] = (start, end, value)
     pieces = [best[key] for key in sorted(best)]
     return {"answer": answer, "pieces": pieces}
 
@@ -317,5 +317,5 @@ def batched_probabilities(tokenizer, model, pairs, top=4, max_length=512, batch=
                 value = float(probabilities[position][index])
                 previous = best.get(left)
                 if previous is None or value > previous[2]:
-                    best[left] = (left, right + 1, value)
+                    best[left] = (left, right, value)
     return {key: {"answer": value["answer"], "pieces": [value["best"][left] for left in sorted(value["best"])]} for key, value in results.items()}
