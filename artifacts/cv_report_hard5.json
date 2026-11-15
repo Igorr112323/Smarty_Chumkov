@@ -1,0 +1,196 @@
+{
+  "tag": "hard5",
+  "folds": 5,
+  "epochs": 1,
+  "pairs": 699,
+  "negatives": 2994,
+  "hard_negatives": 44,
+  "decode": {
+    "token_threshold": 0.25,
+    "pair_gate": 0.45,
+    "min_chars": 2,
+    "snap": "expand"
+  },
+  "fold_sizes": [
+    140,
+    143,
+    139,
+    136,
+    141
+  ],
+  "rows": [
+    {
+      "token_precision": 0.3686,
+      "token_recall": 0.51,
+      "token_f1": 0.4279,
+      "span_precision": 0.0379,
+      "span_recall": 0.25,
+      "span_f1": 0.0658,
+      "pair_f1": 0.339,
+      "fpr_pair": 0.1165,
+      "fpr_token": 0.2921,
+      "type_accuracy": 0.5,
+      "fold": 1,
+      "held_pairs": 140,
+      "train_pairs": 559,
+      "hard_negatives_used": 33,
+      "seconds": 169.4,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.122732,
+        "pair_loss": 2.118804,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 70
+      },
+      "checkpoint": "artifacts/cv/hard5/fold_1"
+    },
+    {
+      "token_precision": 0.6388,
+      "token_recall": 0.3682,
+      "token_f1": 0.4671,
+      "span_precision": 0.0212,
+      "span_recall": 0.0952,
+      "span_f1": 0.0347,
+      "pair_f1": 0.1905,
+      "fpr_pair": 0.0549,
+      "fpr_token": 0.1314,
+      "type_accuracy": 0.6667,
+      "fold": 2,
+      "held_pairs": 143,
+      "train_pairs": 556,
+      "hard_negatives_used": 37,
+      "seconds": 165.9,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.132578,
+        "pair_loss": 2.188079,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 70
+      },
+      "checkpoint": "artifacts/cv/hard5/fold_2"
+    },
+    {
+      "token_precision": 0.4609,
+      "token_recall": 0.2309,
+      "token_f1": 0.3077,
+      "span_precision": 0.0165,
+      "span_recall": 0.0645,
+      "span_f1": 0.0262,
+      "pair_f1": 0.1481,
+      "fpr_pair": 0.043,
+      "fpr_token": 0.1467,
+      "type_accuracy": 0.75,
+      "fold": 3,
+      "held_pairs": 139,
+      "train_pairs": 560,
+      "hard_negatives_used": 39,
+      "seconds": 171.2,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.089329,
+        "pair_loss": 2.137825,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 70
+      },
+      "checkpoint": "artifacts/cv/hard5/fold_3"
+    },
+    {
+      "token_precision": 0.4524,
+      "token_recall": 0.4398,
+      "token_f1": 0.446,
+      "span_precision": 0.0395,
+      "span_recall": 0.2642,
+      "span_f1": 0.0688,
+      "pair_f1": 0.303,
+      "fpr_pair": 0.1304,
+      "fpr_token": 0.2592,
+      "type_accuracy": 0.6429,
+      "fold": 4,
+      "held_pairs": 136,
+      "train_pairs": 563,
+      "hard_negatives_used": 33,
+      "seconds": 177.4,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.150182,
+        "pair_loss": 2.131312,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 71
+      },
+      "checkpoint": "artifacts/cv/hard5/fold_4"
+    },
+    {
+      "token_precision": 0.4874,
+      "token_recall": 0.4977,
+      "token_f1": 0.4925,
+      "span_precision": 0.0327,
+      "span_recall": 0.1757,
+      "span_f1": 0.0551,
+      "pair_f1": 0.2963,
+      "fpr_pair": 0.1111,
+      "fpr_token": 0.2714,
+      "type_accuracy": 0.6154,
+      "fold": 5,
+      "held_pairs": 141,
+      "train_pairs": 558,
+      "hard_negatives_used": 34,
+      "seconds": 174.1,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.124674,
+        "pair_loss": 2.08197,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 70
+      },
+      "checkpoint": "artifacts/cv/hard5/fold_5"
+    }
+  ],
+  "summary": {
+    "token_f1": {
+      "mean": 0.4282,
+      "std": 0.064
+    },
+    "span_f1": {
+      "mean": 0.0501,
+      "std": 0.0169
+    },
+    "pair_f1": {
+      "mean": 0.2554,
+      "std": 0.073
+    },
+    "fpr_pair": {
+      "mean": 0.0912,
+      "std": 0.0353
+    },
+    "fpr_token": {
+      "mean": 0.2202,
+      "std": 0.0672
+    },
+    "token_precision": {
+      "mean": 0.4816,
+      "std": 0.0881
+    },
+    "token_recall": {
+      "mean": 0.4093,
+      "std": 0.1024
+    },
+    "span_precision": {
+      "mean": 0.0296,
+      "std": 0.0092
+    },
+    "span_recall": {
+      "mean": 0.1699,
+      "std": 0.08
+    },
+    "type_accuracy": {
+      "mean": 0.635,
+      "std": 0.0811
+    }
+  },
+  "elapsed_s": 858.1
+}
