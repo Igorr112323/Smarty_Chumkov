@@ -1,0 +1,83 @@
+{
+  "status": "подготовка и аудит; обучение и метрики не выполнены",
+  "seed": 0,
+  "inputs": {
+    "Dataset/RAGTruth_ru/ragtruth_ru.jsonl": "4acb2988a0c5dc980517fdc5172b1e9ca0a6a6546030f6434fca2504038800ef",
+    "Dataset/RAGTruth_ru/ragtruth_ru_negative.jsonl": "3037ea3f18da4cd1376f61a99099d5ff0fd65a9aabf4ad0bfbfa810d152c4ee3"
+  },
+  "rag_positive": {
+    "pairs": 6000,
+    "spans": 7830,
+    "median_span_chars": 41.0,
+    "invalid_spans": 0,
+    "empty_documents": 0,
+    "id_sha256": "06d97040ff2c9673a17fb44c42b18b81a4265787f3439ff3092b77678de16be3"
+  },
+  "rag_negative": {
+    "pairs": 1500,
+    "spans": 0,
+    "median_span_chars": null,
+    "invalid_spans": 0,
+    "empty_documents": 0,
+    "id_sha256": "054ed1ae2442dccd7483e9957f0cad53efb08c9af2b4bb5b8e74d5494b827008"
+  },
+  "rag_types": {
+    "Evident Baseless Info": 3595,
+    "Evident Conflict": 2834,
+    "Subtle Baseless Info": 1265,
+    "Subtle Conflict": 136
+  },
+  "rag_doc_ids": 2814,
+  "rag_document_texts": 2813,
+  "rag_ids_with_multiple_texts": 0,
+  "rag_texts_with_multiple_ids": 1,
+  "rag_ids_not_sha256_of_translated_document": 7500,
+  "rag_holdout_method": "связные компоненты по doc_id и точному тексту; seed 0; первая из пяти групп",
+  "rag_train": {
+    "pairs": 6042,
+    "spans": 6333,
+    "median_span_chars": 40,
+    "invalid_spans": 0,
+    "empty_documents": 0,
+    "id_sha256": "cfad08319acd8969a85a920caae19f9f910ad045d096b02a82a1771cfe6eb7f9"
+  },
+  "rag_holdout": {
+    "pairs": 1458,
+    "spans": 1497,
+    "median_span_chars": 42,
+    "invalid_spans": 0,
+    "empty_documents": 0,
+    "id_sha256": "112a4e747322ac98bac08add30111263c94659a40bb5dc939a98ee1ede403aa0"
+  },
+  "rag_train_doc_ids": 2251,
+  "rag_holdout_doc_ids": 563,
+  "rag_doc_overlap": 0,
+  "ours_train_val_only": {
+    "pairs": 699,
+    "spans": 300,
+    "median_span_chars": 157.0,
+    "invalid_spans": 0,
+    "empty_documents": 0,
+    "id_sha256": "22fd4f1dc99bb96c59ed644725690be9d7d7f5fbeac7cb1189b7bc237c088da1"
+  },
+  "ours_components": 662,
+  "ours_fold_sizes": [
+    140,
+    138,
+    141,
+    141,
+    139
+  ],
+  "ours_fold_id_sha256": [
+    "fe9fb7325d403f4e053def978f0909cb4addb8fb027fcc73bd0365d82e624c1f",
+    "5d6a4ef36e62ccd9b5a23bb43c6a89dd54a65acff2b96b1a97d1e4cfc8c72355",
+    "a908fa3a518e6fe1156af37e70ddee369613b058ab1957f0088a122e17fb7cb0",
+    "ceda8092501a875b25e8b41764b659a132411007f59e2a8fff03c8041787b019",
+    "620f068e053972140c383cc54ece3c605ddf2c881c2ebb495b57383a9e4de06f"
+  ],
+  "notes": [
+    "Разметка test не обрабатывалась и оценка test не проводилась.",
+    "Для честной оценки RAGTruth ступень A должна использовать только 80% документов.",
+    "Типы RAGTruth не совпадают с типами наших данных; прямое сравнение точности типа некорректно."
+  ]
+}
