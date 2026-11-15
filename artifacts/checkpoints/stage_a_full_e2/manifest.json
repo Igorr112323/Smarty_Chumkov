@@ -1,0 +1,73 @@
+{
+  "epoch": 2,
+  "seed": 0,
+  "git_sha": "4cd4058c27b2cfa0b2f217f2217ea5b87737ee57",
+  "training_code_sha256": "a6063fd70c4c9ecb5e47718a2131662bc63bd16b6a6caa1bd8a43166e56ca4bc",
+  "preflight_code_sha256": "4c5f5a9b80c2b81a02ea7d11cae8a3a9a623400381c2ea6f3485908d770c24b1",
+  "data_sha256": {
+    "ragtruth_ru.jsonl": "4acb2988a0c5dc980517fdc5172b1e9ca0a6a6546030f6434fca2504038800ef",
+    "ragtruth_ru_negative.jsonl": "3037ea3f18da4cd1376f61a99099d5ff0fd65a9aabf4ad0bfbfa810d152c4ee3"
+  },
+  "base_weights_sha256": "137fa2b1d944dae19c74456dfe8fac2f780d9acf34e037f5d1e37acba1157768",
+  "train_pairs": 6042,
+  "train_positives": 4829,
+  "train_negatives": 1213,
+  "train_id_sha256": "cfad08319acd8969a85a920caae19f9f910ad045d096b02a82a1771cfe6eb7f9",
+  "holdout_pairs": 1458,
+  "holdout_id_sha256": "112a4e747322ac98bac08add30111263c94659a40bb5dc939a98ee1ede403aa0",
+  "config": {
+    "features": 5,
+    "focal_gamma": 2.0,
+    "label_smoothing": 0.1,
+    "pair_weight": 0.3,
+    "batch_size": 16,
+    "micro_batch": 4,
+    "encoder_rate": 2e-05,
+    "head_rate": 0.0005,
+    "weight_decay": 0.01,
+    "scheduler": "linear warmup 10% and decay across 3 epochs",
+    "threads": 2,
+    "torch": "2.15.0+cu132"
+  },
+  "loss": {
+    "token_loss": 0.08730942771475034,
+    "pair_loss": 0.48446994335278104,
+    "total_loss": 0.23265041072058465,
+    "epoch_seconds": 2061.289,
+    "batches": 378,
+    "examples": 6042
+  },
+  "training_state_parts": [
+    {
+      "name": "training_state_000.gzpart",
+      "bytes": 50331648,
+      "sha256": "11cff7a85aecab0eb96fd47b38a371bababb0518c5cd7c8ed15aa674cfa0f47f"
+    },
+    {
+      "name": "training_state_001.gzpart",
+      "bytes": 50331648,
+      "sha256": "1c4cd346351dc00cfe248afba261829cec7d63696397b2a7695401af4140a641"
+    },
+    {
+      "name": "training_state_002.gzpart",
+      "bytes": 50331648,
+      "sha256": "603c0caf32f2d4a539e410a7ab24610a5e9fe30ceb9a76429855d5ac388dedc6"
+    },
+    {
+      "name": "training_state_003.gzpart",
+      "bytes": 50331648,
+      "sha256": "1b8f8ee033dc196cc23a064b9334ddd2ddd385b4eba8f3c2db4f95b994e2b275"
+    },
+    {
+      "name": "training_state_004.gzpart",
+      "bytes": 45428738,
+      "sha256": "ef3ea131a214d9c751fc2f27bebb57784021b22e25446dcff51973500fbc6e83"
+    }
+  ],
+  "fp16": {
+    "name": "state_dict_fp16.pt.gz",
+    "bytes": 53222955,
+    "sha256": "e55e399602f491c660a4518bb63c38c1e94ae3ee417d5e11676372b242313421"
+  },
+  "resume": "python tools/train_scheme13_full.py --epoch 3 --resume artifacts/checkpoints/stage_a_full_e2"
+}
