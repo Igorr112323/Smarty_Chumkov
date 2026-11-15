@@ -1,0 +1,42 @@
+{
+  "mode": "control",
+  "code_sha256": "030176f53d85ddbaa3e3a189bf55107012e4d008e2c10947b5930c8667aa68af",
+  "encoder_code_sha256": "897e4f0369691d968c5b17ad3334eb0428302c303a5f2c28c0f0f0ba2ac6cd62",
+  "control": {
+    "model": "stage_a_full_e2, focal; веса fp32",
+    "batch_pair_ids": [
+      "rtru-10396",
+      "rtru-15106",
+      "rtru-2751",
+      "rtru-neg-8946",
+      "rtru-2378",
+      "rtru-7880",
+      "rtru-7242",
+      "rtru-neg-13898",
+      "rtru-11845",
+      "rtru-2501",
+      "rtru-208",
+      "rtru-neg-7176",
+      "rtru-11594",
+      "rtru-1412",
+      "rtru-neg-3278",
+      "rtru-5157"
+    ],
+    "labels": {
+      "positive": 148,
+      "negative": 2324
+    },
+    "pos_weight": 11,
+    "loss": {
+      "model": 1.076103506736385,
+      "constant_near_zero": 13.647847098440028,
+      "constant_099": 4.336075569819478,
+      "constant_05": 1.1081383467492163
+    },
+    "constant_zero_exact_loss": "infinity при наличии положительных меток",
+    "near_zero_probability": 1e-09,
+    "strictly_below_all": true,
+    "model_checkpoint_fp16_sha256": "e55e399602f491c660a4518bb63c38c1e94ae3ee417d5e11676372b242313421"
+  },
+  "seconds": 12.702
+}
