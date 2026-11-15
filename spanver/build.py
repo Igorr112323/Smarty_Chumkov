@@ -9,6 +9,7 @@ from .pairs import doc_ids, ordered
 from .qc import inspect
 from .report import build_report
 from .split import UNUSED, assign, doc_overlap
+from .splits import canonical_assignment
 from .types import TYPE_KEYS, classify
 
 GOLD_FILES = (
@@ -109,8 +110,20 @@ def apply_split(out_path, gold):
     unlabeled = read_jsonl(out_path / "pairs_unlabeled.jsonl")
     everything = gold + unlabeled
     assignment, stats = assign(everything)
+    canonical = canonical_assignment()
+    overridden = 0
     for pair in everything:
+        fixed = canonical.get(pair["pair_id"])
         pair["split"] = assignment[pair["pair_id"]]
+        if fixed:
+            pair["split"] = fixed
+            overridden += 1
+    if overridden:
+        counts = {key: 0 for key in (UNUSED, "val", "train", "test")}
+        for pair in everything:
+            counts[pair["split"]] = counts.get(pair["split"], 0) + 1
+        stats["split_counts"] = counts
+        stats["canonical_overridden"] = overridden
     write_jsonl(out_path / "gold.jsonl", gold)
     if unlabeled:
         write_jsonl(out_path / "pairs_unlabeled.jsonl", unlabeled)

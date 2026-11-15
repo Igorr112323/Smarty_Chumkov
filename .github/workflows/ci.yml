@@ -1,0 +1,82 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: install
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+      - name: data
+        run: |
+          python tools/read_parquet.py --out artifacts
+          python -m spanver build --dataset Dataset --out artifacts
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          expected = "fddd62ce05baf028b64cb6db81b89053bdc5444a540c6e18e34e318577c8b32b"
+          found = hashlib.sha256(Path("artifacts/gold.jsonl").read_bytes()).hexdigest()
+          print(f"gold sha256 {found}")
+          assert found == expected, f"gold.jsonl расходится с эталоном: {found}"
+          PY
+      - name: pytest
+        run: python -m pytest -q
+      - name: package
+        run: |
+          python tools/build_package.py
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          record = Path("package.sha256")
+          expected = record.read_text(encoding="utf-8").split()[0] if record.exists() else ""
+          limit = 614400
+          data = json.loads(Path("artifacts/package.json").read_text(encoding="utf-8"))
+          size = data["bytes"]
+          sha = data["sha256"]
+          assert size <= limit, f"пакет {size} байт больше лимита {limit}"
+          match = bool(expected) and sha == expected
+          if expected and not match:
+              print(f"::error::sha256 пакета {sha} не равен эталону {expected}")
+          print(f"package {data['package']}")
+          print(f"bytes {size}")
+          print(f"limit {limit} ok")
+          print(f"sha256 {sha}")
+          print(f"expected {expected} match={match}")
+          lines = [
+              "| показатель | значение |",
+              "|---|---|",
+              f"| пакет | {data['package']} |",
+              f"| размер | {size} байт (лимит {limit}) |",
+              f"| sha256 | {sha} |",
+              f"| sha256 совпал с эталоном | {'да' if match else 'нет'} |",
+              f"| python | {os.sys.version.split()[0]} |",
+          ]
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          assert match, "sha256 пакета не совпал с эталоном package.sha256"
+          print("sha256 совпал с эталоном")
+          PY
+      - name: upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: spanver-package-py${{ matrix.python-version }}
+          path: artifacts/spanver-0.2.0.zip
+          if-no-files-found: error

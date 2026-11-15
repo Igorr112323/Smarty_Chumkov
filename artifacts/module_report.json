@@ -1,0 +1,194 @@
+{
+  "main_head": "f3a844e311f9b3f204deabbe6c97b45aceab1d70",
+  "module": {
+    "core_files": [
+      "spanver/module.py",
+      "spanver/api.py",
+      "spanver/cli.py"
+    ],
+    "core_size_kb": 28.6,
+    "five_token_features": [
+      "number",
+      "entity",
+      "uncertainty",
+      "negation",
+      "doc_overlap"
+    ],
+    "threshold_val": 0.98,
+    "iou_threshold": 0.5
+  },
+  "contract": {
+    "answer": [
+      "ai_share",
+      "meta",
+      "spans"
+    ],
+    "span": [
+      "confidence",
+      "end",
+      "risk",
+      "start",
+      "type"
+    ],
+    "meta": [
+      "ai_share_raw",
+      "answer_len",
+      "doc_len",
+      "elapsed_ms",
+      "n_spans"
+    ],
+    "types": [
+      "contradiction",
+      "number",
+      "entity",
+      "omission",
+      "unsupported_addition",
+      "temporal",
+      "scope"
+    ],
+    "interfaces": [
+      "cli",
+      "http",
+      "web"
+    ],
+    "stdlib_only": true,
+    "network": false,
+    "gpu": false
+  },
+  "metric_rule": "IoU>=0.5, no type match",
+  "eval_test": {
+    "n_pairs": 301,
+    "n_pairs_with_spans": 94,
+    "n_neg_pairs": 207,
+    "span_level": {
+      "tp": 36,
+      "fp": 95,
+      "fn": 87,
+      "precision": 0.2748,
+      "recall": 0.2927,
+      "f1": 0.2835
+    },
+    "token_level": {
+      "precision": 0.2856,
+      "recall": 0.6259,
+      "f1": 0.3923
+    },
+    "pair_level": {
+      "precision": 0.3303,
+      "recall": 0.383,
+      "f1": 0.3547
+    },
+    "fpr": 0.3527,
+    "type_accuracy": 0.75,
+    "contract_pass": {
+      "f1_ge_0.50": false,
+      "fpr_le_0.40": true
+    }
+  },
+  "ceiling": {
+    "gold_spans": 123,
+    "oracle_covered": 107,
+    "oracle_recall": 0.8699,
+    "pairs_with_gold": 94,
+    "pairs_coverable": 84
+  },
+  "speed": {
+    "stress_chars": 50000,
+    "runs": 3,
+    "median_elapsed_ms": 463,
+    "under_1s": true
+  },
+  "ai_share_calib": {
+    "points": [
+      {
+        "share": 0.0,
+        "ai_share": 0.0,
+        "abs_err": 0.0,
+        "raw": 0.0,
+        "n_human": 40,
+        "n_ai": 0
+      },
+      {
+        "share": 0.25,
+        "ai_share": 0.25,
+        "abs_err": 0.0,
+        "raw": 0.173,
+        "n_human": 30,
+        "n_ai": 10
+      },
+      {
+        "share": 0.5,
+        "ai_share": 0.5,
+        "abs_err": 0.0,
+        "raw": 0.3321,
+        "n_human": 20,
+        "n_ai": 20
+      },
+      {
+        "share": 0.75,
+        "ai_share": 0.75,
+        "abs_err": 0.0,
+        "raw": 0.4892,
+        "n_human": 10,
+        "n_ai": 30
+      },
+      {
+        "share": 1.0,
+        "ai_share": 1.0,
+        "abs_err": 0.0,
+        "raw": 0.6542,
+        "n_human": 0,
+        "n_ai": 40
+      }
+    ],
+    "max_abs_err": 0.0,
+    "loo_max_abs_err": 0.25,
+    "curve": [
+      {
+        "raw": 0.0,
+        "share": 0.0
+      },
+      {
+        "raw": 0.173,
+        "share": 0.25
+      },
+      {
+        "raw": 0.3321,
+        "share": 0.5
+      },
+      {
+        "raw": 0.4892,
+        "share": 0.75
+      },
+      {
+        "raw": 0.6542,
+        "share": 1.0
+      }
+    ],
+    "mixtures": 5,
+    "sha256": "afbfd35f85731e8acc9cb0a584974f481c4ac6e8b1fe5c0ceb368d0e9fdef989"
+  },
+  "package": {
+    "built": true,
+    "package": "spanver-0.2.0.zip",
+    "bytes": 224296,
+    "size_kb": 219.0,
+    "under_limit": true,
+    "sha256": "949dc795e6237d9f27cccada189683d4dec422fef08dcc572ae8eec3f8dda9f4",
+    "python_requires": ">=3.10"
+  },
+  "stress": {
+    "stress_chars": 2000000,
+    "runs": 3,
+    "median_elapsed_ms": 17672,
+    "ms_per_1000": 8.836,
+    "under_60s": true,
+    "under_30ms_per_1000": true
+  },
+  "ai_share_sample": {
+    "value": 1.0
+  },
+  "seed": 0,
+  "python": "3.11.2",
+  "built_utc": "2026-11-14T18:10:05Z"
+}
