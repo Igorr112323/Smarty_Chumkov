@@ -4,9 +4,47 @@
 
 ## Текущий шаг
 
-Промт 22 выполнен. Схема 12 остаётся базой: CV 1 эпоха — token F1 0,5138 ± 0,0630, span 0,2982 ± 0,0501, FPR_pair 0,1871, FPR_token 0,4324. Test не трогался.
+Промт 23: конвейер перевода RAGTruth_en на русский готов, но перевод НЕ ВЫПОЛНЕН — из песочницы недоступны ни один HTTP-переводчик, ни HuggingFace. Переведено 0 кусков, кэш `artifacts/translate_cache.jsonl` создан пустым, `artifacts/ragtruth_report.json` содержит причину останова и точные коды ответов.
 
-Итоги шагов: батчинг снизил стоимость пары 10,67 → 7,45 мс, но на документах 200 знаков норма 30 мс/1000 знаков не достигается (37,26 модель, 58,17 ансамбль) — блокер. Гистерезис даёт единственную точку с обоими FPR ≤ 0,40: T_start 0,50 / T_extend 0,20, token F1 0,4852, span 0,2951, FPR_pair 0,1644, FPR_token 0,3864. Контраст по медиане вырождается. Три эпохи: token 0,5166 ± 0,1040, FPR_token 0,4284. Focal 2 поднял span до 0,3263, но FPR_token 0,4709. Вес фона 2,0 разрушил модель (token 0,2821).
+Проверка каналов: translate.googleapis.com 000 (TLS closed), api-free.deepl.com 000, translate.yandex.net 000, translate.api.cloud.yandex.net 000, libretranslate.com 000, huggingface.co 000. Доступны только github.com, codeload, api.github.com, registry.npmjs.org, pypi.org, files.pythonhosted.org. Моделей машинного перевода на PyPI нет (argostranslate — движок без весов, веса лежат на argosopentech.com).
+
+## RAGTruth_en: план перевода (шаг 1-3)
+
+| параметр | значение |
+|---|---|
+| размеченных ответов в источнике | 7664 (14289 спанов, 4 типа) |
+| отобрано к переводу | 6000 ответов, 10007 спанов |
+| негативов | 1500 ответов без спанов |
+| уникальных документов | 2539 |
+| знаков: ответы / негативы / документы | 5 330 296 / 1 069 737 / 2 669 315 |
+| всего знаков к переводу | 9 069 348 |
+| приоритет отбора | 1-2 спана, баланс Evident Conflict / Evident Baseless Info / Subtle Baseless Info, затем добор короткими |
+
+Оценка объёма запросов: при лимите Google 5000 знаков на запрос — 1814 запросов, на 5 rps это ~6 минут чистого времени; фактические бесплатные лимиты ниже и требуют ключей.
+
+## RAGTruth_en: самопроверка конвейера (переводчик echo)
+
+| проверка | результат |
+|---|---|
+| пар записано | 300 положительных + 100 негативных |
+| спанов записано | 378 |
+| координаты вне строки | 0 |
+| пустой span_text | 0 |
+| span_text == срез model_output | 378 из 378 |
+| файлы | `artifacts/ragtruth_ru_selftest.jsonl`, `artifacts/ragtruth_ru_negative_selftest.jsonl`, 30 примеров `artifacts/ragtruth_examples_selftest.json` |
+
+Самопроверка подтверждает только арифметику координат (метод «режем по спанам → переводим куски → склеиваем» точен по построению). Качество перевода ею не проверяется и не заявляется.
+
+## RAGTruth_en: готовые команды запуска
+
+```
+python tools/translate_ragtruth.py --translator google --limit 6000 --negatives 1500
+set DEEPL_KEY=... && python tools/translate_ragtruth.py --translator deepl
+set YANDEX_KEY=... && set YANDEX_FOLDER=... && python tools/translate_ragtruth.py --translator yandex
+python tools/assemble_weights.py weights/nllb-200-distilled-600M models/nllb-200-distilled-600M && python tools/translate_ragtruth.py --translator nllb
+```
+
+В кэш пишется каждый кусок (src_sha1, src, dst); повторный запуск продолжает с места останова. Ограничение 5 запросов в секунду, при 429 — backoff 1/2/4/8/16 с, при обрыве сети — останов с сохранением кэша.
 
 ## Три линии результата (не смешиваются)
 
