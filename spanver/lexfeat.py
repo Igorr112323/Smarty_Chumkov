@@ -182,7 +182,7 @@ def pair_probabilities(tokenizer, model, pair, top=4, max_length=512):
     return {"answer": answer, "pieces": pieces}
 
 
-def train(torch_module, model, table, plans, head_rate, encoder_rate, pad_id, accumulate=4, batch=4, weight_decay=0.01, warmup=0.1, pair_weight=0.3, smoothing=0.1):
+def train(torch_module, model, table, plans, head_rate, encoder_rate, pad_id, accumulate=4, batch=4, weight_decay=0.01, warmup=0.1, pair_weight=0.3, smoothing=0.1, focal_gamma=0.0, class_weight=1.0):
     head = []
     encoder = []
     for name, parameter in model.named_parameters():
@@ -223,9 +223,21 @@ def train(torch_module, model, table, plans, head_rate, encoder_rate, pad_id, ac
                 valid = labels != IGNORE
                 token_loss = None
                 if bool(valid.any()):
-                    token_loss = torch_module.nn.functional.cross_entropy(
-                        logits.view(-1, 2), labels.view(-1), ignore_index=IGNORE, label_smoothing=smoothing
+                    weights = torch_module.tensor([class_weight, 1.0], dtype=logits.dtype)
+                    flat = torch_module.nn.functional.cross_entropy(
+                        logits.view(-1, 2),
+                        labels.view(-1),
+                        ignore_index=IGNORE,
+                        label_smoothing=smoothing,
+                        weight=weights,
+                        reduction="none",
                     )
+                    keep = (labels.view(-1) != IGNORE).to(flat.dtype)
+                    if focal_gamma > 0.0:
+                        probabilities = torch_module.nn.functional.softmax(logits.view(-1, 2), dim=-1)
+                        chosen = probabilities.gather(1, labels.view(-1, 1).clamp(min=0)).squeeze(1)
+                        flat = flat * (1.0 - chosen).clamp(min=0.0) ** focal_gamma
+                    token_loss = (flat * keep).sum() / keep.sum().clamp(min=1.0)
                 diff = logits[:, :, 1] - logits[:, :, 0]
                 masked = diff.masked_fill(piece["answer_mask"] == 0, EDGE)
                 scores = masked.max(dim=1).values
@@ -263,3 +275,47 @@ def load_saved(directory, source):
     model.load_state_dict(saved["state_dict"])
     model.eval()
     return tokenizer, model
+
+
+def batched_probabilities(tokenizer, model, pairs, top=4, max_length=512, batch=16):
+    from .span_detector import choose_chunks, encode_pair
+
+    items = []
+    for pair in pairs:
+        answer = pair.get("model_output") or ""
+        if not answer:
+            continue
+        rows = answer_features(answer, pair.get("document_text") or "")
+        for chunk in choose_chunks(tokenizer, pair, top=top, max_length=max_length):
+            encoded = encode_pair(tokenizer, chunk["text"], answer, max_length)
+            if encoded is not None:
+                items.append((pair.get("pair_id"), answer, rows, encoded))
+    results = {}
+    pad = tokenizer.pad_token_id
+    for start in range(0, len(items), batch):
+        piece = items[start : start + batch]
+        width = max(len(item[3]["input_ids"]) for item in piece)
+        ids = [item[3]["input_ids"] + [pad] * (width - len(item[3]["input_ids"])) for item in piece]
+        mask = [[1] * len(item[3]["input_ids"]) + [0] * (width - len(item[3]["input_ids"])) for item in piece]
+        features = []
+        for item in piece:
+            values = [[0.0] * FEATURE_COUNT for _ in range(width)]
+            for index, left, right in item[3]["answer_tokens"]:
+                values[index] = aligned(item[2], left, right + 1)
+            features.append(values)
+        with torch.no_grad():
+            logits = model(
+                input_ids=torch.tensor(ids, dtype=torch.long),
+                attention_mask=torch.tensor(mask, dtype=torch.long),
+                features=torch.tensor(features, dtype=torch.float),
+            )
+            probabilities = torch.softmax(logits, dim=-1)[:, :, 1]
+        for position, item in enumerate(piece):
+            key, answer = item[0], item[1]
+            best = results.setdefault(key, {"answer": answer, "best": {}})["best"]
+            for index, left, right in item[3]["answer_tokens"]:
+                value = float(probabilities[position][index])
+                previous = best.get(left)
+                if previous is None or value > previous[2]:
+                    best[left] = (left, right + 1, value)
+    return {key: {"answer": value["answer"], "pieces": [value["best"][left] for left in sorted(value["best"])]} for key, value in results.items()}

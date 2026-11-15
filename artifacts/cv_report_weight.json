@@ -1,0 +1,200 @@
+{
+  "tag": "feat5",
+  "folds": 5,
+  "epochs": 1,
+  "pairs": 699,
+  "negatives": 2994,
+  "features": [
+    5
+  ],
+  "loss": "bce",
+  "class_weight": 2.0,
+  "decode": {
+    "token_threshold": 0.25,
+    "pair_gate": 0.45,
+    "min_chars": 2,
+    "snap": "expand"
+  },
+  "fold_sizes": [
+    140,
+    143,
+    139,
+    136,
+    141
+  ],
+  "rows": [
+    {
+      "token_precision": 0.3381,
+      "token_recall": 0.4381,
+      "token_f1": 0.3816,
+      "span_precision": 0.0685,
+      "span_recall": 0.2083,
+      "span_f1": 0.1031,
+      "pair_f1": 0.2807,
+      "fpr_pair": 0.1165,
+      "fpr_token": 0.2868,
+      "type_accuracy": 0.4,
+      "fold": 1,
+      "held_pairs": 140,
+      "train_pairs": 559,
+      "seconds": 163.0,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.50543,
+        "pair_loss": 1.543286,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 70
+      },
+      "epoch_rows": [],
+      "checkpoint": "artifacts/cv/feat5_weight2/fold_1"
+    },
+    {
+      "token_precision": 0.0,
+      "token_recall": 0.0,
+      "token_f1": 0.0,
+      "span_precision": 0.0,
+      "span_recall": 0.0,
+      "span_f1": 0.0,
+      "pair_f1": 0.0,
+      "fpr_pair": 0.0,
+      "fpr_token": 0.0,
+      "type_accuracy": 0.0,
+      "fold": 2,
+      "held_pairs": 143,
+      "train_pairs": 556,
+      "seconds": 169.0,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.618248,
+        "pair_loss": 1.727385,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 70
+      },
+      "epoch_rows": [],
+      "checkpoint": "artifacts/cv/feat5_weight2/fold_2"
+    },
+    {
+      "token_precision": 0.2225,
+      "token_recall": 0.1099,
+      "token_f1": 0.1471,
+      "span_precision": 0.016,
+      "span_recall": 0.0484,
+      "span_f1": 0.024,
+      "pair_f1": 0.1132,
+      "fpr_pair": 0.043,
+      "fpr_token": 0.2085,
+      "type_accuracy": 0.6667,
+      "fold": 3,
+      "held_pairs": 139,
+      "train_pairs": 560,
+      "seconds": 161.6,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.549009,
+        "pair_loss": 1.736316,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 70
+      },
+      "epoch_rows": [],
+      "checkpoint": "artifacts/cv/feat5_weight2/fold_3"
+    },
+    {
+      "token_precision": 0.4066,
+      "token_recall": 0.4013,
+      "token_f1": 0.4039,
+      "span_precision": 0.1287,
+      "span_recall": 0.2453,
+      "span_f1": 0.1688,
+      "pair_f1": 0.303,
+      "fpr_pair": 0.1304,
+      "fpr_token": 0.2852,
+      "type_accuracy": 0.6154,
+      "fold": 4,
+      "held_pairs": 136,
+      "train_pairs": 563,
+      "seconds": 174.3,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.499363,
+        "pair_loss": 1.622849,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 71
+      },
+      "epoch_rows": [],
+      "checkpoint": "artifacts/cv/feat5_weight2/fold_4"
+    },
+    {
+      "token_precision": 0.4357,
+      "token_recall": 0.5287,
+      "token_f1": 0.4777,
+      "span_precision": 0.0845,
+      "span_recall": 0.1622,
+      "span_f1": 0.1111,
+      "pair_f1": 0.2927,
+      "fpr_pair": 0.1235,
+      "fpr_token": 0.3551,
+      "type_accuracy": 0.8333,
+      "fold": 5,
+      "held_pairs": 141,
+      "train_pairs": 558,
+      "seconds": 178.6,
+      "train": {
+        "epoch": 1,
+        "token_loss": 2.488635,
+        "pair_loss": 1.571791,
+        "lr_encoder": 0.0,
+        "lr_head": 0.0,
+        "batches": 70
+      },
+      "epoch_rows": [],
+      "checkpoint": "artifacts/cv/feat5_weight2/fold_5"
+    }
+  ],
+  "summary": {
+    "token_f1": {
+      "mean": 0.2821,
+      "std": 0.1793
+    },
+    "span_f1": {
+      "mean": 0.0814,
+      "std": 0.0615
+    },
+    "pair_f1": {
+      "mean": 0.1979,
+      "std": 0.121
+    },
+    "fpr_pair": {
+      "mean": 0.0827,
+      "std": 0.052
+    },
+    "fpr_token": {
+      "mean": 0.2271,
+      "std": 0.1227
+    },
+    "token_precision": {
+      "mean": 0.2806,
+      "std": 0.1583
+    },
+    "token_recall": {
+      "mean": 0.2956,
+      "std": 0.2038
+    },
+    "span_precision": {
+      "mean": 0.0595,
+      "std": 0.0467
+    },
+    "span_recall": {
+      "mean": 0.1328,
+      "std": 0.0938
+    },
+    "type_accuracy": {
+      "mean": 0.5031,
+      "std": 0.2871
+    }
+  },
+  "elapsed_s": 846.6
+}

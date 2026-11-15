@@ -87,6 +87,8 @@ def main(argv=None):
     parser.add_argument("--epochs", type=int, default=1)
     parser.add_argument("--out", default="artifacts/cv/feat5")
     parser.add_argument("--report", default="artifacts/cv_report_feat5.json")
+    parser.add_argument("--loss", default="bce")
+    parser.add_argument("--class-weight", type=float, default=1.0)
     args = parser.parse_args(argv)
     import torch
 
@@ -109,6 +111,8 @@ def main(argv=None):
         "pairs": len(ours),
         "negatives": len(negatives),
         "features": list(lexfeat.FEATURE_COUNT for _ in range(1)),
+        "loss": args.loss,
+        "class_weight": args.class_weight,
         "decode": {"token_threshold": TOKEN_THRESHOLD, "pair_gate": PAIR_GATE, "min_chars": MIN_CHARS, "snap": "expand"},
         "fold_sizes": [len(bucket) for bucket in buckets],
         "rows": [],
@@ -126,10 +130,34 @@ def main(argv=None):
         sampled = random.Random(SEED + index).sample(negative_ids, min(keep, len(negative_ids)))
         plans = stage_c_plans(ours_ids, sampled, args.epochs, ours_per_batch=OURS_PER_BATCH, helper_per_batch=NEG_PER_BATCH)
         print(f"фолд {index + 1}: батчей {len(plans[0])}, строк {len(table)}", flush=True)
-        history = lexfeat.train(torch, model, table, plans, HEAD_RATE, ENCODER_RATE, tokenizer.pad_token_id)
+        epoch_rows = []
+        gamma = 0.0
+        if args.loss.startswith("focal"):
+            gamma = float(args.loss.replace("focal", ""))
+        history = []
+        for epoch_index, plan in enumerate(plans, 1):
+            history += lexfeat.train(
+                torch,
+                model,
+                table,
+                [plan],
+                HEAD_RATE,
+                ENCODER_RATE,
+                tokenizer.pad_token_id,
+                focal_gamma=gamma,
+                class_weight=args.class_weight,
+            )
+            if args.epochs > 1:
+                probe = evaluate(tokenizer, model, held)
+                epoch_rows.append(dict(probe, epoch=epoch_index))
+                print(
+                    f"фолд {index + 1}, эпоха {epoch_index}: token F1 {probe['token_f1']} span F1 {probe['span_f1']} "
+                    f"FPR_pair {probe['fpr_pair']} FPR_token {probe['fpr_token']}",
+                    flush=True,
+                )
         row = evaluate(tokenizer, model, held)
         checkpoint = lexfeat.save_feature_model(model, tokenizer, out / f"fold_{index + 1}", args.weights)
-        row.update({"fold": index + 1, "held_pairs": len(held), "train_pairs": len(training), "seconds": round(time.perf_counter() - clock, 1), "train": history[-1], "checkpoint": str(checkpoint)})
+        row.update({"fold": index + 1, "held_pairs": len(held), "train_pairs": len(training), "seconds": round(time.perf_counter() - clock, 1), "train": history[-1], "epoch_rows": epoch_rows, "checkpoint": str(checkpoint)})
         report["rows"].append(row)
         print(
             f"фолд {index + 1}: token F1 {row['token_f1']} span F1 {row['span_f1']} pair F1 {row['pair_f1']} "

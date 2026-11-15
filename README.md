@@ -172,6 +172,20 @@ python tools\assemble_weights.py weights\rubert-tiny2 models\rubert-tiny2
 
 Сборщик сверяет sha256 каждого куска с `manifest.json`, склеивает файл, сверяет полный sha256 с официальным и при любом расхождении файл не пишет. Собранный `models/rubert-tiny2/pytorch_model.bin` в git не попадает, куски и мелкие файлы (`config.json`, `vocab.txt` и прочие) — попадают.
 
+## Восстановление чекпоинтов
+
+Обученные чекпоинты в git не попадают: git-lfs в песочнице недоступен (GitHub release assets закрыты), а файл весов 117 МБ больше лимита GitHub в 100 МБ на файл. Вместо весов коммитятся манифест `artifacts/checkpoints/<имя>/manifest.json` с sha256, рецепт обучения и голова модели (`head.pt`, 1,3 МБ), которая вместе с базой из `weights/rubert-tiny2` даёт точку восстановления.
+
+Порядок восстановления:
+
+```
+chcp 65001
+python tools\assemble_weights.py weights\rubert-tiny2 models\rubert-tiny2
+python tools\train_cv_feat.py --folds 5 --epochs 1 --report artifacts\cv_report_feat5.json
+```
+
+Обучение детерминированно (seed 0): повторный прогон дал те же метрики по фолдам 1-3 (token F1 0,4234 / 0,5973 / 0,5693). Время на 2 ядрах — 824 с на 5 фолдов по 1 эпохе.
+
 ## Соответствие договору
 
 Таблица соответствия собирается из двух отчётов (`artifacts/module_report.json`, `artifacts/model_eval_report.json`) и печатается первой в Summary workflow **evaluate**:
