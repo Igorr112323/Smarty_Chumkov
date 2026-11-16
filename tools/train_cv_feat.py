@@ -89,7 +89,12 @@ def main(argv=None):
     parser.add_argument("--report", default="artifacts/cv_report_feat5.json")
     parser.add_argument("--loss", default="bce")
     parser.add_argument("--class-weight", type=float, default=1.0)
+    parser.add_argument("--ours-only", action="store_true")
+    parser.add_argument("--budget-minutes", type=int, default=115)
     args = parser.parse_args(argv)
+    if args.ours_only:
+        from tools.train_base33 import run
+        return run(args)
     import torch
 
     started = time.perf_counter()

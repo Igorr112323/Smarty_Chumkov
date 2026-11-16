@@ -44,10 +44,18 @@ def build_documents(gold, length):
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--checkpoint", default="artifacts/cv/base/fold_1")
-    parser.add_argument("--gold", default="artifacts/gold.jsonl")
-    parser.add_argument("--report", default="artifacts/speed_report.json")
+    parser.add_argument("--checkpoint", default=None)
+    parser.add_argument("--gold", default=None)
+    parser.add_argument("--report", default=None)
+    parser.add_argument("--weights", default=None)
+    parser.add_argument("--batch", type=int, default=16)
     args = parser.parse_args(argv)
+    if args.weights:
+        from tools.speed_bench_batched import main as batched
+        return batched(["--checkpoint", args.checkpoint or "artifacts/cv/base3/fold_1", "--source", args.weights, "--gold", args.gold or "artifacts/ours33.jsonl", "--report", args.report or "artifacts/speed_report_base.json", "--batch", str(args.batch)])
+    args.checkpoint = args.checkpoint or "artifacts/cv/base/fold_1"
+    args.gold = args.gold or "artifacts/gold.jsonl"
+    args.report = args.report or "artifacts/speed_report.json"
 
     gold = read_jsonl(Path(args.gold))
     torch, tokenizer, model = load_model(args.checkpoint)
