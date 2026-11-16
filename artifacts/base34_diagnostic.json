@@ -1,0 +1,485 @@
+{
+  "source_run": 43828152726,
+  "source_sha256": "e5691c9cb13c98d396ae2e584f4d01a098fc9416a882425ece4359b807730890",
+  "folds": [
+    {
+      "fold": 1,
+      "checkpoint_loaded_strictly": true,
+      "checkpoint_sha256": "eb7a930ff4a4aaca431fa79a2eef5ff517c843497d3b450e3d462fb5ba68a5d6",
+      "parameters": {
+        "embeddings": {
+          "parameters": 92208384,
+          "trainable_parameters": 92208384,
+          "changed_elements": 92208315,
+          "changed_tensors": 5,
+          "tensor_count": 5,
+          "max_abs_delta": 0.00038269779179245234
+        },
+        "encoder_layers": {
+          "parameters": 85054464,
+          "trainable_parameters": 85054464,
+          "changed_elements": 85053524,
+          "changed_tensors": 192,
+          "tensor_count": 192,
+          "max_abs_delta": 0.0004960419610142708
+        },
+        "head": {
+          "parameters": 595970,
+          "trainable_parameters": 595970,
+          "changed_elements": 595970,
+          "changed_tensors": 4,
+          "tensor_count": 4,
+          "max_abs_delta": 0.010175226256251335
+        }
+      },
+      "optimizer_encoder_parameters_reconstructed": 177262848,
+      "optimizer_head_parameters_reconstructed": 595970,
+      "optimizer_total_parameters_reconstructed": 177858818,
+      "learning_rates": {
+        "basis": "восстановлено по исходному коду планировщика и фактическим размерам фолда; журнал фактических lr не сохранялся",
+        "steps_per_epoch": 22,
+        "total_steps": 66,
+        "warmup_steps": 6,
+        "epochs": [
+          {
+            "epoch": 1,
+            "encoder_lr_first": 3.3333333333333333e-06,
+            "encoder_lr_last": 1.5000000000000002e-05,
+            "encoder_lr_min": 3.3333333333333333e-06,
+            "encoder_lr_max": 2e-05,
+            "head_lr_first": 8.333333333333333e-05,
+            "head_lr_last": 0.000375,
+            "head_lr_min": 8.333333333333333e-05,
+            "head_lr_max": 0.0005
+          },
+          {
+            "epoch": 2,
+            "encoder_lr_first": 1.4666666666666666e-05,
+            "encoder_lr_last": 7.666666666666667e-06,
+            "encoder_lr_min": 7.666666666666667e-06,
+            "encoder_lr_max": 1.4666666666666666e-05,
+            "head_lr_first": 0.00036666666666666667,
+            "head_lr_last": 0.00019166666666666667,
+            "head_lr_min": 0.00019166666666666667,
+            "head_lr_max": 0.00036666666666666667
+          },
+          {
+            "epoch": 3,
+            "encoder_lr_first": 7.333333333333333e-06,
+            "encoder_lr_last": 3.3333333333333335e-07,
+            "encoder_lr_min": 3.3333333333333335e-07,
+            "encoder_lr_max": 7.333333333333333e-06,
+            "head_lr_first": 0.00018333333333333334,
+            "head_lr_last": 8.333333333333334e-06,
+            "head_lr_min": 8.333333333333334e-06,
+            "head_lr_max": 0.00018333333333333334
+          }
+        ]
+      },
+      "holdout": {
+        "pairs": 349,
+        "cached_pairs": 349,
+        "chosen_start": 0.55,
+        "chosen_extend": 0.1,
+        "pair_gate": 0.45,
+        "pairs_with_subword_ge_start": 0,
+        "pairs_passing_gate": 124,
+        "predicted_pairs": 0,
+        "predicted_spans": 0,
+        "metrics_reproduced": {
+          "token_precision": 0.0,
+          "token_recall": 0.0,
+          "token_f1": 0.0,
+          "span_precision": 0.0,
+          "span_recall": 0.0,
+          "span_f1": 0.0,
+          "pair_f1": 0.0,
+          "fpr_pair": 0.0,
+          "fpr_token": 0.0,
+          "type_accuracy": 0.0,
+          "type_correct": 0,
+          "matched_spans": 0
+        },
+        "grid_count": 171,
+        "eligible_count": 126,
+        "eligible_positive_token_f1": 0,
+        "best_eligible": {
+          "start": 0.55,
+          "extend": 0.1,
+          "token": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "span": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "span_f1_exact": 0.0,
+          "pair": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "fpr_pair": 0.0,
+          "fpr_token": 0.0,
+          "support": {
+            "span_tp": 0,
+            "span_fp": 0,
+            "span_fn": 134,
+            "negative_pairs": 241,
+            "negative_tokens": 8977,
+            "flagged_negative_pairs": 0,
+            "flagged_negative_tokens": 0
+          }
+        },
+        "best_unrestricted_diagnostic_only": {
+          "start": 0.4,
+          "extend": 0.4,
+          "token": {
+            "precision": 0.3982,
+            "recall": 0.8265,
+            "f1": 0.5374
+          },
+          "span": {
+            "precision": 0.2486,
+            "recall": 0.3358,
+            "f1": 0.2857
+          },
+          "span_f1_exact": 0.2857142857142857,
+          "pair": {
+            "precision": 0.44,
+            "recall": 0.4074,
+            "f1": 0.4231
+          },
+          "fpr_pair": 0.2324,
+          "fpr_token": 0.5398,
+          "support": {
+            "span_tp": 45,
+            "span_fp": 136,
+            "span_fn": 89,
+            "negative_pairs": 241,
+            "negative_tokens": 8977,
+            "flagged_negative_pairs": 56,
+            "flagged_negative_tokens": 4846
+          }
+        },
+        "sample_seed": 34,
+        "sample_pairs": [
+          {
+            "pair_id": "rusci000328",
+            "gold_spans": 2,
+            "subwords": 56,
+            "min": 0.45338529348373413,
+            "median": 0.4910486042499542,
+            "max": 0.5031741857528687,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "rusci000293",
+            "gold_spans": 0,
+            "subwords": 86,
+            "min": 0.37682896852493286,
+            "median": 0.4639848917722702,
+            "max": 0.4713100492954254,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000554",
+            "gold_spans": 1,
+            "subwords": 46,
+            "min": 0.3276686668395996,
+            "median": 0.3630615174770355,
+            "max": 0.37530040740966797,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "rusci000051",
+            "gold_spans": 2,
+            "subwords": 93,
+            "min": 0.47593215107917786,
+            "median": 0.5054742097854614,
+            "max": 0.5158898830413818,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000046",
+            "gold_spans": 0,
+            "subwords": 15,
+            "min": 0.33244869112968445,
+            "median": 0.35676419734954834,
+            "max": 0.37371760606765747,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "rusci000217",
+            "gold_spans": 0,
+            "subwords": 130,
+            "min": 0.4914214611053467,
+            "median": 0.5026572048664093,
+            "max": 0.5097039341926575,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "rusci000130",
+            "gold_spans": 0,
+            "subwords": 76,
+            "min": 0.4527418911457062,
+            "median": 0.49162185192108154,
+            "max": 0.4999302923679352,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000417",
+            "gold_spans": 0,
+            "subwords": 21,
+            "min": 0.27541303634643555,
+            "median": 0.28089383244514465,
+            "max": 0.28506118059158325,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000442",
+            "gold_spans": 0,
+            "subwords": 72,
+            "min": 0.3348148465156555,
+            "median": 0.3662235587835312,
+            "max": 0.3849855661392212,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000147",
+            "gold_spans": 0,
+            "subwords": 15,
+            "min": 0.3202982246875763,
+            "median": 0.34359729290008545,
+            "max": 0.35760119557380676,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000562",
+            "gold_spans": 1,
+            "subwords": 16,
+            "min": 0.26578935980796814,
+            "median": 0.2786535322666168,
+            "max": 0.28329721093177795,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000638",
+            "gold_spans": 0,
+            "subwords": 12,
+            "min": 0.28234773874282837,
+            "median": 0.2890718877315521,
+            "max": 0.2913011908531189,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000337",
+            "gold_spans": 0,
+            "subwords": 37,
+            "min": 0.27369093894958496,
+            "median": 0.2798078954219818,
+            "max": 0.28688398003578186,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000216",
+            "gold_spans": 0,
+            "subwords": 16,
+            "min": 0.2635183334350586,
+            "median": 0.2781419903039932,
+            "max": 0.28426599502563477,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "rusci000178",
+            "gold_spans": 2,
+            "subwords": 74,
+            "min": 0.49533820152282715,
+            "median": 0.5119222700595856,
+            "max": 0.5177574753761292,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000379",
+            "gold_spans": 1,
+            "subwords": 38,
+            "min": 0.286538302898407,
+            "median": 0.29269225895404816,
+            "max": 0.3036663830280304,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000082",
+            "gold_spans": 0,
+            "subwords": 8,
+            "min": 0.2962372303009033,
+            "median": 0.30012179911136627,
+            "max": 0.305672287940979,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000443",
+            "gold_spans": 1,
+            "subwords": 22,
+            "min": 0.2766582667827606,
+            "median": 0.2839134633541107,
+            "max": 0.2892017662525177,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000503",
+            "gold_spans": 0,
+            "subwords": 45,
+            "min": 0.3239143192768097,
+            "median": 0.3566269874572754,
+            "max": 0.36756330728530884,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          },
+          {
+            "pair_id": "sber000073",
+            "gold_spans": 1,
+            "subwords": 21,
+            "min": 0.2859484851360321,
+            "median": 0.29153794050216675,
+            "max": 0.2995581030845642,
+            "at_or_above_start": 0,
+            "predicted_spans": 0
+          }
+        ],
+        "sample_gold_positive_subwords": {
+          "count": 154,
+          "min": 0.26578935980796814,
+          "median": 0.5017105638980865,
+          "max": 0.5177574753761292,
+          "quantiles": {
+            "0.01": 0.2682596337795258,
+            "0.05": 0.27871894240379336,
+            "0.1": 0.28146384954452514,
+            "0.25": 0.29092296957969666,
+            "0.5": 0.5017105638980865,
+            "0.75": 0.511509045958519,
+            "0.9": 0.5142269134521484,
+            "0.95": 0.5161454260349274,
+            "0.99": 0.5172135597467422
+          }
+        },
+        "sample_gold_negative_subwords": {
+          "count": 745,
+          "min": 0.2635183334350586,
+          "median": 0.46332108974456787,
+          "max": 0.5158898830413818,
+          "quantiles": {
+            "0.01": 0.27566455721855165,
+            "0.05": 0.2799228847026825,
+            "0.1": 0.28432847261428834,
+            "0.25": 0.3477364182472229,
+            "0.5": 0.46332108974456787,
+            "0.75": 0.4991809129714966,
+            "0.9": 0.5048317074775696,
+            "0.95": 0.5071849584579468,
+            "0.99": 0.513502595424652
+          }
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "checkpoint_loaded_strictly": true,
+      "checkpoint_sha256": "b792e05671fb3b6772a67f42e06658f5936e965a04b859919796bf634b0965ce",
+      "parameters": {
+        "embeddings": {
+          "parameters": 92208384,
+          "trainable_parameters": 92208384,
+          "changed_elements": 92208310,
+          "changed_tensors": 5,
+          "tensor_count": 5,
+          "max_abs_delta": 0.00038403726648539305
+        },
+        "encoder_layers": {
+          "parameters": 85054464,
+          "trainable_parameters": 85054464,
+          "changed_elements": 85053342,
+          "changed_tensors": 192,
+          "tensor_count": 192,
+          "max_abs_delta": 0.0004981681704521179
+        },
+        "head": {
+          "parameters": 595970,
+          "trainable_parameters": 595970,
+          "changed_elements": 595970,
+          "changed_tensors": 4,
+          "tensor_count": 4,
+          "max_abs_delta": 0.010530931875109673
+        }
+      },
+      "optimizer_encoder_parameters_reconstructed": 177262848,
+      "optimizer_head_parameters_reconstructed": 595970,
+      "optimizer_total_parameters_reconstructed": 177858818,
+      "learning_rates": {
+        "basis": "восстановлено по исходному коду планировщика и фактическим размерам фолда; журнал фактических lr не сохранялся",
+        "steps_per_epoch": 22,
+        "total_steps": 66,
+        "warmup_steps": 6,
+        "epochs": [
+          {
+            "epoch": 1,
+            "encoder_lr_first": 3.3333333333333333e-06,
+            "encoder_lr_last": 1.5000000000000002e-05,
+            "encoder_lr_min": 3.3333333333333333e-06,
+            "encoder_lr_max": 2e-05,
+            "head_lr_first": 8.333333333333333e-05,
+            "head_lr_last": 0.000375,
+            "head_lr_min": 8.333333333333333e-05,
+            "head_lr_max": 0.0005
+          },
+          {
+            "epoch": 2,
+            "encoder_lr_first": 1.4666666666666666e-05,
+            "encoder_lr_last": 7.666666666666667e-06,
+            "encoder_lr_min": 7.666666666666667e-06,
+            "encoder_lr_max": 1.4666666666666666e-05,
+            "head_lr_first": 0.00036666666666666667,
+            "head_lr_last": 0.00019166666666666667,
+            "head_lr_min": 0.00019166666666666667,
+            "head_lr_max": 0.00036666666666666667
+          },
+          {
+            "epoch": 3,
+            "encoder_lr_first": 7.333333333333333e-06,
+            "encoder_lr_last": 3.3333333333333335e-07,
+            "encoder_lr_min": 3.3333333333333335e-07,
+            "encoder_lr_max": 7.333333333333333e-06,
+            "head_lr_first": 0.00018333333333333334,
+            "head_lr_last": 8.333333333333334e-06,
+            "head_lr_min": 8.333333333333334e-06,
+            "head_lr_max": 0.00018333333333333334
+          }
+        ]
+      }
+    }
+  ],
+  "epoch_1_to_3": "не проверено: состояние эпохи 1 не сохранялось",
+  "training": "не проводилось"
+}
