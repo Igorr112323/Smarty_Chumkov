@@ -1,0 +1,74 @@
+{
+  "status": "готово",
+  "tests_use_tee": false,
+  "test301": false,
+  "contexts": [
+    {
+      "name": "prompt33",
+      "commit": "a440d9e",
+      "tests": [
+        "tests/test_base33_safe.py",
+        "tests/test_base33_training.py",
+        "tests/test_preflight_13.py",
+        "tests/test_sweep_ragtruth30.py"
+      ],
+      "exit_code": 0,
+      "output": ".............                                                            [100%]\n13 passed in 1.72s\n"
+    },
+    {
+      "name": "prompt34",
+      "commit": "a0929fd",
+      "tests": [
+        "tests/test_base33_safe.py",
+        "tests/test_base33_training.py",
+        "tests/test_preflight_13.py",
+        "tests/test_sweep_ragtruth30.py"
+      ],
+      "exit_code": 0,
+      "output": "...............                                                          [100%]\n15 passed in 1.52s\n"
+    },
+    {
+      "name": "prompt36",
+      "commit": "aeef1a3",
+      "tests": [
+        "tests/test_base33_safe.py",
+        "tests/test_base33_training.py",
+        "tests/test_preflight_13.py",
+        "tests/test_sweep_ragtruth30.py",
+        "tests/test_nested36.py"
+      ],
+      "exit_code": 0,
+      "output": "...................                                                      [100%]\n19 passed in 1.54s\n"
+    },
+    {
+      "name": "prompt37_original",
+      "commit": "b649d06",
+      "tests": [
+        "tests/test_base33_safe.py",
+        "tests/test_base33_training.py",
+        "tests/test_preflight_13.py",
+        "tests/test_sweep_ragtruth30.py",
+        "tests/test_nested36.py",
+        "tests/test_nested37.py"
+      ],
+      "exit_code": 1,
+      "output": "....................F..                                                  [100%]\n=================================== FAILURES ===================================\n_____________ test_fine_threshold_is_selected_on_inner_fpr_limits ______________\n\n    def test_fine_threshold_is_selected_on_inner_fpr_limits():\n        pairs = [{\"pair_id\": \"1\", \"model_output\": \"Москва и Париж\", \"spans\": [{\"start\": 0, \"end\": 5, \"type\": \"entity\"}]}, {\"pair_id\": \"2\", \"model_output\": \"Простой ответ\", \"spans\": []}]\n        cache = {\"1\": {\"answer\": pairs[0][\"model_output\"], \"pieces\": [(0, 6, 0.9), (7, 8, 0.2), (9, 14, 0.1)]}, \"2\": {\"answer\": pairs[1][\"model_output\"], \"pieces\": [(0, 7, 0.1), (8, 13, 0.1)]}}\n        selected, rows = fine_choose(pairs, cache, 0.5)\n        assert len(rows) == 11\n>       assert selected[\"start\"] in fine_grid(0.5)\n               ^^^^^^^^^^^^^^^^^\nE       TypeError: 'NoneType' object is not subscriptable\n\ntests/test_nested37.py:18: TypeError\n=========================== short test summary info ============================\nFAILED tests/test_nested37.py::test_fine_threshold_is_selected_on_inner_fpr_limits - TypeError: 'NoneType' object is not subscriptable\n1 failed, 22 passed in 1.59s\n"
+    },
+    {
+      "name": "prompt37_fixed",
+      "commit": "803f57a",
+      "tests": [
+        "tests/test_base33_safe.py",
+        "tests/test_base33_training.py",
+        "tests/test_preflight_13.py",
+        "tests/test_sweep_ragtruth30.py",
+        "tests/test_nested36.py",
+        "tests/test_nested37.py"
+      ],
+      "exit_code": 0,
+      "output": ".......................                                                  [100%]\n23 passed in 1.54s\n"
+    }
+  ],
+  "historical_36": "пять сохранённых журналов: 19 passed, 0 failed в каждом; tee не скрыл падений",
+  "historical_37": "пять сохранённых журналов: 22 passed, 1 failed в каждом; один и тот же тест скрыт tee"
+}
