@@ -31,6 +31,7 @@ jobs:
             spanver
             tools
             tests
+            scripts
             models/rubert-tiny2
             weights/rubert-tiny2
       - uses: actions/setup-python@v5
@@ -43,7 +44,23 @@ jobs:
           pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install 'transformers>=4.50,<5' huggingface_hub
       - name: safe tests only
-        run: python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py
+        run: python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py 2>&1 | tee /tmp/nested36-tests.txt
+      - name: save test diagnostics
+        if: always()
+        env:
+          FOLD: ${{ matrix.fold }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          source = Path('/tmp/nested36-tests.txt')
+          if source.exists():
+              target = Path('artifacts') / ('nested36_diagnostic_fold_' + os.environ['FOLD'] + '.json')
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_text(json.dumps({'tests': source.read_text(encoding='utf-8')}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
       - name: prepare train and validation only
         run: python tools/prepare_ours33.py
       - name: assemble initial tiny2 weights
@@ -55,7 +72,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nested36-fold-${{ matrix.fold }}
-          path: artifacts/nested36_fold_${{ matrix.fold }}.json
+          path: |
+            artifacts/nested36_fold_${{ matrix.fold }}.json
+            artifacts/nested36_diagnostic_fold_${{ matrix.fold }}.json
           if-no-files-found: warn
           retention-days: 30
   collect:
@@ -91,7 +110,7 @@ jobs:
           set -eu
           git fetch origin arena/5afadcb0-smarty-chumkov
           git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
-          for file in artifacts/nested36_fold_*.json artifacts/nested36_summary.json; do
+          for file in artifacts/nested36_fold_*.json artifacts/nested36_diagnostic_fold_*.json artifacts/nested36_summary.json; do
             if [ -f "$file" ]; then git add --sparse -f "$file"; fi
           done
           if ! git diff --cached --quiet; then
