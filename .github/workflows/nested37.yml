@@ -45,7 +45,9 @@ jobs:
           pip install 'transformers>=4.50,<5' huggingface_hub
       - name: safe tests only
         shell: bash
-        run: python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py tests/test_nested37.py 2>&1 | tee /tmp/nested37-tests.txt
+        run: |
+          set -o pipefail
+          python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py tests/test_nested37.py 2>&1 | tee /tmp/nested37-tests.txt
       - name: save test diagnostics
         if: always()
         env:
