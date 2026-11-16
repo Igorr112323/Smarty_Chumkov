@@ -13,6 +13,12 @@ def test_fine_grid_has_eleven_points_and_respects_boundaries():
 def test_fine_threshold_is_selected_on_inner_fpr_limits():
     pairs = [{"pair_id": "1", "model_output": "Москва и Париж", "spans": [{"start": 0, "end": 5, "type": "entity"}]}, {"pair_id": "2", "model_output": "Простой ответ", "spans": []}]
     cache = {"1": {"answer": pairs[0]["model_output"], "pieces": [(0, 6, 0.9), (7, 8, 0.2), (9, 14, 0.1)]}, "2": {"answer": pairs[1]["model_output"], "pieces": [(0, 7, 0.1), (8, 13, 0.1)]}}
+    none, _ = fine_choose(pairs, cache, 0.5)
+    assert none is None
+    for index in range(3, 13):
+        key = str(index)
+        pairs.append({"pair_id": key, "model_output": "Простой ответ", "spans": []})
+        cache[key] = {"answer": "Простой ответ", "pieces": [(0, 7, 0.1), (8, 13, 0.1)]}
     selected, rows = fine_choose(pairs, cache, 0.5)
     assert len(rows) == 11
     assert selected["start"] in fine_grid(0.5)

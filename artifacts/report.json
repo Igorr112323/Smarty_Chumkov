@@ -86,19 +86,59 @@
   "python": "3.11.2",
   "built_utc": "2026-11-14T15:32:25Z",
   "headline": {
-    "target": "token F1 >= 0,50 при FPR <= 0,40",
-    "best_token_f1": 0.5862,
-    "best_token_precision": 0.5157,
-    "best_token_recall": 0.6789,
-    "best_span_f1": 0.3333,
-    "best_span_precision": 0.4828,
-    "best_span_recall": 0.2545,
-    "best_pair_f1": 0.4118,
-    "best_fpr_pair": 0.0769,
-    "best_fpr_token": 0.2625,
-    "best_configuration": "ансамбль B: пересечение лексических и модельных спанов, val150",
-    "confirmed_on_test": false,
-    "note": "лучшая достигнутая цифра получена на val150 и на test не подтверждалась; test израсходован на замороженной конфигурации модели"
+    "description": "вложенный протокол, порог на внутреннем фолде; пять сидов, мелкая сетка",
+    "metrics_mean_std": {
+      "token_precision": {
+        "mean": 0.4648,
+        "std": 0.0852
+      },
+      "token_recall": {
+        "mean": 0.6121,
+        "std": 0.0324
+      },
+      "token_f1": {
+        "mean": 0.5226,
+        "std": 0.0498
+      },
+      "span_precision": {
+        "mean": 0.4042,
+        "std": 0.0953
+      },
+      "span_recall": {
+        "mean": 0.2386,
+        "std": 0.0471
+      },
+      "span_f1": {
+        "mean": 0.2963,
+        "std": 0.0548
+      },
+      "pair_f1": {
+        "mean": 0.369,
+        "std": 0.052
+      },
+      "fpr_pair": {
+        "mean": 0.1625,
+        "std": 0.052
+      },
+      "fpr_token": {
+        "mean": 0.3652,
+        "std": 0.0923
+      },
+      "type_accuracy": {
+        "mean": 0.9242,
+        "std": 0.0713
+      },
+      "folds_fpr_token_over_040": 1,
+      "folds_fpr_pair_over_040": 0
+    },
+    "target": "token F1 >= 0.50 и FPR_token <= 0.40",
+    "target_met_by_fold_means": true,
+    "gate_passed": null,
+    "gate_note": "планка по средним выполнена исследовательски; независимое подтверждение отсутствует, в одном внешнем фолде FPR_token > 0.40, модельные файлы отсутствуют",
+    "reused_external_folds": true,
+    "test301_evaluated": false,
+    "config": "artifacts/frozen_final.json",
+    "details": "artifacts/nested37_report.md"
   },
   "confirmed_test": {
     "split": "test",

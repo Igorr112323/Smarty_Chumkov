@@ -1,0 +1,285 @@
+{
+  "status": "зафиксировано описание CV, веса не сохранены и к развёртыванию не готовы",
+  "evaluation_only": true,
+  "deployable": false,
+  "model": "rubert-tiny2",
+  "initial_weights_sha256": "137fa2b1d944dae19c74456dfe8fac2f780d9acf34e037f5d1e37acba1157768",
+  "git_sha": "b649d06344b9c2687034786d08972710eca3230a",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "epochs": 3,
+  "folds": 5,
+  "train_folds": 3,
+  "inner_folds": 1,
+  "external_folds": 1,
+  "fold_grouping": "связные компоненты всех doc_id, seed 0",
+  "fold_ids_sha256": [
+    "fe9fb7325d403f4e053def978f0909cb4addb8fb027fcc73bd0365d82e624c1f",
+    "5d6a4ef36e62ccd9b5a23bb43c6a89dd54a65acff2b96b1a97d1e4cfc8c72355",
+    "a908fa3a518e6fe1156af37e70ddee369613b058ab1957f0088a122e17fb7cb0",
+    "ceda8092501a875b25e8b41764b659a132411007f59e2a8fff03c8041787b019",
+    "620f068e053972140c383cc54ece3c605ddf2c881c2ebb495b57383a9e4de06f"
+  ],
+  "thresholds": [
+    {
+      "fold": 1,
+      "coarse": 0.5,
+      "fine": 0.49,
+      "fine_extend": 0.245
+    },
+    {
+      "fold": 2,
+      "coarse": 0.55,
+      "fine": 0.55,
+      "fine_extend": 0.275
+    },
+    {
+      "fold": 3,
+      "coarse": 0.5,
+      "fine": 0.47,
+      "fine_extend": 0.235
+    },
+    {
+      "fold": 4,
+      "coarse": 0.5,
+      "fine": 0.5,
+      "fine_extend": 0.25
+    },
+    {
+      "fold": 5,
+      "coarse": 0.5,
+      "fine": 0.52,
+      "fine_extend": 0.26
+    }
+  ],
+  "threshold_selection": "seed 0: грубая сетка 0.10..0.95 шаг 0.05; затем ±0.05 шаг 0.01; максимум token F1 на внутреннем фолде при FPR_pair и FPR_token <= 0.40; T_extend=T_start/2",
+  "prediction": "среднее вероятностей пяти сидов на внешнем фолде, затем порог fine соответствующего фолда",
+  "pair_gate": 0.45,
+  "token_features": 5,
+  "new_pair_features": false,
+  "loss": "focal gamma=2, label_smoothing=0.1, pair loss weight=0.3",
+  "encoder_learning_rate": 2e-05,
+  "head_learning_rate": 0.0005,
+  "checkpoint_sha256": [
+    {
+      "fold": 1,
+      "seeds": [
+        {
+          "seed": 0,
+          "sha256": "34394b9cc43f2ba61597d3bffd40791aabd744fb40e20de16573076d17671c46",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 1,
+          "sha256": "28f570fdee8dbb3913e22899bff6bdeca4bbf139192a7252432ff6afd1a411e5",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 2,
+          "sha256": "eae6cc0d26e8db2661e873bc545d11ac53764a6a6a3abb9dc6d4f719ccaf92aa",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 3,
+          "sha256": "ff5b7466d33eab3387db488a71a2b9226201e088f075ee618666efd5a6e38f24",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 4,
+          "sha256": "4f2fefe37003198c9cff57aeb3662b819673a4d5637b0e88fdc54d22e7f7676b",
+          "bytes": 116806133,
+          "stored": false
+        }
+      ]
+    },
+    {
+      "fold": 2,
+      "seeds": [
+        {
+          "seed": 0,
+          "sha256": "4d5083fb0030c4b00a2e991ea8f5c529d1f4093a0588cb22e60910aa745edf03",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 1,
+          "sha256": "bd3098a9750081d314bfb39a8a1aa17c53b4a5c0950c3710fbe6986a783617a8",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 2,
+          "sha256": "8659a2d605df477bfe168aec49d8ca5d48fc9667c830560cc296d80b42135afa",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 3,
+          "sha256": "d88a40ee8789a90ac3fc6475df7770fea5ecfe6e80824048b0d8c68d0db9b19e",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 4,
+          "sha256": "89d96e15adc8617cdc79b3c35a80e3aecd151fb7000c759716496f64732e23dc",
+          "bytes": 116806133,
+          "stored": false
+        }
+      ]
+    },
+    {
+      "fold": 3,
+      "seeds": [
+        {
+          "seed": 0,
+          "sha256": "613e75c930e493c244949f390da634fe88d9a9cd1585fa89926a338b23696026",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 1,
+          "sha256": "9af1d3eb923132f022dd64224f5cb9bbc62cdccebf765f9984f31110cb50bc88",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 2,
+          "sha256": "978d0367f42156382c6c3caea41e7e662e0308d8fab88a23746b2ba689a85b55",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 3,
+          "sha256": "a41446f72b13c8e64883a8581fa3d407ef0b4cf47d29ce20b2733b835a5b1100",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 4,
+          "sha256": "26ccb40cee812149b2491fbf32420def885c3dbc4438281744cfe6760e0e2ab1",
+          "bytes": 116806133,
+          "stored": false
+        }
+      ]
+    },
+    {
+      "fold": 4,
+      "seeds": [
+        {
+          "seed": 0,
+          "sha256": "e47f45a0e3e8d3235d60644e13c35a2478a734991a462d5a5bc037524b171e53",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 1,
+          "sha256": "8abb4a0209f2176c4e82c99ee0444b4ddd6694ac0715f105c3d02f8755d277e2",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 2,
+          "sha256": "cec3de93aafe5e5891c4d4b154ee21d361f426385d553ec5b6c266709a9c49b3",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 3,
+          "sha256": "d7ed24775d616d37f91d720a760551610489776347dc97810b180b8ab00d50d5",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 4,
+          "sha256": "fa70fbe4f4999b9be50aafbc976f542abfbda3036fa5de3f6ba30ac4e0a585f4",
+          "bytes": 116806133,
+          "stored": false
+        }
+      ]
+    },
+    {
+      "fold": 5,
+      "seeds": [
+        {
+          "seed": 0,
+          "sha256": "618fd2a1f84a4f68019b13cf0a2ebcc6d341635ecade013ec144f9bcadac68ab",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 1,
+          "sha256": "25ffb7d265280fbd5fdd674efdf776d81e7c13c11e8443b6f64e19c7c3df0636",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 2,
+          "sha256": "538fad99bcdf2c1c776d1274d3f9e0ec03e6d3a52ccc9c7cc356d9b6b60987ff",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 3,
+          "sha256": "e7fde06df4b66414bf2a5949ab3f47d571ecd1b248e538ebbf8c34cae89eed22",
+          "bytes": 116806133,
+          "stored": false
+        },
+        {
+          "seed": 4,
+          "sha256": "d3584220b6ead96230a2b339ccfe5ad7f7c1b90faa1ed98b2187a29d7090492e",
+          "bytes": 116806133,
+          "stored": false
+        }
+      ]
+    }
+  ],
+  "checkpoint_note": "SHA-256 временного torch.save(state_dict); сами файлы удалены, побайтовое восстановление и развёртывание не проверены",
+  "versions_by_fold": [
+    {
+      "fold": 1,
+      "torch": "2.15.0+cpu",
+      "transformers": "4.57.6",
+      "python": "3.11.18"
+    },
+    {
+      "fold": 2,
+      "torch": "2.15.0+cpu",
+      "transformers": "4.57.6",
+      "python": "3.11.18"
+    },
+    {
+      "fold": 3,
+      "torch": "2.15.0+cpu",
+      "transformers": "4.57.6",
+      "python": "3.11.18"
+    },
+    {
+      "fold": 4,
+      "torch": "2.15.0+cpu",
+      "transformers": "4.57.6",
+      "python": "3.11.18"
+    },
+    {
+      "fold": 5,
+      "torch": "2.15.0+cpu",
+      "transformers": "4.57.6",
+      "python": "3.11.18"
+    }
+  ],
+  "external_data": false,
+  "test301": false,
+  "limitations": [
+    "те же внешние фолды повторно использованы после изучения предыдущих результатов; оценка адаптивна",
+    "внешний FPR_token превышает 0.40 в одном фолде",
+    "сохранённой развёртываемой модели нет"
+  ]
+}
