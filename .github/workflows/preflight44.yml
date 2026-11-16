@@ -1,0 +1,36 @@
+name: Проверка кода последнего раунда
+
+on:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/preflight44.yml
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            spanver
+            tools
+            tests
+            scripts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: |
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers>=4.50,<5' huggingface_hub
+      - name: Safe tests
+        run: |
+          python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py tests/test_nested37.py tests/test_nested38.py
+          python -m unittest tests.test_sentence_snap40 tests.test_prediction_analysis40 tests.test_sentence_diagnosis41 tests.test_snap42 tests.test_snap42_integration tests.test_select44 tests.test_train44 -v
