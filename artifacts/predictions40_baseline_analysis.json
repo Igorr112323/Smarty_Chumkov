@@ -1,0 +1,76 @@
+{
+  "status": "baseline only; no round40 training",
+  "protocol": "После gate; спаны сопоставляются 1:1 в порядке предсказаний и gold в пределах пары, тип не учитывается. Exact: равны обе включительные границы; overlap: хотя бы один общий символ. F1=2TP/(predicted+gold); затем среднее по пяти фолдам и population std. Это не посимвольная F1 из spanver/lt/evaluator.py.",
+  "folds": [
+    {
+      "pairs": 140,
+      "predicted_spans": 30,
+      "gold_spans": 56,
+      "pairs_with_multiple_predictions": 0,
+      "predictions_overlapping_gold": 17,
+      "overlapping_without_exact_gold": 12,
+      "exact_tp": 5,
+      "any_overlap_tp": 17,
+      "exact_f1": 0.11627906976744186,
+      "any_overlap_f1": 0.3953488372093023
+    },
+    {
+      "pairs": 138,
+      "predicted_spans": 26,
+      "gold_spans": 62,
+      "pairs_with_multiple_predictions": 0,
+      "predictions_overlapping_gold": 17,
+      "overlapping_without_exact_gold": 8,
+      "exact_tp": 9,
+      "any_overlap_tp": 17,
+      "exact_f1": 0.20454545454545456,
+      "any_overlap_f1": 0.38636363636363635
+    },
+    {
+      "pairs": 141,
+      "predicted_spans": 33,
+      "gold_spans": 63,
+      "pairs_with_multiple_predictions": 0,
+      "predictions_overlapping_gold": 15,
+      "overlapping_without_exact_gold": 10,
+      "exact_tp": 5,
+      "any_overlap_tp": 15,
+      "exact_f1": 0.10416666666666667,
+      "any_overlap_f1": 0.3125
+    },
+    {
+      "pairs": 141,
+      "predicted_spans": 27,
+      "gold_spans": 65,
+      "pairs_with_multiple_predictions": 0,
+      "predictions_overlapping_gold": 19,
+      "overlapping_without_exact_gold": 11,
+      "exact_tp": 8,
+      "any_overlap_tp": 19,
+      "exact_f1": 0.17391304347826086,
+      "any_overlap_f1": 0.41304347826086957
+    },
+    {
+      "pairs": 139,
+      "predicted_spans": 26,
+      "gold_spans": 54,
+      "pairs_with_multiple_predictions": 0,
+      "predictions_overlapping_gold": 14,
+      "overlapping_without_exact_gold": 10,
+      "exact_tp": 4,
+      "any_overlap_tp": 14,
+      "exact_f1": 0.1,
+      "any_overlap_f1": 0.35
+    }
+  ],
+  "mean_exact_f1": 0.13978084689156478,
+  "std_exact_f1": 0.04186330227989363,
+  "mean_any_overlap_f1": 0.37145119036676166,
+  "std_any_overlap_f1": 0.03594104449315872,
+  "gap_percentage_points": 23.16703434751969,
+  "relative_increase_percent": 165.73826001706482,
+  "predicted_spans": 142,
+  "gold_spans": 300,
+  "pairs_with_multiple_predictions": 0,
+  "overlapping_without_exact_gold": 51
+}
