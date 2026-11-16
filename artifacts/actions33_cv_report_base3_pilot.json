@@ -1,0 +1,46 @@
+{
+  "status": "пилот остановлен: прогноз превышает бюджет; нужен двухфолдовый CV",
+  "pairs": 699,
+  "folds": 3,
+  "epochs": 3,
+  "fold_sizes": [
+    238,
+    233,
+    228
+  ],
+  "fold_ids_sha256": [
+    "2b93f3703ecad711cc267309871bca75a61db09a4b670c8fdc342c7a1d2dfe2f",
+    "e9e66b59afbd7ef5049a9de654b336c4dc7c0b632a74cc1a7acc287ee68677f5",
+    "e0b8b813026e2c5d5b3d3b5558125d9b05f1f37e1fb540a8375dc6b845c3e550"
+  ],
+  "loss": "focal gamma=2 + 0.3 pair",
+  "external_data": false,
+  "weights": "models/rubert-base-cased",
+  "features": 5,
+  "selection": "max token F1 on held fold subject to FPR_pair and FPR_token <= 0.40; fallback unconstrained",
+  "selection_bias": "thresholds tuned and evaluated on the same held fold",
+  "grid": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "pair_gate": 0.45,
+  "rows": [],
+  "reason": "прогноз трёх фолдов 10515.2 с превышает бюджет 6900.0 с",
+  "elapsed_s": 975.793
+}

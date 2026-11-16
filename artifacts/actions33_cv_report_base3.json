@@ -1,0 +1,182 @@
+{
+  "status": "готово",
+  "pairs": 699,
+  "folds": 2,
+  "epochs": 3,
+  "fold_sizes": [
+    349,
+    350
+  ],
+  "fold_ids_sha256": [
+    "4ed5df59cc4af625f086bcda41044eb1ebe7815bf93c84c81c6f30a0095805c4",
+    "c5cd406780e8c6498bf3c575ba91f3093c345eaf8bae0a95dd3c0a007b7f210c"
+  ],
+  "loss": "focal gamma=2 + 0.3 pair",
+  "external_data": false,
+  "weights": "models/rubert-base-cased",
+  "features": 5,
+  "selection": "max token F1 on held fold subject to FPR_pair and FPR_token <= 0.40; fallback unconstrained",
+  "selection_bias": "thresholds tuned and evaluated on the same held fold",
+  "grid": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "pair_gate": 0.45,
+  "rows": [
+    {
+      "fold": 1,
+      "train_pairs": 350,
+      "held_pairs": 349,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 350,
+          "loss": 0.40305075100490023,
+          "seconds": 745.974
+        },
+        {
+          "epoch": 2,
+          "pairs": 350,
+          "loss": 0.37157518216541835,
+          "seconds": 758.161
+        },
+        {
+          "epoch": 3,
+          "pairs": 350,
+          "loss": 0.3499117740562984,
+          "seconds": 758.798
+        }
+      ],
+      "tuning": {
+        "start": 0.55,
+        "extend": 0.1,
+        "eligible": true,
+        "eligible_candidates": 126,
+        "candidates": 171,
+        "metrics": {
+          "token_precision": 0.0,
+          "token_recall": 0.0,
+          "token_f1": 0.0,
+          "span_precision": 0.0,
+          "span_recall": 0.0,
+          "span_f1": 0.0,
+          "pair_f1": 0.0,
+          "fpr_pair": 0.0,
+          "fpr_token": 0.0,
+          "type_accuracy": 0.0,
+          "type_correct": 0,
+          "matched_spans": 0
+        }
+      },
+      "checkpoint": "artifacts/cv/base3/fold_1",
+      "seconds": 2599.642
+    },
+    {
+      "fold": 2,
+      "train_pairs": 349,
+      "held_pairs": 350,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 349,
+          "loss": 0.38616380659078803,
+          "seconds": 754.037
+        },
+        {
+          "epoch": 2,
+          "pairs": 349,
+          "loss": 0.33007346405340815,
+          "seconds": 771.261
+        },
+        {
+          "epoch": 3,
+          "pairs": 349,
+          "loss": 0.3273296115818543,
+          "seconds": 785.22
+        }
+      ],
+      "tuning": {
+        "start": 0.5,
+        "extend": 0.1,
+        "eligible": true,
+        "eligible_candidates": 135,
+        "candidates": 171,
+        "metrics": {
+          "token_precision": 0.6275,
+          "token_recall": 0.1574,
+          "token_f1": 0.2517,
+          "span_precision": 0.5556,
+          "span_recall": 0.0602,
+          "span_f1": 0.1087,
+          "pair_f1": 0.1399,
+          "fpr_pair": 0.0091,
+          "fpr_token": 0.0539,
+          "type_accuracy": 1.0,
+          "type_correct": 10,
+          "matched_spans": 10
+        }
+      },
+      "checkpoint": "artifacts/cv/base3/fold_2",
+      "seconds": 2638.706
+    }
+  ],
+  "elapsed_s": 5238.467,
+  "summary": {
+    "token_precision": {
+      "mean": 0.3137,
+      "std": 0.3137
+    },
+    "token_recall": {
+      "mean": 0.0787,
+      "std": 0.0787
+    },
+    "token_f1": {
+      "mean": 0.1258,
+      "std": 0.1258
+    },
+    "span_precision": {
+      "mean": 0.2778,
+      "std": 0.2778
+    },
+    "span_recall": {
+      "mean": 0.0301,
+      "std": 0.0301
+    },
+    "span_f1": {
+      "mean": 0.0544,
+      "std": 0.0544
+    },
+    "pair_f1": {
+      "mean": 0.0699,
+      "std": 0.0699
+    },
+    "fpr_pair": {
+      "mean": 0.0046,
+      "std": 0.0046
+    },
+    "fpr_token": {
+      "mean": 0.027,
+      "std": 0.027
+    },
+    "type_accuracy": {
+      "mean": 0.5,
+      "std": 0.5
+    }
+  }
+}
