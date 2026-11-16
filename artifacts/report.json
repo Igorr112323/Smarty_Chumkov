@@ -86,59 +86,57 @@
   "python": "3.11.2",
   "built_utc": "2026-11-14T15:32:25Z",
   "headline": {
-    "description": "вложенный протокол, порог на внутреннем фолде; пять сидов, мелкая сетка",
+    "description": "вложенная CV; порог на внутренних фолдах по ограничению худшего внутреннего фолда",
     "metrics_mean_std": {
       "token_precision": {
-        "mean": 0.4648,
-        "std": 0.0852
+        "mean": 0.4517,
+        "std": 0.1035
       },
       "token_recall": {
-        "mean": 0.6121,
-        "std": 0.0324
+        "mean": 0.4529,
+        "std": 0.0709
       },
       "token_f1": {
-        "mean": 0.5226,
-        "std": 0.0498
+        "mean": 0.4506,
+        "std": 0.0868
       },
       "span_precision": {
-        "mean": 0.4042,
-        "std": 0.0953
+        "mean": 0.3542,
+        "std": 0.1099
       },
       "span_recall": {
-        "mean": 0.2386,
-        "std": 0.0471
+        "mean": 0.1632,
+        "std": 0.0372
       },
       "span_f1": {
-        "mean": 0.2963,
-        "std": 0.0548
+        "mean": 0.2229,
+        "std": 0.0562
       },
       "pair_f1": {
-        "mean": 0.369,
-        "std": 0.052
+        "mean": 0.2829,
+        "std": 0.0676
       },
       "fpr_pair": {
-        "mean": 0.1625,
-        "std": 0.052
+        "mean": 0.1276,
+        "std": 0.0385
       },
       "fpr_token": {
-        "mean": 0.3652,
-        "std": 0.0923
+        "mean": 0.281,
+        "std": 0.0644
       },
       "type_accuracy": {
-        "mean": 0.9242,
-        "std": 0.0713
-      },
-      "folds_fpr_token_over_040": 1,
-      "folds_fpr_pair_over_040": 0
+        "mean": 0.9359,
+        "std": 0.0786
+      }
     },
-    "target": "token F1 >= 0.50 и FPR_token <= 0.40",
-    "target_met_by_fold_means": true,
+    "max_outer_fpr_token": 0.4036,
+    "max_outer_fpr_pair": 0.1957,
+    "target_met_on_observed_folds": false,
     "gate_passed": null,
-    "gate_note": "планка по средним выполнена исследовательски; независимое подтверждение отсутствует, в одном внешнем фолде FPR_token > 0.40, модельные файлы отсутствуют",
-    "reused_external_folds": true,
+    "gate_note": "оценка получена на фолдах, использованных для выбора конфигурации; независимого подтверждения нет, test 301 израсходован ранее на другой конфигурации",
     "test301_evaluated": false,
     "config": "artifacts/frozen_final.json",
-    "details": "artifacts/nested37_report.md"
+    "details": "artifacts/nested38_summary.json"
   },
   "confirmed_test": {
     "split": "test",
