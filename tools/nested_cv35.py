@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT))
 from spanver import decode, lexfeat
 from spanver.evaluate import metrics, read_jsonl
 from spanver.snap import snapped
+from spanver.sentence_snap import snap_sentences
 from tools.preflight_13 import id_digest, our_keys
 from tools.prepare_ours33 import EXPECTED_IDS
 from tools.sweep_hyst import flags_with
@@ -47,16 +48,17 @@ def choose(inner, cache):
     return max(eligible, key=lambda row: (row["token_f1_exact"], -row["start"])), rows
 
 
-def predict(value, start):
+def predict(value, start, sentence_mode=None):
     pieces = value["pieces"]
     if max((piece[2] for piece in pieces), default=0.0) < GATE:
         return []
     flags = flags_with(pieces, start, start / 2, 0.0)
-    return snapped(decode.spans_from_flags(value["answer"], pieces, flags, 2), value["answer"], "expand")
+    spans = snapped(decode.spans_from_flags(value["answer"], pieces, flags, 2), value["answer"], "expand")
+    return snap_sentences(spans, value["answer"], sentence_mode) if sentence_mode else spans
 
 
-def evaluate(pairs, cache, thresholds):
-    predictions = {row["pair_id"]: predict(cache[row["pair_id"]], thresholds[row["pair_id"]]) for row in pairs}
+def evaluate(pairs, cache, thresholds, sentence_mode=None):
+    predictions = {row["pair_id"]: predict(cache[row["pair_id"]], thresholds[row["pair_id"]], sentence_mode) for row in pairs}
     def predictor(row):
         return predictions[row["pair_id"]]
     result = metrics(pairs, predictor)

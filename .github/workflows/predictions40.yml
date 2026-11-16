@@ -24,7 +24,8 @@ jobs:
             Dataset/1_rushallu_rag_gold
             spanver
             tools
-            artifacts/nested38_summary.json
+            tests
+            artifacts
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -45,6 +46,10 @@ jobs:
         run: |
           python tools/prepare_ours33.py
           python tools/export_predictions40.py
+      - name: Verify snap integration without training or inference
+        run: |
+          python -m unittest tests.test_sentence_snap40 tests.test_prediction_analysis40 tests.test_sentence_diagnosis41 tests.test_snap42 tests.test_snap42_integration -v
+          python tools/verify_snap42_integration.py
       - name: Commit recovered baseline predictions
         run: |
           set -eu

@@ -27,19 +27,41 @@ def sentence_intervals(text):
     return result
 
 
-def snap_sentences(spans, text):
+def snap_sentences(spans, text, mode="B1"):
+    if mode not in {"B1", "B2", "B3", "B4"}:
+        raise ValueError("неизвестный режим снапа")
     sentences = sentence_intervals(text)
     result = []
     for span in spans:
-        left = span["start"]
-        right = span["end"]
+        original_left = left = span["start"]
+        original_right = right = span["end"]
         if not 0 <= left <= right < len(text):
             raise ValueError("спан вне границ ответа")
-        for start, end in sentences:
-            overlap = max(0, min(right, end) - max(left, start) + 1)
-            if overlap * 10 >= 3 * (end - start + 1):
-                left = min(left, start)
-                right = max(right, end)
+        numerator = 15 if mode == "B2" else 30
+        selected = []
+        for index, (start, end) in enumerate(sentences):
+            overlap = max(0, min(original_right, end) - max(original_left, start) + 1)
+            if overlap * 100 >= numerator * (end - start + 1):
+                selected.append(index)
+        included = set(selected)
+        if mode == "B3":
+            for index in selected:
+                first = last = index
+                while first > 0 and sentences[first][0] - sentences[first - 1][1] - 1 < 20:
+                    first -= 1
+                while last + 1 < len(sentences) and sentences[last + 1][0] - sentences[last][1] - 1 < 20:
+                    last += 1
+                included.update(range(first, last + 1))
+        elif mode == "B4":
+            for index in selected:
+                if index > 0:
+                    included.add(index - 1)
+                if index + 1 < len(sentences):
+                    included.add(index + 1)
+        for index in included:
+            start, end = sentences[index]
+            left = min(left, start)
+            right = max(right, end)
         item = dict(span)
         item["start"] = left
         item["end"] = right
