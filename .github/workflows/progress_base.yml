@@ -1,0 +1,48 @@
+name: Состояние rubert-base
+
+on:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/progress_base.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  progress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/5afadcb0-smarty-chumkov
+      - name: read progress
+        run: |
+          gh api "repos/$GH_REPO/actions/jobs/133166769296/logs" > /tmp/base33.log
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          lines = Path('/tmp/base33.log').read_text(encoding='utf-8').splitlines()
+          patterns = (r'Размер: \d+ байт; SHA-256: [a-f0-9]{64}', r'фолд \d+/\d+: train \d+, holdout \d+', r'эпоха \d+/\d+: \d+ пар, [\d.]+ с', r'предварительная оценка CV: [\d.]+ с, бюджет [\d.]+ с', r'прогноз трёх фолдов [\d.]+ с превышает бюджет [\d.]+ с')
+          matches = [match.group(0) for line in lines for pattern in patterns if (match := re.search(pattern, line))]
+          Path('artifacts').mkdir(exist_ok=True)
+          Path('artifacts/actions33_progress.json').write_text(json.dumps({'run_id': 43828152726, 'lines': matches}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps(matches, ensure_ascii=False, indent=2))
+          PY
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          git add -f artifacts/actions33_progress.json
+          if ! git diff --cached --quiet; then
+            git config user.name github-actions
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git commit -m 'Зафиксировать состояние rubert-base [skip ci]'
+            git push origin arena/5afadcb0-smarty-chumkov
+          fi
