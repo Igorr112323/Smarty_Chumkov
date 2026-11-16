@@ -1,0 +1,57 @@
+name: Сохранить предсказания дообучения
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/5afadcb0-smarty-chumkov
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts/nested38_summary.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers>=4.50,<5' huggingface_hub
+      - name: Download previous fold caches
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 43914581442
+          pattern: nested38-outer-*
+          path: artifacts
+          merge-multiple: true
+      - name: Recover predictions without training or inference
+        run: |
+          python tools/prepare_ours33.py
+          python tools/export_predictions40.py
+      - name: Commit recovered baseline predictions
+        run: |
+          set -eu
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          git add --sparse -f artifacts/predictions_fold1.jsonl artifacts/predictions_fold2.jsonl artifacts/predictions_fold3.jsonl artifacts/predictions_fold4.jsonl artifacts/predictions_fold5.jsonl artifacts/predictions40_manifest.json
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          if ! git diff --cached --quiet; then
+            git commit -m 'Сохранить предсказания фолдов [skip ci]'
+            git push origin arena/5afadcb0-smarty-chumkov
+          fi
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git log origin/arena/5afadcb0-smarty-chumkov -1 --oneline
+          for file in artifacts/predictions_fold{1..5}.jsonl artifacts/predictions40_manifest.json; do git cat-file -e origin/arena/5afadcb0-smarty-chumkov:"$file"; done
