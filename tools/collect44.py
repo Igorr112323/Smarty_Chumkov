@@ -100,13 +100,14 @@ def finalize_inner(reports, selections, seed_count):
         for inner in range(1, 6):
             if inner == outer:
                 continue
-            for seed in range(seed_count):
+            for seed in range(len(reports[outer, inner]["seeds"])):
                 path = ROOT / f"artifacts/inner_predictions_fold{outer}_inner{inner}_seed{seed}.jsonl"
                 rows = read_jsonl(path)
                 for row in rows:
                     value = {"answer": row["answer"], "pieces": row["pieces"]}
                     row["predicted_spans"] = predict44(value, choice["start"], choice["extend"], True)
                     row["prediction_status"] = "selected_on_inner_ensemble"
+                    row["included_in_ensemble"] = seed < seed_count
                     row["start_threshold"] = choice["start"]
                     row["extend_threshold"] = choice["extend"]
                     row["snap_delta"] = choice["delta"]
@@ -115,13 +116,14 @@ def finalize_inner(reports, selections, seed_count):
             save_json(ROOT / f"artifacts/train44_fold{outer}_inner{inner}.json", reports[outer, inner])
 
 
-def outer_evaluation(folds, selections, seed_count):
+def outer_evaluation(folds, reports, selections, seed_count):
     outcomes = []
     for outer in range(1, 6):
         choice = selections[outer]["compensation"]
         gold = {row["pair_id"]: row for row in folds[outer - 1]}
         seed_rows = []
-        for seed in range(seed_count):
+        primary_inner = outer % 5 + 1
+        for seed in range(len(reports[outer, primary_inner]["seeds"])):
             source = ROOT / f"artifacts/outer44_raw_fold{outer}_seed{seed}.jsonl"
             raw = read_jsonl(source)
             if len(raw) != len(gold) or {row["pair_id"] for row in raw} != set(gold) or any(row["fold"] != outer or row["seed"] != seed for row in raw):
@@ -132,11 +134,12 @@ def outer_evaluation(folds, selections, seed_count):
                 if item["answer"] != truth["model_output"] or item["doc_ids"] != truth["doc_ids"]:
                     raise ValueError("несовпадение внешних ID или текста")
                 value = {"answer": item["answer"], "pieces": item["pieces"]}
-                row = {**item, "pair_prob": max((piece[2] for piece in item["pieces"]), default=0.0), "pair_prob_definition": "max_piece_probability_gate_score_not_separate_pair_head", "word_probabilities": words(item["answer"], item["pieces"]), "gold_spans": truth["spans"], "predicted_spans": predict44(value, choice["start"], choice["extend"], True), "sentence_intervals": sentence_intervals(item["answer"]), "start_threshold": choice["start"], "extend_threshold": choice["extend"], "snap_delta": choice["delta"], "selection": "only_inner"}
+                row = {**item, "pair_prob": max((piece[2] for piece in item["pieces"]), default=0.0), "pair_prob_definition": "max_piece_probability_gate_score_not_separate_pair_head", "word_probabilities": words(item["answer"], item["pieces"]), "gold_spans": truth["spans"], "predicted_spans": predict44(value, choice["start"], choice["extend"], True), "sentence_intervals": sentence_intervals(item["answer"]), "start_threshold": choice["start"], "extend_threshold": choice["extend"], "snap_delta": choice["delta"], "selection": "only_inner", "included_in_ensemble": seed < seed_count}
                 rows.append(row)
             target = ROOT / f"artifacts/outer_predictions_fold{outer}_seed{seed}.jsonl"
             save_rows(target, rows)
-            seed_rows.append(read_jsonl(target))
+            if seed < seed_count:
+                seed_rows.append(read_jsonl(target))
         pairs, cache = blend(seed_rows)
         ensemble = prediction_rows(pairs, cache, choice["start"], choice["extend"], True)
         metric = score_rows(ensemble)
@@ -145,17 +148,21 @@ def outer_evaluation(folds, selections, seed_count):
     return outcomes
 
 
+def validate_data(path, data):
+    if digest(path) != EXPECTED_GOLD_SHA or len(data) != 699 or id_digest(data) != EXPECTED_IDS:
+        raise ValueError("неверный набор train/val")
+
+
 def main():
     path = ROOT / "artifacts/ours33.jsonl"
     data = read_jsonl(path)
-    if digest(path) != EXPECTED_GOLD_SHA or len(data) != 699 or id_digest(data) != EXPECTED_IDS:
-        raise ValueError("неверный набор train/val")
+    validate_data(path, data)
     folds = split_groups(components(data, our_keys), 5, 0)
     reports = load_reports(folds)
     seed_count = 5 if all(len(row["seeds"]) == 5 for row in reports.values()) else 2
     selections = select_all(folds, reports, seed_count)
     finalize_inner(reports, selections, seed_count)
-    outcomes = outer_evaluation(folds, selections, seed_count)
+    outcomes = outer_evaluation(folds, reports, selections, seed_count)
     metrics = [row["metrics"] for row in outcomes]
     names = ("token_precision", "token_recall", "token_f1", "exact_f1", "overlap_f1", "iou_f1", "pair_f1", "fpr_pair", "fpr_token", "type_accuracy")
     summary = {name: {"mean": statistics.mean(row[name] for row in metrics), "std": statistics.pstdev(row[name] for row in metrics), "max": max(row[name] for row in metrics)} for name in names}

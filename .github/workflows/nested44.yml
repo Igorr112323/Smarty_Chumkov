@@ -1,0 +1,166 @@
+name: Финальный вложенный раунд tiny2
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/nested44.yml
+
+permissions:
+  contents: write
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            spanver
+            tools
+            tests
+            scripts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: |
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers>=4.50,<5' huggingface_hub
+      - name: Safe tests before training
+        run: |
+          python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py tests/test_nested37.py tests/test_nested38.py
+          python -m unittest tests.test_sentence_snap40 tests.test_prediction_analysis40 tests.test_sentence_diagnosis41 tests.test_snap42 tests.test_snap42_integration tests.test_select44 tests.test_train44 tests.test_collector44 -v
+  folds:
+    needs: smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {outer: 1, inner: 2}
+          - {outer: 1, inner: 3}
+          - {outer: 1, inner: 4}
+          - {outer: 1, inner: 5}
+          - {outer: 2, inner: 1}
+          - {outer: 2, inner: 3}
+          - {outer: 2, inner: 4}
+          - {outer: 2, inner: 5}
+          - {outer: 3, inner: 1}
+          - {outer: 3, inner: 2}
+          - {outer: 3, inner: 4}
+          - {outer: 3, inner: 5}
+          - {outer: 4, inner: 1}
+          - {outer: 4, inner: 2}
+          - {outer: 4, inner: 3}
+          - {outer: 4, inner: 5}
+          - {outer: 5, inner: 1}
+          - {outer: 5, inner: 2}
+          - {outer: 5, inner: 3}
+          - {outer: 5, inner: 4}
+    env:
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: |
+          pip install pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers>=4.50,<5' huggingface_hub
+      - name: Prepare only train and validation
+        run: |
+          python tools/prepare_ours33.py
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Train and save inner predictions
+        run: timeout --signal=TERM --kill-after=30s 160m python -u tools/train44.py --outer '${{ matrix.outer }}' --inner '${{ matrix.inner }}' --git-sha '${{ github.sha }}'
+      - name: Preserve partial and complete predictions
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: train44-fold-${{ matrix.outer }}-inner-${{ matrix.inner }}
+          path: |
+            artifacts/train44_fold${{ matrix.outer }}_inner${{ matrix.inner }}.json
+            artifacts/inner_predictions_fold${{ matrix.outer }}_inner${{ matrix.inner }}_seed*.jsonl
+            artifacts/outer44_raw_fold${{ matrix.outer }}_seed*.jsonl
+          if-no-files-found: warn
+          retention-days: 30
+  collect:
+    if: always() && needs.smoke.result == 'success'
+    needs: [smoke, folds]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/5afadcb0-smarty-chumkov
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+            STATUS.md
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install data dependency
+        run: pip install pyarrow
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: train44-fold-*
+          path: artifacts
+          merge-multiple: true
+      - name: Prepare train and validation
+        run: python tools/prepare_ours33.py
+      - name: Select on inner and assess outer once
+        id: evaluate
+        if: needs.folds.result == 'success'
+        continue-on-error: true
+        run: python tools/collect44.py
+      - name: Write final report
+        id: report
+        if: steps.evaluate.outcome == 'success'
+        continue-on-error: true
+        run: python tools/report44.py
+      - name: Save complete or partial progress
+        if: always()
+        run: |
+          set -eu
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          for file in artifacts/train44_fold*_inner*.json artifacts/inner_predictions_fold*_inner*_seed*.jsonl artifacts/outer44_raw_fold*_seed*.jsonl artifacts/selection44_fold*.json artifacts/outer_predictions_fold*_seed*.jsonl artifacts/summary44.json; do
+            if [ -f "$file" ]; then git add --sparse -f "$file"; fi
+          done
+          if [ '${{ steps.report.outcome }}' = success ]; then git add --sparse -f artifacts/final_summary.md STATUS.md; fi
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          if ! git diff --cached --quiet; then
+            git commit -m 'Сохранить финальный раунд [skip ci]'
+            git push origin arena/5afadcb0-smarty-chumkov
+          fi
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git log origin/arena/5afadcb0-smarty-chumkov -1 --oneline
+          if [ '${{ steps.report.outcome }}' = success ]; then git cat-file -e origin/arena/5afadcb0-smarty-chumkov:artifacts/summary44.json; git cat-file -e origin/arena/5afadcb0-smarty-chumkov:artifacts/final_summary.md; fi
+      - name: Verify completion
+        if: always()
+        env:
+          FOLDS_RESULT: ${{ needs.folds.result }}
+          EVALUATE_RESULT: ${{ steps.evaluate.outcome }}
+          REPORT_RESULT: ${{ steps.report.outcome }}
+        run: test "$FOLDS_RESULT" = success && test "$EVALUATE_RESULT" = success && test "$REPORT_RESULT" = success
