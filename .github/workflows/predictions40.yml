@@ -2,6 +2,11 @@ name: Сохранить предсказания дообучения
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/predictions40.yml
 
 permissions:
   contents: write
