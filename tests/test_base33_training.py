@@ -1,4 +1,4 @@
-from tools.train_base33 import GRID, grouped_folds, tune
+from tools.train_base33 import GRID, METRICS, grouped_folds, summarize_rows, tune
 
 
 def test_grouped_folds_keep_shared_documents_together():
@@ -18,3 +18,19 @@ def test_hysteresis_selection_uses_requested_grid_and_reference():
     assert result["candidates"] == 171
     assert result["eligible"]
     assert 0 <= result["metrics"]["span_f1"] <= 1
+
+
+def test_summary_uses_both_folds_and_population_std():
+    values = (0.0, 0.2517)
+    rows = [{"tuning": {"metrics": {name: value for name in METRICS}}} for value in values]
+    result = summarize_rows(rows)
+    assert result["token_f1"]["mean"] == round((values[0] + values[1]) / 2, 4)
+    assert result["token_f1"]["std"] == result["token_f1"]["mean"]
+
+
+def test_no_predictions_are_counted():
+    pairs = [{"pair_id": "x", "model_output": "Нет ошибки.", "spans": []}]
+    cache = {"x": {"answer": "Нет ошибки.", "pieces": [(0, 3, 0.01), (4, 10, 0.01)]}}
+    result = tune(pairs, cache)
+    assert result["predicted_pairs"] == 0
+    assert result["predicted_spans"] == 0

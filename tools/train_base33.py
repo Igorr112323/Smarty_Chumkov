@@ -44,7 +44,8 @@ def tune(pairs, cache):
             return []
         flags = flags_with(pieces, chosen["start"], chosen["extend"], 0.0)
         return snapped(decode.spans_from_flags(item["answer"], pieces, flags, 2), item["answer"], "expand")
-    reference = metrics(pairs, predict)
+    predictions = {pair["pair_id"]: predict(pair) for pair in pairs}
+    reference = metrics(pairs, lambda pair: predictions[pair["pair_id"]])
     for level in ("token", "span", "pair"):
         for metric in ("precision", "recall", "f1"):
             if reference[f"{level}_level"][metric] != chosen[level][metric]:
@@ -53,7 +54,13 @@ def tune(pairs, cache):
         raise ValueError("несовпадение FPR с evaluator")
     result = {f"{level}_{metric}": reference[f"{level}_level"][metric] for level in ("token", "span") for metric in ("precision", "recall", "f1")}
     result.update({"pair_f1": reference["pair_level"]["f1"], "fpr_pair": reference["fpr"], "fpr_token": chosen["fpr_token"], "type_accuracy": reference["type_accuracy"], "type_correct": reference["type_correct"], "matched_spans": reference["span_level"]["tp"]})
-    return {"start": chosen["start"], "extend": chosen["extend"], "eligible": bool(allowed), "eligible_candidates": len(allowed), "candidates": len(rows), "metrics": result}
+    return {"start": chosen["start"], "extend": chosen["extend"], "eligible": bool(allowed), "eligible_candidates": len(allowed), "candidates": len(rows), "predicted_pairs": sum(bool(spans) for spans in predictions.values()), "predicted_spans": sum(len(spans) for spans in predictions.values()), "metrics": result}
+
+
+def summarize_rows(rows):
+    if not rows:
+        raise ValueError("нет фолдов для сводки")
+    return {metric: {"mean": round(statistics.mean([row["tuning"]["metrics"][metric] for row in rows]), 4), "std": round(statistics.pstdev([row["tuning"]["metrics"][metric] for row in rows]), 4)} for metric in METRICS}
 
 
 class BudgetExceeded(RuntimeError):
@@ -148,8 +155,13 @@ def run(args):
         report["elapsed_s"] = round(time.perf_counter() - started, 3)
         save_json(path, report)
         print(json.dumps(row, ensure_ascii=False), flush=True)
+        if tuned["predicted_spans"] == 0:
+            report["status"] = "STOP: нет предсказанных спанов, сводка CV невалидна"
+            save_json(path, report)
+            print(report["status"], flush=True)
+            return 2
         del model, tokenizer, cache
-    report["summary"] = {metric: {"mean": round(statistics.mean([row["tuning"]["metrics"][metric] for row in report["rows"]]), 4), "std": round(statistics.pstdev([row["tuning"]["metrics"][metric] for row in report["rows"]]), 4)} for metric in METRICS}
+    report["summary"] = summarize_rows(report["rows"])
     report["status"] = "готово"
     report["elapsed_s"] = round(time.perf_counter() - started, 3)
     save_json(path, report)
