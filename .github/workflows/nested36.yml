@@ -2,6 +2,11 @@ name: Tiny2 вложенная CV и мешки сидов
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/nested36.yml
 
 permissions:
   contents: write
