@@ -15,7 +15,7 @@ def search_inner_prediction_keys(value, path=""):
                 result.append(next_path)
             result.extend(search_inner_prediction_keys(child, next_path))
     elif isinstance(value, list):
-        for child in value[:1]:
+        for child in value:
             result.extend(search_inner_prediction_keys(child, path + "[]"))
     return sorted(set(result))
 

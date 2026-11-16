@@ -32,7 +32,7 @@ jobs:
           pattern: nested38-outer-*
           path: artifacts
           merge-multiple: true
-      - name: Inspect saved JSON keys only
+      - name: Inspect all saved JSON keys only
         run: python tools/audit_inner43.py
       - name: Save audit
         run: |
