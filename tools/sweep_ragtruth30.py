@@ -104,7 +104,7 @@ def compute(prepared, start, extend, gate=None):
         f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
         return {"precision": round(precision, 4), "recall": round(recall, 4), "f1": round(f1, 4)}
 
-    return {"start": start, "extend": extend, "token": stats(token_tp, token_fp, token_fn), "span": stats(tp, fp, fn), "span_f1_exact": 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else 0.0, "pair": stats(pair_tp, pair_fp, pair_fn), "fpr_pair": round(negative_flagged / negative_pairs, 4) if negative_pairs else 0.0, "fpr_token": round(negative_tokens_flagged / negative_tokens, 4) if negative_tokens else 0.0, "support": {"span_tp": tp, "span_fp": fp, "span_fn": fn, "negative_pairs": negative_pairs, "negative_tokens": negative_tokens, "flagged_negative_pairs": negative_flagged, "flagged_negative_tokens": negative_tokens_flagged}}
+    return {"start": start, "extend": extend, "token": stats(token_tp, token_fp, token_fn), "token_f1_exact": 2 * token_tp / (2 * token_tp + token_fp + token_fn) if 2 * token_tp + token_fp + token_fn else 0.0, "span": stats(tp, fp, fn), "span_f1_exact": 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else 0.0, "pair": stats(pair_tp, pair_fp, pair_fn), "fpr_pair": round(negative_flagged / negative_pairs, 4) if negative_pairs else 0.0, "fpr_token": round(negative_tokens_flagged / negative_tokens, 4) if negative_tokens else 0.0, "support": {"token_tp": token_tp, "token_fp": token_fp, "token_fn": token_fn, "span_tp": tp, "span_fp": fp, "span_fn": fn, "negative_pairs": negative_pairs, "negative_tokens": negative_tokens, "flagged_negative_pairs": negative_flagged, "flagged_negative_tokens": negative_tokens_flagged}}
 
 
 def within_fpr_limits(row):

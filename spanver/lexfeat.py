@@ -119,10 +119,10 @@ class FeatureModel(nn.Module):
         return self.base.classifier(hidden)
 
 
-def load_feature_model(directory, labels=2):
+def load_feature_model(directory, labels=2, seed=0):
     from transformers import AutoModelForTokenClassification, AutoTokenizer
 
-    torch.manual_seed(0)
+    torch.manual_seed(seed)
     torch.set_num_threads(4)
     tokenizer = AutoTokenizer.from_pretrained(str(directory), local_files_only=True)
     base = AutoModelForTokenClassification.from_pretrained(
