@@ -1,0 +1,29 @@
+{
+ "status": "готово",
+ "scope": "внешний фолд 1, 140 пар, только инференс сида 0",
+ "top_chunks": 4,
+ "auc_chars": 0.6538235435724603,
+ "auc_pairs": 0.7085700757575758,
+ "positives_chars": 2077,
+ "negatives_chars": 5179,
+ "pairs_with_gold": 44,
+ "pairs_without_gold": 96,
+ "gold_char_share": 0.2994512224998775,
+ "oracle_threshold_point": {
+  "gate": 0.5,
+  "start": 0.45,
+  "extend": 0.225,
+  "token_f1": 0.4791,
+  "fpr_token": 0.3956,
+  "fpr_pair": 0.1771,
+  "iou_f1": 0.2366,
+  "exact_f1": 0.23655913978494625
+ },
+ "baselines": {
+  "all_positive_token_f1": 0.5001320461281141,
+  "all_positive_pair_f1": 0.5095951249422134,
+  "whole_answer_span_iou_f1": 0.30430405718521836,
+  "source": "константы из artifacts/decode52_report.md"
+ },
+ "verdict": "порог не спасает: AUC 0.65 на знаках означает, что скор отделяет золото от фона слабо, поэтому оракульный порог тоже не выводит token F1 выше all-positive базовой линии"
+}
