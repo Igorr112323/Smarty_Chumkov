@@ -1,0 +1,64 @@
+{
+  "status": "готово",
+  "variant": "v2",
+  "outer_fold": 4,
+  "inner_fold": 5,
+  "git_sha": "04884762d96cff62adaaaec2ba0c58fc969d72c7",
+  "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
+  "train_id_sha256": "f1bf95340640f98f33839e02d54abaa96b9dca80a97b455072de6276d841690f",
+  "outer_id_sha256": "ceda8092501a875b25e8b41764b659a132411007f59e2a8fff03c8041787b019",
+  "model": "rubert-tiny2 + 5 token lexical features",
+  "gate": 0.45,
+  "threshold": {
+    "start": 0.5,
+    "extend": 0.25,
+    "mean_inner_token_f1_exact": 0.463338965007549,
+    "max_inner_fpr_pair": 0.1875,
+    "max_inner_fpr_token": 0.387
+  },
+  "clause_expand": true,
+  "sentence_snap": false,
+  "checkpoints": [
+    {
+      "seed": 0,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "1841ef4be616f4c6edfd84150b096f0de9aba4b43b531939ed8fa3ddf79852d0",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "3eb21ac365ab9f2807fd6db872579c671138be124c26aafa6e05a88e03577cd6"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "2d875a7549459802927c60c1137b4a75ba2cce69dceb79f4e62b53abaa96f5aa"
+        }
+      ],
+      "restore_predictions_equal": true
+    },
+    {
+      "seed": 1,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "206b0c770518d6a18480322094f1d42801ce8886eae2d68447796f93f00162a6",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "3eb21ac365ab9f2807fd6db872579c671138be124c26aafa6e05a88e03577cd6"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "b84fa19ac1221bb03abd07913271522d4dfec1453c247818a88804f5878ee92f"
+        }
+      ],
+      "restore_predictions_equal": true
+    }
+  ],
+  "restore_verified": true
+}
