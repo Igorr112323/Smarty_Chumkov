@@ -55,6 +55,8 @@ jobs:
     needs: [plan, smoke]
     runs-on: ubuntu-latest
     timeout-minutes: 240
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
@@ -66,6 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           sparse-checkout: |
             Dataset/1_rushallu_rag_gold
             spanver
@@ -90,6 +93,24 @@ jobs:
           set -euo pipefail
           timeout --signal=TERM --kill-after=30s 225m python -u tools/train52_chunks.py \
             --outer '${{ matrix.outer }}' --git-sha '${{ github.sha }}'
+      # артефакты GitHub в песочнице недоступны (blob-хранилище блокировано),
+      # поэтому отчёт коммитится прямо в ветку — это же требование к весам и цифрам
+      - name: Сохранить отчёт в ветку
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          mkdir -p artifacts
+          if [ -f artifacts/ablation52_outer${{ matrix.outer }}.json ]; then
+            git add -f artifacts/ablation52_outer${{ matrix.outer }}.json
+            git commit -m "ablation52 outer ${{ matrix.outer }} [skip ci]" || echo "нечего коммитить"
+            for attempt in 1 2 3; do
+              git fetch origin arena/4a5c459f-smarty-chumkov
+              git rebase FETCH_HEAD && git push origin HEAD:arena/4a5c459f-smarty-chumkov && break
+              sleep 10
+            done
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
