@@ -1,0 +1,25 @@
+{
+ "pairs": 140,
+ "predicted_spans": 37,
+ "gold_spans": 56,
+ "matched_spans": 19,
+ "iou_mean": 0.5957527083440324,
+ "exact_rate": 0.16216216216216217,
+ "type_agreement": 0.7894736842105263,
+ "binary_precision": 0.5405405405405406,
+ "binary_recall": 0.45454545454545453,
+ "binary_f1": 0.49382716049382713,
+ "binary_counts": {
+  "tp": 20,
+  "fp": 17,
+  "fn": 24,
+  "tn": 79
+ },
+ "status": "готово",
+ "scope": "пилот: 140 позитивных пар внешнего фолда 1, разметчик не видел их при обучении",
+ "labeler": "spanver tiny (rubert-tiny2 + 5 признаков), веса V5 seed 0, gate 0.45 start 0.50 extend 0.25 max_spans 3",
+ "labeler_limit": "промптовой LLM в песочнице нет, поэтому разметчик — та же модель, а не внешняя сильная; согласие с ней измеряет воспроизводимость, а не независимое качество разметки",
+ "iou_threshold_pass": 0.6,
+ "iou_threshold_conditional": 0.45,
+ "verdict": "шаг C с весом 0.3 и половинным объёмом"
+}

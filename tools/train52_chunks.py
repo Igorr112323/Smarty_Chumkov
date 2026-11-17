@@ -1,0 +1,123 @@
+"""ШАГ A: обучение с согласованным числом чанков.
+
+Отличие от `tools/train51_ten.py` только одно: `spanver/lexfeat.build_table`
+теперь кодирует все выбранные чанки пары (`TRAIN_TOP_CHUNKS`), а не первый.
+Инференс и раньше считал по четырём чанкам, поэтому обучение и инференс
+наконец видят один и тот же контекст.
+
+Схема, пороги и оценка — те же, что в 51: пятифолдовая группировка по
+документам, обучение на train минус внутренний фолд, порог выбирается по
+внутреннему фолду с ограничениями FPR, внешний фолд не смотрится до конца.
+
+Запуск только в Actions (локальная машина — 2 ядра, это часы на фолд).
+"""
+import argparse
+import json
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
+import torch
+import transformers
+
+from spanver import lexfeat
+from spanver.evaluate import read_jsonl
+from tools.nested38 import GRID, PART_BYTES, file_digest, split, target_inner
+from tools.nested_cv35 import GATE, averaged, probabilities
+from tools.preflight_13 import id_digest
+from tools.prepare_ours33 import EXPECTED_IDS
+from tools.sweep_ragtruth30 import compute, prepare
+from tools.train46 import train_variant
+from tools.train_base33 import grouped_folds
+from tools.train_scheme13_full import save_json
+
+SEEDS = (0, 1, 2, 3, 4)
+FOLDS = 5
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--outer", required=True, type=int, choices=range(1, FOLDS + 1))
+    parser.add_argument("--git-sha", default="unknown")
+    parser.add_argument("--out", default=None)
+    args = parser.parse_args()
+    torch.use_deterministic_algorithms(True)
+    source = ROOT / "artifacts/ours33.jsonl"
+    pairs = read_jsonl(source)
+    if len(pairs) != 699 or id_digest(pairs) != EXPECTED_IDS:
+        raise ValueError("неверный набор train/val")
+    folds = grouped_folds(pairs, FOLDS)
+    outer = args.outer - 1
+    inner = target_inner(outer)
+    training, tuning, held = split(folds, outer, inner)
+    path = Path(args.out) if args.out else ROOT / f"artifacts/ablation52_outer{args.outer}.json"
+    report = {
+        "status": "в процессе",
+        "variant": "chunks",
+        "outer_fold": args.outer,
+        "inner_fold": inner + 1,
+        "git_sha": args.git_sha,
+        "torch": str(torch.__version__),
+        "transformers": transformers.__version__,
+        "gold_sha256": file_digest(source),
+        "fold_ids_sha256": [id_digest(fold) for fold in folds],
+        "train_id_sha256": id_digest(training),
+        "inner_id_sha256": id_digest(tuning),
+        "outer_id_sha256": id_digest(held),
+        "train_top_chunks": lexfeat.TRAIN_TOP_CHUNKS,
+        "training_rows": None,
+        "seeds": [],
+        "test301": False,
+        "external_data": False,
+    }
+    save_json(path, report)
+
+    inner_caches, outer_caches = [], []
+    started = time.perf_counter()
+    for seed in SEEDS:
+        clock = time.perf_counter()
+        tokenizer, model = lexfeat.load_feature_model(ROOT / "models/rubert-tiny2", seed=seed)
+        model.base.config._attn_implementation = "eager"
+        torch.manual_seed(seed)
+        info = train_variant(model, tokenizer, training, tuning, seed, "v2", permanent_freeze=True)
+        if report["training_rows"] is None:
+            report["training_rows"] = len(lexfeat.build_table(tokenizer, training))
+            save_json(path, report)
+        inner_caches.append(probabilities(tokenizer, model, tuning))
+        outer_caches.append(probabilities(tokenizer, model, held))
+        info.update({"seed": seed, "seconds": round(time.perf_counter() - clock, 3)})
+        report["seeds"].append(info)
+        report["elapsed_s"] = round(time.perf_counter() - started, 3)
+        save_json(path, report)
+        print(f"outer {args.outer} seed {seed}: готово за {info['seconds']} с", flush=True)
+        del model, tokenizer
+
+    inner_cache = {row["pair_id"]: averaged(row, inner_caches, range(len(SEEDS))) for row in tuning}
+    prepared = prepare(tuning, inner_cache)
+    report["inner_grid"] = [compute(prepared, threshold, threshold / 2, GATE) for threshold in GRID]
+
+    # то же правило отбора, что зафиксировано на стадии 1: объединённые счётчики
+    # внутренних фолдов, ограничения FPR, максимум token F1
+    rows = report["inner_grid"]
+    allowed = [row for row in rows if row["fpr_token"] <= 0.40 and row["fpr_pair"] <= 0.40]
+    report["threshold_point"] = max(allowed, key=lambda row: row["token_f1"]) if allowed else None
+
+    outer_cache = {row["pair_id"]: averaged(row, outer_caches, range(len(SEEDS))) for row in held}
+    report["outer_predictions"] = {key: value["pieces"] for key, value in outer_cache.items()}
+    if report["threshold_point"] is not None:
+        threshold = report["threshold_point"]["threshold"]
+        import json as json_module
+
+        payload = {key: json_module.loads(json_module.dumps(value)) for key, value in outer_cache.items()}
+        report["outer_at_selected"] = compute(prepare(held, payload), threshold, threshold / 2, GATE)
+    report["status"] = "готово"
+    report["elapsed_s"] = round(time.perf_counter() - started, 3)
+    save_json(path, report)
+    print(f"outer {args.outer}: завершено", flush=True)
+
+
+if __name__ == "__main__":
+    main()

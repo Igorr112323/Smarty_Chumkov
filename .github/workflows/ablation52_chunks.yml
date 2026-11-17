@@ -1,0 +1,146 @@
+name: ablation52 (согласованные чанки)
+
+# ШАГ A мандата 52: обучение с тем же числом чанков, что и инференс.
+# Сравнение идёт с 51 на тех же фолдах, поэтому берём outer 1 и 2:
+# одного фолда мало, чтобы отличить эффект +0.012 от шума (std по фолдам 0.05).
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "artifacts/ablation52_plan.json"
+
+permissions:
+  contents: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: artifacts
+      - run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          plan = json.load(open("artifacts/ablation52_plan.json"))
+          assert plan["top_chunks"] == 4, plan
+          assert plan["seeds"] == [0, 1, 2, 3, 4], plan
+          assert plan["folds"] == [1, 2], plan
+          print("план принят:", plan)
+          PY
+
+  smoke:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            spanver
+            tools
+            tests
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          set -euo pipefail
+          pip install pytest pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python -m pytest -q tests/test_train46.py tests/test_collect46.py tests/test_nested38.py
+
+  folds:
+    needs: [plan, smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        outer: [1, 2]
+    env:
+      TOKENIZERS_PARALLELISM: "false"
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Данные и веса
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python tools/prepare_ours33.py
+          test "$(sha256sum artifacts/ours33.jsonl | cut -d' ' -f1)" = "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63"
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Обучение с top=4 в обучении
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=30s 225m python -u tools/train52_chunks.py \
+            --outer '${{ matrix.outer }}' --git-sha '${{ github.sha }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: report52-outer${{ matrix.outer }}
+          path: artifacts/ablation52_outer${{ matrix.outer }}.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  collect:
+    if: always() && needs.folds.result == 'success'
+    needs: [plan, smoke, folds]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          set -euo pipefail
+          pip install pyarrow
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: report52-*
+          path: artifacts
+          merge-multiple: true
+      - name: Сводка и проверка AUC
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          rows = []
+          for path in sorted(Path("artifacts").glob("ablation52_outer*.json")):
+              report = json.loads(path.read_text(encoding="utf-8"))
+              if report.get("status") != "готово":
+                  raise SystemExit(f"{path} не завершён: {report.get('status')}")
+              rows.append({
+                  "outer": report["outer_fold"],
+                  "threshold_point": report["threshold_point"],
+                  "outer_at_selected": report["outer_at_selected"],
+                  "train_top_chunks": report["train_top_chunks"],
+                  "elapsed_s": report["elapsed_s"],
+              })
+          summary = {"folds": rows, "top_chunks": 4}
+          Path("artifacts/ablation52_summary.json").write_text(
+              json.dumps(summary, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+          print(json.dumps(summary, ensure_ascii=False, indent=1))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: summary52
+          path: artifacts/ablation52_summary.json
+          retention-days: 30
