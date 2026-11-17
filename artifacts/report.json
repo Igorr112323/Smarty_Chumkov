@@ -86,57 +86,63 @@
   "python": "3.11.2",
   "built_utc": "2026-11-14T15:32:25Z",
   "headline": {
-    "description": "вложенная CV; порог на внутренних фолдах по ограничению худшего внутреннего фолда",
+    "description": "V4, адаптивная вложенная CV на 699 train/val парах; не независимый договорный тест",
+    "token_f1": 0.5014,
     "metrics_mean_std": {
       "token_precision": {
-        "mean": 0.4517,
-        "std": 0.1035
+        "mean": 0.451,
+        "std": 0.0695
       },
       "token_recall": {
-        "mean": 0.4529,
-        "std": 0.0709
+        "mean": 0.5828,
+        "std": 0.0509
       },
       "token_f1": {
-        "mean": 0.4506,
-        "std": 0.0868
+        "mean": 0.5014,
+        "std": 0.029
       },
       "span_precision": {
-        "mean": 0.3542,
-        "std": 0.1099
+        "mean": 0.4054,
+        "std": 0.0984
       },
       "span_recall": {
-        "mean": 0.1632,
-        "std": 0.0372
-      },
-      "span_f1": {
-        "mean": 0.2229,
-        "std": 0.0562
-      },
-      "pair_f1": {
-        "mean": 0.2829,
-        "std": 0.0676
-      },
-      "fpr_pair": {
-        "mean": 0.1276,
+        "mean": 0.2357,
         "std": 0.0385
       },
+      "span_f1": {
+        "mean": 0.294,
+        "std": 0.0482
+      },
+      "pair_f1": {
+        "mean": 0.3647,
+        "std": 0.0404
+      },
+      "fpr_pair": {
+        "mean": 0.1641,
+        "std": 0.0573
+      },
       "fpr_token": {
-        "mean": 0.281,
-        "std": 0.0644
+        "mean": 0.366,
+        "std": 0.0912
       },
       "type_accuracy": {
-        "mean": 0.9359,
-        "std": 0.0786
+        "mean": 0.9071,
+        "std": 0.078
       }
     },
-    "max_outer_fpr_token": 0.4036,
-    "max_outer_fpr_pair": 0.1957,
-    "target_met_on_observed_folds": false,
+    "pooled_token_f1": 0.4999,
+    "pooled_token_f1_exact": 0.4998734625702283,
+    "pooled_fpr_token": 0.3696507191077194,
+    "max_outer_fpr_token": 0.505,
+    "max_outer_fpr_pair": 0.2391,
+    "target_met_hybrid_macro_f1_pooled_fpr_cv": true,
+    "target_met_pooled_f1_and_fpr_cv": false,
+    "contract_confirmed": false,
     "gate_passed": null,
-    "gate_note": "оценка получена на фолдах, использованных для выбора конфигурации; независимого подтверждения нет, test 301 израсходован ранее на другой конфигурации",
+    "gate_note": "699 ранее изученных train/val вместо независимой договорной отложенной части 1200; единой оценкой договора это не является",
     "test301_evaluated": false,
     "config": "artifacts/frozen_final.json",
-    "details": "artifacts/nested38_summary.json"
+    "details": "artifacts/ablation47_v4_summary.json"
   },
   "confirmed_test": {
     "split": "test",

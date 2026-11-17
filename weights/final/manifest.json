@@ -1,5 +1,5 @@
 {
-  "status": "кандидат",
+  "status": "готово",
   "variant": "v4",
   "outer_fold": 1,
   "inner_fold": 2,
@@ -120,9 +120,10 @@
       "restore_predictions_equal": true
     }
   ],
-  "restore_verified": false,
+  "restore_verified": true,
   "source": "weights/ablation47/v4/fold1",
   "source_revision": "HEAD",
   "scope": "пять сидов только внешнего фолда 1; остальные четыре ансамбля находятся в weights/ablation47",
-  "fpr_note": "порог выбран по внутренним фолдам; FPR на новых данных не гарантирован"
+  "fpr_note": "порог выбран по внутренним фолдам; FPR на новых данных не гарантирован",
+  "restore_verification": "artifacts/final47_restore_verification.json"
 }
