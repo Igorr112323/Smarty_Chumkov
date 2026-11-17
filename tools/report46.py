@@ -59,6 +59,15 @@ def main():
             lines.append(f"- {name.upper()} относительно {previous.upper()}: {change}, Δ token F1 {delta:+.4f}.")
         else:
             lines.append(f"- {name.upper()}: нет завершённой пары результатов для сравнения.")
+    for name in ("v2", "v3"):
+        value = statuses.get(name)
+        if value:
+            primary = [load(f"ablation46_{name}_outer{fold}_inner{fold % 5 + 1}.json") for fold in range(1, 6)]
+            if all(primary):
+                seeds = [seed for item in primary for seed in item["seeds"]]
+                stopped = sum(epoch <= 5 for epoch in value["epochs_ran"])
+                best_frozen = sum(seed["best_epoch"] <= 5 for seed in seeds)
+                lines.append(f"- {name.upper()}: {stopped} из {len(value['epochs_ran'])} обучений остановились не позже эпохи 5; у {best_frozen} из {len(seeds)} основных checkpoint лучшая эпоха пришлась на заморозку. Пониженный LR после разморозки не повлиял на такие checkpoint.")
     lines += ["", "## Объединённые out-of-fold показатели на 699 парах", ""]
     for name, label in labels.items():
         pooled = load(f"ablation46_{name}_pooled.json")
