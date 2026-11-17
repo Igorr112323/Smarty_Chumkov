@@ -1,0 +1,55 @@
+name: cli52
+
+# Приёмка поставки на раннере: веса V5 лежат в ветке proj, а не здесь,
+# поэтому workflow сам забирает нужные чанки и проверяет расхождение путей.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "spanver/tiny_backend.py"
+      - "spanver/cli.py"
+      - "spanver/api.py"
+      - "tools/cli52.py"
+      - "artifacts/tiny_head.json"
+      - ".github/workflows/cli52.yml"
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+      - name: data
+        run: |
+          python tools/read_parquet.py --out artifacts
+          python -m spanver build --dataset Dataset --out artifacts
+          python tools/prepare_ours33.py
+          test "$(sha256sum artifacts/ours33.jsonl | cut -d' ' -f1)" = "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63"
+      - name: weights
+        run: |
+          git fetch --depth=1 origin arena/5afadcb0-smarty-chumkov
+          git archive FETCH_HEAD weights/final/manifest.json weights/final/seed_0 weights/rubert-tiny2 | tar -x
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: acceptance
+        run: python tools/cli52.py
+      - name: contract
+        run: |
+          python - <<'PY'
+          import json
+          from spanver.compliance import build
+
+          report = build("artifacts/module52_report.json", "artifacts/model52_report.json")
+          print(json.dumps(report["summary"], ensure_ascii=False))
+          PY
+      - name: pytest
+        run: python -m pytest -q tests/
