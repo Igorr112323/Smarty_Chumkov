@@ -97,18 +97,23 @@ def main():
 
     inner_cache = {row["pair_id"]: averaged(row, inner_caches, range(len(SEEDS))) for row in tuning}
     prepared = prepare(tuning, inner_cache)
+    # отчёт по каждому сиду сохраняется ДО агрегации: обучение идёт 13 мин на сид,
+    # и терять пять сидов из-за ошибки в пост-обработке нельзя
+    save_json(path, report)
     report["inner_grid"] = [compute(prepared, threshold, threshold / 2, GATE) for threshold in GRID]
 
     # то же правило отбора, что зафиксировано на стадии 1: объединённые счётчики
     # внутренних фолдов, ограничения FPR, максимум token F1
     rows = report["inner_grid"]
+    # поля вложенные: sweep_ragtruth30.compute кладёт token/span/pair в подобъекты,
+    # а fpr_* — в корень. Первая версия читала row["token_f1"] и падала.
     allowed = [row for row in rows if row["fpr_token"] <= 0.40 and row["fpr_pair"] <= 0.40]
-    report["threshold_point"] = max(allowed, key=lambda row: row["token_f1"]) if allowed else None
+    report["threshold_point"] = (max(allowed, key=lambda row: row["token_f1_exact"]) if allowed else None)
 
     outer_cache = {row["pair_id"]: averaged(row, outer_caches, range(len(SEEDS))) for row in held}
     report["outer_predictions"] = {key: value["pieces"] for key, value in outer_cache.items()}
     if report["threshold_point"] is not None:
-        threshold = report["threshold_point"]["threshold"]
+        threshold = report["threshold_point"]["start"]
         import json as json_module
 
         payload = {key: json_module.loads(json_module.dumps(value)) for key, value in outer_cache.items()}
@@ -119,5 +124,24 @@ def main():
     print(f"outer {args.outer}: завершено", flush=True)
 
 
+def guarded():
+    """Пишет трейсбек в отчёт: логи Actions в песочнице недоступны."""
+    import traceback
+
+    try:
+        main()
+    except Exception:
+        report = {"status": "ошибка", "traceback": traceback.format_exc()[-4000:]}
+        for candidate in sorted((ROOT / "artifacts").glob("ablation52_outer*.json")):
+            try:
+                data = json.loads(candidate.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            data.update(report)
+            candidate.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        print(report["traceback"], flush=True)
+        raise
+
+
 if __name__ == "__main__":
-    main()
+    guarded()
