@@ -1,0 +1,192 @@
+name: Две архитектуры 51
+
+on:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - artifacts/ablation51_dual_plan.json
+
+permissions:
+  contents: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      variant: ${{ steps.plan.outputs.variant }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: artifacts
+      - id: plan
+        run: |
+          set -euo pipefail
+          variant=$(python -c "import json; x=json.load(open('artifacts/ablation51_dual_plan.json')); assert x['variant'] == 'dual'; assert x['seeds']==[0,1,2,3,4]; print(x['variant'])")
+          echo "variant=$variant" >> "$GITHUB_OUTPUT"
+  smoke:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            spanver
+            tools
+            tests
+            scripts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          set -euo pipefail
+          pip install pytest pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py tests/test_nested37.py tests/test_nested38.py tests/test_train46.py tests/test_collect46.py tests/test_diagnose46.py tests/test_train47.py tests/test_collect47.py tests/test_blend51.py
+  model:
+    needs: [plan, smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      HF_HUB_DOWNLOAD_TIMEOUT: '120'
+      HF_HUB_DISABLE_XET: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: tools
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install huggingface_hub
+      - run: python tools/fetch51_model.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: model51-rubert-tiny
+          path: models/rubert-tiny/
+          if-no-files-found: error
+          retention-days: 30
+  folds:
+    needs: [plan, smoke, model]
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {outer: 1, inner: 2, primary: true}
+          - {outer: 1, inner: 3, primary: false}
+          - {outer: 1, inner: 4, primary: false}
+          - {outer: 1, inner: 5, primary: false}
+          - {outer: 2, inner: 1, primary: false}
+          - {outer: 2, inner: 3, primary: true}
+          - {outer: 2, inner: 4, primary: false}
+          - {outer: 2, inner: 5, primary: false}
+          - {outer: 3, inner: 1, primary: false}
+          - {outer: 3, inner: 2, primary: false}
+          - {outer: 3, inner: 4, primary: true}
+          - {outer: 3, inner: 5, primary: false}
+          - {outer: 4, inner: 1, primary: false}
+          - {outer: 4, inner: 2, primary: false}
+          - {outer: 4, inner: 3, primary: false}
+          - {outer: 4, inner: 5, primary: true}
+          - {outer: 5, inner: 1, primary: true}
+          - {outer: 5, inner: 2, primary: false}
+          - {outer: 5, inner: 3, primary: false}
+          - {outer: 5, inner: 4, primary: false}
+    env:
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Подготовить зависимости и данные
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python tools/prepare_ours33.py
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - uses: actions/download-artifact@v4
+        with:
+          name: model51-rubert-tiny
+          path: models/rubert-tiny
+      - name: Обучить без доступа к внешним меткам
+        run: timeout --signal=TERM --kill-after=30s 280m python -u tools/train51_dual.py --outer '${{ matrix.outer }}' --inner '${{ matrix.inner }}' --git-sha '${{ github.sha }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: report51dual-${{ needs.plan.outputs.variant }}-outer${{ matrix.outer }}-inner${{ matrix.inner }}
+          path: artifacts/ablation51_${{ needs.plan.outputs.variant }}_outer${{ matrix.outer }}_inner${{ matrix.inner }}.json
+          if-no-files-found: warn
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always() && matrix.primary
+        with:
+          name: weights51dual-${{ needs.plan.outputs.variant }}-outer${{ matrix.outer }}
+          path: weights/ablation51/
+          if-no-files-found: warn
+          retention-days: 30
+  collect:
+    if: always() && needs.plan.result == 'success' && needs.smoke.result == 'success'
+    needs: [plan, smoke, folds]
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          set -euo pipefail
+          pip install pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python tools/prepare_ours33.py
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: report51dual-${{ needs.plan.outputs.variant }}-*
+          path: artifacts
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: weights51dual-${{ needs.plan.outputs.variant }}-*
+          path: weights/ablation51
+          merge-multiple: true
+      - name: Внутренний выбор порога и изотоническая калибровка
+        run: |
+          set -euo pipefail
+          python tools/collect51_dual.py
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add --sparse -f artifacts/ablation51_dual_outer*_inner*.json artifacts/analysis51_step1.json artifacts/analysis51_step12.json artifacts/calibration51_outer*.json
+          git commit -m "Сохранить два энкодера и калибровку 51 [skip ci]"
+          git push origin HEAD:arena/5afadcb0-smarty-chumkov
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: collected-weights51-dual
+          path: weights/ablation51/dual/
+          if-no-files-found: warn
+          retention-days: 30
