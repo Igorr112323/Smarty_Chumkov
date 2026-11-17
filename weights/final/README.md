@@ -23,3 +23,5 @@ python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorc
 python tools/predict_frozen38.py --weights weights/final --input ваши_пары.jsonl --output предсказания.jsonl
 ```
 ДОЛЖНО БЫТЬ В ВЫВОДЕ: `готово` и число обработанных пар. Загрузчик проверяет SHA-256 каждой части и каждого checkpoint перед инференсом.
+
+Повторная проверка именно каталога `weights/final/` выполнена в Actions `44016425235`: `artifacts/final45_restore_verification.json`. В том же запуске отдельно заново обучены 25 моделей пяти внешних фолдов и воспроизведены их округлённые CV-метрики; новые 25 весов не сохранялись.

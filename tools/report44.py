@@ -19,6 +19,7 @@ def main():
         raise ValueError("нет завершённой внешней оценки")
     original = (ROOT / "artifacts/final_summary.md").read_text(encoding="utf-8")
     definitions = original.split("## Определения метрик для согласования\n", 1)[1].split("## Было / стало\n", 1)[0]
+    final_sections = "\n## Граница возможного: две наблюдаемые точки\n" + original.split("\n## Граница возможного: две наблюдаемые точки\n", 1)[1] if "\n## Граница возможного: две наблюдаемые точки\n" in original else ""
     m = summary["summary"]
     def metric(name):
         return number(m[name]["mean"])
@@ -28,7 +29,7 @@ def main():
     neutral = sum(row["fpr_neutral"] for choice in choices for row in choice["compensation"]["inner"])
     selections = " / ".join(f"{number(choice['base']['start'])}+{number(choice['compensation']['delta'])}" for choice in choices)
     status = "условие выполнено на наблюдаемых внешних фолдах" if summary["target_met_on_outer_folds"] else "условие не выполнено на наблюдаемых внешних фолдах"
-    document = f"""# Итоговая справка: финальный раунд 44
+    document = f"""# Итоговая справка: точки A и B
 
 **{status}.** Полученная оценка адаптивная: эти внешние фолды ранее использовались для выбора конфигураций; независимого подтверждения нет, test 301 повторно не оценивался.
 
@@ -57,7 +58,7 @@ FPR ограничивался на внутренних фолдах, что н
 
 Test 301 ранее израсходован на другой конфигурации и повторно не оценивался; с CV его не сравнивают. База **0,5138** получена с 2994 внешними RuFacts-негативами и не является парным сравнением с этой CV. Extra 200 и внешние данные в раунде 44 не подключались. Исходная схема, encoder и gate не изменялись; три эпохи старого nested38 уже включали warmup 10%. **Новые чекпоинты не сохранялись:** сохранены предсказания и отчёты, но развернуть или повторно выполнить инференс нового ансамбля по этим артефактам нельзя. Старые frozen-веса не переписывались.
 """
-    (ROOT / "artifacts/final_summary.md").write_text(document, encoding="utf-8")
+    (ROOT / "artifacts/final_summary.md").write_text(document + final_sections, encoding="utf-8")
     status_path = ROOT / "STATUS.md"
     text = status_path.read_text(encoding="utf-8")
     heading = "## Промпт 44: финальный раунд\n\n"
