@@ -16,6 +16,7 @@
  "reference": "artifacts/ablation51_ten_outer*_inner*.json (10 фолдов) и ablation51_outer*_inner*.json (5 фолдов)",
  "test301": false,
  "external_data": false,
- "rerun": 2,
- "fix": "build_table возвращает строку на чанк; проверка «все пары закодированы» переведена на lexfeat.table_pairs"
+ "rerun": 3,
+ "fix": "build_table возвращает строку на чанк; проверка «все пары закодированы» переведена на lexfeat.table_pairs",
+ "fix_3": "пост-обработка порога: поля вложенные (token_f1_exact), threshold берётся из start"
 }
