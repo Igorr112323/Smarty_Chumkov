@@ -1,0 +1,220 @@
+{
+ "status": "готово: измерение обученного ансамбля V5, включает признаки, все forward, усреднение, gate, гистерезис и клаузный expand",
+ "threads": 4,
+ "batch": 16,
+ "top_chunks": 4,
+ "theta": 0.5,
+ "gate": 0.45,
+ "torch": "2.15.0+cu132",
+ "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+ "processor": "",
+ "cpu_count": 2,
+ "limit_ms_per_1000": 30,
+ "resolution": "ms_per_1000_doc = всё время / (сумма знаков документа / 1000); это верхняя оценка накладных расходов, потому что ответы не режутся",
+ "rows": [
+  {
+   "models": 1,
+   "length": 838,
+   "documents": 5,
+   "doc_chars": 4190,
+   "answer_chars": 1041,
+   "forward_passes": 5,
+   "forwards_per_pair": 1.0,
+   "ms_per_1000_doc_median": 23.335126014321897,
+   "ms_per_1000_doc_min": 22.57285011933326,
+   "ms_per_1000_doc_max": 24.878972792353157,
+   "samples": [
+    24.878972792353157,
+    22.57285011933326,
+    23.335126014321897
+   ]
+  },
+  {
+   "models": 1,
+   "length": 1000,
+   "documents": 5,
+   "doc_chars": 5000,
+   "answer_chars": 1655,
+   "forward_passes": 5,
+   "forwards_per_pair": 1.0,
+   "ms_per_1000_doc_median": 32.11692160000439,
+   "ms_per_1000_doc_min": 27.17835239998294,
+   "ms_per_1000_doc_max": 32.45635380001204,
+   "samples": [
+    32.11692160000439,
+    27.17835239998294,
+    32.45635380001204
+   ]
+  },
+  {
+   "models": 1,
+   "length": 5000,
+   "documents": 5,
+   "doc_chars": 25000,
+   "answer_chars": 3572,
+   "forward_passes": 16,
+   "forwards_per_pair": 3.2,
+   "ms_per_1000_doc_median": 28.1671858000027,
+   "ms_per_1000_doc_min": 27.52377336000336,
+   "ms_per_1000_doc_max": 28.238043159999506,
+   "samples": [
+    27.52377336000336,
+    28.238043159999506,
+    28.1671858000027
+   ]
+  },
+  {
+   "models": 1,
+   "length": 20000,
+   "documents": 5,
+   "doc_chars": 100000,
+   "answer_chars": 1084,
+   "forward_passes": 20,
+   "forwards_per_pair": 4.0,
+   "ms_per_1000_doc_median": 9.440954259999899,
+   "ms_per_1000_doc_min": 9.305114290000347,
+   "ms_per_1000_doc_max": 9.512196140000242,
+   "samples": [
+    9.512196140000242,
+    9.305114290000347,
+    9.440954259999899
+   ]
+  },
+  {
+   "models": 3,
+   "length": 838,
+   "documents": 5,
+   "doc_chars": 4190,
+   "answer_chars": 1041,
+   "forward_passes": 15,
+   "forwards_per_pair": 3.0,
+   "ms_per_1000_doc_median": 76.33446491646826,
+   "ms_per_1000_doc_min": 68.49122649166198,
+   "ms_per_1000_doc_max": 76.60009976134656,
+   "samples": [
+    68.49122649166198,
+    76.33446491646826,
+    76.60009976134656
+   ]
+  },
+  {
+   "models": 3,
+   "length": 1000,
+   "documents": 5,
+   "doc_chars": 5000,
+   "answer_chars": 1655,
+   "forward_passes": 15,
+   "forwards_per_pair": 3.0,
+   "ms_per_1000_doc_median": 84.55041479999181,
+   "ms_per_1000_doc_min": 82.68756320001103,
+   "ms_per_1000_doc_max": 85.39750200000071,
+   "samples": [
+    85.39750200000071,
+    84.55041479999181,
+    82.68756320001103
+   ]
+  },
+  {
+   "models": 3,
+   "length": 5000,
+   "documents": 5,
+   "doc_chars": 25000,
+   "answer_chars": 3572,
+   "forward_passes": 48,
+   "forwards_per_pair": 9.6,
+   "ms_per_1000_doc_median": 79.43349524000041,
+   "ms_per_1000_doc_min": 78.95870983999885,
+   "ms_per_1000_doc_max": 89.35749852000299,
+   "samples": [
+    78.95870983999885,
+    89.35749852000299,
+    79.43349524000041
+   ]
+  },
+  {
+   "models": 3,
+   "length": 20000,
+   "documents": 5,
+   "doc_chars": 100000,
+   "answer_chars": 1084,
+   "forward_passes": 60,
+   "forwards_per_pair": 12.0,
+   "ms_per_1000_doc_median": 28.742689590000055,
+   "ms_per_1000_doc_min": 28.339069149999432,
+   "ms_per_1000_doc_max": 28.945594010000377,
+   "samples": [
+    28.945594010000377,
+    28.742689590000055,
+    28.339069149999432
+   ]
+  },
+  {
+   "models": 5,
+   "length": 838,
+   "documents": 5,
+   "doc_chars": 4190,
+   "answer_chars": 1041,
+   "forward_passes": 25,
+   "forwards_per_pair": 5.0,
+   "ms_per_1000_doc_median": 112.81979260144185,
+   "ms_per_1000_doc_min": 111.39488687350749,
+   "ms_per_1000_doc_max": 119.52573269688892,
+   "samples": [
+    119.52573269688892,
+    112.81979260144185,
+    111.39488687350749
+   ]
+  },
+  {
+   "models": 5,
+   "length": 1000,
+   "documents": 5,
+   "doc_chars": 5000,
+   "answer_chars": 1655,
+   "forward_passes": 25,
+   "forwards_per_pair": 5.0,
+   "ms_per_1000_doc_median": 154.5011410000143,
+   "ms_per_1000_doc_min": 147.03461700000844,
+   "ms_per_1000_doc_max": 156.48408239999299,
+   "samples": [
+    156.48408239999299,
+    154.5011410000143,
+    147.03461700000844
+   ]
+  },
+  {
+   "models": 5,
+   "length": 5000,
+   "documents": 5,
+   "doc_chars": 25000,
+   "answer_chars": 3572,
+   "forward_passes": 80,
+   "forwards_per_pair": 16.0,
+   "ms_per_1000_doc_median": 136.5002236400005,
+   "ms_per_1000_doc_min": 130.43185955999888,
+   "ms_per_1000_doc_max": 137.7094328799967,
+   "samples": [
+    136.5002236400005,
+    130.43185955999888,
+    137.7094328799967
+   ]
+  },
+  {
+   "models": 5,
+   "length": 20000,
+   "documents": 5,
+   "doc_chars": 100000,
+   "answer_chars": 1084,
+   "forward_passes": 100,
+   "forwards_per_pair": 20.0,
+   "ms_per_1000_doc_median": 47.744480650000014,
+   "ms_per_1000_doc_min": 47.63111191000007,
+   "ms_per_1000_doc_max": 48.9565268399997,
+   "samples": [
+    47.63111191000007,
+    48.9565268399997,
+    47.744480650000014
+   ]
+  }
+ ]
+}
