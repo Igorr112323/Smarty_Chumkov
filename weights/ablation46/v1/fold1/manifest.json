@@ -1,0 +1,64 @@
+{
+  "status": "готово",
+  "variant": "v1",
+  "outer_fold": 1,
+  "inner_fold": 2,
+  "git_sha": "e84968a8a2d7654df4c7da0b628790c60a4e6c1e",
+  "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
+  "train_id_sha256": "9defd41a70fd0e88419c3d2136f9154efb2328eb79a53f43e25b0ceacbb1c659",
+  "outer_id_sha256": "fe9fb7325d403f4e053def978f0909cb4addb8fb027fcc73bd0365d82e624c1f",
+  "model": "rubert-tiny2 + 5 token lexical features",
+  "gate": 0.45,
+  "threshold": {
+    "start": 0.52,
+    "extend": 0.26,
+    "mean_inner_token_f1_exact": 0.4918956491389304,
+    "max_inner_fpr_pair": 0.1765,
+    "max_inner_fpr_token": 0.3984
+  },
+  "clause_expand": true,
+  "sentence_snap": false,
+  "checkpoints": [
+    {
+      "seed": 0,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "4cabb3df882c27fa9f75ee8a0f401bc0c06ccb955728f7db12dc9b7c167604b5",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "859ff77c497000b932c932116f49c683a163db4d04aae65da1530ce8b5859259"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "2931a96addd258269803203a735166b2784ea575ebbae7c57ca4f41e4d3b0372"
+        }
+      ],
+      "restore_predictions_equal": true
+    },
+    {
+      "seed": 1,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "f92f19c54ad801ad7ad7977b56243f99e6a03d7d63b6f17a02317a4e6ad4642e",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "31484d97a40c72ce66b6d06cb8dc878696173cd5db077f02c8958609ff96c82b"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "4b0468c33fa003eb95dbbb41fa11d70ef20277c6b4c497b3faba4e1c670fab3e"
+        }
+      ],
+      "restore_predictions_equal": true
+    }
+  ],
+  "restore_verified": true
+}
