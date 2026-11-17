@@ -1,0 +1,178 @@
+{
+  "status": "готово",
+  "outer_fold": 2,
+  "inner_fold": 3,
+  "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
+  "train_id_sha256": "440a126b7721e37c7da34d01f28c5e81e66df06397a3dab47c3722d8af97c294",
+  "inner_id_sha256": "a908fa3a518e6fe1156af37e70ddee369613b058ab1957f0088a122e17fb7cb0",
+  "outer_id_sha256": "5d6a4ef36e62ccd9b5a23bb43c6a89dd54a65acff2b96b1a97d1e4cfc8c72355",
+  "git_sha": "8176e07aa69cd8f47132eff7e6e2b9e73c6b725c",
+  "source_git_sha": "f25cd2f7e9e7f420d4a34498ed62e82669635bd0",
+  "torch": "2.15.0+cpu",
+  "transformers": "4.57.6",
+  "threshold": {
+    "start": 0.54,
+    "extend": 0.27,
+    "mean_inner_token_f1_exact": 0.38695640805040055,
+    "max_inner_fpr_pair": 0.1739,
+    "max_inner_fpr_token": 0.372
+  },
+  "seeds": [
+    {
+      "seed": 0,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 420,
+          "loss": 0.36107526762144904,
+          "seconds": 50.206
+        },
+        {
+          "epoch": 2,
+          "pairs": 420,
+          "loss": 0.33017576890332356,
+          "seconds": 50.032
+        },
+        {
+          "epoch": 3,
+          "pairs": 420,
+          "loss": 0.32133343773228784,
+          "seconds": 48.259
+        }
+      ],
+      "seconds": 156.102
+    },
+    {
+      "seed": 1,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 420,
+          "loss": 0.3706035471388272,
+          "seconds": 47.296
+        },
+        {
+          "epoch": 2,
+          "pairs": 420,
+          "loss": 0.3386919506958553,
+          "seconds": 47.692
+        },
+        {
+          "epoch": 3,
+          "pairs": 420,
+          "loss": 0.32327472368876137,
+          "seconds": 48.854
+        }
+      ],
+      "seconds": 151.052
+    },
+    {
+      "seed": 2,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 420,
+          "loss": 0.3641499155334064,
+          "seconds": 46.72
+        },
+        {
+          "epoch": 2,
+          "pairs": 420,
+          "loss": 0.3392308215300242,
+          "seconds": 50.183
+        },
+        {
+          "epoch": 3,
+          "pairs": 420,
+          "loss": 0.32101296739918844,
+          "seconds": 47.049
+        }
+      ],
+      "seconds": 151.306
+    },
+    {
+      "seed": 3,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 420,
+          "loss": 0.3840073206595012,
+          "seconds": 47.736
+        },
+        {
+          "epoch": 2,
+          "pairs": 420,
+          "loss": 0.33540341605742774,
+          "seconds": 48.573
+        },
+        {
+          "epoch": 3,
+          "pairs": 420,
+          "loss": 0.3161507541934649,
+          "seconds": 48.981
+        }
+      ],
+      "seconds": 152.479
+    },
+    {
+      "seed": 4,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 420,
+          "loss": 0.4022133289348511,
+          "seconds": 45.504
+        },
+        {
+          "epoch": 2,
+          "pairs": 420,
+          "loss": 0.3588522393079031,
+          "seconds": 47.718
+        },
+        {
+          "epoch": 3,
+          "pairs": 420,
+          "loss": 0.3240224984430131,
+          "seconds": 48.181
+        }
+      ],
+      "seconds": 148.681
+    }
+  ],
+  "test301": false,
+  "external_data": false,
+  "elapsed_s": 759.759,
+  "metrics": {
+    "token_precision": 0.5909,
+    "token_recall": 0.5801,
+    "token_f1": 0.5855,
+    "span_precision": 0.4615,
+    "span_recall": 0.1935,
+    "span_f1": 0.2727,
+    "pair_f1": 0.3582,
+    "fpr_pair": 0.0879,
+    "fpr_token": 0.2283,
+    "type_accuracy": 0.8333,
+    "type_correct": 10,
+    "matched_spans": 12,
+    "predicted_pairs": 26,
+    "predicted_spans": 26
+  },
+  "expected_metrics": {
+    "token_precision": 0.5909,
+    "token_recall": 0.5801,
+    "token_f1": 0.5855,
+    "span_precision": 0.4615,
+    "span_recall": 0.1935,
+    "span_f1": 0.2727,
+    "pair_f1": 0.3582,
+    "fpr_pair": 0.0879,
+    "fpr_token": 0.2283,
+    "type_accuracy": 0.8333,
+    "type_correct": 10,
+    "matched_spans": 12,
+    "predicted_pairs": 26,
+    "predicted_spans": 26
+  },
+  "metrics_equal": true
+}

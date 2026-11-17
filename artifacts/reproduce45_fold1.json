@@ -1,0 +1,178 @@
+{
+  "status": "готово",
+  "outer_fold": 1,
+  "inner_fold": 2,
+  "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
+  "train_id_sha256": "9defd41a70fd0e88419c3d2136f9154efb2328eb79a53f43e25b0ceacbb1c659",
+  "inner_id_sha256": "5d6a4ef36e62ccd9b5a23bb43c6a89dd54a65acff2b96b1a97d1e4cfc8c72355",
+  "outer_id_sha256": "fe9fb7325d403f4e053def978f0909cb4addb8fb027fcc73bd0365d82e624c1f",
+  "git_sha": "8176e07aa69cd8f47132eff7e6e2b9e73c6b725c",
+  "source_git_sha": "f25cd2f7e9e7f420d4a34498ed62e82669635bd0",
+  "torch": "2.15.0+cpu",
+  "transformers": "4.57.6",
+  "threshold": {
+    "start": 0.52,
+    "extend": 0.26,
+    "mean_inner_token_f1_exact": 0.4506145048200784,
+    "max_inner_fpr_pair": 0.1848,
+    "max_inner_fpr_token": 0.3659
+  },
+  "seeds": [
+    {
+      "seed": 0,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 421,
+          "loss": 0.3841375565585501,
+          "seconds": 68.736
+        },
+        {
+          "epoch": 2,
+          "pairs": 421,
+          "loss": 0.3424028035014372,
+          "seconds": 68.125
+        },
+        {
+          "epoch": 3,
+          "pairs": 421,
+          "loss": 0.3265831126807138,
+          "seconds": 69.481
+        }
+      ],
+      "seconds": 216.297
+    },
+    {
+      "seed": 1,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 421,
+          "loss": 0.3960213306893079,
+          "seconds": 68.982
+        },
+        {
+          "epoch": 2,
+          "pairs": 421,
+          "loss": 0.3391329258184818,
+          "seconds": 66.668
+        },
+        {
+          "epoch": 3,
+          "pairs": 421,
+          "loss": 0.32818173335736833,
+          "seconds": 72.438
+        }
+      ],
+      "seconds": 217.757
+    },
+    {
+      "seed": 2,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 421,
+          "loss": 0.369803604526078,
+          "seconds": 69.731
+        },
+        {
+          "epoch": 2,
+          "pairs": 421,
+          "loss": 0.34153503165392296,
+          "seconds": 69.549
+        },
+        {
+          "epoch": 3,
+          "pairs": 421,
+          "loss": 0.32532871972919924,
+          "seconds": 68.874
+        }
+      ],
+      "seconds": 217.748
+    },
+    {
+      "seed": 3,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 421,
+          "loss": 0.3878995553189955,
+          "seconds": 67.231
+        },
+        {
+          "epoch": 2,
+          "pairs": 421,
+          "loss": 0.3454458630000044,
+          "seconds": 70.51
+        },
+        {
+          "epoch": 3,
+          "pairs": 421,
+          "loss": 0.3274621448154404,
+          "seconds": 70.628
+        }
+      ],
+      "seconds": 217.845
+    },
+    {
+      "seed": 4,
+      "history": [
+        {
+          "epoch": 1,
+          "pairs": 421,
+          "loss": 0.3699339775461482,
+          "seconds": 66.877
+        },
+        {
+          "epoch": 2,
+          "pairs": 421,
+          "loss": 0.3388287226830979,
+          "seconds": 63.673
+        },
+        {
+          "epoch": 3,
+          "pairs": 421,
+          "loss": 0.323779425612538,
+          "seconds": 64.742
+        }
+      ],
+      "seconds": 204.895
+    }
+  ],
+  "test301": false,
+  "external_data": false,
+  "elapsed_s": 1074.705,
+  "metrics": {
+    "token_precision": 0.4163,
+    "token_recall": 0.4457,
+    "token_f1": 0.4305,
+    "span_precision": 0.3,
+    "span_recall": 0.1607,
+    "span_f1": 0.2093,
+    "pair_f1": 0.2727,
+    "fpr_pair": 0.1354,
+    "fpr_token": 0.254,
+    "type_accuracy": 1.0,
+    "type_correct": 9,
+    "matched_spans": 9,
+    "predicted_pairs": 30,
+    "predicted_spans": 30
+  },
+  "expected_metrics": {
+    "token_precision": 0.4163,
+    "token_recall": 0.4457,
+    "token_f1": 0.4305,
+    "span_precision": 0.3,
+    "span_recall": 0.1607,
+    "span_f1": 0.2093,
+    "pair_f1": 0.2727,
+    "fpr_pair": 0.1354,
+    "fpr_token": 0.254,
+    "type_accuracy": 1.0,
+    "type_correct": 9,
+    "matched_spans": 9,
+    "predicted_pairs": 30,
+    "predicted_spans": 30
+  },
+  "metrics_equal": true
+}
