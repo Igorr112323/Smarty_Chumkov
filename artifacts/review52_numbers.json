@@ -1,0 +1,127 @@
+{
+  "status": "аудит без обучения; все числа пересчитаны по коммиченным предсказаниям",
+  "source_branch": "arena/5afadcb0-smarty-chumkov",
+  "source_commit": "76e08364cde625542dd098b0d6b183f22e1fffdc",
+  "inputs": {
+    "pairs": "artifacts/ours33.jsonl (699 пар, 300 спанов, 239 позитивных)",
+    "ten_fold": "artifacts/ablation51_ten_outer{1..10}_inner*_*.json (40 файлов)",
+    "five_fold": "artifacts/ablation47_v5_outer{1..5}_inner*_*.json (20 файлов)",
+    "summary": "artifacts/ablation51_ten_summary.json, artifacts/analysis51_ten.json, artifacts/analysis48_v5.json",
+    "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63"
+  },
+  "replication_check": {
+    "note": "репликация правила collect_nested38.select_worst совпала с репозиторием по всем полям",
+    "pooled_token_f1": 0.3788,
+    "macro_token_f1": 0.3559,
+    "std": 0.1532,
+    "min": 0.0,
+    "max": 0.4989,
+    "pooled_fpr_token": 0.2406,
+    "max_fold_fpr_token": 0.5403
+  },
+  "data_scale": {
+    "pairs": 699,
+    "pairs_with_spans": 239,
+    "negative_pairs": 460,
+    "spans": 300,
+    "pairs_with_more_than_one_span": 52,
+    "gold_tokens": 8522,
+    "negative_tokens": 17035,
+    "document_chars_median": 838,
+    "document_chars_mean": 2209,
+    "document_chars_p90": 6568,
+    "document_chars_max": 17241
+  },
+  "trivial_baselines_never_computed_in_repo": {
+    "all_tokens_positive_token_f1": 0.5001320461281141,
+    "all_tokens_positive_token_precision": 0.3334507180028955,
+    "all_tokens_positive_token_recall": 1.0,
+    "all_pairs_positive_pair_f1": 0.50959,
+    "whole_answer_single_span_iou_f1": 0.26412,
+    "perfect_ranking_with_fpr_0_40_token_f1": 0.7144,
+    "conclusion": "порог п.6 (token F1 >= 0.50) в этих данных равен F1 правила «пометить все токены»"
+  },
+  "threshold_selection_rules_same_predictions": [
+    {"rule": "max по 4 внутренним (collect_nested38.py:26-31, как в репо)", "pooled_token_f1": 0.3788, "macro": 0.3559, "std": 0.1532, "min": 0.0, "max": 0.4989, "pooled_fpr_token": 0.2406, "max_fold_fpr_token": 0.5403, "folds_over_fpr": 1},
+    {"rule": "только primary inner", "pooled_token_f1": 0.4867, "macro": 0.4830, "std": 0.0631, "min": 0.3706, "max": 0.5882, "pooled_fpr_token": 0.3411, "max_fold_fpr_token": 0.5869, "folds_over_fpr": 2},
+    {"rule": "среднее по 4 внутренним", "pooled_token_f1": 0.5080, "macro": 0.4989, "std": 0.0782, "min": 0.3283, "max": 0.5966, "pooled_fpr_token": 0.3923, "max_fold_fpr_token": 0.5993, "folds_over_fpr": 5},
+    {"rule": "объединённые счётчики 4 внутренних", "pooled_token_f1": 0.5074, "macro": 0.4984, "std": 0.0781, "min": 0.3283, "max": 0.5966, "pooled_fpr_token": 0.3936, "max_fold_fpr_token": 0.5993, "folds_over_fpr": 5},
+    {"rule": "единый theta, leave-one-fold-out по внутренним (theta=0.48)", "pooled_token_f1": 0.5215, "macro": 0.5193, "std": 0.0470, "min": 0.4322, "max": 0.5968, "pooled_fpr_token": 0.4121, "folds_over_fpr": 4}
+  ],
+  "score_scale_drift_per_fold": {
+    "mean_raw_piece_score": {
+      "1": 0.4016, "2": 0.4078, "3": 0.4438, "4": 0.3361, "5": 0.4138,
+      "6": 0.4011, "7": 0.4144, "8": 0.4375, "9": 0.4379, "10": 0.3631
+    },
+    "note": "рабочая полоса 0.42-0.56; при theta=0.52 фолд 4 (mu=0.3361) получает 1 предсказание и F1=0.0 при FPR=0.067",
+    "cross_fold_standardisation_without_leak": {
+      "method": "скоры фолда k нормируются на mean/std, взятые по другим 9 фолдам",
+      "pooled_token_f1": 0.5344,
+      "macro": 0.5354,
+      "min": 0.473,
+      "max": 0.591,
+      "fpr": 0.4719,
+      "conclusion": "фолд с ровно 0.0000 исчезает; это не нестабильность на 629 парах, а несовместимость абсолютного порога с дрейфом шкалы"
+    }
+  },
+  "fixed_threshold_no_selection_at_all": {
+    "theta_0.48": {"pooled_token_f1": 0.5202, "precision": 0.4377, "recall": 0.6412, "fpr_token": 0.4121, "ci95_token_f1": [0.4513, 0.5817], "ci95_fpr_token": [0.3537, 0.4702]},
+    "theta_0.49": {"pooled_token_f1": 0.4963, "precision": 0.4323, "recall": 0.5825, "fpr_token": 0.3827, "ci95_token_f1": [0.4223, 0.5614], "ci95_fpr_token": [0.3239, 0.4398], "note": "единственная точка, где оба договорных ограничения выполняются без подгонки"},
+    "theta_0.50": {"pooled_token_f1": 0.4779, "precision": 0.4283, "recall": 0.5406, "fpr_token": 0.3610, "ci95_token_f1": [0.4042, 0.5431]},
+    "bootstrap": {"resamples": 4000, "seed": 48, "unit": "связные компоненты по общим doc_ids", "groups": 662}
+  },
+  "gate_0_45_second_untuned_threshold": {
+    "pairs_killed_by_gate": 473,
+    "pairs_total": 699,
+    "joint_theta_0.47_gate_0.50": {"pooled_token_f1": 0.4967, "fpr_token": 0.3860},
+    "source": "tools/nested_cv35.py:14 GATE=0.45; применяется в tools/sweep_ragtruth30.compute; сетка порога начинается с 0.42, поэтому при theta<0.45 gate перебивает theta"
+  },
+  "detection_ceiling": {
+    "gold_spans_reachable_at_chosen_thresholds": 73,
+    "gold_spans_total": 300,
+    "gold_spans_reachable_at_p_ge_0.40": 197,
+    "token_auc_10_fold": 0.62552,
+    "token_oracle_best_f1_fpr_le_0.40": {"f1": 0.5049, "threshold": 0.445, "precision": 0.4332, "recall": 0.6050, "fpr": 0.3959},
+    "token_oracle_unconstrained": {"f1": 0.5442, "threshold": 0.37, "fpr": 0.5494},
+    "span_iou_f1_oracle": 0.3195,
+    "oracle_per_fold_threshold_macro": {"ten_fold": 0.4965, "five_fold": 0.5073}
+  },
+  "gaussian_requirement_table": {
+    "note": "pos=8522, neg=17035, threshold под FPR=0.40",
+    "auc_0.62552_expected_f1": 0.4526,
+    "auc_for_f1_0.52": 0.6621,
+    "auc_for_f1_0.55": 0.6967,
+    "auc_for_f1_0.58": 0.7335,
+    "auc_for_f1_0.60": 0.7594
+  },
+  "speed": {
+    "preflight_5_seeds_ms_per_1000": 127.01996779999999,
+    "preflight_2_architectures_10_models_ms_per_1000": 327.860887,
+    "single_model_batched_ms_per_1000_doc": {"1000": 15.13, "20000": 6.19},
+    "compliance_item7_2m_chars_ms_per_1000": 23.556,
+    "limit_ms_per_1000": 30,
+    "note": "числа 18.26 мс/1000 в репозитории нет; tools/speed51_actual.py не вызывается ни одним workflow",
+    "ensemble_gain_vs_cost": {"two_seeds_control_f1": 0.4268, "five_seeds_f1": 0.4506, "gain": 0.0238, "fold_std": 0.078}
+  },
+  "delivery_gap": {
+    "cli_backends": ["lexical", "model"],
+    "model_backend_encoder": "ai-forever/ruSciBERT (spanver/model_features.py:19)",
+    "measured_model_in_package": false,
+    "max_spans": 1,
+    "max_spans_source": "spanver/module.py:11",
+    "compliance_metric_origin": "lexical/model ruSciBERT, не tiny2+5 признаков",
+    "model_eval_report_present": false,
+    "weights_ablation51_in_tree": false,
+    "weights_upload_retention_days": 30
+  },
+  "defects_found": [
+    {"id": 1, "file": "tools/collect_nested38.py", "lines": "26-31", "issue": "отбор порога по max FPR на 4 микро-фолдах (41-54 негативных пары) систематически завышает порог"},
+    {"id": 2, "file": "tools/nested_cv35.py", "lines": "14", "issue": "GATE=0.45 не настраивается и перебивает theta на сетке ниже 0.45"},
+    {"id": 3, "file": "spanver/module.py", "lines": "11", "issue": "MAX_SPANS=1 при 52/699 парах с 2+ спанами"},
+    {"id": 4, "file": "spanver/cli.py", "lines": "30, 54-60", "issue": "измеренная модель недостижима из CLI/HTTP"},
+    {"id": 5, "file": "spanver/span_detector.py", "lines": "98-109", "issue": "overlap_score пересчитывает stem-множество документа на каждый чанк (3.06 с на 1.8 млн знаков)"},
+    {"id": 6, "file": "main:spanver/lexfeat.py", "lines": "66", "issue": "офф-бай-уан в разметке (>=0 по полуинтервалам) до правки be97dba; не зафиксировано, какие прогоны затронуты"}
+  ],
+  "test301_evaluated": false,
+  "external_data_used": false
+}
