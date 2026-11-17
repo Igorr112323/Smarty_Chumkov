@@ -34,6 +34,8 @@ jobs:
           python tools/read_parquet.py --out artifacts
           python -m spanver build --dataset Dataset --out artifacts
           python tools/prepare_ours33.py
+          # gold.jsonl нужен тестам калибровки; его sha256 зафиксирован в ci.yml
+          test "$(sha256sum artifacts/gold.jsonl | cut -d' ' -f1)" = "fddd62ce05baf028b64cb6db81b89053bdc5444a540c6e18e34e318577c8b32b"
           test "$(sha256sum artifacts/ours33.jsonl | cut -d' ' -f1)" = "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63"
       - name: weights
         run: |
