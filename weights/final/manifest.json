@@ -1,9 +1,9 @@
 {
-  "status": "готово",
-  "variant": "v4",
+  "status": "кандидат",
+  "variant": "v5",
   "outer_fold": 1,
   "inner_fold": 2,
-  "git_sha": "9d1915b66a8d15f75ba2ab069e6df06a5e00b958",
+  "git_sha": "dd7a967972005677dff92ac50c5b3ba87563b9f6",
   "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
   "train_id_sha256": "9defd41a70fd0e88419c3d2136f9154efb2328eb79a53f43e25b0ceacbb1c659",
   "outer_id_sha256": "fe9fb7325d403f4e053def978f0909cb4addb8fb027fcc73bd0365d82e624c1f",
@@ -120,10 +120,9 @@
       "restore_predictions_equal": true
     }
   ],
-  "restore_verified": true,
-  "source": "weights/ablation47/v4/fold1",
-  "source_revision": "HEAD",
+  "restore_verified": false,
+  "source": "weights/ablation47/v5/fold1",
+  "source_revision": "f2ff2d21f6c11d6dd0f04eda0a7dc83fc98810a0",
   "scope": "пять сидов только внешнего фолда 1; остальные четыре ансамбля находятся в weights/ablation47",
-  "fpr_note": "порог выбран по внутренним фолдам; FPR на новых данных не гарантирован",
-  "restore_verification": "artifacts/final47_restore_verification.json"
+  "fpr_note": "порог выбран по внутренним фолдам; FPR на новых данных не гарантирован"
 }
