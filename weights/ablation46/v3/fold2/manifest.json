@@ -1,0 +1,64 @@
+{
+  "status": "готово",
+  "variant": "v3",
+  "outer_fold": 2,
+  "inner_fold": 3,
+  "git_sha": "baf32066bf43032135c49c0359a9179f1633d115",
+  "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
+  "train_id_sha256": "440a126b7721e37c7da34d01f28c5e81e66df06397a3dab47c3722d8af97c294",
+  "outer_id_sha256": "5d6a4ef36e62ccd9b5a23bb43c6a89dd54a65acff2b96b1a97d1e4cfc8c72355",
+  "model": "rubert-tiny2 + 5 token lexical features",
+  "gate": 0.45,
+  "threshold": {
+    "start": 0.52,
+    "extend": 0.26,
+    "mean_inner_token_f1_exact": 0.388324834236045,
+    "max_inner_fpr_pair": 0.1848,
+    "max_inner_fpr_token": 0.3877
+  },
+  "clause_expand": true,
+  "sentence_snap": false,
+  "checkpoints": [
+    {
+      "seed": 0,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "3a40c79da2ddb95a2eecbc1369aa3ce2fde4065c796902e0f3f5a03ad37e50ae",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "6ffd8e965ed3d8425b4d070346be44f322d6ad8046ce92b813d49352fa00db5e"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "95e8564a485000ae0eb532c5f7e4c66599ed8d09d349fc41002993c5ca3470ff"
+        }
+      ],
+      "restore_predictions_equal": true
+    },
+    {
+      "seed": 1,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "5f0cb2f63b7264cd7651fb71deb26f948b850a9a587b107578b37bbb91f479ae",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "6a0ddf762ad7f6d5a50f19a3bbdfb7f29889828695551e66eb7bf8b62bc52953"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "ffc249bbc6e9a6bbe130a749950a01a9d0dda6adf2ab5376a45af6c5693de769"
+        }
+      ],
+      "restore_predictions_equal": true
+    }
+  ],
+  "restore_verified": true
+}
