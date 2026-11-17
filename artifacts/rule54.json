@@ -1,0 +1,182 @@
+{
+ "status": "готово",
+ "ours": {
+  "pairs": 699,
+  "spans": 300,
+  "pairs_with_spans": 239,
+  "length_median": 157.0,
+  "length_mean": 258.1766666666667,
+  "whole_sentence": 106,
+  "whole_sentence_share": 0.35333333333333333,
+  "part_of_sentence_share": 0.6466666666666666,
+  "literal_in_document": 1,
+  "literal_share": 0.0033333333333333335,
+  "human_types": {
+   "Unconfirmed": 79,
+   "Missing": 42,
+   "Partial": 91,
+   "Contradiction": 49,
+   "Oversight": 21,
+   "Excess": 18
+  },
+  "human_type_shares": {
+   "Unconfirmed": 0.2633333333333333,
+   "Missing": 0.14,
+   "Partial": 0.30333333333333334,
+   "Contradiction": 0.16333333333333333,
+   "Oversight": 0.07,
+   "Excess": 0.06
+  },
+  "our_types": {
+   "unsupported_addition": 121,
+   "number": 86,
+   "entity": 22,
+   "omission": 11,
+   "contradiction": 35,
+   "temporal": 10,
+   "scope": 15
+  },
+  "our_type_shares": {
+   "unsupported_addition": 0.4033333333333333,
+   "number": 0.2866666666666667,
+   "entity": 0.07333333333333333,
+   "omission": 0.03666666666666667,
+   "contradiction": 0.11666666666666667,
+   "temporal": 0.03333333333333333,
+   "scope": 0.05
+  },
+  "non_addition_share": 0.94,
+  "median_length_by_human_type": {
+   "Unconfirmed": 81,
+   "Missing": 303.5,
+   "Partial": 317,
+   "Contradiction": 85,
+   "Oversight": 114,
+   "Excess": 401.5
+  },
+  "question_share": null,
+  "question_note": "вопроса нет в парах: он остался в колонке query_text исходного CSV, поэтому признак «отвечает на вопрос» машинно не считается"
+ },
+ "others": {
+  "RAGTruth_ru/ragtruth_ru.jsonl": {
+   "pairs": 6000,
+   "spans_seen": 7830,
+   "literal_in_document": 24,
+   "literal_share": 0.0030651340996168583,
+   "literal_in_answer_share": 1.0
+  },
+  "mFAVA_ru/test.json": {
+   "pairs": 1411,
+   "spans_seen": 0,
+   "literal_in_document": 0,
+   "literal_share": null,
+   "literal_in_answer_share": null
+  }
+ },
+ "training_sources": {
+  "train44.py": {
+   "data": [],
+   "metrics_only": [
+    "наши 699 пар"
+   ]
+  },
+  "train46.py": {
+   "data": [],
+   "metrics_only": [
+    "RAGTruth",
+    "наши 699 пар"
+   ]
+  },
+  "train47.py": {
+   "data": [],
+   "metrics_only": [
+    "RAGTruth",
+    "наши 699 пар"
+   ]
+  },
+  "train50.py": {
+   "data": [],
+   "metrics_only": [
+    "RAGTruth",
+    "наши 699 пар"
+   ]
+  },
+  "train51_dual.py": {
+   "data": [],
+   "metrics_only": [
+    "RAGTruth",
+    "наши 699 пар"
+   ]
+  },
+  "train51_ten.py": {
+   "data": [],
+   "metrics_only": [
+    "RAGTruth",
+    "наши 699 пар"
+   ]
+  },
+  "train_base33.py": {
+   "data": [],
+   "metrics_only": [
+    "RAGTruth",
+    "наши 699 пар"
+   ]
+  },
+  "train_bce29.py": {
+   "data": [
+    "RAGTruth",
+    "RAGTruth-ru"
+   ],
+   "metrics_only": []
+  },
+  "train_cv.py": {
+   "data": [],
+   "metrics_only": [
+    "hard negatives"
+   ]
+  },
+  "train_cv_feat.py": {
+   "data": [],
+   "metrics_only": []
+  },
+  "train_local_model.py": {
+   "data": [],
+   "metrics_only": []
+  },
+  "train_module.py": {
+   "data": [],
+   "metrics_only": []
+  },
+  "train_negatives.py": {
+   "data": [],
+   "metrics_only": [
+    "RuFacts"
+   ]
+  },
+  "train_scheme13_a1.py": {
+   "data": [
+    "RAGTruth",
+    "RAGTruth-ru"
+   ],
+   "metrics_only": []
+  },
+  "train_scheme13_full.py": {
+   "data": [
+    "RAGTruth",
+    "RAGTruth-ru"
+   ],
+   "metrics_only": []
+  },
+  "train_span_detector.py": {
+   "data": [],
+   "metrics_only": []
+  },
+  "train_stages.py": {
+   "data": [],
+   "metrics_only": [
+    "RuFacts"
+   ]
+  }
+ },
+ "test301": false
+}
