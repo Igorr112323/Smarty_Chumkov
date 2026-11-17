@@ -1,0 +1,12 @@
+{
+  "variant": "v1",
+  "seeds": [0, 1, 2, 3, 4],
+  "source_sha256": "21464872b18b803959525063753fb8e92937b1dee0099a6e1bbdd7832c411b21",
+  "tapt": {"fields": ["references", "generated_text"], "gold_used": false, "silver_used": false, "epochs": 1, "lr": 0.00001, "batch_size": 4, "max_length": 256, "mask_probability": 0.15, "weight_decay": 0.01},
+  "supervised": "V5: до 15 эпох, patience 3, заморозка embeddings после TAPT на всех эпохах",
+  "clause_expand": true,
+  "sentence_snap": false,
+  "snap_compensation": false,
+  "inner_fpr_limit": 0.4,
+  "test301_evaluated": false
+}
