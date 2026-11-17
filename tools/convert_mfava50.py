@@ -1,6 +1,7 @@
 """Conservative gold annotation audit; output is NOT an approved training set.
 
-Only character-identical or one-for-one whitespace differences can be aligned.
+Whitespace-only text differences are mapped by character positions, only when
+span boundaries are non-whitespace and every non-whitespace character matches.
 Rows with nesting, unknown tags, malformed tags, or any other mismatch are
 rejected; repeated inputs remain separate annotator rows, not a consensus.
 """
@@ -48,13 +49,26 @@ def parse(annotation, generated):
         return None, 'unclosed_tag'
     plain.append(annotation[cursor:])
     text = ''.join(plain)
-    if len(text) != len(generated) or any(a != b and not (a.isspace() and b.isspace()) for a, b in zip(text, generated)):
-        return None, 'unaligned_generated_text'
     if '<' in text or '>' in text:
         return None, 'unparsed_angle_brackets'
+    if text == generated:
+        status = 'ok_exact'
+    elif len(text) == len(generated) and all(a == b or (a.isspace() and b.isspace()) for a, b in zip(text, generated)):
+        status = 'ok_whitespace_substitution'
+    else:
+        left = [i for i, char in enumerate(text) if not char.isspace()]
+        right = [i for i, char in enumerate(generated) if not char.isspace()]
+        if ''.join(text[i] for i in left) != ''.join(generated[i] for i in right):
+            return None, 'unaligned_generated_text'
+        positions = dict(zip(left, right))
+        for span in spans:
+            if span['start'] not in positions or span['end'] not in positions:
+                return None, 'ambiguous_whitespace_boundary'
+            span['start'], span['end'] = positions[span['start']], positions[span['end']]
+        status = 'ok_whitespace_character_map'
     for span in spans:
         span['text'] = generated[span['start']:span['end']+1]
-    return spans, 'ok_exact' if text == generated else 'ok_whitespace_substitution'
+    return spans, status
 
 
 def main():

@@ -10,7 +10,9 @@ class ConvertMFAVA50Test(unittest.TestCase):
         self.assertEqual(parse('a <invented>b</invented>', 'a b')[1], 'ok_exact')
 
     def test_reject_ambiguous(self):
-        self.assertEqual(parse('a <entity>b</entity>', 'a  b')[1], 'unaligned_generated_text')
+        self.assertEqual(parse('a <entity>b</entity>', 'a  b')[0][0]['start'], 3)
+        self.assertEqual(parse('a <entity> b</entity>', 'a   b')[1], 'ambiguous_whitespace_boundary')
+        self.assertEqual(parse('a <entity>x</entity>', 'a y')[1], 'unaligned_generated_text')
         self.assertEqual(parse('<entity>a <relation>b</relation></entity>', 'a b')[1], 'nested_annotations')
         self.assertEqual(parse('<conradictory>x</conradictory>', 'x')[1], 'unknown_tag')
         self.assertEqual(parse('<entity>x', 'x')[1], 'unclosed_tag')
