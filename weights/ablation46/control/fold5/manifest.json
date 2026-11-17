@@ -1,0 +1,64 @@
+{
+  "status": "готово",
+  "variant": "control",
+  "outer_fold": 5,
+  "inner_fold": 1,
+  "git_sha": "6b0fc6fdd92f792c1a3ea28307b5f43db1463731",
+  "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
+  "train_id_sha256": "de371d18e423d4aa8eab805fee88b4fc02371f3053119da9ebf134139cdb5a9d",
+  "outer_id_sha256": "620f068e053972140c383cc54ece3c605ddf2c881c2ebb495b57383a9e4de06f",
+  "model": "rubert-tiny2 + 5 token lexical features",
+  "gate": 0.45,
+  "threshold": {
+    "start": 0.56,
+    "extend": 0.28,
+    "mean_inner_token_f1_exact": 0.3398670384786445,
+    "max_inner_fpr_pair": 0.1848,
+    "max_inner_fpr_token": 0.3933
+  },
+  "clause_expand": true,
+  "sentence_snap": false,
+  "checkpoints": [
+    {
+      "seed": 0,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "fb6d20295250146d3b741c8ef10ade83ab280cda293e9ca8801026e8cc9fc308",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "ece26908265ad3eab567e65962016398f5165470edc70593ce27a1702a833b7d"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "67824d0b3f56b48d002871da812b6a71f30c60a9e20f9c1eec39dab3415bbea5"
+        }
+      ],
+      "restore_predictions_equal": true
+    },
+    {
+      "seed": 1,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "3bf74c516612172db65af630c0d71ec171425f7bf81277d81bf4f4abc8bf2569",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "91e3e35a5780f5ccbc2deea32cafee261cd61b60c638fc021b497b2579d29fa6"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "18c891afd2b5b9dadf595b82ef5a5d7abc6a49e406605ed2fdb5565d90d3c7ea"
+        }
+      ],
+      "restore_predictions_equal": true
+    }
+  ],
+  "restore_verified": true
+}
