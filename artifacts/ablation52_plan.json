@@ -1,10 +1,21 @@
 {
-  "variant": "chunks",
-  "top_chunks": 4,
-  "seeds": [0, 1, 2, 3, 4],
-  "folds": [1, 2],
-  "why": "ШАГ A мандата 52: обучение должно видеть столько же чанков документа, сколько инференс (4). Два фолда, потому что std по фолдам 0.05, а ожидаемый эффект +0.012.",
-  "reference": "artifacts/ablation51_ten_outer*_inner*.json (10 фолдов) и ablation51_outer*_inner*.json (5 фолдов)",
-  "test301": false,
-  "external_data": false
+ "variant": "chunks",
+ "top_chunks": 4,
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "folds": [
+  1,
+  2
+ ],
+ "why": "ШАГ A мандата 52: обучение должно видеть столько же чанков документа, сколько инференс (4). Два фолда, потому что std по фолдам 0.05, а ожидаемый эффект +0.012.",
+ "reference": "artifacts/ablation51_ten_outer*_inner*.json (10 фолдов) и ablation51_outer*_inner*.json (5 фолдов)",
+ "test301": false,
+ "external_data": false,
+ "rerun": 2,
+ "fix": "build_table возвращает строку на чанк; проверка «все пары закодированы» переведена на lexfeat.table_pairs"
 }

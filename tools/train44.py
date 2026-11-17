@@ -89,7 +89,7 @@ def validation_loss(model, table, tokenizer):
 def train(model, tokenizer, training, inner, seed):
     train_table = lexfeat.build_table(tokenizer, training)
     val_table = lexfeat.build_table(tokenizer, inner)
-    if len(train_table) != len(training) or len(val_table) != len(inner):
+    if lexfeat.table_pairs(train_table) != len(training) or lexfeat.table_pairs(val_table) != len(inner):
         raise ValueError("не все пары закодированы")
     optimizer, scheduler, embeddings, warmup = build_optimizer(model, math.ceil(len(training) / BATCH) * EPOCHS)
     ema = clone_state(model)

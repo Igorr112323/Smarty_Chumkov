@@ -80,7 +80,10 @@ def update_ema(ema, model):
 def train_variant(model, tokenizer, training, inner, seed, variant, permanent_freeze=False):
     training_table = lexfeat.build_table(tokenizer, training)
     validation_table = lexfeat.build_table(tokenizer, inner)
-    if len(training_table) != len(training) or len(validation_table) != len(inner):
+    # таблица содержит по строке на чанк, поэтому сверяем не размер таблицы,
+    # а то, что закодирована каждая пара
+    if (lexfeat.table_pairs(training_table) != len(training)
+            or lexfeat.table_pairs(validation_table) != len(inner)):
         raise ValueError("не все пары закодированы")
     frozen = variant in ("v2", "v3")
     ema_enabled = variant == "v3"

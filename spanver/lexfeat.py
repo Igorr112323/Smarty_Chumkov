@@ -46,11 +46,22 @@ def aligned(rows, start, end):
     return values
 
 
-def build_row(tokenizer, pair, max_length=512):
+TRAIN_TOP_CHUNKS = 4
+
+
+def build_row(tokenizer, pair, max_length=512, top=None):
+    """Кодирует пару для обучения.
+
+    top по умолчанию совпадает с числом чанков на инференсе (pair_probabilities,
+    top=4): раньше обучение брало один чанк документа, а инференс — четыре, из-за
+    чего на 27.5 % пар длиной >2000 знаков модель не видела тот фрагмент, по
+    которому потом считался скор.
+    """
     answer = pair.get("model_output") or ""
     if not answer:
         return None
-    chunks = choose_chunks(tokenizer, pair, top=1, max_length=max_length)
+    top = TRAIN_TOP_CHUNKS if top is None else top
+    chunks = choose_chunks(tokenizer, pair, top=top, max_length=max_length)
     encoded = encode_pair(tokenizer, chunks[0]["text"] if chunks else "", answer, max_length)
     if encoded is None:
         return None
@@ -75,13 +86,62 @@ def build_row(tokenizer, pair, max_length=512):
     }
 
 
-def build_table(tokenizer, pairs, max_length=512):
+def build_rows(tokenizer, pair, max_length=512, top=None):
+    """Все выбранные чанки пары, а не только первый.
+
+    Инференс (`pair_probabilities`) считает скор по каждому из top чанков и берёт
+    максимум по субтокену; обучение исторически кодировало только `chunks[0]`,
+    то есть один чанк из top=1. На 27.5 % пар документ длиннее 2000 знаков, и
+    релевантный фрагмент в обучение не попадал. Здесь пара даёт столько строк,
+    сколько чанков выбрано, чтобы обучение видело тот же контекст, что инференс.
+    """
+    answer = pair.get("model_output") or ""
+    if not answer:
+        return []
+    top = TRAIN_TOP_CHUNKS if top is None else top
+    chunks = choose_chunks(tokenizer, pair, top=top, max_length=max_length)
+    if not chunks:
+        chunks = [{"text": "", "index": 0}]
+    rows_features = answer_features(answer, pair.get("document_text") or "")
+    gold = pair.get("spans") or []
+    result = []
+    for chunk in chunks:
+        encoded = encode_pair(tokenizer, chunk["text"], answer, max_length)
+        if encoded is None:
+            continue
+        total = len(encoded["input_ids"])
+        labels = [IGNORE] * total
+        answer_mask = [0] * total
+        features = [[0.0] * FEATURE_COUNT for _ in range(total)]
+        for index, start, end in encoded["answer_tokens"]:
+            answer_mask[index] = 1
+            features[index] = aligned(rows_features, start, end + 1)
+            labels[index] = 1 if any(min(end, span["end"] + 1) > max(start, span["start"]) for span in gold) else 0
+        result.append({
+            "pair_id": pair.get("pair_id"),
+            "chunk_index": int(chunk.get("index", 0)),
+            "input_ids": encoded["input_ids"],
+            "attention_mask": [1] * total,
+            "labels": labels,
+            "answer_mask": answer_mask,
+            "features": features,
+            "target": 1.0 if gold else float(pair.get("label", 0)),
+        })
+    return result
+
+
+def build_table(tokenizer, pairs, max_length=512, top=None):
     table = {}
     for pair in pairs:
-        row = build_row(tokenizer, pair, max_length)
-        if row is not None:
-            table[row["pair_id"]] = row
+        for row in build_rows(tokenizer, pair, max_length, top):
+            key = row["pair_id"] if row.get("chunk_index", 0) == 0 else f"{row['pair_id']}#{row['chunk_index']}"
+            table[key] = row
     return table
+
+
+def table_pairs(table):
+    """Сколько разных пар в таблице (строк может быть больше: по строке на чанк)."""
+    return len({str(key).split("#", 1)[0] for key in table})
 
 
 def collate(rows, pad_id):
