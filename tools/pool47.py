@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from spanver.evaluate import covered_tokens
 from spanver.snap import snapped
 from tools.diagnose46 import tally, without_snap
 from tools.evaluate_snap42 import compute
@@ -53,8 +54,19 @@ def main():
     if len(ids) != 699:
         raise ValueError("ожидалось 699 пар")
     counts = tally(combined)
+    token_tp = token_fn = 0
+    for row in combined:
+        gold = covered_tokens(row["answer"], [(span["start"], span["end"]) for span in row["gold_spans"]])
+        predicted = covered_tokens(row["answer"], [(span["start"], span["end"]) for span in row["predicted_spans"]])
+        token_tp += len(gold & predicted)
+        token_fn += len(gold - predicted)
+    counts.update({"true_positive_tokens": token_tp, "false_negative_tokens": token_fn})
     metrics = compute(combined)
-    output = {"variant": args.variant, "scope": "объединённые сохранённые out-of-fold прогнозы 699 пар, а не независимый отложенный набор", "threshold_reselection": False, "test301": False, "external_data": False, "counts": counts, "pooled_token_f1": metrics["token_f1"], "pooled_fpr_token": counts["false_positive_tokens"] / counts["negative_tokens"], "pooled_fpr_pair": counts["false_positive_pairs"] / counts["negative_pairs"]}
+    denominator = 2 * token_tp + counts["false_positive_tokens"] + token_fn
+    exact_f1 = 2 * token_tp / denominator if denominator else 0.0
+    if round(exact_f1, 4) != metrics["token_f1"]:
+        raise ValueError("сводный token F1 не совпадает")
+    output = {"variant": args.variant, "scope": "объединённые сохранённые out-of-fold прогнозы 699 пар, а не независимый отложенный набор", "threshold_reselection": False, "test301": False, "external_data": False, "counts": counts, "pooled_token_f1": metrics["token_f1"], "pooled_token_f1_exact": exact_f1, "pooled_fpr_token": counts["false_positive_tokens"] / counts["negative_tokens"], "pooled_fpr_pair": counts["false_positive_pairs"] / counts["negative_pairs"]}
     (artifacts / f"ablation47_{args.variant}_pooled.json").write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(output, ensure_ascii=False), flush=True)
 
