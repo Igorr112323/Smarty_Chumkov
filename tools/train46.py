@@ -77,7 +77,7 @@ def update_ema(ema, model):
                 ema[name].copy_(value)
 
 
-def train_variant(model, tokenizer, training, inner, seed, variant):
+def train_variant(model, tokenizer, training, inner, seed, variant, permanent_freeze=False):
     training_table = lexfeat.build_table(tokenizer, training)
     validation_table = lexfeat.build_table(tokenizer, inner)
     if len(training_table) != len(training) or len(validation_table) != len(inner):
@@ -100,7 +100,7 @@ def train_variant(model, tokenizer, training, inner, seed, variant):
         for epoch in range(1, EPOCHS + 1):
             clock = time.perf_counter()
             for parameter in embeddings:
-                parameter.requires_grad_(not frozen or epoch > 5)
+                parameter.requires_grad_(not frozen or (epoch > 5 and not permanent_freeze))
             keys = list(training_table)
             random.Random(seed * 1000 + epoch).shuffle(keys)
             model.train()
@@ -136,7 +136,7 @@ def train_variant(model, tokenizer, training, inner, seed, variant):
             if ema is not None:
                 model.load_state_dict(live, strict=True)
                 del live
-            history.append({"epoch": epoch, "train_loss": total / count, "inner_loss": current, "best_epoch": best_epoch, "stale": stale, "embeddings_frozen": frozen and epoch <= 5, "seconds": round(time.perf_counter() - clock, 3)})
+            history.append({"epoch": epoch, "train_loss": total / count, "inner_loss": current, "best_epoch": best_epoch, "stale": stale, "embeddings_frozen": frozen and (epoch <= 5 or permanent_freeze), "seconds": round(time.perf_counter() - clock, 3)})
             print(f"{variant} seed {seed}, эпоха {epoch}: loss {current:.6f}, best {best_epoch}, stale {stale}", flush=True)
             if stale >= PATIENCE:
                 break
