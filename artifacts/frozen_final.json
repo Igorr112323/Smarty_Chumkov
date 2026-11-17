@@ -1,7 +1,7 @@
 {
   "status": "готово: восстановлен ансамбль первого внешнего фолда",
   "deployable": true,
-  "variant": "v4",
+  "variant": "v5",
   "model": "rubert-tiny2 + 5 token lexical features",
   "seeds": [
     0,
@@ -12,7 +12,7 @@
   ],
   "max_epochs": 15,
   "patience": 3,
-  "embedding_freeze": "первые 5 эпох, затем LR x0,1",
+  "embedding_freeze": "всё обучение",
   "ema": false,
   "clause_expand": true,
   "sentence_snap": false,
@@ -30,7 +30,7 @@
     "ceda8092501a875b25e8b41764b659a132411007f59e2a8fff03c8041787b019",
     "620f068e053972140c383cc54ece3c605ddf2c881c2ebb495b57383a9e4de06f"
   ],
-  "git_sha": "9d1915b66a8d15f75ba2ab069e6df06a5e00b958",
+  "git_sha": "dd7a967972005677dff92ac50c5b3ba87563b9f6",
   "frozen_model_fold": 1,
   "frozen_model_training_id_sha256": "9defd41a70fd0e88419c3d2136f9154efb2328eb79a53f43e25b0ceacbb1c659",
   "frozen_model_threshold": {
@@ -93,7 +93,7 @@
           "epochs_ran": 5,
           "sha256": "04eb7932a33a7ed1a2f4e166f536b002ba3ad4a16e2a410a21e292e1558d747a",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold1/seed_0/manifest.json"
+          "manifest": "weights/ablation47/v5/fold1/seed_0/manifest.json"
         },
         {
           "seed": 1,
@@ -101,7 +101,7 @@
           "epochs_ran": 6,
           "sha256": "4caeed14396097798377463bf82303baa18504876664bf3dec2dbe8d010faf57",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold1/seed_1/manifest.json"
+          "manifest": "weights/ablation47/v5/fold1/seed_1/manifest.json"
         },
         {
           "seed": 2,
@@ -109,7 +109,7 @@
           "epochs_ran": 8,
           "sha256": "e4cd7b939ea9ba0f142fbac40c9cf0cd98ecd20b5a01610e0b74903e6b8f4754",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold1/seed_2/manifest.json"
+          "manifest": "weights/ablation47/v5/fold1/seed_2/manifest.json"
         },
         {
           "seed": 3,
@@ -117,7 +117,7 @@
           "epochs_ran": 8,
           "sha256": "ab1c62c7d8a2ff6d4b568ba85f602d467b748e6032e4eead152ee548a8f26159",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold1/seed_3/manifest.json"
+          "manifest": "weights/ablation47/v5/fold1/seed_3/manifest.json"
         },
         {
           "seed": 4,
@@ -125,7 +125,7 @@
           "epochs_ran": 7,
           "sha256": "b94fdcf16a8d60a83571e53131c03c29e123c9ccdfb3639b5f080d3f3197e4ef",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold1/seed_4/manifest.json"
+          "manifest": "weights/ablation47/v5/fold1/seed_4/manifest.json"
         }
       ]
     },
@@ -148,7 +148,7 @@
           "epochs_ran": 7,
           "sha256": "65fde3843a3b2a70912e9ad94d8a64aea6e9ad8839b52e82dacf6d1f1fe20ef7",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold2/seed_0/manifest.json"
+          "manifest": "weights/ablation47/v5/fold2/seed_0/manifest.json"
         },
         {
           "seed": 1,
@@ -156,7 +156,7 @@
           "epochs_ran": 7,
           "sha256": "84cfdd243b543e91572708b0680dd8133019905e23f9f4484155242bb33d921f",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold2/seed_1/manifest.json"
+          "manifest": "weights/ablation47/v5/fold2/seed_1/manifest.json"
         },
         {
           "seed": 2,
@@ -164,7 +164,7 @@
           "epochs_ran": 6,
           "sha256": "8d88f27094abc3a124bd56997ba32e3aed705e78310883ecc324266516a828d6",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold2/seed_2/manifest.json"
+          "manifest": "weights/ablation47/v5/fold2/seed_2/manifest.json"
         },
         {
           "seed": 3,
@@ -172,7 +172,7 @@
           "epochs_ran": 4,
           "sha256": "c97431a8bac1f0c7c552fd9009d57347f28b0588fd0196b354b63cf940251b93",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold2/seed_3/manifest.json"
+          "manifest": "weights/ablation47/v5/fold2/seed_3/manifest.json"
         },
         {
           "seed": 4,
@@ -180,7 +180,7 @@
           "epochs_ran": 7,
           "sha256": "120d6112cfaa5d9e4cc2e77f6afc8f4fa078803acc2da1433b033054ae2a60a1",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold2/seed_4/manifest.json"
+          "manifest": "weights/ablation47/v5/fold2/seed_4/manifest.json"
         }
       ]
     },
@@ -201,41 +201,41 @@
           "seed": 0,
           "best_epoch": 2,
           "epochs_ran": 5,
-          "sha256": "e7d9682d99b14679e8dfa6d8b92a6c932e7f19e22763a83849da3336d6314b95",
+          "sha256": "a93ec16fe584436a475bdfb20d0f618b2985137c410f35f03b84c123d6a3596e",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold3/seed_0/manifest.json"
+          "manifest": "weights/ablation47/v5/fold3/seed_0/manifest.json"
         },
         {
           "seed": 1,
           "best_epoch": 4,
           "epochs_ran": 7,
-          "sha256": "4f88f48577a73003cd0c0797450f5843ddf6d670bf0955d42ba3165d03689415",
+          "sha256": "53d54429a830b73b2cd808425aeb5952b88acc54a88b3c3145ebc7eb7363d0fa",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold3/seed_1/manifest.json"
+          "manifest": "weights/ablation47/v5/fold3/seed_1/manifest.json"
         },
         {
           "seed": 2,
           "best_epoch": 2,
           "epochs_ran": 5,
-          "sha256": "5ca57a6af528e41c22653d05e21039a1d65a5e123f1ef1f5c440e19d67ec2922",
+          "sha256": "825fc7b1b0115e0b7c740d6954083e433be90501ebae439dc39d05572523b0dd",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold3/seed_2/manifest.json"
+          "manifest": "weights/ablation47/v5/fold3/seed_2/manifest.json"
         },
         {
           "seed": 3,
           "best_epoch": 2,
           "epochs_ran": 5,
-          "sha256": "2e7d1a5601ab861091d170689a3f2ba8a5756fd200aac1e36ed84d2e153aad1b",
+          "sha256": "3d1f88bbaa00744171ccf40da38337a1117d579c51ce63cc97f0b7a5e8bb5a64",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold3/seed_3/manifest.json"
+          "manifest": "weights/ablation47/v5/fold3/seed_3/manifest.json"
         },
         {
           "seed": 4,
           "best_epoch": 4,
           "epochs_ran": 7,
-          "sha256": "1c39aaa9bdefdc9ca9d85b3a5499b41d0501e7ad6bf162bc51e469bcb47f7f69",
+          "sha256": "6c0bda62e2f1d57d8fdcb7b1e2287a9484c6c548959ddd7d026cbc5685965a40",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold3/seed_4/manifest.json"
+          "manifest": "weights/ablation47/v5/fold3/seed_4/manifest.json"
         }
       ]
     },
@@ -256,41 +256,41 @@
           "seed": 0,
           "best_epoch": 1,
           "epochs_ran": 4,
-          "sha256": "1841ef4be616f4c6edfd84150b096f0de9aba4b43b531939ed8fa3ddf79852d0",
+          "sha256": "26d82973010416dd736499846d1277dcfb5e4f639792c91034d9dc10a4c7ccd1",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold4/seed_0/manifest.json"
+          "manifest": "weights/ablation47/v5/fold4/seed_0/manifest.json"
         },
         {
           "seed": 1,
           "best_epoch": 3,
           "epochs_ran": 6,
-          "sha256": "206b0c770518d6a18480322094f1d42801ce8886eae2d68447796f93f00162a6",
+          "sha256": "ed28382da3bde9e322f957ff725b02ed8d94be87b0ad798c47e3fb20c0f8aa7b",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold4/seed_1/manifest.json"
+          "manifest": "weights/ablation47/v5/fold4/seed_1/manifest.json"
         },
         {
           "seed": 2,
           "best_epoch": 3,
           "epochs_ran": 6,
-          "sha256": "79785dd946b0073026b1377b0fa84df7ed834795fba6d10567ed9a666e4db9d6",
+          "sha256": "8c6bb09c18d4d7365594e86422e3b559d4a91d2806b637001e1c57288917ab38",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold4/seed_2/manifest.json"
+          "manifest": "weights/ablation47/v5/fold4/seed_2/manifest.json"
         },
         {
           "seed": 3,
           "best_epoch": 4,
           "epochs_ran": 7,
-          "sha256": "abde65fac6fa9a023970a4487d6c20dd7ef6d807cd992f88175c41fb87d25364",
+          "sha256": "8f7442e9f3d3316246e0521245baf5f8d5432deb38a50887d558853317d72659",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold4/seed_3/manifest.json"
+          "manifest": "weights/ablation47/v5/fold4/seed_3/manifest.json"
         },
         {
           "seed": 4,
           "best_epoch": 1,
           "epochs_ran": 4,
-          "sha256": "fc6dd2fa94b9784e79d5e9c98859b19bc42bfb1a9846835f8d5302618dee1ea1",
+          "sha256": "450023b7213f3021c9350fa013dc2295435ae12b33498240b92de97a83e17a6f",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold4/seed_4/manifest.json"
+          "manifest": "weights/ablation47/v5/fold4/seed_4/manifest.json"
         }
       ]
     },
@@ -311,41 +311,41 @@
           "seed": 0,
           "best_epoch": 4,
           "epochs_ran": 7,
-          "sha256": "24861debe6ded16eed7dbfe8840e2f01e3a2ccb6e7aad32954a3006c6713cc90",
+          "sha256": "016d9672a8b02f7b1edc9a2bb70a67874d83dbfce7b7b56f6e23b71017aedd4b",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold5/seed_0/manifest.json"
+          "manifest": "weights/ablation47/v5/fold5/seed_0/manifest.json"
         },
         {
           "seed": 1,
           "best_epoch": 5,
           "epochs_ran": 8,
-          "sha256": "20e4090e44a2bd894105237f37ca204c949d8ea4e3cf1c0852ed92da9629dfd8",
+          "sha256": "9f9c767ebb566a3d8682a7f3144579d9aafd698e94aa33418db60f89d49be211",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold5/seed_1/manifest.json"
+          "manifest": "weights/ablation47/v5/fold5/seed_1/manifest.json"
         },
         {
           "seed": 2,
           "best_epoch": 1,
           "epochs_ran": 4,
-          "sha256": "dd1675d13843cec6bb3b8374779ba3e281687bd9f3b145f7e31be5576759b480",
+          "sha256": "9cd1b31d9c67e47417589b8c8b40c4ecc3a64a0b3e99bb635218548b4a2c5538",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold5/seed_2/manifest.json"
+          "manifest": "weights/ablation47/v5/fold5/seed_2/manifest.json"
         },
         {
           "seed": 3,
           "best_epoch": 4,
           "epochs_ran": 7,
-          "sha256": "088db12f34ddb4a96c4865d0afd04444dd7d2659219f98e8ffe04541222a57d3",
+          "sha256": "b47964ff8d615cb3d476ba7ac22d4d721ee52a125c853f868060dd6475e97e48",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold5/seed_3/manifest.json"
+          "manifest": "weights/ablation47/v5/fold5/seed_3/manifest.json"
         },
         {
           "seed": 4,
           "best_epoch": 5,
           "epochs_ran": 8,
-          "sha256": "64da124c65a2187b205daea7a11ecbcee429359922e41542a5574148d94fe5c8",
+          "sha256": "17671439f313bec4460982e4851ff3530e89aae817de7959e75ab2d60bd8180b",
           "size": 116806133,
-          "manifest": "weights/ablation47/v4/fold5/seed_4/manifest.json"
+          "manifest": "weights/ablation47/v5/fold5/seed_4/manifest.json"
         }
       ]
     }
@@ -357,5 +357,44 @@
     "пять checkpoint в weights/final — один ансамбль внешнего фолда 1, не вся CV",
     "фолды использовались ранее для экспериментов; независимого подтверждения нет",
     "отложенная по документам часть 1200 пар не оценивалась"
-  ]
+  ],
+  "selection48": {
+    "selection_rule": "больший неокруглённый сводный token F1 на 699 CV-парах; при равенстве В5",
+    "selected": "v5",
+    "v4_pooled_token_f1": 0.4998734625702283,
+    "v5_pooled_token_f1": 0.4998734625702283,
+    "extra": "исходный список extra 200 отсутствует; по решению пользователя оценка пропущена",
+    "no_v6": true,
+    "contract_confirmed": false
+  },
+  "cv_metrics_exact": {
+    "macro": {
+      "token_precision": 0.45099168919440114,
+      "token_recall": 0.5827718727356282,
+      "token_f1": 0.5014017611077594,
+      "fpr_token": 0.36599158435253304,
+      "span_exact_f1": 0.22726974445474724,
+      "span_overlap_f1": 0.4293200462937385,
+      "span_iou_f1": 0.29394455978679673,
+      "span_precision": 0.40545763760049475,
+      "span_recall": 0.23574435122822218,
+      "pair_f1": 0.36471533840461373,
+      "pair_precision": 0.4976015797068429,
+      "pair_recall": 0.29498234676894464
+    },
+    "pooled": {
+      "token_precision": 0.43951935914552737,
+      "token_recall": 0.5794414456700305,
+      "token_f1": 0.4998734625702283,
+      "fpr_token": 0.3696507191077194,
+      "span_exact_f1": 0.2286902286902287,
+      "span_overlap_f1": 0.43243243243243246,
+      "span_iou_f1": 0.29521829521829523,
+      "span_precision": 0.39226519337016574,
+      "span_recall": 0.23666666666666666,
+      "pair_f1": 0.36787564766839376,
+      "pair_precision": 0.48299319727891155,
+      "pair_recall": 0.29707112970711297
+    }
+  }
 }
