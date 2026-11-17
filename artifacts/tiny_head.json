@@ -1,0 +1,20 @@
+{
+  "backend": "tiny",
+  "model": "rubert-tiny2 + 5 лексических признаков на субтокен",
+  "weights_dir": "models/rubert-tiny2",
+  "seed": 0,
+  "gate": 0.45,
+  "start": 0.49,
+  "extend": 0.245,
+  "top_chunks": 4,
+  "max_spans_default": 3,
+  "clause_expand": true,
+  "sentence_snap": false,
+  "provenance": {
+    "start_source": "artifacts/decode52.json, правило pooled, внешний фолд 1 (5-фолдовая схема), порог выбран только по внутренним фолдам",
+    "ensemble_note": "порог получен для ансамбля пяти сидов; в поставку идёт один сид seed 0, поэтому метрики CLI сверяются с одномодельным прогоном, а не с ансамблевыми 0.5273",
+    "checkpoint": "weights/final/seed_0 (V5), восстановлен и проверен в artifacts/final47_restore_verification.json",
+    "test301_evaluated": false,
+    "external_data_used": false
+  }
+}

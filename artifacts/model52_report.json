@@ -1,0 +1,83 @@
+{
+ "generated_by": "tools/cli52.py, tools/speed52.py; ручная сборка отчёта по машинным результатам",
+ "model": {
+  "backend": "tiny",
+  "encoder": "cointegrated/rubert-tiny2",
+  "head": "5 лексических признаков на субтокен + проекция + классификатор",
+  "checkpoint": "weights/final/seed_0 (V5)",
+  "restore_verified": true,
+  "package_backend_reachable": true,
+  "cli": "python -m spanver verify --backend tiny --weights models/rubert-tiny2 --answer a.txt --document d.txt",
+  "http": "python -m spanver serve --backend tiny --port 8765",
+  "max_spans_default": 3,
+  "weights_bytes": 116806133,
+  "weights_source": "weights/final/seed_0: 2 чанка по 116 806 133 Б (манифест V5)"
+ },
+ "features": {
+  "token_level": [
+   "doc_attention_share",
+   "attention_entropy",
+   "cos_proximity",
+   "doc_overlap",
+   "uncertainty"
+  ],
+  "head": [
+   "number",
+   "entity",
+   "uncertainty",
+   "negation",
+   "doc_overlap"
+  ],
+  "note": "три обязательных по договору признака реализуются как doc_attention_share / attention_entropy / cos_proximity в spanver/model_features.py; в tiny-бэкенде используются пять базовых лексических, поэтому пункт 3 остаётся частичным до их переноса"
+ },
+ "test": {
+  "scope": "внешний фолд 1, 140 пар, которые seed 0 не видел; 699 пар как качество не приводятся",
+  "rule": "порог 0.49 выбран только по внутренним фолдам (правило pooled), gate 0.45, клаузный expand, max_spans 3",
+  "n_pairs": 140,
+  "span_level": {
+   "f1": 0.2268041237113402,
+   "exact_f1": 0.14432989690721648,
+   "overlap_f1": 0.4329896907216495,
+   "precision": null,
+   "recall": null
+  },
+  "token_level": {
+   "f1": 0.4799787854680456,
+   "precision": 0.39092872570194387,
+   "recall": 0.6215659340659341
+  },
+  "pair_level": {
+   "f1": null
+  },
+  "fpr": 0.20833333333333334,
+  "fpr_token": 0.3936348408710218,
+  "type_accuracy": 0.9090909090909091,
+  "contract_pass": {
+   "f1_ge_0.50": false,
+   "fpr_le_0.40": true,
+   "level": "не достигнуто на этом фолде"
+  },
+  "ci95_token_f1": [
+   0.31641168289290683,
+   0.6127964699393271
+  ],
+  "baselines": {
+   "all_positive_token_f1": 0.5001320461281141
+  },
+  "threshold": 0.49,
+  "gate": 0.45
+ },
+ "stress": {
+  "ms_per_1000": 23.556,
+  "source": "artifacts/compliance.json, модельный путь ruSciBERT; для tiny-бэкенда замер в artifacts/speed52.json",
+  "under_60s": true,
+  "note": "2 млн знаков для tiny не замерены; см. artifacts/speed52.json для 20000 знаков"
+ },
+ "calibration": {
+  "points": [],
+  "max_abs_err": null,
+  "note": "ai_share в tiny-бэкенде = доля знаков ответа, покрытых фрагментами, без изотонической калибровки; пункт 4 остаётся частичным"
+ },
+ "test301_evaluated": false,
+ "external_data_used": false
+}

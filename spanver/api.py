@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 from .model_features import ModelUnavailable
 from .model_score import HeadMissing, verify_model
 from .module import verify
+from .tiny_backend import DEFAULT_MAX_SPANS, TinyBundle, TinyHeadMissing, TinyUnavailable
 
 PAGE = """<!DOCTYPE html>
 <html lang="ru">
@@ -135,8 +136,14 @@ class Handler(BaseHTTPRequestHandler):
     backend = "lexical"
     weights = None
     head = "artifacts/model_head.json"
+    max_spans = DEFAULT_MAX_SPANS
+    tiny = None
 
     def payload(self, answer, document):
+        if self.backend == "tiny":
+            if self.tiny is None:
+                raise TinyUnavailable("tiny-модель не загружена")
+            return self.tiny.verify(answer, document, max_spans=self.max_spans)
         if self.backend == "model":
             if not self.weights:
                 raise ModelUnavailable("укажите каталог весов: --weights models\\ruSciBERT")
@@ -192,10 +199,13 @@ class Handler(BaseHTTPRequestHandler):
         return
 
 
-def serve(port=8765, host="0.0.0.0", backend="lexical", weights=None, head="artifacts/model_head.json"):
+def serve(port=8765, host="0.0.0.0", backend="lexical", weights=None, head="artifacts/model_head.json", max_spans=DEFAULT_MAX_SPANS):
     Handler.backend = backend
     Handler.weights = weights
     Handler.head = head
+    Handler.max_spans = max_spans
+    if backend == "tiny":
+        Handler.tiny = TinyBundle(weights, head if head != "artifacts/model_head.json" else "artifacts/tiny_head.json")
     server = ThreadingHTTPServer((host, port), Handler)
     print(f"listening on http://localhost:{port} (backend {backend})")
     try:
