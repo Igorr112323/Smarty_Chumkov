@@ -1,0 +1,127 @@
+{
+  "status": "готово",
+  "outer_fold": 1,
+  "inner_fold": 2,
+  "train_id_sha256": "9defd41a70fd0e88419c3d2136f9154efb2328eb79a53f43e25b0ceacbb1c659",
+  "gold_train_val_sha256": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
+  "git_sha": "f25cd2f7e9e7f420d4a34498ed62e82669635bd0",
+  "checkpoints": [
+    {
+      "seed": 0,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "34394b9cc43f2ba61597d3bffd40791aabd744fb40e20de16573076d17671c46",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "0b1f4e745b08a9c6f65d22a3ac71ec2e7710fedae0cc9b597489efcbdede96b6"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "c1867099eb51bccd70ce75a921d7742f8a1192e9d3a206207fe9b2a2900a0beb"
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "28f570fdee8dbb3913e22899bff6bdeca4bbf139192a7252432ff6afd1a411e5",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "957ec2e0b24c34e990b573889d0f1a03141543daa01163d2967b8e03d0e01e5b"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "d0113deee162f1da5c568fe5428679a437040e0bc23e36fec0bec586e74c1582"
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "eae6cc0d26e8db2661e873bc545d11ac53764a6a6a3abb9dc6d4f719ccaf92aa",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "7d1ded786dee5272daf1f6e99a915dc6096bfefff837c65a5a5c84f856b4735f"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "308b3dd4deaaf434adca4d7a1a5b2b0a3d3d54ff6470602906c979946765e22e"
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "ff5b7466d33eab3387db488a71a2b9226201e088f075ee618666efd5a6e38f24",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "539cd38e6433238794ae7b43517917789099bf9fe967135f8f4a03e3c869d6e5"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "bf46b622a2765d955ea8c55132dfa463f4b270b5b5b61f7ef6af014c3c5deb63"
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "filename": "checkpoint.pt",
+      "size": 116806133,
+      "sha256": "4f2fefe37003198c9cff57aeb3662b819673a4d5637b0e88fdc54d22e7f7676b",
+      "chunk_bytes": 83886080,
+      "chunks": [
+        {
+          "name": "part-000.bin",
+          "bytes": 83886080,
+          "sha256": "4c2197ac3335b313c387d93f363c2ffbf9cb3268498e408c1d7e1a318e5dd258"
+        },
+        {
+          "name": "part-001.bin",
+          "bytes": 32920053,
+          "sha256": "6e2f6172b58114c06d818055aee941a3d2cb2475c0699bd9cd9fbc459ea70f23"
+        }
+      ]
+    }
+  ],
+  "model": "rubert-tiny2 + 5 token lexical features",
+  "threshold": {
+    "start": 0.52,
+    "extend": 0.26,
+    "mean_inner_token_f1_exact": 0.4506145048200784,
+    "max_inner_fpr_pair": 0.1848,
+    "max_inner_fpr_token": 0.3659
+  },
+  "gate": 0.45,
+  "fold_ids_sha256": [
+    "fe9fb7325d403f4e053def978f0909cb4addb8fb027fcc73bd0365d82e624c1f",
+    "5d6a4ef36e62ccd9b5a23bb43c6a89dd54a65acff2b96b1a97d1e4cfc8c72355",
+    "a908fa3a518e6fe1156af37e70ddee369613b058ab1957f0088a122e17fb7cb0",
+    "ceda8092501a875b25e8b41764b659a132411007f59e2a8fff03c8041787b019",
+    "620f068e053972140c383cc54ece3c605ddf2c881c2ebb495b57383a9e4de06f"
+  ],
+  "fpr_note": "порог выбран по четырём внутренним фолдам; на новых данных FPR не гарантирован",
+  "input_weights_sha256": "137fa2b1d944dae19c74456dfe8fac2f780d9acf34e037f5d1e37acba1157768",
+  "restore_verified": true,
+  "restore_verification": "степень совпадения: все метрики внешнего фолда 1 после восстановления пяти state_dict",
+  "scope": "Оригинальные пять сидов outer 1, inner 2; не пять внешних CV-фолдов",
+  "source": "weights/frozen"
+}
