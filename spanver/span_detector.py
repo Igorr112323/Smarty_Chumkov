@@ -110,10 +110,14 @@ def choose_chunks(tokenizer, pair, top=TOP_K, max_length=MAX_LENGTH):
 
 
 def encode_pair(tokenizer, chunk_text, answer, max_length=MAX_LENGTH):
+    answer_length = token_count(tokenizer, answer)
+    special_tokens = tokenizer.num_special_tokens_to_add(pair=True)
+    if answer_length + special_tokens > max_length:
+        raise ValueError(f"ответ из {answer_length} субтокенов не помещается в лимит {max_length}")
     encoded = tokenizer(
         chunk_text or "",
         answer or "",
-        truncation="longest_first",
+        truncation="only_first",
         max_length=max_length,
         return_offsets_mapping=True,
         add_special_tokens=True,

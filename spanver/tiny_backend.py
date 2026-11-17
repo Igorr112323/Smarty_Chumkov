@@ -66,7 +66,7 @@ class TinyBundle:
         except ImportError as error:  # pragma: no cover - зависит от окружения
             raise TinyUnavailable(f"для бэкенда tiny нужны torch и transformers: {error}") from error
         self.lexfeat = lexfeat
-        self.tokenizer, self.model = lexfeat.load_feature_model(self.directory, seed=int(self.head.get("seed", 0)))
+        self.tokenizer, self.model = lexfeat.load_feature_model(self.directory, labels=2, seed=int(self.head.get("seed", 0)))
         self.model.base.config._attn_implementation = "eager"
         self.model.eval()
 

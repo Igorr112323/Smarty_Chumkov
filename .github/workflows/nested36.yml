@@ -1,0 +1,130 @@
+name: Tiny2 вложенная CV и мешки сидов
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/nested36.yml
+
+permissions:
+  contents: write
+
+jobs:
+  folds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        fold: [1, 2, 3, 4, 5]
+    env:
+      TOKENIZERS_PARALLELISM: "false"
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            tests
+            scripts
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers>=4.50,<5' huggingface_hub
+      - name: safe tests only
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py 2>&1 | tee /tmp/nested36-tests.txt
+      - name: save test diagnostics
+        if: always()
+        env:
+          FOLD: ${{ matrix.fold }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          source = Path('/tmp/nested36-tests.txt')
+          if source.exists():
+              target = Path('artifacts') / ('nested36_diagnostic_fold_' + os.environ['FOLD'] + '.json')
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_text(json.dumps({'tests': source.read_text(encoding='utf-8')}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+      - name: prepare train and validation only
+        run: python tools/prepare_ours33.py
+      - name: assemble initial tiny2 weights
+        run: python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: train and evaluate fold
+        run: timeout --signal=TERM --kill-after=30s 160m python -u tools/nested_cv35.py --fold '${{ matrix.fold }}'
+      - name: upload JSON only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nested36-fold-${{ matrix.fold }}
+          path: |
+            artifacts/nested36_fold_${{ matrix.fold }}.json
+            artifacts/nested36_diagnostic_fold_${{ matrix.fold }}.json
+          if-no-files-found: warn
+          retention-days: 30
+  collect:
+    if: always()
+    needs: folds
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/5afadcb0-smarty-chumkov
+          sparse-checkout: |
+            tools
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: nested36-fold-*
+          path: artifacts
+          merge-multiple: true
+      - name: summary
+        id: summary
+        continue-on-error: true
+        run: python tools/summarize_nested36.py
+      - name: upload summary JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nested36-summary
+          path: artifacts/nested36_summary.json
+          if-no-files-found: warn
+      - name: commit results
+        if: always()
+        run: |
+          set -eu
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          for file in artifacts/nested36_fold_*.json artifacts/nested36_diagnostic_fold_*.json artifacts/nested36_summary.json; do
+            if [ -f "$file" ]; then git add --sparse -f "$file"; fi
+          done
+          if ! git diff --cached --quiet; then
+            git config user.name github-actions
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git commit -m 'Сохранить результаты вложенной CV [skip ci]'
+            git push origin arena/5afadcb0-smarty-chumkov
+          fi
+      - name: verify completion
+        if: always()
+        env:
+          FOLDS_RESULT: ${{ needs.folds.result }}
+          SUMMARY_RESULT: ${{ steps.summary.outcome }}
+        run: test "$FOLDS_RESULT" = success && test "$SUMMARY_RESULT" = success

@@ -8,7 +8,7 @@ from .types import has_entity, has_number, has_scope, has_temporal
 THRESHOLD = 0.98
 IOU_THRESHOLD = 0.50
 MIN_FRAGMENT = 10
-MAX_SPANS = 3  # 52 из 699 пар имеют 2+ золотых спана; по умолчанию 3, переопределяется параметром
+MAX_SPANS = 3  # 52 из 699 пар имеют 2+ золотых спана; переопределяется параметром max_spans
 NMS_IOU = 0.10
 FEATURE_NAMES = ("number", "entity", "uncertainty", "negation", "doc_overlap")
 MODEL_FEATURES = (

@@ -1,0 +1,54 @@
+name: Скорость ансамбля 51
+on:
+  push:
+    branches: ["arena/5afadcb0-smarty-chumkov"]
+    paths: ["artifacts/speed51_request.json"]
+permissions:
+  contents: write
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+      HF_HUB_DOWNLOAD_TIMEOUT: '120'
+      HF_HUB_DISABLE_XET: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+            models/rubert-tiny2
+            weights/rubert-tiny2
+            weights/final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          set -euo pipefail
+          pip install pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python tools/prepare_ours33.py
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+          python - <<'PY'
+          from huggingface_hub import snapshot_download
+          snapshot_download(repo_id='cointegrated/rubert-tiny',local_dir='models/rubert-tiny',allow_patterns=['config.json','tokenizer.json','tokenizer_config.json','special_tokens_map.json','vocab.txt','model.safetensors','pytorch_model.bin'])
+          PY
+          python tools/build_package.py
+      - run: python -u tools/speed51_preflight.py
+      - name: Сохранить фактические данные стенда
+        run: |
+          set -euo pipefail
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add --sparse -f artifacts/speed51_preflight.json
+          git commit -m 'Сохранить предварительный замер скорости 51 [skip ci]'
+          git push origin HEAD:arena/5afadcb0-smarty-chumkov

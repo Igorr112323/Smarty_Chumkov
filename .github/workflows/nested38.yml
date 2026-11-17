@@ -1,0 +1,198 @@
+name: Худший внутренний фолд и фиксация
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/nested38.yml
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          sparse-checkout: |
+            spanver
+            tools
+            tests
+            scripts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install
+        run: |
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers>=4.50,<5' huggingface_hub
+      - name: historical tests without tee
+        run: python tools/audit38.py
+      - name: current safe tests without tee
+        run: python -m pytest -q tests/test_base33_safe.py tests/test_base33_training.py tests/test_preflight_13.py tests/test_sweep_ragtruth30.py tests/test_nested36.py tests/test_nested37.py tests/test_nested38.py
+      - name: upload audit JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nested38-audit
+          path: artifacts/nested38_test_audit.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: commit audit progress
+        if: always()
+        run: |
+          if [ -f artifacts/nested38_test_audit.json ]; then
+            git fetch origin arena/5afadcb0-smarty-chumkov
+            git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+            git add --sparse -f artifacts/nested38_test_audit.json
+            if ! git diff --cached --quiet; then
+              git config user.name github-actions
+              git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+              git commit -m 'Сохранить аудит тестов [skip ci]'
+              git push origin arena/5afadcb0-smarty-chumkov
+            fi
+          fi
+  folds:
+    needs: audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {outer: 1, inner: 2}
+          - {outer: 1, inner: 3}
+          - {outer: 1, inner: 4}
+          - {outer: 1, inner: 5}
+          - {outer: 2, inner: 1}
+          - {outer: 2, inner: 3}
+          - {outer: 2, inner: 4}
+          - {outer: 2, inner: 5}
+          - {outer: 3, inner: 1}
+          - {outer: 3, inner: 2}
+          - {outer: 3, inner: 4}
+          - {outer: 3, inner: 5}
+          - {outer: 4, inner: 1}
+          - {outer: 4, inner: 2}
+          - {outer: 4, inner: 3}
+          - {outer: 4, inner: 5}
+          - {outer: 5, inner: 1}
+          - {outer: 5, inner: 2}
+          - {outer: 5, inner: 3}
+          - {outer: 5, inner: 4}
+    env:
+      TOKENIZERS_PARALLELISM: "false"
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            models/rubert-tiny2
+            weights/rubert-tiny2
+            weights/frozen
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install
+        run: |
+          pip install pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers>=4.50,<5' huggingface_hub
+      - name: prepare only train and validation
+        run: python tools/prepare_ours33.py
+      - name: assemble original weights
+        run: python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: train five seeds and evaluate inner fold
+        run: timeout --signal=TERM --kill-after=30s 160m python -u tools/nested38.py --outer '${{ matrix.outer }}' --inner '${{ matrix.inner }}' --git-sha '${{ github.sha }}'
+      - name: commit five chunked checkpoints
+        if: matrix.outer == 1 && matrix.inner == 2
+        run: |
+          set -eu
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          git add --sparse -f weights/frozen
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Сохранить пять весов tiny2 [skip ci]'
+          git push origin arena/5afadcb0-smarty-chumkov
+      - name: upload fold JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nested38-outer-${{ matrix.outer }}-inner-${{ matrix.inner }}
+          path: artifacts/nested38_outer_${{ matrix.outer }}_inner_${{ matrix.inner }}.json
+          if-no-files-found: warn
+          retention-days: 30
+  collect:
+    needs: [audit, folds]
+    if: needs.audit.result == 'success' && needs.folds.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      TOKENIZERS_PARALLELISM: "false"
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/5afadcb0-smarty-chumkov
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            models/rubert-tiny2
+            weights/rubert-tiny2
+            weights/frozen
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install
+        run: |
+          pip install pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers>=4.50,<5' huggingface_hub
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: nested38-outer-*
+          path: artifacts
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: nested38-audit
+          path: artifacts
+      - name: prepare data and original weights
+        run: |
+          python tools/prepare_ours33.py
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: gather metrics without tuning on outer labels
+        run: python tools/collect_nested38.py
+      - name: prepare frozen candidate and report headline
+        run: |
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          git show HEAD:artifacts/report.json > artifacts/report.json
+          python tools/finalize38.py
+      - name: restore and verify five checkpoints
+        run: python tools/validate_frozen38.py
+      - name: write report and status
+        run: python tools/report_nested38.py
+      - name: save reports and calibrated manifest
+        run: |
+          set -eu
+          git add --sparse -f artifacts/nested38_test_audit.json artifacts/nested38_summary.json artifacts/nested38_report.md artifacts/frozen38_verification.json artifacts/frozen_final.json artifacts/report.json weights/frozen/manifest.json STATUS.md
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          if ! git diff --cached --quiet; then
+            git commit -m 'Зафиксировать честный итог CV [skip ci]'
+            git push origin arena/5afadcb0-smarty-chumkov
+          fi

@@ -56,8 +56,9 @@ def main(argv=None):
     if args.command == "verify":
         if args.backend == "tiny":
             try:
-                bundle = TinyBundle(args.weights, args.head if args.head != "artifacts/model_head.json" else "artifacts/tiny_head.json")
-                result = bundle.verify(value_of(args.answer), value_of(args.document), max_spans=args.max_spans)
+                head = args.head if args.head != "artifacts/model_head.json" else "artifacts/tiny_head.json"
+                result = TinyBundle(args.weights, head).verify(
+                    value_of(args.answer), value_of(args.document), max_spans=args.max_spans)
             except (TinyUnavailable, TinyHeadMissing) as error:
                 print(str(error))
                 return 2

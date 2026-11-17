@@ -1,0 +1,54 @@
+name: Сохранить отчёт rubert-base
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/collect_base.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TRAIN_RUN: "43828152726"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/5afadcb0-smarty-chumkov
+      - name: wait for CV
+        run: gh run watch "$TRAIN_RUN" --interval 60 || true
+      - name: download results
+        run: gh run download "$TRAIN_RUN" --name rubert-base-cv --dir /tmp/rubert-base-cv
+      - name: save small reports to branch
+        run: |
+          set -eu
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          mkdir -p artifacts
+          for name in cv_report_base3.json cv_report_base3_pilot.json speed_report_base.json; do
+            if [ -f "/tmp/rubert-base-cv/artifacts/$name" ]; then
+              cp "/tmp/rubert-base-cv/artifacts/$name" "artifacts/actions33_$name"
+              git add -f "artifacts/actions33_$name"
+            fi
+          done
+          if [ -f /tmp/rubert-base-cv/models/rubert-base-cased/manifest.json ]; then
+            cp /tmp/rubert-base-cv/models/rubert-base-cased/manifest.json artifacts/actions33_weights_manifest.json
+            git add -f artifacts/actions33_weights_manifest.json
+          fi
+          if git diff --cached --quiet; then
+            echo "В артефакте нет ожидаемых отчётов"
+            exit 1
+          fi
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Сохранить отчёты rubert-base [skip ci]'
+          git push origin arena/5afadcb0-smarty-chumkov

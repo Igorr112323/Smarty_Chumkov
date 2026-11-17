@@ -49,7 +49,7 @@ def covered_tokens(text, intervals):
     covered = set()
     for index, (start, end) in enumerate(positions):
         for left, right in intervals:
-            if left <= start <= right or left <= end <= right:
+            if max(left, start) <= min(right, end):
                 covered.add(index)
                 break
     return covered

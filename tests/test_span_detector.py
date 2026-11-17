@@ -50,6 +50,23 @@ def test_answer_offsets_match_manual_search(tokenizer):
         assert (manual, manual + len(word)) in offsets
 
 
+def test_answer_is_preserved_when_document_is_long(tokenizer):
+    answer = "завод " * 400
+    document = "документ " * 450
+    encoded = encode_pair(tokenizer, document, answer, 512)
+    full_offsets = tokenizer(answer, add_special_tokens=False, return_offsets_mapping=True)["offset_mapping"]
+    assert [(start, end) for _, start, end in encoded["answer_tokens"]] == full_offsets
+    assert len(encoded["input_ids"]) <= 512
+    start, end = full_offsets[-1]
+    labels = answer_labels(encoded, [{"start": start, "end": end - 1}])
+    assert labels[encoded["answer_tokens"][-1][0]] == 1
+
+
+def test_overlong_answer_fails_instead_of_truncating(tokenizer):
+    with pytest.raises(ValueError, match="не помещается"):
+        encode_pair(tokenizer, "документ", "завод " * 600, 512)
+
+
 def test_spans_from_uses_answer_coordinates(tokenizer):
     encoded = encode_pair(tokenizer, "Москва была основана в 1147 году.", ANSWER)
     cached = {"answer": ANSWER, "pieces": [(start, end, 0.9) for _, start, end in encoded["answer_tokens"]]}

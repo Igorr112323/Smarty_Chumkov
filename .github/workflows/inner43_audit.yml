@@ -1,0 +1,51 @@
+name: Проверка сохранённых внутренних предсказаний
+
+on:
+  push:
+    branches:
+      - arena/5afadcb0-smarty-chumkov
+    paths:
+      - .github/workflows/inner43_audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/5afadcb0-smarty-chumkov
+          sparse-checkout: |
+            tools
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 43914581442
+          pattern: nested38-outer-*
+          path: artifacts
+          merge-multiple: true
+      - name: Inspect all saved JSON keys only
+        run: python tools/audit_inner43.py
+      - name: Save audit
+        run: |
+          set -eu
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git merge --ff-only origin/arena/5afadcb0-smarty-chumkov
+          git add --sparse -f artifacts/inner43_audit.json
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          if ! git diff --cached --quiet; then
+            git commit -m 'Сохранить проверку внутренних кэшей [skip ci]'
+            git push origin arena/5afadcb0-smarty-chumkov
+          fi
+          git fetch origin arena/5afadcb0-smarty-chumkov
+          git log origin/arena/5afadcb0-smarty-chumkov -1 --oneline
+          git cat-file -e origin/arena/5afadcb0-smarty-chumkov:artifacts/inner43_audit.json
