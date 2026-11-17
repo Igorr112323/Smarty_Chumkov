@@ -1,0 +1,107 @@
+{
+ "status": "готово",
+ "scope": "все 699 пар train/val, 300 спанов; test 301 не оценивался",
+ "coverage_csv": 699,
+ "check1_autojunk": {
+  "True": {
+   "median": 0.025,
+   "mean": 0.0896932517357865,
+   "share_ge_0_9": 0.01,
+   "share_ge_0_5": 0.043333333333333335
+  },
+  "False": {
+   "median": 0.24911347517730498,
+   "mean": 0.32218139061247986,
+   "share_ge_0_9": 0.02666666666666667,
+   "share_ge_0_5": 0.18
+  }
+ },
+ "check2_full_coverage": {
+  "spans": 300,
+  "coverage_docs_median": 0.24911347517730498,
+  "coverage_joined_median": 0.17817460317460318,
+  "coverage_repo_median": 0.17817460317460318,
+  "exact_in_docs": 2,
+  "exact_in_joined": 2,
+  "share_ge_0_9_docs": 0.02666666666666667,
+  "share_ge_0_5_docs": 0.18,
+  "length_median": 157.0,
+  "by_human_type": {
+   "Contradiction": {
+    "count": 49,
+    "coverage_median": 0.375,
+    "exact": 0
+   },
+   "Excess": {
+    "count": 18,
+    "coverage_median": 0.22053571428571428,
+    "exact": 0
+   },
+   "Missing": {
+    "count": 42,
+    "coverage_median": 0.25596726107808826,
+    "exact": 0
+   },
+   "Oversight": {
+    "count": 21,
+    "coverage_median": 0.11475409836065574,
+    "exact": 0
+   },
+   "Partial": {
+    "count": 91,
+    "coverage_median": 0.20674486803519063,
+    "exact": 1
+   },
+   "Unconfirmed": {
+    "count": 79,
+    "coverage_median": 0.3076923076923077,
+    "exact": 1
+   }
+  }
+ },
+ "check3_control_spans": [
+  {
+   "pair_id": "sber000397",
+   "text": "вплоть до совершеннолетия короля в 1651 году",
+   "in_docs_exact": false,
+   "coverage_docs": 0.3181818181818182,
+   "coverage_joined": 0.13636363636363635
+  },
+  {
+   "pair_id": "sber000522",
+   "text": "(в передней азии)",
+   "in_docs_exact": false,
+   "coverage_docs": 0.6470588235294118,
+   "coverage_joined": 0.6470588235294118
+  },
+  {
+   "pair_id": "sber000524",
+   "text": "нацбанк казахстана объявил о девальвации национальной валюты 11 февраля 2014 года.",
+   "in_docs_exact": false,
+   "coverage_docs": 0.9878048780487805,
+   "coverage_joined": 0.9878048780487805
+  },
+  {
+   "pair_id": "sber000652",
+   "text": "любое государство",
+   "in_docs_exact": false,
+   "coverage_docs": 0.7058823529411765,
+   "coverage_joined": 0.7058823529411765
+  }
+ ],
+ "check4_reachability": {
+  "joined": {
+   "hit": 4462,
+   "total": 8522,
+   "share": 0.5235860126730815
+  },
+  "docs": {
+   "hit": 6326,
+   "total": 8522,
+   "share": 0.7423140107955879
+  },
+  "delta": 0.21872799812250643
+ },
+ "n_docs_median": 5.0,
+ "test301": false
+}
