@@ -1,0 +1,45 @@
+{
+  "status": "готово: предварительный стенд, не итоговое измерение обученного ансамбля",
+  "models": "пять восстановленных сидов В5 плюс пять seed-инициализаций rubert-tiny",
+  "warning": "руберт-tiny не дообучен; только время forward и подготовка признаков, усреднение/декодер не включены; оптимизированный инференс не измерен",
+  "data_scope": "пять train/val документов длиной 1000 символов, test 301 не оценивается",
+  "document_chars_total": 5000,
+  "answer_chars_total": 1655,
+  "threads": 4,
+  "batch": 4,
+  "repeats": 3,
+  "torch": "2.15.0+cpu",
+  "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+  "python": "3.11.18",
+  "results": {
+    "v5_only": {
+      "models": 5,
+      "samples_ms_per_1000_document_chars": [
+        127.01996779999999,
+        123.6263056,
+        127.66582100000001
+      ],
+      "median_ms_per_1000_document_chars": 127.01996779999999
+    },
+    "two_architecture": {
+      "models": 10,
+      "samples_ms_per_1000_document_chars": [
+        327.860887,
+        311.8790994,
+        334.9380026
+      ],
+      "median_ms_per_1000_document_chars": 327.860887
+    }
+  },
+  "alternate_file_sha256": {
+    "config.json": "b7c05fdfcd0074315a9261876e0b5933856ad30fdb0a04017644c2857d102331",
+    "model.safetensors": "69a21c123d486ce14f4d466a4a8966cd96c40d05e1fd961acd3e1373d1637e6a",
+    "pytorch_model.bin": "7b46f70960011906bf9be3c46ad7490bada3845ddb5c2d7a8830c9517ee66071",
+    "special_tokens_map.json": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3",
+    "tokenizer.json": "b177f8e2180f8c6e966217bafa371a76523c1d079a1a83e089ffcb2296845231",
+    "tokenizer_config.json": "fd8165d134305737020b2d6e7eb5a69e96af79ae76b97ee05f50efd8e9c367df",
+    "vocab.txt": "f23c30b6a1f1b21926ef659a07c1bfaddd2fce80fbfd388226c5c10a0b8d80be"
+  },
+  "speed_limit_ms_per_1000": 30,
+  "package": "не измерен для этого ансамбля; существующий архив spanver не содержит интерфейс двухархитектурного ансамбля"
+}
