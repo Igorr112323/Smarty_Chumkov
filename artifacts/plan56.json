@@ -1,0 +1,25 @@
+{
+ "status": "план стадии 2",
+ "entry": "docs",
+ "folds": 10,
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "test301": "final measurement only",
+ "sha256_docs": "d8ccfc2460de96031e6a81d467dca16ece74143f5c66eb875d1054a581668633",
+ "scheme": "52 (train51_ten.py, --pairs, --out-prefix ablation56_ten)",
+ "protocol": "10 фолдов, правило pooled, порог только по внутренним фолдам",
+ "speed_norm": {
+  "ms_per_1000_doc_max": 30,
+  "chars_2m_seconds_max": 60
+ },
+ "acceptance": {
+  "token_f1_ge": 0.5074495197020192,
+  "fpr_le": 0.4,
+  "precision_ge": 0.45
+ }
+}

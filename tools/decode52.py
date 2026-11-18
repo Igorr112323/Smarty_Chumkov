@@ -344,14 +344,19 @@ def run_variant(name, records, outer_pairs, fold_count, gate, picker):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="artifacts/decode52.json")
+    parser.add_argument("--pairs", default="artifacts/ours33.jsonl")
+    parser.add_argument("--records", default="ablation51_ten", help="префикс файлов записей фолдов")
+    parser.add_argument("--fold-count", type=int, default=0, help="0 — оба набора (10 и 5)")
     args = parser.parse_args()
-    pairs = read_jsonl(ROOT / "artifacts/ours33.jsonl")
+    pairs = read_jsonl(ROOT / args.pairs)
     if len(pairs) != 699:
         raise ValueError("ожидались 699 пар train/val")
     orders = {
-        10: ROOT / "artifacts/ablation51_ten_summary.json",
+        10: ROOT / f"artifacts/{args.records}_summary.json",
         5: ROOT / "artifacts/ablation47_v5_summary.json",
     }
+    if args.fold_count:
+        orders = {args.fold_count: orders[args.fold_count]}
     report = {"status": "в процессе", "scope": "699 out-of-fold пар train/val, адаптивный выбор на внешних фолдах, не независимая оценка",
               "test301_evaluated": False, "external_data_used": False, "fpr_limit": FPR_LIMIT,
               "gate": 0.45, "grid_start": list(GRID), "variants": {}}
@@ -362,7 +367,7 @@ def main():
         for outer in range(1, fold_count + 1):
             for offset in range(1, 5):
                 inner = ((outer - 1 + offset) % fold_count) + 1
-                path = ROOT / f"artifacts/ablation51_ten_outer{outer}_inner{inner}.json" if fold_count == 10 else \
+                path = ROOT / f"artifacts/{args.records}_outer{outer}_inner{inner}.json" if fold_count == 10 else \
                     ROOT / f"artifacts/ablation47_v5_outer{outer}_inner{inner}.json"
                 records[outer, inner] = json.loads(path.read_text(encoding="utf-8"))
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
@@ -381,7 +386,7 @@ def main():
         report["variants"][str(fold_count)] = slot
     report["status"] = "готово"
     (ROOT / args.out).write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    for fold_count in ("10", "5"):
+    for fold_count in [str(key) for key in orders]:
         print(f"=== {fold_count} фолдов ===")
         for name, value in report["variants"][fold_count]["rules"].items():
             print(f"{name:8s} pooled F1 {value['pooled']['token_f1']:.4f} P {value['pooled']['token_precision']:.4f} "

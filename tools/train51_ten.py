@@ -54,19 +54,26 @@ def main():
     parser.add_argument("--outer", required=True, type=int, choices=range(1, 11))
     parser.add_argument("--inner", required=True, type=int, choices=range(1, 11))
     parser.add_argument("--git-sha", required=True)
+    parser.add_argument("--pairs", default="artifacts/ours33.jsonl",
+                        help="вход; по умолчанию прежний ours33 (joined_reference)")
+    parser.add_argument("--out-prefix", default="ablation51_ten",
+                        help="префикс файлов отчётов; ablation51_ten сохраняет прежние имена")
     args = parser.parse_args()
     torch.use_deterministic_algorithms(True)
-    source = ROOT / "artifacts/ours33.jsonl"
+    source = ROOT / args.pairs
     summary = json.loads((ROOT / "artifacts/nested38_summary.json").read_text(encoding="utf-8"))
     pairs = read_jsonl(source)
-    if file_digest(source) != summary["gold_train_val_sha256"] or len(pairs) != 699 or id_digest(pairs) != EXPECTED_IDS:
+    if len(pairs) != 699 or id_digest(pairs) != EXPECTED_IDS:
+        raise ValueError("неверный набор train/val")
+    # при новом входе sha файла заведомо другой; тогда сверяются метки (tools/entry56.py)
+    if file_digest(source) != summary["gold_train_val_sha256"] and source.name == "ours33.jsonl":
         raise ValueError("неверный набор train/val")
     folds = grouped_folds(pairs, 10)
     outer, inner = args.outer - 1, args.inner - 1
     training, tuning, held = split(folds, outer, inner)
     primary = inner == (outer + 1) % 10
     blind = [{key: value for key, value in row.items() if key not in ("spans", "label")} for row in held]
-    path = ROOT / f"artifacts/ablation51_{args.variant}_outer{args.outer}_inner{args.inner}.json"
+    path = ROOT / f"artifacts/{args.out_prefix}_outer{args.outer}_inner{args.inner}.json"
     report = {"status": "в процессе", "variant": args.variant, "outer_fold": args.outer, "inner_fold": args.inner, "primary": primary, "git_sha": args.git_sha, "torch": str(torch.__version__), "transformers": transformers.__version__, "gold_sha256": file_digest(source), "fold_ids_sha256": [id_digest(fold) for fold in folds], "train_id_sha256": id_digest(training), "inner_id_sha256": id_digest(tuning), "outer_id_sha256": id_digest(held), "seeds": [], "test301": False, "external_data": False}
     save_json(path, report)
     inner_caches, outer_caches = [], []

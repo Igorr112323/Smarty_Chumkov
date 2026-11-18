@@ -19,28 +19,30 @@ from tools.train_scheme13_full import save_json
 METRICS = ("token_precision", "token_recall", "token_f1", "exact_f1", "overlap_f1", "pair_f1", "fpr_pair", "fpr_token")
 
 
-def collect(variant):
-    source = ROOT / "artifacts/ours33.jsonl"
+def collect(variant, pairs_name="artifacts/ours33.jsonl", prefix="ablation51_ten",
+            summary_name=None):
+    source = ROOT / pairs_name
     reference = json.loads((ROOT / "artifacts/nested38_summary.json").read_text(encoding="utf-8"))
     pairs = read_jsonl(source)
     folds = grouped_folds(pairs, 10)
-    if file_digest(source) != reference["gold_train_val_sha256"]:
+    if file_digest(source) != reference["gold_train_val_sha256"] and source.name == "ours33.jsonl":
         raise ValueError("не совпадают train/val или фолды")
     records = {}
     for outer in range(1, 11):
         for inner in [((outer - 1 + offset) % 10) + 1 for offset in range(1, 5)]:
             if outer == inner:
                 continue
-            path = ROOT / f"artifacts/ablation51_{variant}_outer{outer}_inner{inner}.json"
+            path = ROOT / f"artifacts/{prefix}_outer{outer}_inner{inner}.json"
             if path.exists():
                 records[outer, inner] = json.loads(path.read_text(encoding="utf-8"))
-    target = ROOT / f"artifacts/ablation51_{variant}_summary.json"
+    target = ROOT / (summary_name or f"artifacts/ablation51_{variant}_summary.json")
     output = {"status": "неполный прогон", "variant": variant, "jobs_expected": 40, "jobs_available": len(records), "jobs_complete": sum(row.get("status") == "готово" for row in records.values()), "seeds": [0, 1, 2, 3, 4], "test301": False, "external_data": False, "sentence_snap": False, "clause_expand": True, "inner_fpr_limit": 0.4, "warning": "Внешние фолды использовались ранее и теперь в правиле остановки абляции; независимого подтверждения нет."}
     save_json(target, output)
     if len(records) != 40 or any(row.get("status") != "готово" for row in records.values()):
         return output
     shas = {row["git_sha"] for row in records.values()}
-    if len(shas) != 1 or any(row["variant"] != variant or row["gold_sha256"] != reference["gold_train_val_sha256"] or row["fold_ids_sha256"] != [id_digest(fold) for fold in folds] or [seed["seed"] for seed in row["seeds"]] != [0, 1, 2, 3, 4] for row in records.values()):
+    expected_sha = file_digest(source)
+    if len(shas) != 1 or any(row["variant"] != variant or row["gold_sha256"] != expected_sha or row["fold_ids_sha256"] != [id_digest(fold) for fold in folds] or [seed["seed"] for seed in row["seeds"]] != [0, 1, 2, 3, 4] for row in records.values()):
         raise ValueError("несовпадение варианта, исходных данных, версии или сидов")
     choices = {}
     for outer in range(1, 11):
@@ -80,8 +82,11 @@ def collect(variant):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--variant", choices=("ten",), required=True)
+    parser.add_argument("--pairs", default="artifacts/ours33.jsonl")
+    parser.add_argument("--records-prefix", default="ablation51_ten")
+    parser.add_argument("--summary-out", default=None)
     args = parser.parse_args()
-    result = collect(args.variant)
+    result = collect(args.variant, args.pairs, args.records_prefix, args.summary_out)
     print(json.dumps(result, ensure_ascii=False, indent=2), flush=True)
     return 0 if result["status"] == "готово" else 2
 

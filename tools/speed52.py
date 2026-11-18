@@ -55,13 +55,14 @@ def main():
     parser.add_argument("--seeds", default="1,3,5")
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--out", default="artifacts/speed52.json")
+    parser.add_argument("--pairs", default="artifacts/ours33.jsonl")
     args = parser.parse_args()
 
     import torch
     torch.set_num_threads(4)
     lengths = [int(x) for x in args.lengths.split(",")]
     counts = [int(x) for x in args.seeds.split(",")]
-    gold = read_jsonl(ROOT / "artifacts/ours33.jsonl")
+    gold = read_jsonl(ROOT / args.pairs)
     models, manifest = load_ensemble(max(counts))
     theta = manifest["threshold"]["start"]
     gate = manifest["gate"]

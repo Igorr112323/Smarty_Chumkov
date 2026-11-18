@@ -78,9 +78,10 @@ def main():
     parser.add_argument("--outer", type=int, default=1)
     parser.add_argument("--top", type=int, default=4)
     parser.add_argument("--out", default="artifacts/ceiling52.json")
+    parser.add_argument("--pairs", default="artifacts/ours33.jsonl")
     args = parser.parse_args()
     torch.set_num_threads(4)
-    pairs = read_jsonl(ROOT / "artifacts/ours33.jsonl")
+    pairs = read_jsonl(ROOT / args.pairs)
     held = grouped_folds(pairs, 5)[args.outer - 1]
     manifest = json.loads((ROOT / "weights/final/manifest.json").read_text(encoding="utf-8"))
     entry = manifest["checkpoints"][0]
