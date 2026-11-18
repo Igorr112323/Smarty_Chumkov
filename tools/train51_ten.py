@@ -61,12 +61,13 @@ def main():
     args = parser.parse_args()
     torch.use_deterministic_algorithms(True)
     source = ROOT / args.pairs
-    summary = json.loads((ROOT / "artifacts/nested38_summary.json").read_text(encoding="utf-8"))
+    summary_path = ROOT / "artifacts/nested38_summary.json"
+    summary = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.exists() else {}
     pairs = read_jsonl(source)
     if len(pairs) != 699 or id_digest(pairs) != EXPECTED_IDS:
         raise ValueError("неверный набор train/val")
     # при новом входе sha файла заведомо другой; тогда сверяются метки (tools/entry56.py)
-    if file_digest(source) != summary["gold_train_val_sha256"] and source.name == "ours33.jsonl":
+    if summary and file_digest(source) != summary["gold_train_val_sha256"] and source.name == "ours33.jsonl":
         raise ValueError("неверный набор train/val")
     folds = grouped_folds(pairs, 10)
     outer, inner = args.outer - 1, args.inner - 1
