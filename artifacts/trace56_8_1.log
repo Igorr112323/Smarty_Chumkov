@@ -1,13 +1,38 @@
-Traceback (most recent call last):
-  File "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/train51_ten.py", line 120, in <module>
-    main()
-  File "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/train51_ten.py", line 64, in main
-    summary = json.loads((ROOT / "artifacts/nested38_summary.json").read_text(encoding="utf-8"))
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py", line 1058, in read_text
-    with self.open(mode='r', encoding=encoding, errors=errors) as f:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py", line 1044, in open
-    return io.open(self, mode, buffering, encoding, errors, newline)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/artifacts/nested38_summary.json'
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 0, эпоха 1: loss 0.360187, best 1, stale 0
+v2 seed 0, эпоха 2: loss 0.390085, best 1, stale 1
+v2 seed 0, эпоха 3: loss 0.407873, best 1, stale 2
+v2 seed 0, эпоха 4: loss 0.446683, best 1, stale 3
+ten outer 8 inner 1 seed 0: готов
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 1, эпоха 1: loss 0.377495, best 1, stale 0
+v2 seed 1, эпоха 2: loss 0.361304, best 2, stale 0
+v2 seed 1, эпоха 3: loss 0.383549, best 2, stale 1
+v2 seed 1, эпоха 4: loss 0.405876, best 2, stale 2
+v2 seed 1, эпоха 5: loss 0.434844, best 2, stale 3
+ten outer 8 inner 1 seed 1: готов
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 2, эпоха 1: loss 0.434054, best 1, stale 0
+v2 seed 2, эпоха 2: loss 0.355940, best 2, stale 0
+v2 seed 2, эпоха 3: loss 0.389600, best 2, stale 1
+v2 seed 2, эпоха 4: loss 0.422850, best 2, stale 2
+v2 seed 2, эпоха 5: loss 0.447494, best 2, stale 3
+ten outer 8 inner 1 seed 2: готов
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 3, эпоха 1: loss 0.375404, best 1, stale 0
+v2 seed 3, эпоха 2: loss 0.388784, best 1, stale 1
+v2 seed 3, эпоха 3: loss 0.401961, best 1, stale 2
+v2 seed 3, эпоха 4: loss 0.429877, best 1, stale 3
+ten outer 8 inner 1 seed 3: готов
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 4, эпоха 1: loss 0.350254, best 1, stale 0
+v2 seed 4, эпоха 2: loss 0.367908, best 1, stale 1
+v2 seed 4, эпоха 3: loss 0.411003, best 1, stale 2
+v2 seed 4, эпоха 4: loss 0.419225, best 1, stale 3
+ten outer 8 inner 1 seed 4: готов
+ten outer 8 inner 1: завершено
