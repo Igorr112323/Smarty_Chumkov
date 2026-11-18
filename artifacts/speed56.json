@@ -1,0 +1,119 @@
+{
+ "status": "готово",
+ "entry": "docs",
+ "fold": 1,
+ "models": 5,
+ "top_chunks": 4,
+ "theta": 0.5,
+ "gate": 0.45,
+ "threads": 4,
+ "torch": "2.15.0+cpu",
+ "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+ "limit_ms_per_1000": 30.0,
+ "limit_2m_seconds": 60.0,
+ "rows": [
+  {
+   "length": 838,
+   "documents": 5,
+   "doc_chars": 4190,
+   "answer_chars": 1084,
+   "ms_per_1000_doc_median": 77.70072362768776,
+   "ms_per_1000_doc_min": 77.50488114558517,
+   "ms_per_1000_doc_max": 79.31111503580044,
+   "samples": [
+    79.31111503580044,
+    77.70072362768776,
+    77.50488114558517
+   ],
+   "passes_limit": false
+  },
+  {
+   "length": 1000,
+   "documents": 5,
+   "doc_chars": 5000,
+   "answer_chars": 1084,
+   "ms_per_1000_doc_median": 74.11802620000003,
+   "ms_per_1000_doc_min": 73.12357739999698,
+   "ms_per_1000_doc_max": 74.2080441999974,
+   "samples": [
+    74.2080441999974,
+    73.12357739999698,
+    74.11802620000003
+   ],
+   "passes_limit": false
+  },
+  {
+   "length": 3980,
+   "documents": 5,
+   "doc_chars": 19900,
+   "answer_chars": 1225,
+   "ms_per_1000_doc_median": 100.67336743718523,
+   "ms_per_1000_doc_min": 99.3530026633165,
+   "ms_per_1000_doc_max": 101.13030839196016,
+   "samples": [
+    100.67336743718523,
+    99.3530026633165,
+    101.13030839196016
+   ],
+   "passes_limit": false
+  },
+  {
+   "length": 5000,
+   "documents": 5,
+   "doc_chars": 25000,
+   "answer_chars": 900,
+   "ms_per_1000_doc_median": 79.22062812000036,
+   "ms_per_1000_doc_min": 78.83376320000025,
+   "ms_per_1000_doc_max": 83.16393727999981,
+   "samples": [
+    78.83376320000025,
+    83.16393727999981,
+    79.22062812000036
+   ],
+   "passes_limit": false
+  },
+  {
+   "length": 20000,
+   "documents": 5,
+   "doc_chars": 100000,
+   "answer_chars": 1084,
+   "ms_per_1000_doc_median": 33.494559770000194,
+   "ms_per_1000_doc_min": 33.19137530000006,
+   "ms_per_1000_doc_max": 34.96368275000009,
+   "samples": [
+    34.96368275000009,
+    33.19137530000006,
+    33.494559770000194
+   ],
+   "passes_limit": false
+  }
+ ],
+ "two_million": {
+  "runs": [
+   {
+    "documents": 498,
+    "doc_chars": 2002989,
+    "seconds": 173.65382886199998
+   },
+   {
+    "documents": 498,
+    "doc_chars": 2002989,
+    "seconds": 174.925486443
+   },
+   {
+    "documents": 498,
+    "doc_chars": 2002989,
+    "seconds": 174.687099584
+   }
+  ],
+  "median_seconds": 174.687099584,
+  "doc_chars_median": 2002989,
+  "passes_limit": false
+ },
+ "acceptance": {
+  "2.7_ms_per_1000_le_30": false,
+  "2.7_two_million_le_60s": false
+ },
+ "acceptance_all": false,
+ "test301": false
+}
