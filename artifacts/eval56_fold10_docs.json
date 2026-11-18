@@ -1,0 +1,134 @@
+{
+ "status": "готово",
+ "entry": "docs",
+ "fold": "10",
+ "test_pairs": 301,
+ "clean_pairs": 167,
+ "fold_metrics": [],
+ "test301": true,
+ "usage": "только финальный замер; порог из манифеста внутренних фолдов",
+ "all_pairs": {
+  "folds": {
+   "10": {
+    "start": 0.5,
+    "extend": 0.25,
+    "token": {
+     "precision": 0.3533,
+     "recall": 0.4128,
+     "f1": 0.3808
+    },
+    "token_f1_exact": 0.3807551378046838,
+    "span": {
+     "precision": 0.2222,
+     "recall": 0.1138,
+     "f1": 0.1505
+    },
+    "span_f1_exact": 0.15053763440860216,
+    "pair": {
+     "precision": 0.2979,
+     "recall": 0.1489,
+     "f1": 0.1986
+    },
+    "fpr_pair": 0.1594,
+    "fpr_token": 0.3006,
+    "support": {
+     "token_tp": 1195,
+     "token_fp": 2187,
+     "token_fn": 1700,
+     "span_tp": 14,
+     "span_fp": 49,
+     "span_fn": 109,
+     "negative_pairs": 207,
+     "negative_tokens": 7275,
+     "flagged_negative_pairs": 33,
+     "flagged_negative_tokens": 2187
+    }
+   }
+  },
+  "pooled": {
+   "token_precision": 0.3533412182140745,
+   "token_recall": 0.41278065630397237,
+   "token_f1": 0.38075513780468373,
+   "fpr_token": 0.30061855670103094,
+   "fpr_pair": 0.15942028985507245,
+   "span_exact_f1": 0.15053763440860216,
+   "counts": {
+    "token_tp": 1195,
+    "token_fp": 2187,
+    "token_fn": 1700,
+    "negative_tokens": 7275,
+    "flagged_negative_tokens": 2187,
+    "span_tp": 14,
+    "span_fp": 49,
+    "span_fn": 109,
+    "negative_pairs": 207,
+    "flagged_negative_pairs": 33
+   },
+   "note": "pair-метрика здесь не считается: tagged-счётчики support не дают пар без спанов"
+  },
+  "std_over_folds": {},
+  "pairs": 301
+ },
+ "clean_subset": {
+  "folds": {
+   "10": {
+    "start": 0.5,
+    "extend": 0.25,
+    "token": {
+     "precision": 0.3577,
+     "recall": 0.4887,
+     "f1": 0.4131
+    },
+    "token_f1_exact": 0.4130822596630327,
+    "span": {
+     "precision": 0.2364,
+     "recall": 0.1605,
+     "f1": 0.1912
+    },
+    "span_f1_exact": 0.19117647058823528,
+    "pair": {
+     "precision": 0.325,
+     "recall": 0.2167,
+     "f1": 0.26
+    },
+    "fpr_pair": 0.2523,
+    "fpr_token": 0.3939,
+    "support": {
+     "token_tp": 1042,
+     "token_fp": 1871,
+     "token_fn": 1090,
+     "span_tp": 13,
+     "span_fp": 42,
+     "span_fn": 68,
+     "negative_pairs": 107,
+     "negative_tokens": 4750,
+     "flagged_negative_pairs": 27,
+     "flagged_negative_tokens": 1871
+    }
+   }
+  },
+  "pooled": {
+   "token_precision": 0.35770683144524545,
+   "token_recall": 0.48874296435272047,
+   "token_f1": 0.41308225966303264,
+   "fpr_token": 0.39389473684210524,
+   "fpr_pair": 0.2523364485981308,
+   "span_exact_f1": 0.19117647058823528,
+   "counts": {
+    "token_tp": 1042,
+    "token_fp": 1871,
+    "token_fn": 1090,
+    "negative_tokens": 4750,
+    "flagged_negative_tokens": 1871,
+    "span_tp": 13,
+    "span_fp": 42,
+    "span_fn": 68,
+    "negative_pairs": 107,
+    "flagged_negative_pairs": 27
+   },
+   "note": "pair-метрика здесь не считается: tagged-счётчики support не дают пар без спанов"
+  },
+  "std_over_folds": {},
+  "pairs": 167
+ }
+}
