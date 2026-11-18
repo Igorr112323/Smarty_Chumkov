@@ -26,7 +26,8 @@ KEYS = ("token_tp", "token_fp", "token_fn", "negative_tokens", "flagged_negative
 def merge(points):
     totals = {key: 0 for key in KEYS}
     for point in points:
-        support = point.get("support") or {}
+        # pooled-блок несёт счётчики в поле counts (в per-fold — в support)
+        support = point.get("counts") or point.get("support") or {}
         for key in KEYS:
             totals[key] += support.get(key, 0)
     tp, fp, fn = totals["token_tp"], totals["token_fp"], totals["token_fn"]

@@ -69,6 +69,7 @@ def main():
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--out", default="artifacts/speed56.json")
     args = parser.parse_args()
+    print(f"speed56: версия с проверкой ключей, вход {args.pairs}, фолд {args.fold}", flush=True)
 
     import torch
 
@@ -130,12 +131,17 @@ def main():
         started = time.perf_counter()
         caches = [lexfeat.batched_probabilities(tokenizer, model, pairs, top=CHUNKS_TOP, batch=16)
                   for _, tokenizer, model in models]
+        sizes = [len(cache) for cache in caches]
+        print(f"пар в сценарии {len(pairs)}, записей в кэшах {sizes}", flush=True)
         missing = [pair["pair_id"] for pair in pairs if any(pair["pair_id"] not in cache for cache in caches)]
         if missing:
-            raise SystemExit(f"нет вероятностей для {len(missing)} пар, первая {missing[0]}")
+            sample = sorted(caches[0])[:3]
+            raise SystemExit(f"нет вероятностей для {len(missing)} пар, первая {missing[0]}, "
+                             f"пример ключей кэша {sample}")
         for position, pair in enumerate(pairs):
             key = pair["pair_id"]
-            pieces = merge([cache[key] for cache in caches], pair)
+            # merge ждёт словари кэшей по сидам, а не готовые списки pieces
+            pieces = merge(caches, pair)
             if max((piece[2] for piece in pieces), default=0.0) >= gate:
                 snapped(predict({"answer": pair["model_output"], "pieces": pieces}, theta),
                         pair["model_output"], "expand")
