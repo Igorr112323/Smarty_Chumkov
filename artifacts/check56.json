@@ -1,0 +1,98 @@
+{
+ "status": "готово",
+ "scope": "699 пар train/val, 300 спанов; test 301 не оценивался",
+ "test301": false,
+ "reference_docs_count": {
+  "699 пар": {
+   "median": 1,
+   "mean": 2.244635193133047,
+   "distribution": {
+    "1": 479,
+    "2": 41,
+    "3": 29,
+    "4": 25,
+    "5": 33,
+    "6": 35,
+    "7": 30,
+    "8": 14,
+    "9": 6,
+    "10": 7
+   }
+  },
+  "239 пар со спанами": {
+   "median": 2,
+   "mean": 3.0209205020920504,
+   "distribution": {
+    "1": 115,
+    "2": 19,
+    "3": 19,
+    "4": 18,
+    "5": 21,
+    "6": 17,
+    "7": 17,
+    "8": 7,
+    "9": 2,
+    "10": 4
+   }
+  }
+ },
+ "joined_equals_reference_docs": {
+  "identical": 1000,
+  "rows": 1000,
+  "share": 1.0,
+  "note": "склейка через двойной перевод строки; поэтому joined_reference и reference_docs — один корпус"
+ },
+ "reachability": {
+  "joined_reference": {
+   "hit": 4462,
+   "total": 8522,
+   "share": 0.5235860126730815
+  },
+  "reference_docs": {
+   "hit": 4462,
+   "total": 8522,
+   "share": 0.5235860126730815
+  },
+  "docs": {
+   "hit": 6326,
+   "total": 8522,
+   "share": 0.7423140107955879
+  }
+ },
+ "docid_overlap_test_vs_rest": {
+  "joined_reference": {
+   "total": 2174,
+   "in_test": 643,
+   "out_test": 1531,
+   "overlap": 0,
+   "share": 0.0
+  },
+  "reference_docs": {
+   "total": 2174,
+   "in_test": 643,
+   "out_test": 1531,
+   "overlap": 0,
+   "share": 0.0
+  },
+  "docs": {
+   "total": 4282,
+   "in_test": 1413,
+   "out_test": 3093,
+   "overlap": 224,
+   "share": 0.052312003736571695
+  }
+ },
+ "pair_rule_token_count": {
+  "better": 167,
+  "same": 50,
+  "worse": 22,
+  "total": 239
+ },
+ "prompt_vs_reference_docs": {
+  "rows": 1626,
+  "prompt_ids_equal_docs": 1619,
+  "reference_subset_of_prompt": 1355,
+  "reference_disjoint_from_prompt": 271,
+  "note": "parquet 2_rushallu_rag_pairs — другой срез, query_id с gold не пересекается; проверка показывает устройство поля prompt, а не наши 699 пар"
+ }
+}
