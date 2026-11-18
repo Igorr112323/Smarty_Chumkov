@@ -20,7 +20,15 @@ for path in "$@"; do
   # «does not match», поэтому перечитываем sha и повторяем.
   ok=0
   for attempt in 1 2 3 4 5 6 7 8; do
-    sha=$(gh api "repos/${repo}/contents/${path}?ref=${branch}" --jq '.sha' 2>/dev/null || echo "")
+    # ВАЖНО: при 404 gh печатает JSON ошибки в stdout, поэтому `|| echo ""` не
+    # спасает: в sha попадал текст {"message":"Not Found"...}, и PUT с этим sha
+    # всегда получал 409. Проверяем, что ответ — настоящий 40-символьный хеш.
+    sha=$(gh api "repos/${repo}/contents/${path}?ref=${branch}" --jq '.sha' 2>/dev/null || true)
+    case "$sha" in
+      [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]*) ;;
+      *) sha="" ;;
+    esac
+    if [ -n "$sha" ] && [ "${#sha}" -ne 40 ]; then sha=""; fi
     if [ -n "$sha" ]; then
       if gh api -X PUT "repos/${repo}/contents/${path}" -f message="$message" \
            -f content="$content" -f branch="$branch" -f sha="$sha" \

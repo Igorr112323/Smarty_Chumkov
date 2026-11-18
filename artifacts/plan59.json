@@ -1,10 +1,10 @@
 {
  "prompt": 59,
  "stage": 1,
- "run": 3,
+ "run": 4,
  "protocol": "artifacts/protocol59.json",
  "protocol_commit": "dae8cb28c94a8130b99c1b18953bb7f59349c32f",
- "note": "третий запуск: убран комментарий внутри sparse-checkout (ломал checkout: падали все 29 заданий на шаге 2)",
+ "note": "четвёртый запуск: починена заливка (при 404 в sha попадал JSON ошибки, PUT всегда получал 409). Прогон 3 обучил 29 заданий, но отчёты не сохранились",
  "runs": {
   "a": "--with-question=false",
   "b": "--with-question=true"
