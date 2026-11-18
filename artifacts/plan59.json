@@ -1,10 +1,10 @@
 {
  "prompt": 59,
  "stage": 1,
- "run": 2,
+ "run": 3,
  "protocol": "artifacts/protocol59.json",
  "protocol_commit": "dae8cb28c94a8130b99c1b18953bb7f59349c32f",
- "note": "второй запуск: в sparse-checkout добавлены weights/rubert-tiny2 (без них падал шаг зависимостей), в plan добавлена проверка входа, в заливку — повторы на 409",
+ "note": "третий запуск: убран комментарий внутри sparse-checkout (ломал checkout: падали все 29 заданий на шаге 2)",
  "runs": {
   "a": "--with-question=false",
   "b": "--with-question=true"

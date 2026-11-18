@@ -98,9 +98,6 @@ jobs:
             tools
             artifacts
             models/rubert-tiny2
-            # куски официальных весов: assemble_weights собирает pytorch_model.bin
-            # из weights/rubert-tiny2/part-*.bin и сверяет sha256. Без этой
-            # строки шаг падал с «нет манифеста», и обучение не начиналось.
             weights/rubert-tiny2
       - uses: actions/setup-python@v5
         with:
