@@ -150,11 +150,16 @@ jobs:
           python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
       - name: Обучение (схема 52, вход docs)
         run: |
-          set -euo pipefail
+          set +e
           timeout --signal=TERM --kill-after=30s 260m python -u tools/train51_ten.py \
             --variant ten --outer '${{ matrix.outer }}' --inner '${{ matrix.inner }}' \
             --git-sha '${{ github.sha }}' --pairs "$PAIRS" \
-            --out-prefix ablation56_ten
+            --out-prefix ablation56_ten 2>&1 | tee /tmp/train56.log
+          code=${PIPESTATUS[0]}
+          # логи Actions из песочницы недоступны: хвост ошибки дублируем файлом в ветку
+          mkdir -p artifacts
+          tail -60 /tmp/train56.log > "artifacts/trace56_${{ matrix.outer }}_${{ matrix.inner }}.log" || true
+          exit "$code"
       - name: Сохранить отчёт в ветку
         if: always()
         run: |
@@ -162,7 +167,7 @@ jobs:
           git config user.name github-actions
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           mkdir -p artifacts
-          files=$(ls artifacts/ablation56_ten_outer*.json 2>/dev/null || true)
+          files=$(ls artifacts/ablation56_ten_outer*.json artifacts/trace56_*.log 2>/dev/null || true)
           if [ -n "$files" ]; then
             git add -f $files
             git commit -m "ablation56 outer ${{ matrix.outer }} inner ${{ matrix.inner }} [skip ci]" || echo "нечего коммитить"
