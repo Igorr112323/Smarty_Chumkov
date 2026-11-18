@@ -23,7 +23,10 @@ permissions:
 
 env:
   BRANCH: arena/4a5c459f-smarty-chumkov
-  PAIRS: artifacts/ours56_docs.jsonl
+  # ПРОМПТ 57, стадия 0.1: базовая конфигурация возвращена на joined_reference.
+  # Вход docs остаётся в коде за флагом (он нужен для потолка 0,644 и для
+  # парных сравнений): подать его можно, поменяв PAIRS и sha в плане.
+  PAIRS: artifacts/ours33.jsonl
   SOURCE_RUN: "44218112557"
 
 jobs:
@@ -63,8 +66,11 @@ jobs:
           plan = json.load(open("artifacts/plan56_infer.json"))
           assert plan["no_training"] is True, plan
           assert plan["source_run"] == "44218112557", plan
-          digest = hashlib.sha256(open("artifacts/ours56_docs.jsonl", "rb").read()).hexdigest()
-          assert digest == plan["sha256_docs"], (digest, plan["sha256_docs"])
+          # сверяется sha того входа, который перечислен в плане:
+          # ours33.jsonl = joined_reference (базовая), ours56_docs.jsonl = docs
+          name = plan["entry_file"]
+          digest = hashlib.sha256(open(f"artifacts/{name}", "rb").read()).hexdigest()
+          assert digest == plan["sha256_pairs"], (digest, plan["sha256_pairs"])
           print("план принят:", digest)
           PY
 
