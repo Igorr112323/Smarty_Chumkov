@@ -64,18 +64,26 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -euo pipefail
+          set -o pipefail
           # каждый фолд: скачать веса -> собрать манифест -> замер -> удалить веса
-          : > artifacts/plan58_progress.log
+          log=artifacts/plan58_progress.log
+          : > "$log"
+          status=0
           for fold in 1 2 3 4 5 6 7 8 9 10; do
-            echo "=== фолд $fold" | tee -a artifacts/plan58_progress.log
-            bash tools/fetch_weights56.sh "$fold" 2>&1 | tail -3 | tee -a artifacts/plan58_progress.log
-            python tools/fold56.py "$fold" | tee -a artifacts/plan58_progress.log
+            echo "=== фолд $fold" | tee -a "$log"
+            bash tools/fetch_weights56.sh "$fold" > /tmp/f.log 2>&1 || status=$?
+            tail -4 /tmp/f.log | tee -a "$log"
+            test $status -eq 0 || { echo "падение на скачивании фолда $fold" | tee -a "$log"; break; }
+            python tools/fold56.py "$fold" >> "$log" 2>&1 || { status=$?; echo "падение fold56 на фолде $fold" | tee -a "$log"; break; }
             python tools/final58.py --folds "$fold" --out "artifacts/final58_fold${fold}.json" \
-              2>&1 | tail -20 | tee -a artifacts/plan58_progress.log
+              > /tmp/e.log 2>&1 || status=$?
+            tail -25 /tmp/e.log | tee -a "$log"
+            test $status -eq 0 || { echo "падение final58 на фолде $fold" | tee -a "$log"; break; }
             rm -rf weights/ablation51
-            df -h /home/runner | tail -1
+            df -h /home/runner | tail -1 | tee -a "$log"
           done
+          echo "итоговый статус: $status" | tee -a "$log"
+          exit $status
       - name: Скорость на медианной длине входа
         continue-on-error: true
         env:
@@ -91,6 +99,8 @@ jobs:
         if: always()
         run: |
           set -euo pipefail
-          python tools/summarize58.py 2>&1 | tail -20 || true
+          python tools/summarize58.py >> artifacts/plan58_progress.log 2>&1 || true
+          tail -30 artifacts/plan58_progress.log || true
           bash tools/commit56.sh "58 стадия 3: финальный замер test 301 [skip ci]" \
-            "artifacts/final58*.json" artifacts/plan58_progress.log
+            "artifacts/final58.json" "artifacts/final58_fold*.json" \
+            "artifacts/final58_speed.json" artifacts/plan58_progress.log || true
