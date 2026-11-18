@@ -52,6 +52,7 @@ jobs:
             spanver
             tools
             tests
+            artifacts/plan56.json
             models/rubert-tiny2
             weights/rubert-tiny2
       - uses: actions/setup-python@v5
@@ -143,6 +144,8 @@ jobs:
           pip install pyarrow
           pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
           pip install 'transformers==4.57.6' huggingface_hub
+          # baseline (прежний вход) нужен entry56 для сверки меток
+          python tools/prepare_ours33.py
           python tools/entry56.py --pairs "$PAIRS"
           python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
       - name: Обучение (схема 52, вход docs)
@@ -208,6 +211,8 @@ jobs:
           pip install pyarrow
           pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
           pip install 'transformers==4.57.6' huggingface_hub
+          # baseline (прежний вход) нужен entry56 для сверки меток
+          python tools/prepare_ours33.py
           python tools/entry56.py --pairs "$PAIRS"
           python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
       - uses: actions/download-artifact@v4
