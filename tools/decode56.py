@@ -1,19 +1,15 @@
 """ПРОМПТ 56, критерии 2.1–2.6: сводка перепрогона схемы 52 на входе `docs`.
 
-Структура записи фолда — та же, что в 52 (`inner_grid` на внутренних фолдах,
-`outer_at_selected` на внешнем), поэтому правило отбора перенесено без правок:
+Путь расчёта повторяет `decode52.py` один в один:
 
-  * порог выбирается ТОЛЬКО по внутренним фолдам правилом `pooled`
-    (объединённые счётчики четырёх внутренних), как в `decode52.py`;
-  * на внешнем фолде берётся точка с этим порогом (`outer_at_selected`).
+  1. порог выбирается ТОЛЬКО по внутренним фолдам правилом `pooled`
+     (объединённые счётчики четырёх внутренних фолдов, FPR <= 0.40);
+  2. на внешнем фолде берутся сохранённые `outer_predictions` и тот же самый
+     декодер (`spanver.snap.snapped`, клаузный expand) с порогами
+     start=порог, extend=порог/2, gate=0.45;
+  3. счётчики суммируются по 10 фолдам (pooled) и по фолдам отдельно (macro/std).
 
-Считается:
-  * pooled token F1 / precision / FPR по 10 внешним фолдам (объединённые счётчики);
-  * exact span F1 и pair F1 отдельными строками, без порога приёмки;
-  * bootstrap 95 % CI по фолдам (единица — документные компоненты);
-  * построчное сравнение с прежним входом из `artifacts/decode52.json`.
-
-Ничего не подгоняется: при провале 2.1 отчёт пишет, где потеряно, по фолдам.
+Ничего не подгоняется. При провале 2.1 отчёт пишет разбивку по фолдам.
 """
 import argparse
 import json
@@ -26,6 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from spanver.evaluate import read_jsonl
+from tools.decode52 import FPR_LIMIT, evaluate, exact_overlap
 from tools.preflight_13 import id_digest
 from tools.train_base33 import grouped_folds
 
@@ -37,16 +34,15 @@ LIMITS = {
 }
 RESAMPLES = 10000
 SEED = 56
-COUNT_KEYS = ("token_tp", "token_fp", "token_fn", "negative_tokens", "flagged_negative_tokens",
-              "span_tp", "span_fp", "span_fn", "flagged_negative_pairs", "negative_pairs")
+GATE = 0.45
 
 
 def totals(rows):
-    out = {key: 0 for key in COUNT_KEYS}
+    keys = ("token_tp", "token_fp", "token_fn", "negative_tokens", "flagged_negative_tokens")
+    out = {key: 0 for key in keys}
     for row in rows:
-        support = row.get("support") or {}
-        for key in COUNT_KEYS:
-            out[key] += support.get(key, 0)
+        for key in keys:
+            out[key] += row["support"].get(key, 0)
     return out
 
 
@@ -55,41 +51,49 @@ def pooled_metrics(rows):
     tp, fp, fn = counts["token_tp"], counts["token_fp"], counts["token_fn"]
     precision = tp / (tp + fp) if tp + fp else 0.0
     recall = tp / (tp + fn) if tp + fn else 0.0
-    span_denom = 2 * counts["span_tp"] + counts["span_fp"] + counts["span_fn"]
-    pair_neg = counts["negative_pairs"]
+    span_tp = sum(row.get("span_counts", {}).get("exact_tp", 0) for row in rows)
+    span_pred = sum(row.get("span_counts", {}).get("predicted", 0) for row in rows)
+    span_gold = sum(row.get("span_counts", {}).get("gold", 0) for row in rows)
+    pair_tp = sum(row.get("support", {}).get("pair_tp", 0) for row in rows)
+    pair_fp = sum(row.get("support", {}).get("pair_fp", 0) for row in rows)
+    pair_fn = sum(row.get("support", {}).get("pair_fn", 0) for row in rows)
     return {
         "token_precision": precision,
         "token_recall": recall,
         "token_f1": 2 * precision * recall / (precision + recall) if precision + recall else 0.0,
         "fpr_token": counts["flagged_negative_tokens"] / counts["negative_tokens"]
         if counts["negative_tokens"] else None,
-        "fpr_pair": counts["flagged_negative_pairs"] / pair_neg if pair_neg else None,
-        "span_exact_f1": 2 * counts["span_tp"] / span_denom if span_denom else 0.0,
-        "pair_f1": (counts["negative_pairs"] - counts["flagged_negative_pairs"]) / counts["negative_pairs"]
-        if counts["negative_pairs"] else None,
+        "span_exact_f1": 2 * span_tp / (span_pred + span_gold) if span_pred + span_gold else 0.0,
+        "pair_f1": 2 * pair_tp / (2 * pair_tp + pair_fp + pair_fn) if pair_tp + pair_fp + pair_fn else 0.0,
         "counts": counts,
     }
 
 
-def pick_pooled(records, outer):
-    """Правило pooled: объединённые счётчики четырёх внутренних фолдов."""
-    groups = [records[outer, ((outer - 1 + offset) % 10) + 1]["inner_grid"] for offset in range(1, 5)]
+def pick_pooled(inner_grids):
     best = None
-    for index in range(len(groups[0])):
-        rows = [group[index] for group in groups]
+    for index in range(len(inner_grids[0])):
+        rows = [grid[index] for grid in inner_grids]
         if any(not (row.get("support") or {}).get("negative_tokens") for row in rows):
             continue
-        metrics = pooled_metrics(rows)
-        if metrics["fpr_token"] is None or metrics["fpr_token"] > FPR_LIMIT:
+        tp = sum(row["support"]["token_tp"] for row in rows)
+        fp = sum(row["support"]["token_fp"] for row in rows)
+        fn = sum(row["support"]["token_fn"] for row in rows)
+        flagged = sum(row["support"]["flagged_negative_tokens"] for row in rows)
+        negatives = sum(row["support"]["negative_tokens"] for row in rows)
+        fpr = flagged / negatives if negatives else None
+        if fpr is None or fpr > FPR_LIMIT:
             continue
+        precision = tp / (tp + fp) if tp + fp else 0.0
+        recall = tp / (tp + fn) if tp + fn else 0.0
+        f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
         point = rows[0]["start"]
-        if best is None or (metrics["token_f1"], -point) > (best[0], -best[1]):
-            best = (metrics["token_f1"], point, index)
+        if best is None or (f1, -point) > (best[0], -best[1]):
+            best = (f1, point, index)
     return best
 
 
 def bootstrap(folds):
-    values = [pooled_metrics([fold])["token_f1"] for fold in folds]
+    values = [pooled_metrics([row])["token_f1"] for row in folds]
     rnd = random.Random(SEED)
     samples = sorted(statistics.mean([values[rnd.randrange(len(values))] for _ in values])
                      for _ in range(RESAMPLES))
@@ -119,39 +123,47 @@ def main():
     if broken:
         raise SystemExit(f"не завершены задания: {sorted(broken)[:5]}")
 
-    outer_rows = []
+    per_fold = []
     thresholds = {}
     for outer in range(1, 11):
-        choice = pick_pooled(records, outer)
+        grids = [records[outer, ((outer - 1 + offset) % 10) + 1]["inner_grid"] for offset in range(1, 5)]
+        choice = pick_pooled(grids)
         if choice is None:
             raise SystemExit(f"нет допустимого порога для фолда {outer}")
-        thresholds[outer] = {"start": choice[1], "grid_index": choice[2],
-                             "inner_pooled_token_f1": choice[0]}
+        thresholds[outer] = {"start": choice[1], "inner_pooled_token_f1": choice[0],
+                             "grid_index": choice[2]}
         primary = records[outer, outer % 10 + 1]
-        outer_rows.append(primary["outer_at_selected"])
+        if not primary.get("primary"):
+            raise SystemExit(f"фолд {outer}: нет внешних вероятностей основного внутреннего фолда")
+        held = folds[outer - 1]
+        if set(primary["outer_predictions"]) != {pair["pair_id"] for pair in held}:
+            raise SystemExit(f"фолд {outer}: состав пар не совпадает с сохранённым фолдом")
+        point = evaluate(held, primary["outer_predictions"], choice[1], GATE)
+        point.update(exact_overlap(held, primary["outer_predictions"], choice[1], GATE))
+        per_fold.append(point)
 
-    pooled = pooled_metrics(outer_rows)
+    pooled = pooled_metrics(per_fold)
     report = {
         "status": "готово",
         "entry": "docs",
         "pairs_id_sha256": id_digest(pairs),
-        "pairs_count": len(pairs),
+        "pairs": len(pairs),
         "folds": 10,
         "rule": "pooled",
         "threshold_by_fold": thresholds,
-        "per_fold": [pooled_metrics([row]) for row in outer_rows],
+        "per_fold": [pooled_metrics([row]) for row in per_fold],
         "pooled": pooled,
-        "macro": {name: statistics.mean(pooled_metrics([row])[name] for row in outer_rows)
+        "macro": {name: statistics.mean(pooled_metrics([row])[name] for row in per_fold)
                   for name in ("token_f1", "token_precision", "fpr_token")},
-        "std": {name: statistics.pstdev([pooled_metrics([row])[name] for row in outer_rows])
+        "std": {name: statistics.pstdev([pooled_metrics([row])[name] for row in per_fold])
                 for name in ("token_f1", "token_precision", "fpr_token")},
-        "min_fold": {name: min(pooled_metrics([row])[name] for row in outer_rows)
+        "min_fold": {name: min(pooled_metrics([row])[name] for row in per_fold)
                      for name in ("token_f1", "token_precision", "fpr_token")},
-        "max_fold": {name: max(pooled_metrics([row])[name] for row in outer_rows)
+        "max_fold": {name: max(pooled_metrics([row])[name] for row in per_fold)
                      for name in ("token_f1", "token_precision", "fpr_token")},
-        "folds_over_fpr": sum(1 for row in outer_rows
+        "folds_over_fpr": sum(1 for row in per_fold
                               if (pooled_metrics([row])["fpr_token"] or 0) > FPR_LIMIT),
-        "bootstrap": bootstrap(outer_rows),
+        "bootstrap": bootstrap(per_fold),
         "test301_evaluated": False,
         "external_data_used": False,
     }
@@ -170,22 +182,25 @@ def main():
         old = reference["variants"]["10"]["rules"]["pooled"]["pooled"]
         report["previous_entry"] = {key: old.get(key) for key in
                                     ("token_f1", "token_precision", "token_recall", "fpr_token",
-                                     "fpr_pair", "span_exact_f1", "pair_f1")}
-        report["previous_entry"]["note"] = ("prev pair_f1 в decode52.json не сохранён; "
-                                            "в отчёте он будет взят из artifacts/decode52_report.md")
+                                     "fpr_pair", "span_exact_f1")}
         report["delta"] = {key: (pooled.get(key) - old.get(key))
                            if pooled.get(key) is not None and old.get(key) is not None else None
                            for key in ("token_f1", "token_precision", "fpr_token")}
 
     if not report["acceptance_all"]:
         report["loss_breakdown"] = [
-            {"fold": index + 1, **{key: value for key, value in pooled_metrics([row]).items()}}
-            for index, row in enumerate(outer_rows)
+            {"fold": index + 1, **pooled_metrics([row])} for index, row in enumerate(per_fold)
         ]
 
     (ROOT / args.out).write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(json.dumps({"pooled": pooled, "acceptance": checks, "acceptance_all": report["acceptance_all"]},
+    print(json.dumps({"pooled": {key: value for key, value in pooled.items() if key != "counts"},
+                      "acceptance": checks, "acceptance_all": report["acceptance_all"]},
                      ensure_ascii=False, indent=1))
+    # провал приёмки не роняет задание: потолок, скорость и test должны быть измерены,
+    # а решение по 2.1–2.3 принимается по отчёту, а не кодом возврата
+    if not report["acceptance_all"]:
+        print("ВНИМАНИЕ: приёмка 2.1–2.3 не выполнена целиком, см. artifacts/decode56.json",
+              file=sys.stderr)
 
 
 if __name__ == "__main__":
