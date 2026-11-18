@@ -76,15 +76,31 @@ jobs:
       - name: Скачать веса фолда 1
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash tools/fetch_weights56.sh 1
+        run: |
+          bash tools/fetch_weights56.sh 1
+          python tools/fold56.py 1
+          # ceiling52 ищет веса в weights/final (так было в 52). Своего
+          # weights/final в этом прогоне нет: 40 отчётов и 10 архивов весов,
+          # ничего больше. Поэтому потолок считается на весах фолда 1, сид 0 —
+          # тот же одиночный сид, что и раньше, но другая пятёрка обучения.
+          # В отчёте это помечено, на вывод о потолке это не влияет: потолок
+          # ограничен сверху самим детектором, а не конкретной пятёркой.
+          rm -rf weights/final && mkdir -p weights/final
+          cp -r weights/ablation51/ten/fold1/. weights/final/
+          ls weights/final | head -8
       - name: 2.5 потолок (оракул) на новом входе
         run: |
-          set -euo pipefail
-          python tools/ceiling52.py --outer 1 --pairs "$PAIRS" --out artifacts/ceiling56.json
+          set -uo pipefail
+          python tools/ceiling52.py --outer 1 --pairs "$PAIRS" --out artifacts/ceiling56.json \
+            > artifacts/trace56_ceiling.log 2>&1
+          status=$?
+          tail -25 artifacts/trace56_ceiling.log || true
+          exit $status
       - name: Сохранить в ветку
         if: always()
         run: |
-          bash tools/commit56.sh "Инференс 56: потолок [skip ci]" artifacts/ceiling56.json
+          bash tools/commit56.sh "Инференс 56: потолок [skip ci]" \
+            artifacts/ceiling56.json artifacts/trace56_ceiling.log
 
   speed:
     needs: prepare
@@ -115,15 +131,22 @@ jobs:
       - name: Скачать веса фолда 1
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash tools/fetch_weights56.sh 1
+        run: |
+          bash tools/fetch_weights56.sh 1
+          python tools/fold56.py 1
       - name: 2.7 скорость, включая 2 млн знаков
         run: |
-          set -euo pipefail
-          python tools/speed56.py --pairs "$PAIRS" --fold 1 --out artifacts/speed56.json
+          set -uo pipefail
+          python tools/speed56.py --pairs "$PAIRS" --fold 1 --out artifacts/speed56.json \
+            > artifacts/trace56_speed.log 2>&1
+          status=$?
+          tail -25 artifacts/trace56_speed.log || true
+          exit $status
       - name: Сохранить в ветку
         if: always()
         run: |
-          bash tools/commit56.sh "Инференс 56: скорость [skip ci]" artifacts/speed56.json
+          bash tools/commit56.sh "Инференс 56: скорость [skip ci]" \
+            artifacts/speed56.json artifacts/trace56_speed.log
 
   test:
     needs: prepare
@@ -159,10 +182,13 @@ jobs:
           for fold in 1 2 3 4 5 6 7 8 9 10; do
             echo "=== фолд $fold"
             bash tools/fetch_weights56.sh "$fold"
+            python tools/fold56.py "$fold"
+            log="artifacts/trace56_test_fold${fold}.log"
             python tools/eval56_test.py --entry docs --pairs "$PAIRS" --folds "$fold" \
-              --out "artifacts/eval56_fold${fold}_docs.json"
+              --out "artifacts/eval56_fold${fold}_docs.json" >> "$log" 2>&1 || { tail -30 "$log"; exit 1; }
             python tools/eval56_test.py --entry joined_reference --pairs artifacts/ours33.jsonl \
-              --folds "$fold" --out "artifacts/eval56_fold${fold}_joined.json"
+              --folds "$fold" --out "artifacts/eval56_fold${fold}_joined.json" >> "$log" 2>&1 \
+              || { tail -30 "$log"; exit 1; }
             rm -rf weights/ablation51
             df -h /home/runner | tail -1
           done
@@ -173,4 +199,5 @@ jobs:
       - name: Сохранить в ветку
         if: always()
         run: |
-          bash tools/commit56.sh "Инференс 56: test 301 [skip ci]" "artifacts/eval56_*.json"
+          bash tools/commit56.sh "Инференс 56: test 301 [skip ci]" \
+            "artifacts/eval56_*.json" "artifacts/trace56_test_fold*.log"
