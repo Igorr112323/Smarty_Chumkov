@@ -73,6 +73,7 @@ jobs:
             echo "=== фолд $fold" | tee -a "$log"
             bash tools/fetch_weights56.sh "$fold" > /tmp/f.log 2>&1 || status=$?
             tail -4 /tmp/f.log | tee -a "$log"
+            bash tools/push_file58.sh "58: ход фолда $fold" "$log" || true
             test $status -eq 0 || { echo "падение на скачивании фолда $fold" | tee -a "$log"; break; }
             python tools/fold56.py "$fold" >> "$log" 2>&1 || { status=$?; echo "падение fold56 на фолде $fold" | tee -a "$log"; break; }
             python tools/final58.py --folds "$fold" --out "artifacts/final58_fold${fold}.json" \
@@ -110,6 +111,12 @@ jobs:
           set -euo pipefail
           python tools/summarize58.py >> artifacts/plan58_progress.log 2>&1 || true
           tail -30 artifacts/plan58_progress.log || true
-          bash tools/commit56.sh "58 стадия 3: финальный замер test 301 [skip ci]" \
-            "artifacts/final58.json" "artifacts/final58_fold*.json" \
-            "artifacts/final58_speed.json" artifacts/plan58_progress.log || true
+          # доставка через Contents API: git-коммит из sparse-клона терялся
+          bash tools/push_file58.sh "58 стадия 3: финальный замер test 301" \
+            artifacts/plan58_progress.log artifacts/final58_fold1.json \
+            artifacts/final58_fold2.json artifacts/final58_fold3.json \
+            artifacts/final58_fold4.json artifacts/final58_fold5.json \
+            artifacts/final58_fold6.json artifacts/final58_fold7.json \
+            artifacts/final58_fold8.json artifacts/final58_fold9.json \
+            artifacts/final58_fold10.json artifacts/final58_speed.json \
+            artifacts/final58.json
