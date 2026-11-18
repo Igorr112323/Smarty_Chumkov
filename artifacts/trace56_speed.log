@@ -1,0 +1,33 @@
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{"length": 838, "documents": 5, "doc_chars": 4190, "answer_chars": 1084, "ms_per_1000_doc_median": 60.3895434367615, "ms_per_1000_doc_min": 58.68397684964492, "ms_per_1000_doc_max": 60.71825536994207, "samples": [60.3895434367615, 58.68397684964492, 60.71825536994207], "passes_limit": false}
+{"length": 1000, "documents": 5, "doc_chars": 5000, "answer_chars": 1084, "ms_per_1000_doc_median": 54.76605960000143, "ms_per_1000_doc_min": 54.756256400014536, "ms_per_1000_doc_max": 55.328191200010224, "samples": [55.328191200010224, 54.76605960000143, 54.756256400014536], "passes_limit": false}
+{"length": 3980, "documents": 5, "doc_chars": 19900, "answer_chars": 1225, "ms_per_1000_doc_median": 78.57801201004723, "ms_per_1000_doc_min": 78.18338361808838, "ms_per_1000_doc_max": 78.92184160804067, "samples": [78.92184160804067, 78.18338361808838, 78.57801201004723], "passes_limit": false}
+{"length": 5000, "documents": 5, "doc_chars": 25000, "answer_chars": 900, "ms_per_1000_doc_median": 61.40899596000054, "ms_per_1000_doc_min": 60.94461820000106, "ms_per_1000_doc_max": 61.44930896000005, "samples": [61.40899596000054, 60.94461820000106, 61.44930896000005], "passes_limit": false}
+Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
+Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
+Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
+Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
+Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
+{"length": 20000, "documents": 5, "doc_chars": 100000, "answer_chars": 1084, "ms_per_1000_doc_median": 25.618917439999223, "ms_per_1000_doc_min": 25.552131040000177, "ms_per_1000_doc_max": 26.633853649999537, "samples": [26.633853649999537, 25.618917439999223, 25.552131040000177], "passes_limit": true}
+Traceback (most recent call last):
+  File "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/speed56.py", line 170, in <module>
+    main()
+  File "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/speed56.py", line 128, in main
+    pieces = merge([cache[key] for cache in caches], pair)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/speed56.py", line 59, in merge
+    pieces = [cache[pair["pair_id"]]["pieces"] for cache in caches]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/speed56.py", line 59, in <listcomp>
+    pieces = [cache[pair["pair_id"]]["pieces"] for cache in caches]
+              ~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'sber000001'
