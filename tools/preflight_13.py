@@ -74,7 +74,14 @@ def our_rows():
             for item, found in zip(raw, locate(raw, output)):
                 spans.append({"text": item["text"], "start": found["start"], "end": found["end"], "type_src": item["type"], "type": classify(item["text"], item["type"]), "evidence_ids": []})
             document = row.get("joined_reference") or ""
-            result.append({"pair_id": pair_id, "domain": domain, "source": source, "document_text": document, "doc_ids": doc_ids(document), "model_output": output, "spans": spans})
+            # ПРОМПТ 59: вопрос переносится из CSV. Раньше его не было, из-за чего
+            # 71,2 % токенов метки (Partial/Missing/Oversight) были недостижимы по
+            # конструкции. Поле добавлено, но на id_digest не влияет: он считается
+            # по pair_id, порядок и состав пар прежние.
+            result.append({"pair_id": pair_id, "domain": domain, "source": source,
+                           "query_text": (row.get("query_text") or "").strip(),
+                           "document_text": document, "doc_ids": doc_ids(document),
+                           "model_output": output, "spans": spans})
     return result
 
 

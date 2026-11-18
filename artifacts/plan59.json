@@ -1,0 +1,49 @@
+{
+ "prompt": 59,
+ "stage": 1,
+ "run": 1,
+ "protocol": "artifacts/protocol59.json",
+ "protocol_commit": "dae8cb28c94a8130b99c1b18953bb7f59349c32f",
+ "note": "коммит протокола обязан быть раньше этого запуска; workflow это проверяет",
+ "runs": {
+  "a": "--with-question=false",
+  "b": "--with-question=true"
+ },
+ "scheme": {
+  "folds": 10,
+  "fold_key": "doc_ids",
+  "seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "inner_offsets": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "epochs": 15,
+  "batch": 4,
+  "gate": 0.45,
+  "decoder": {
+   "max_spans": 1,
+   "nms_iou": 0.1,
+   "min_chars": 2,
+   "extend": "start/2"
+  }
+ },
+ "jobs": 80,
+ "test301": "не читается",
+ "pairs_source": "artifacts/ours33.jsonl",
+ "question_transfer": {
+  "pairs": 699,
+  "with_question": 699
+ },
+ "metrics": {
+  "primary": "token F1 полной метки, pooled",
+  "secondary": "token F1 Contradiction+Unconfirmed+Excess"
+ }
+}

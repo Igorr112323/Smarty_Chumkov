@@ -42,23 +42,42 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--outer", required=True, type=int, choices=range(1, FOLDS + 1))
     parser.add_argument("--git-sha", default="unknown")
+    # ПРОМПТ 59: единственное различие между контролем A и опытом B.
+    # По умолчанию выключено — поведение без флага совпадает с прежним.
+    parser.add_argument("--with-question", choices=["true", "false"], default="false")
+    parser.add_argument("--variant-tag", default="chunks")
     parser.add_argument("--out", default=None)
+    parser.add_argument("--prefix", default="ablation52")
+    # номер внутреннего фолда — смещение по циклу от внешнего, 1..4
+    parser.add_argument("--inner", type=int, default=None)
     args = parser.parse_args()
     torch.use_deterministic_algorithms(True)
+    with_question = args.with_question == "true"
+    lexfeat.with_question(with_question)
     source = ROOT / "artifacts/ours33.jsonl"
     pairs = read_jsonl(source)
     if len(pairs) != 699 or id_digest(pairs) != EXPECTED_IDS:
         raise ValueError("неверный набор train/val")
     folds = grouped_folds(pairs, FOLDS)
     outer = args.outer - 1
-    inner = target_inner(outer)
+    if getattr(args, "inner", None):
+        # ПРОМПТ 59: 10 фолдов × 4 внутренних, как в схеме 56/51. Внутренние
+        # смещены по циклу +1..+4, чтобы внешний фолд не попадал ни в train, ни
+        # в tuning. В схеме 52 был один внутренний фолд ((outer+1) % 5).
+        if not 1 <= args.inner <= FOLDS - 1:
+            raise SystemExit(f"--inner вне 1..{FOLDS - 1}: {args.inner}")
+        inner = (outer + args.inner) % FOLDS
+    else:
+        inner = target_inner(outer)
     training, tuning, held = split(folds, outer, inner)
-    path = Path(args.out) if args.out else ROOT / f"artifacts/ablation52_outer{args.outer}.json"
+    path = Path(args.out) if args.out else ROOT / f"artifacts/{args.prefix}_outer{args.outer}_inner{args.inner}.json"
     report = {
         "status": "в процессе",
-        "variant": "chunks",
+        "variant": args.variant_tag,
+        "with_question": with_question,
         "outer_fold": args.outer,
         "inner_fold": inner + 1,
+        "primary": (args.inner or (inner + 1)) == args.outer,
         "git_sha": args.git_sha,
         "torch": str(torch.__version__),
         "transformers": transformers.__version__,
@@ -68,6 +87,8 @@ def main():
         "inner_id_sha256": id_digest(tuning),
         "outer_id_sha256": id_digest(held),
         "train_top_chunks": lexfeat.TRAIN_TOP_CHUNKS,
+        "question_input": lexfeat.QUESTION_INPUT,
+        "question_pairs": sum(1 for row in pairs if (row.get("query_text") or "").strip()),
         "training_rows": None,
         "seeds": [],
         "test301": False,

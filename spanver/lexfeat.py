@@ -48,6 +48,51 @@ def aligned(rows, start, end):
 
 TRAIN_TOP_CHUNKS = 4
 
+# ПРОМПТ 59: вопрос на входе.
+#
+# Контракт модуля был verify(answer, document) — вопроса не было вовсе, а 71,2 %
+# токенов метки (Partial, Missing, Oversight) определимы только относительно
+# вопроса. QUESTION_INPUT включается флагом --with-question и по умолчанию
+# выключен: без флага вход, признаки и веса совпадают с прежними.
+#
+# Вопрос не становится отдельной сущностью: он приписывается к первому сегменту
+# пары (документ/чанк), поэтому энкодер видит
+#   [CLS] question [SEP] document [SEP] answer.
+# Признак doc_overlap при включённом флаге считается по (question + document):
+# токен ответа, встречающийся в вопросе, тоже считается подтверждённым
+# контекстом.
+QUESTION_INPUT = False
+
+
+def with_question(enabled=True):
+    """Включить/выключить вопрос на входе (флаг --with-question)."""
+    global QUESTION_INPUT
+    QUESTION_INPUT = bool(enabled)
+    return QUESTION_INPUT
+
+
+def question_of(pair):
+    return (pair.get("query_text") or "").strip()
+
+
+def segment_text(pair, chunk_text):
+    """Первый сегмент пары: вопрос + документ, если вопрос включён."""
+    if not QUESTION_INPUT:
+        return chunk_text
+    question = question_of(pair)
+    if not question:
+        return chunk_text
+    return f"{question}\n{chunk_text}" if chunk_text else question
+
+
+def feature_document(pair):
+    """Текст, по которому считается doc_overlap."""
+    document = pair.get("document_text") or ""
+    if not QUESTION_INPUT:
+        return document
+    question = question_of(pair)
+    return f"{question}\n{document}" if question else document
+
 
 def build_row(tokenizer, pair, max_length=512, top=None):
     """Кодирует пару для обучения.
@@ -62,10 +107,10 @@ def build_row(tokenizer, pair, max_length=512, top=None):
         return None
     top = TRAIN_TOP_CHUNKS if top is None else top
     chunks = choose_chunks(tokenizer, pair, top=top, max_length=max_length)
-    encoded = encode_pair(tokenizer, chunks[0]["text"] if chunks else "", answer, max_length)
+    encoded = encode_pair(tokenizer, segment_text(pair, chunks[0]["text"] if chunks else ""), answer, max_length)
     if encoded is None:
         return None
-    rows = answer_features(answer, pair.get("document_text") or "")
+    rows = answer_features(answer, feature_document(pair))
     total = len(encoded["input_ids"])
     labels = [IGNORE] * total
     answer_mask = [0] * total
@@ -102,11 +147,11 @@ def build_rows(tokenizer, pair, max_length=512, top=None):
     chunks = choose_chunks(tokenizer, pair, top=top, max_length=max_length)
     if not chunks:
         chunks = [{"text": "", "index": 0}]
-    rows_features = answer_features(answer, pair.get("document_text") or "")
+    rows_features = answer_features(answer, feature_document(pair))
     gold = pair.get("spans") or []
     result = []
     for chunk in chunks:
-        encoded = encode_pair(tokenizer, chunk["text"], answer, max_length)
+        encoded = encode_pair(tokenizer, segment_text(pair, chunk["text"]), answer, max_length)
         if encoded is None:
             continue
         total = len(encoded["input_ids"])
@@ -205,11 +250,11 @@ def pair_probabilities(tokenizer, model, pair, top=4, max_length=512):
     answer = pair.get("model_output") or ""
     if not answer:
         return None
-    rows = answer_features(answer, pair.get("document_text") or "")
+    rows = answer_features(answer, feature_document(pair))
     chunks = choose_chunks(tokenizer, pair, top=top, max_length=max_length)
     encoded = []
     for chunk in chunks:
-        item = encode_pair(tokenizer, chunk["text"], answer, max_length)
+        item = encode_pair(tokenizer, segment_text(pair, chunk["text"]), answer, max_length)
         if item is not None:
             encoded.append(item)
     if not encoded:
@@ -345,9 +390,9 @@ def batched_probabilities(tokenizer, model, pairs, top=4, max_length=512, batch=
         answer = pair.get("model_output") or ""
         if not answer:
             continue
-        rows = answer_features(answer, pair.get("document_text") or "")
+        rows = answer_features(answer, feature_document(pair))
         for chunk in choose_chunks(tokenizer, pair, top=top, max_length=max_length):
-            encoded = encode_pair(tokenizer, chunk["text"], answer, max_length)
+            encoded = encode_pair(tokenizer, segment_text(pair, chunk["text"]), answer, max_length)
             if encoded is not None:
                 items.append((pair.get("pair_id"), answer, rows, encoded))
     results = {}
