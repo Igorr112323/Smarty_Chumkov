@@ -26,13 +26,33 @@ unzip -t -q /tmp/w.zip >/dev/null || { echo "ОШИБКА: архив повре
 rm -rf /tmp/unzip && mkdir -p /tmp/unzip
 unzip -q -o /tmp/w.zip -d /tmp/unzip
 rm -f /tmp/w.zip
-echo "верхний уровень:"; ls /tmp/unzip | head -5
+echo "верхний уровень архива:"; ls /tmp/unzip | head -5
 
-mkdir -p "${target}"
-found=$(find /tmp/unzip -name manifest.json | head -1)
-test -n "${found}" || { echo "ОШИБКА: в архиве нет manifest.json"; find /tmp/unzip -maxdepth 3 | head -20; exit 1; }
-cp -r "$(dirname "${found}")/." "${target}/"
+# архив собран из весов/ablation51/ten/fold<N>/, то есть внутри уже есть
+# либо каталог fold<N>, либо сразу seed_0 … seed_4. Копируется тот каталог,
+# в котором лежат сиды; брать первый попавшийся manifest.json нельзя —
+# первый по алфавиту это seed_0/manifest.json, и тогда копируется один сид.
+source_dir=""
+if [ -d "/tmp/unzip/fold${fold}/seed_0" ]; then
+  source_dir="/tmp/unzip/fold${fold}"
+elif [ -d "/tmp/unzip/seed_0" ]; then
+  source_dir="/tmp/unzip"
+else
+  found=$(find /tmp/unzip -maxdepth 3 -type d -name 'seed_*' | head -1)
+  test -n "${found}" || { echo "ОШИБКА: в архиве нет каталогов seed_*"; find /tmp/unzip -maxdepth 3 | head -20; exit 1; }
+  source_dir=$(dirname "${found}")
+fi
+echo "каталог с сидами: ${source_dir}"
+echo "сидов в архиве: $(find "${source_dir}" -maxdepth 1 -type d -name 'seed_*' | wc -l)"
+
+rm -rf "${target}" && mkdir -p "${target}"
+cp -r "${source_dir}"/. "${target}/"
 rm -rf /tmp/unzip
 
-test -f "${target}/manifest.json" || { echo "ОШИБКА: manifest.json не на месте"; exit 1; }
-echo "готово: ${target} ($(du -sh "${target}" | cut -f1))"
+count=$(find "${target}" -maxdepth 1 -type d -name 'seed_*' | wc -l)
+echo "сидов на месте: ${count} ($(du -sh "${target}" | cut -f1))"
+test "${count}" -eq 5 || { echo "ОШИБКА: ожидалось 5 сидов, на месте ${count}"; ls "${target}"; exit 1; }
+for seed_dir in "${target}"/seed_*; do
+  test -f "${seed_dir}/manifest.json" || { echo "ОШИБКА: нет манифеста в ${seed_dir}"; exit 1; }
+done
+echo "готово: ${target}"
