@@ -1,0 +1,74 @@
+{
+ "status": "готово",
+ "stage": "58 стадия 2.3",
+ "sets": {
+  "train_val_699": {
+   "description": "pooled 2.1 по 10 фолдам, LOFO 1.2 и оракул сетки 1.4 промпта 57",
+   "pairs": 699,
+   "gold_share": 0.3334507180028955,
+   "all_positive_token_f1": 0.5001320461281141,
+   "pairs_with_gold": 239,
+   "figures": {
+    "pooled_token_f1_2_1": 0.5118790496760259,
+    "lofo_token_f1_1_2": 0.5084861158391286,
+    "grid_selected_1_4": 0.5058005779543769,
+    "grid_oracle_upper_1_4": 0.5094646870856996
+   },
+   "margins": {
+    "pooled_token_f1_2_1": 0.011747003547911805,
+    "lofo_token_f1_1_2": 0.008354069711014489,
+    "grid_selected_1_4": 0.005668531826262813,
+    "grid_oracle_upper_1_4": 0.009332640957585459
+   },
+   "margin_note": "отрыв = метрика минус all-positive token F1 того же набора"
+  },
+  "five_fold_1_105": {
+   "description": "внешний фолд 1 пятифолдового сплита — набор, на котором измерен «потолок 2.5» (0,644) и «потолок 52» (0,4791)",
+   "pairs": 105,
+   "gold_share": 0.4157096922370234,
+   "all_positive_token_f1": 0.5872809863724854,
+   "pairs_with_gold": 47,
+   "figures": {
+    "ceiling_2_5_token_f1": 0.644,
+    "ceiling_52_token_f1": 0.4791
+   },
+   "margins": {
+    "ceiling_2_5_token_f1": 0.056719013627514636,
+    "ceiling_52_token_f1": -0.10818098637248535
+   },
+   "margin_note": "отрыв = метрика минус all-positive token F1 того же набора"
+  },
+  "test_301": {
+   "description": "все 301 пара test",
+   "pairs": 301,
+   "gold_share": 0.28466076696165193,
+   "all_positive_token_f1": 0.44316877152698053,
+   "pairs_with_gold": 94,
+   "figures": {
+    "docs_token_f1_2_8": 0.4131520690242379,
+    "joined_token_f1_2_8": 0.436824592915403
+   },
+   "margins": {
+    "docs_token_f1_2_8": -0.03001670250274263,
+    "joined_token_f1_2_8": -0.0063441786115775445
+   },
+   "margin_note": "отрыв = метрика минус all-positive token F1 того же набора"
+  },
+  "test_clean_167": {
+   "description": "167 чистых пар test: их doc_id не встречаются в train+val",
+   "pairs": 167,
+   "gold_share": 0.3097936646323743,
+   "all_positive_token_f1": 0.47304193476813844,
+   "pairs_with_gold": 60,
+   "figures": {
+    "docs_token_f1_2_8": 0.4422872066252019,
+    "joined_token_f1_2_8": 0.46766536554488874
+   },
+   "margins": {
+    "docs_token_f1_2_8": -0.03075472814293656,
+    "joined_token_f1_2_8": -0.005376569223249694
+   },
+   "margin_note": "отрыв = метрика минус all-positive token F1 того же набора"
+  }
+ }
+}

@@ -1,0 +1,96 @@
+name: Финальный замер 58 (test 301, отложенная по документам часть)
+
+# ПРОМПТ 58, стадия 3 — единственный замер на test 301.
+#
+# Конфигурация зафиксирована в artifacts/plan58.json ДО запуска и в этом
+# workflow не меняется: вход joined_reference, декодер поставки
+# (max_spans=1, nms_iou=0.10, min_chars=2, extend=start/2, gate=0.45),
+# ансамбль пяти сидов фолда, порог переносимый из decode56.json.
+# По test не выбирается ничего: один прогон, один результат.
+#
+# Веса качаются по одному фолду (все десять не влезают на диск раннера),
+# результаты пишутся в ветку, потому что артефакты Actions из песочницы
+# недоступны.
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/4a5c459f-smarty-chumkov
+    paths:
+      - "artifacts/plan58.json"
+
+permissions:
+  contents: write
+
+env:
+  BRANCH: arena/4a5c459f-smarty-chumkov
+  SOURCE_RUN: "44218112557"
+
+jobs:
+  final:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Зависимости и вход
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python tools/prepare_ours33.py
+          python tools/entry56.py --pairs artifacts/ours33.jsonl
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+          python - <<'PY'
+          import json
+          plan = json.load(open("artifacts/plan58.json"))
+          assert plan["config"]["entry"] == "joined_reference", plan
+          assert plan["config"]["decoder"]["max_spans"] == 1, plan
+          assert plan["test301"] == "один финальный замер", plan
+          print("план стадии 3 принят:", json.dumps(plan["config"], ensure_ascii=False))
+          PY
+      - name: Прогнать десять фолдов по одному
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # каждый фолд: скачать веса -> собрать манифест -> замер -> удалить веса
+          : > artifacts/plan58_progress.log
+          for fold in 1 2 3 4 5 6 7 8 9 10; do
+            echo "=== фолд $fold" | tee -a artifacts/plan58_progress.log
+            bash tools/fetch_weights56.sh "$fold" 2>&1 | tail -3 | tee -a artifacts/plan58_progress.log
+            python tools/fold56.py "$fold" | tee -a artifacts/plan58_progress.log
+            python tools/final58.py --folds "$fold" --out "artifacts/final58_fold${fold}.json" \
+              2>&1 | tail -20 | tee -a artifacts/plan58_progress.log
+            rm -rf weights/ablation51
+            df -h /home/runner | tail -1
+          done
+      - name: Скорость на медианной длине входа
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          bash tools/fetch_weights56.sh 1
+          python tools/fold56.py 1
+          python tools/speed58.py --out artifacts/final58_speed.json \
+            2>&1 | tail -10 | tee -a artifacts/plan58_progress.log
+          rm -rf weights/ablation51
+      - name: Свести и сохранить в ветку
+        if: always()
+        run: |
+          set -euo pipefail
+          python tools/summarize58.py 2>&1 | tail -20 || true
+          bash tools/commit56.sh "58 стадия 3: финальный замер test 301 [skip ci]" \
+            "artifacts/final58*.json" artifacts/plan58_progress.log

@@ -1,0 +1,22 @@
+{
+ "stage": "58 стадия 3",
+ "frozen_before_run": true,
+ "config": {
+  "entry": "joined_reference",
+  "entry_file": "ours33.jsonl",
+  "sha256_pairs": "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63",
+  "decoder": {
+   "max_spans": 1,
+   "nms_iou": 0.1,
+   "min_chars": 2,
+   "extend": "start/2",
+   "gate": 0.45
+  },
+  "ensemble": "пять сидов фолда (seed 0..4), прогон 44218112557",
+  "threshold": "переносимый из decode56.json, по test не подбирался",
+  "threshold_0_98_note": "THRESHOLD=0.98 из промпта — порог лексической схемы 1; здесь порог = вероятность модели"
+ },
+ "test301": "один финальный замер",
+ "no_selection_by_test": true,
+ "run": 1
+}

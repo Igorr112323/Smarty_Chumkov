@@ -204,15 +204,16 @@ def merge(totals_list):
     return out
 
 
-def load_records(prefix="ablation56_ten", folder="artifacts/orig56"):
+def load_records(prefix="ablation56_ten", folder="artifacts"):
     """Записи фолдов, на которых посчитан decode56.
 
     ВАЖНО. Файлы `artifacts/ablation56_ten_outer*_inner*.json` в ветке были
     ПЕРЕЗАПИСАНЫ отменённым прогоном 44260610565 (его отмена через API не прошла,
     задания успели отработать и закоммитить результат). Метки, фолды и состав пар
     те же, но веса другие, поэтому цифры 2.1–2.6 из них не воспроизводятся.
-    Исходные файлы прогона 44218112557 выгружены из коммита 006c34a в
-    `artifacts/orig56/` и только они дают совпадение с `decode56.json`.
+    Поэтому 40 файлов восстановлены из коммита 006c34a (см. `artifacts/restored56.json`):
+    именно они дают совпадение с `decode56.json` бит в бит на всех 10 фолдах.
+    Каталог `artifacts/orig56/` удалён — двух версий одного артефакта не осталось.
     """
     records = {}
     for outer in range(1, 11):
@@ -237,7 +238,7 @@ def verify_against_decode56(data, reference="artifacts/decode56.json"):
         rows.append({"fold": outer, "reproduced": point["token_f1"], "decode56": want,
                      "match": abs(point["token_f1"] - want) < 1e-9})
     return {"folds": rows, "all_match": all(row["match"] for row in rows),
-            "source": "artifacts/orig56 (прогон 44218112557), а не перезаписанные файлы"}
+            "source": "artifacts/ablation56_ten_*, восстановленные из 006c34a (прогон 44218112557)"}
 
 
 def fold_inputs(pairs, records):

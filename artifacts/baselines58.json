@@ -1,0 +1,463 @@
+{
+ "status": "готово",
+ "stage": "58 стадия 2",
+ "pairs": 699,
+ "folds": 10,
+ "inputs": [
+  "joined_reference",
+  "docs"
+ ],
+ "inputs_note": "метки, ответы и координаты у двух входов одни и те же; document_text в формулу базлайна не входит, поэтому значения обязаны совпадать — проверка в поле input_check",
+ "per_fold": {
+  "1": {
+   "joined_reference": {
+    "label": "фолд 1, joined_reference",
+    "pairs": 70,
+    "pairs_with_gold": 16,
+    "pairs_without_gold": 54,
+    "gold_tokens": 562,
+    "total_tokens": 2395,
+    "gold_share": 0.23465553235908143,
+    "all_positive_token_precision": 0.23465553235908143,
+    "all_positive_token_f1": 0.38011498140006766,
+    "all_positive_pair_precision": 0.22857142857142856,
+    "all_positive_pair_f1": 0.3720930232558139,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 1, docs",
+    "pairs": 48,
+    "pairs_with_gold": 19,
+    "pairs_without_gold": 29,
+    "gold_tokens": 747,
+    "total_tokens": 2116,
+    "gold_share": 0.35302457466918713,
+    "all_positive_token_precision": 0.35302457466918713,
+    "all_positive_token_f1": 0.5218302479916171,
+    "all_positive_pair_precision": 0.3958333333333333,
+    "all_positive_pair_f1": 0.5671641791044776,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "2": {
+   "joined_reference": {
+    "label": "фолд 2, joined_reference",
+    "pairs": 68,
+    "pairs_with_gold": 25,
+    "pairs_without_gold": 43,
+    "gold_tokens": 1048,
+    "total_tokens": 2603,
+    "gold_share": 0.40261237034191316,
+    "all_positive_token_precision": 0.40261237034191316,
+    "all_positive_token_f1": 0.5740892906053137,
+    "all_positive_pair_precision": 0.36764705882352944,
+    "all_positive_pair_f1": 0.5376344086021506,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 2, docs",
+    "pairs": 52,
+    "pairs_with_gold": 20,
+    "pairs_without_gold": 32,
+    "gold_tokens": 902,
+    "total_tokens": 2039,
+    "gold_share": 0.44237371260421776,
+    "all_positive_token_precision": 0.44237371260421776,
+    "all_positive_token_f1": 0.6133968038082285,
+    "all_positive_pair_precision": 0.38461538461538464,
+    "all_positive_pair_f1": 0.5555555555555556,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "3": {
+   "joined_reference": {
+    "label": "фолд 3, joined_reference",
+    "pairs": 70,
+    "pairs_with_gold": 25,
+    "pairs_without_gold": 45,
+    "gold_tokens": 772,
+    "total_tokens": 2706,
+    "gold_share": 0.2852919438285292,
+    "all_positive_token_precision": 0.2852919438285292,
+    "all_positive_token_f1": 0.4439332949971248,
+    "all_positive_pair_precision": 0.35714285714285715,
+    "all_positive_pair_f1": 0.5263157894736842,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 3, docs",
+    "pairs": 52,
+    "pairs_with_gold": 18,
+    "pairs_without_gold": 34,
+    "gold_tokens": 667,
+    "total_tokens": 2277,
+    "gold_share": 0.29292929292929293,
+    "all_positive_token_precision": 0.29292929292929293,
+    "all_positive_token_f1": 0.45312500000000006,
+    "all_positive_pair_precision": 0.34615384615384615,
+    "all_positive_pair_f1": 0.5142857142857142,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "4": {
+   "joined_reference": {
+    "label": "фолд 4, joined_reference",
+    "pairs": 73,
+    "pairs_with_gold": 29,
+    "pairs_without_gold": 44,
+    "gold_tokens": 883,
+    "total_tokens": 2421,
+    "gold_share": 0.36472532011565467,
+    "all_positive_token_precision": 0.36472532011565467,
+    "all_positive_token_f1": 0.534503631961259,
+    "all_positive_pair_precision": 0.3972602739726027,
+    "all_positive_pair_f1": 0.5686274509803921,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 4, docs",
+    "pairs": 56,
+    "pairs_with_gold": 24,
+    "pairs_without_gold": 32,
+    "gold_tokens": 1086,
+    "total_tokens": 2501,
+    "gold_share": 0.4342263094762095,
+    "all_positive_token_precision": 0.4342263094762095,
+    "all_positive_token_f1": 0.60551993309172,
+    "all_positive_pair_precision": 0.42857142857142855,
+    "all_positive_pair_f1": 0.6,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "5": {
+   "joined_reference": {
+    "label": "фолд 5, joined_reference",
+    "pairs": 71,
+    "pairs_with_gold": 18,
+    "pairs_without_gold": 53,
+    "gold_tokens": 762,
+    "total_tokens": 2673,
+    "gold_share": 0.2850729517396184,
+    "all_positive_token_precision": 0.2850729517396184,
+    "all_positive_token_f1": 0.4436681222707423,
+    "all_positive_pair_precision": 0.2535211267605634,
+    "all_positive_pair_f1": 0.40449438202247184,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 5, docs",
+    "pairs": 51,
+    "pairs_with_gold": 20,
+    "pairs_without_gold": 31,
+    "gold_tokens": 623,
+    "total_tokens": 1874,
+    "gold_share": 0.33244397011739596,
+    "all_positive_token_precision": 0.33244397011739596,
+    "all_positive_token_f1": 0.4989987985582699,
+    "all_positive_pair_precision": 0.39215686274509803,
+    "all_positive_pair_f1": 0.5633802816901409,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "6": {
+   "joined_reference": {
+    "label": "фолд 6, joined_reference",
+    "pairs": 70,
+    "pairs_with_gold": 28,
+    "pairs_without_gold": 42,
+    "gold_tokens": 894,
+    "total_tokens": 2643,
+    "gold_share": 0.33825198637911463,
+    "all_positive_token_precision": 0.33825198637911463,
+    "all_positive_token_f1": 0.5055131467345207,
+    "all_positive_pair_precision": 0.4,
+    "all_positive_pair_f1": 0.5714285714285715,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 6, docs",
+    "pairs": 57,
+    "pairs_with_gold": 28,
+    "pairs_without_gold": 29,
+    "gold_tokens": 1063,
+    "total_tokens": 2238,
+    "gold_share": 0.4749776586237712,
+    "all_positive_token_precision": 0.4749776586237712,
+    "all_positive_token_f1": 0.6440472584065434,
+    "all_positive_pair_precision": 0.49122807017543857,
+    "all_positive_pair_f1": 0.6588235294117647,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "7": {
+   "joined_reference": {
+    "label": "фолд 7, joined_reference",
+    "pairs": 70,
+    "pairs_with_gold": 22,
+    "pairs_without_gold": 48,
+    "gold_tokens": 812,
+    "total_tokens": 2529,
+    "gold_share": 0.321075523922499,
+    "all_positive_token_precision": 0.321075523922499,
+    "all_positive_token_f1": 0.48608201137384016,
+    "all_positive_pair_precision": 0.3142857142857143,
+    "all_positive_pair_f1": 0.4782608695652174,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 7, docs",
+    "pairs": 130,
+    "pairs_with_gold": 38,
+    "pairs_without_gold": 92,
+    "gold_tokens": 881,
+    "total_tokens": 4025,
+    "gold_share": 0.21888198757763974,
+    "all_positive_token_precision": 0.21888198757763974,
+    "all_positive_token_f1": 0.3591520587036282,
+    "all_positive_pair_precision": 0.2923076923076923,
+    "all_positive_pair_f1": 0.4523809523809524,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "8": {
+   "joined_reference": {
+    "label": "фолд 8, joined_reference",
+    "pairs": 71,
+    "pairs_with_gold": 24,
+    "pairs_without_gold": 47,
+    "gold_tokens": 820,
+    "total_tokens": 2585,
+    "gold_share": 0.31721470019342357,
+    "all_positive_token_precision": 0.31721470019342357,
+    "all_positive_token_f1": 0.4816446402349486,
+    "all_positive_pair_precision": 0.3380281690140845,
+    "all_positive_pair_f1": 0.5052631578947369,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 8, docs",
+    "pairs": 98,
+    "pairs_with_gold": 30,
+    "pairs_without_gold": 68,
+    "gold_tokens": 995,
+    "total_tokens": 3409,
+    "gold_share": 0.29187444998533296,
+    "all_positive_token_precision": 0.29187444998533296,
+    "all_positive_token_f1": 0.4518619436875568,
+    "all_positive_pair_precision": 0.30612244897959184,
+    "all_positive_pair_f1": 0.46874999999999994,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "9": {
+   "joined_reference": {
+    "label": "фолд 9, joined_reference",
+    "pairs": 68,
+    "pairs_with_gold": 27,
+    "pairs_without_gold": 41,
+    "gold_tokens": 971,
+    "total_tokens": 2553,
+    "gold_share": 0.38033685859772814,
+    "all_positive_token_precision": 0.38033685859772814,
+    "all_positive_token_f1": 0.5510783200908058,
+    "all_positive_pair_precision": 0.39705882352941174,
+    "all_positive_pair_f1": 0.5684210526315789,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 9, docs",
+    "pairs": 102,
+    "pairs_with_gold": 25,
+    "pairs_without_gold": 77,
+    "gold_tokens": 987,
+    "total_tokens": 3228,
+    "gold_share": 0.30576208178438663,
+    "all_positive_token_precision": 0.30576208178438663,
+    "all_positive_token_f1": 0.46832740213523133,
+    "all_positive_pair_precision": 0.24509803921568626,
+    "all_positive_pair_f1": 0.39370078740157477,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  },
+  "10": {
+   "joined_reference": {
+    "label": "фолд 10, joined_reference",
+    "pairs": 68,
+    "pairs_with_gold": 25,
+    "pairs_without_gold": 43,
+    "gold_tokens": 998,
+    "total_tokens": 2449,
+    "gold_share": 0.40751327072274396,
+    "all_positive_token_precision": 0.40751327072274396,
+    "all_positive_token_f1": 0.5790542500725268,
+    "all_positive_pair_precision": 0.36764705882352944,
+    "all_positive_pair_f1": 0.5376344086021506,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   },
+   "docs": {
+    "label": "фолд 10, docs",
+    "pairs": 53,
+    "pairs_with_gold": 17,
+    "pairs_without_gold": 36,
+    "gold_tokens": 571,
+    "total_tokens": 1850,
+    "gold_share": 0.30864864864864866,
+    "all_positive_token_precision": 0.30864864864864866,
+    "all_positive_token_f1": 0.4717059066501446,
+    "all_positive_pair_precision": 0.32075471698113206,
+    "all_positive_pair_f1": 0.4857142857142857,
+    "all_positive_fpr_token": 1.0,
+    "all_positive_fpr_pair": 1.0,
+    "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+   }
+  }
+ },
+ "input_check": [
+  {
+   "fold": 1,
+   "identical_across_inputs": false,
+   "joined_pairs": 70,
+   "docs_pairs": 48,
+   "joined_gold_share": 0.23465553235908143,
+   "docs_gold_share": 0.35302457466918713
+  },
+  {
+   "fold": 2,
+   "identical_across_inputs": false,
+   "joined_pairs": 68,
+   "docs_pairs": 52,
+   "joined_gold_share": 0.40261237034191316,
+   "docs_gold_share": 0.44237371260421776
+  },
+  {
+   "fold": 3,
+   "identical_across_inputs": false,
+   "joined_pairs": 70,
+   "docs_pairs": 52,
+   "joined_gold_share": 0.2852919438285292,
+   "docs_gold_share": 0.29292929292929293
+  },
+  {
+   "fold": 4,
+   "identical_across_inputs": false,
+   "joined_pairs": 73,
+   "docs_pairs": 56,
+   "joined_gold_share": 0.36472532011565467,
+   "docs_gold_share": 0.4342263094762095
+  },
+  {
+   "fold": 5,
+   "identical_across_inputs": false,
+   "joined_pairs": 71,
+   "docs_pairs": 51,
+   "joined_gold_share": 0.2850729517396184,
+   "docs_gold_share": 0.33244397011739596
+  },
+  {
+   "fold": 6,
+   "identical_across_inputs": false,
+   "joined_pairs": 70,
+   "docs_pairs": 57,
+   "joined_gold_share": 0.33825198637911463,
+   "docs_gold_share": 0.4749776586237712
+  },
+  {
+   "fold": 7,
+   "identical_across_inputs": false,
+   "joined_pairs": 70,
+   "docs_pairs": 130,
+   "joined_gold_share": 0.321075523922499,
+   "docs_gold_share": 0.21888198757763974
+  },
+  {
+   "fold": 8,
+   "identical_across_inputs": false,
+   "joined_pairs": 71,
+   "docs_pairs": 98,
+   "joined_gold_share": 0.31721470019342357,
+   "docs_gold_share": 0.29187444998533296
+  },
+  {
+   "fold": 9,
+   "identical_across_inputs": false,
+   "joined_pairs": 68,
+   "docs_pairs": 102,
+   "joined_gold_share": 0.38033685859772814,
+   "docs_gold_share": 0.30576208178438663
+  },
+  {
+   "fold": 10,
+   "identical_across_inputs": false,
+   "joined_pairs": 68,
+   "docs_pairs": 53,
+   "joined_gold_share": 0.40751327072274396,
+   "docs_gold_share": 0.30864864864864866
+  }
+ ],
+ "inputs_identical_per_fold": false,
+ "input_effect": "состав 10-фолдового сплита РАЗНЫЙ для двух входов: grouped_folds группирует по doc_ids, а они у joined_reference и docs разные. Поэтому базлайн на отдельном фолде зависит от входа, хотя формула от document_text не зависит. На объединении всех 699 пар значения совпадают, и pooled-метрики сравнимы только с этим базлайном.",
+ "all_pairs": {
+  "label": "все 699 пар train/val",
+  "pairs": 699,
+  "pairs_with_gold": 239,
+  "pairs_without_gold": 460,
+  "gold_tokens": 8522,
+  "total_tokens": 25557,
+  "gold_share": 0.3334507180028955,
+  "all_positive_token_precision": 0.3334507180028955,
+  "all_positive_token_f1": 0.5001320461281141,
+  "all_positive_pair_precision": 0.3419170243204578,
+  "all_positive_pair_f1": 0.5095948827292112,
+  "all_positive_fpr_token": 1.0,
+  "all_positive_fpr_pair": 1.0,
+  "note": "правило «пометить весь ответ»; FPR = 1,0 по построению"
+ },
+ "spread": {
+  "gold_share_std": 0.07671834170562014,
+  "gold_share_min": 0.21888198757763974,
+  "gold_share_max": 0.4749776586237712,
+  "gold_share_range": 0.2560956710461315,
+  "exceeds_0_05": true,
+  "verdict": "разброс больше 0,05: сравнивать метрики между фолдами без базлайна нельзя, это свойство набора"
+ },
+ "test301": false,
+ "method": "covered_tokens + token_positions из spanver/evaluate.py, как в метриках"
+}
