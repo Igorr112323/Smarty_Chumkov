@@ -38,6 +38,9 @@ jobs:
             artifacts
             tools
             spanver
+            Dataset/1_rushallu_rag_gold
+            models/rubert-tiny2
+            weights/rubert-tiny2
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -60,6 +63,20 @@ jobs:
           print("протокол", plan["protocol_commit"], "зафиксирован до прогона")
           print("флаг A:", plan["runs"]["a"], "флаг B:", plan["runs"]["b"])
           PY
+      - name: Проверить вход на месте (те же шаги, что в фолдах)
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          python tools/prepare_ours33.py
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+          python - <<'PY'
+          import json
+          rows = [json.loads(line) for line in open("artifacts/ours33.jsonl", encoding="utf-8")]
+          assert len(rows) == 699, len(rows)
+          with_q = sum(1 for row in rows if (row.get("query_text") or "").strip())
+          print(f"пар {len(rows)}, с вопросом {with_q}")
+          assert with_q == 699, f"вопрос есть только у {with_q} пар"
+          PY
 
   folds:
     needs: plan
@@ -81,6 +98,10 @@ jobs:
             tools
             artifacts
             models/rubert-tiny2
+            # куски официальных весов: assemble_weights собирает pytorch_model.bin
+            # из weights/rubert-tiny2/part-*.bin и сверяет sha256. Без этой
+            # строки шаг падал с «нет манифеста», и обучение не начиналось.
+            weights/rubert-tiny2
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"

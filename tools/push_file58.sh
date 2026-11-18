@@ -16,16 +16,24 @@ pushed=0
 for path in "$@"; do
   [ -f "$path" ] || { echo "нет файла $path, пропуск"; continue; }
   content=$(base64 -w0 "$path")
-  sha=$(gh api "repos/${repo}/contents/${path}?ref=${branch}" --jq '.sha' 2>/dev/null || echo "")
-  if [ -n "$sha" ]; then
-    gh api -X PUT "repos/${repo}/contents/${path}" \
-      -f message="$message" -f content="$content" -f branch="$branch" -f sha="$sha" \
-      --jq '.commit.sha' >/dev/null
-  else
-    gh api -X PUT "repos/${repo}/contents/${path}" \
-      -f message="$message" -f content="$content" -f branch="$branch" \
-      --jq '.commit.sha' >/dev/null
-  fi
+  # 80 заданий пишут в одну ветку одновременно: PUT со старым sha получает 409
+  # «does not match», поэтому перечитываем sha и повторяем.
+  ok=0
+  for attempt in 1 2 3 4 5 6 7 8; do
+    sha=$(gh api "repos/${repo}/contents/${path}?ref=${branch}" --jq '.sha' 2>/dev/null || echo "")
+    if [ -n "$sha" ]; then
+      if gh api -X PUT "repos/${repo}/contents/${path}" -f message="$message" \
+           -f content="$content" -f branch="$branch" -f sha="$sha" \
+           --jq '.commit.sha' >/dev/null 2>&1; then ok=1; break; fi
+    else
+      if gh api -X PUT "repos/${repo}/contents/${path}" -f message="$message" \
+           -f content="$content" -f branch="$branch" \
+           --jq '.commit.sha' >/dev/null 2>&1; then ok=1; break; fi
+    fi
+    echo "попытка $attempt не прошла ($path), повтор через $((attempt * 2)) с"
+    sleep $((attempt * 2))
+  done
+  [ "$ok" = "1" ] || { echo "НЕ УДАЛОСЬ загрузить $path"; exit 1; }
   echo "загружено: $path ($(stat -c%s "$path") байт)"
   pushed=$((pushed+1))
 done
