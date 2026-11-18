@@ -164,6 +164,7 @@ def main():
     # применим ко всем 301; берём ансамбль по сидам каждого фолда и усредняем
     # вероятности по всем фолдам так же, как в отборе порога
     caches = []
+    cache_of = {}
     for fold in sorted(thresholds):
         manifest = thresholds[fold]
         seed_caches = []
@@ -173,12 +174,14 @@ def main():
             load_state(torch, model, ROOT / "weights/ablation51/ten" / f"fold{fold}" / f"seed_{entry['seed']}", entry)
             seed_caches.append(probabilities(tokenizer, model, rows))
             del model, tokenizer
+        cache_of[fold] = seed_caches
         caches.append(seed_caches)
 
     # кэши считаются по всем 301 паре один раз; подвыборка фильтруется после
     fold_caches = {}
     for fold in sorted(thresholds):
-        fold_caches[fold] = {row["pair_id"]: averaged(row, caches[fold - 1], range(len(caches[fold - 1])))
+        seed_caches = cache_of[fold]
+        fold_caches[fold] = {row["pair_id"]: averaged(row, seed_caches, range(len(seed_caches)))
                              for row in rows}
 
     def measure(subset):

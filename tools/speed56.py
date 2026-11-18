@@ -121,11 +121,11 @@ def main():
         pairs, chars = [], 0
         index = 0
         while chars < TWO_MILLION:
-            pair = usable[index % len(usable)]
-            pairs.append({"pair_id": f"{pair['pair_id']}#{index}",
-                          "model_output": pair["model_output"],
-                          "document_text": pair["document_text"]})
-            chars += len(pair["document_text"])
+            base = usable[index % len(usable)]
+            pairs.append({"pair_id": f"{base['pair_id']}#{index}",
+                          "model_output": base["model_output"],
+                          "document_text": base["document_text"]})
+            chars += len(base["document_text"])
             index += 1
         started = time.perf_counter()
         caches = [lexfeat.batched_probabilities(tokenizer, model, pairs, top=CHUNKS_TOP, batch=16)
