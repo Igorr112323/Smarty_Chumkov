@@ -61,10 +61,15 @@ jobs:
         run: |
           set -euo pipefail
           pip install pytest pyarrow
+          # baseline нужен entry56 для сверки меток: пересобираем прежний вход
+          python tools/prepare_ours33.py
+          test "$(sha256sum artifacts/ours33.jsonl | cut -d' ' -f1)" = "0ba55b91943c149a61ffe9db35a91db2a32deda573d72ba8fb6575f51b027f63"
+          # и новый вход: sha256 обязан совпасть с закоммиченным в plan56.json
           python tools/rebuild56.py
-          cp artifacts/ours56_docs.jsonl /tmp/rebuilt.jsonl
+          test "$(sha256sum artifacts/ours56_docs.jsonl | cut -d' ' -f1)" = "$(python -c "import json;print(json.load(open('artifacts/plan56.json'))['sha256_docs'])")"
           python tools/entry56.py --pairs artifacts/ours56_docs.jsonl
           python tools/fewshot56.py
+          test "$(sha256sum artifacts/fewshot56_examples.json | cut -d' ' -f1)" != ""
           python -m pytest -q tests/test_preflight_13.py
 
   folds:
