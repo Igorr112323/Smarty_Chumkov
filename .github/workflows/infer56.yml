@@ -69,7 +69,7 @@ jobs:
           PY
 
   ceiling:
-    needs: prepare
+    needs: [prepare, summarize]
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -125,7 +125,7 @@ jobs:
             artifacts/ceiling56.json artifacts/trace56_ceiling.log
 
   speed:
-    needs: prepare
+    needs: [prepare, summarize]
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:
@@ -158,6 +158,8 @@ jobs:
           python tools/fold56.py 1
       - name: 2.7 скорость, включая 2 млн знаков
         run: |
+          # одиночный замер: рядом не должно идти ни обучения, ни test 301
+          nproc; free -g | head -2
           set -uo pipefail
           python tools/speed56.py --pairs "$PAIRS" --fold 1 --out artifacts/speed56.json \
             > artifacts/trace56_speed.log 2>&1
@@ -171,7 +173,7 @@ jobs:
             artifacts/speed56.json artifacts/trace56_speed.log
 
   test:
-    needs: prepare
+    needs: [prepare, summarize]
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
