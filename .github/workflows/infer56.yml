@@ -186,7 +186,8 @@ jobs:
             log="artifacts/trace56_test_fold${fold}.log"
             python tools/eval56_test.py --entry docs --pairs "$PAIRS" --folds "$fold" \
               --out "artifacts/eval56_fold${fold}_docs.json" >> "$log" 2>&1 || { tail -30 "$log"; exit 1; }
-            python tools/eval56_test.py --entry joined_reference --pairs artifacts/ours33.jsonl \
+            # старый вход берётся из CSV: в ours33.jsonl только train/val, test там нет
+            python tools/eval56_test.py --entry joined_reference \
               --folds "$fold" --out "artifacts/eval56_fold${fold}_joined.json" >> "$log" 2>&1 \
               || { tail -30 "$log"; exit 1; }
             rm -rf weights/ablation51

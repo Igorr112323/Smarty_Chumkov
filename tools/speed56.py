@@ -111,18 +111,28 @@ def main():
         print(json.dumps(rows[-1], ensure_ascii=False), flush=True)
 
     # сценарий «2 млн знаков за один прогон»: реальные пары по кругу
+    # в сценарий 2 млн знаков идут только пары с непустым ответом: без ответа
+    # batched_probabilities не выдаёт записей, и ключа в кэше не появляется
+    usable = [pair for pair in gold if pair.get("model_output") and pair.get("document_text")]
+    if not usable:
+        raise SystemExit("во входе нет пар с непустым ответом")
     two_million = []
     for attempt in range(args.repeats):
         pairs, chars = [], 0
         index = 0
         while chars < TWO_MILLION:
-            pair = gold[index % len(gold)]
-            pairs.append(pair)
+            pair = usable[index % len(usable)]
+            pairs.append({"pair_id": f"{pair['pair_id']}#{index}",
+                          "model_output": pair["model_output"],
+                          "document_text": pair["document_text"]})
             chars += len(pair["document_text"])
             index += 1
         started = time.perf_counter()
         caches = [lexfeat.batched_probabilities(tokenizer, model, pairs, top=CHUNKS_TOP, batch=16)
                   for _, tokenizer, model in models]
+        missing = [pair["pair_id"] for pair in pairs if any(pair["pair_id"] not in cache for cache in caches)]
+        if missing:
+            raise SystemExit(f"нет вероятностей для {len(missing)} пар, первая {missing[0]}")
         for position, pair in enumerate(pairs):
             key = pair["pair_id"]
             pieces = merge([cache[key] for cache in caches], pair)
