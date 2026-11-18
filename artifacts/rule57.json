@@ -1,0 +1,740 @@
+{
+ "status": "готово",
+ "entry": "joined_reference",
+ "pairs": 699,
+ "decoder": {
+  "gate": 0.45,
+  "max_spans": 1,
+  "nms_iou": 0.1,
+  "extend": "start/2",
+  "min_chars": 2,
+  "source": "tools/freeze_config.py (max_spans=1), spanver/module.py (nms=0.10), tools/decode56.py (gate=0.45)"
+ },
+ "test301": false,
+ "oracle": {
+  "per_fold": [
+   {
+    "outer": 1,
+    "pairs": 48,
+    "threshold_transfer": 0.5,
+    "transfer_token_f1": 0.47154471544715443,
+    "transfer_fpr": 0.5529583637691746,
+    "threshold_oracle": 0.6,
+    "oracle_token_f1": 0.0925925925925926,
+    "oracle_fpr": 0.20672023374726078,
+    "oracle_precision": 0.15015015015015015
+   },
+   {
+    "outer": 2,
+    "pairs": 52,
+    "threshold_transfer": 0.5,
+    "transfer_token_f1": 0.6730462519936204,
+    "transfer_fpr": 0.3043095866314864,
+    "threshold_oracle": 0.5,
+    "oracle_token_f1": 0.6730462519936204,
+    "oracle_fpr": 0.3043095866314864,
+    "oracle_precision": 0.6465781409601634
+   },
+   {
+    "outer": 3,
+    "pairs": 52,
+    "threshold_transfer": 0.48,
+    "transfer_token_f1": 0.46031746031746035,
+    "transfer_fpr": 0.7304347826086957,
+    "threshold_oracle": 0.55,
+    "oracle_token_f1": 0.4575960951799878,
+    "oracle_fpr": 0.37080745341614907,
+    "oracle_precision": 0.38580246913580246
+   },
+   {
+    "outer": 4,
+    "pairs": 56,
+    "threshold_transfer": 0.45,
+    "transfer_token_f1": 0.618689581095596,
+    "transfer_fpr": 0.5957597173144876,
+    "threshold_oracle": 0.5,
+    "oracle_token_f1": 0.5199811941701927,
+    "oracle_fpr": 0.3448763250883392,
+    "oracle_precision": 0.5312199807877042
+   },
+   {
+    "outer": 5,
+    "pairs": 51,
+    "threshold_transfer": 0.46,
+    "transfer_token_f1": 0.5230769230769231,
+    "transfer_fpr": 0.6147082334132694,
+    "threshold_oracle": 0.55,
+    "oracle_token_f1": 0.32562620423892097,
+    "oracle_fpr": 0.19664268585131894,
+    "oracle_precision": 0.4072289156626506
+   },
+   {
+    "outer": 6,
+    "pairs": 57,
+    "threshold_transfer": 0.46,
+    "transfer_token_f1": 0.6425855513307985,
+    "transfer_fpr": 0.31063829787234043,
+    "threshold_oracle": 0.45,
+    "oracle_token_f1": 0.6524500907441017,
+    "oracle_fpr": 0.35914893617021276,
+    "oracle_precision": 0.6301489921121823
+   },
+   {
+    "outer": 7,
+    "pairs": 130,
+    "threshold_transfer": 0.49,
+    "transfer_token_f1": 0.39010189228529835,
+    "transfer_fpr": 0.2474554707379135,
+    "threshold_oracle": 0.45,
+    "oracle_token_f1": 0.38076152304609223,
+    "oracle_fpr": 0.3622773536895674,
+    "oracle_precision": 0.2942998760842627
+   },
+   {
+    "outer": 8,
+    "pairs": 98,
+    "threshold_transfer": 0.49,
+    "transfer_token_f1": 0.3647388059701492,
+    "transfer_fpr": 0.3140016570008285,
+    "threshold_oracle": 0.5,
+    "oracle_token_f1": 0.3746783324755532,
+    "oracle_fpr": 0.24192212096106047,
+    "oracle_precision": 0.38396624472573837
+   },
+   {
+    "outer": 9,
+    "pairs": 102,
+    "threshold_transfer": 0.5,
+    "transfer_token_f1": 0.5090180360721442,
+    "transfer_fpr": 0.22356091030789826,
+    "threshold_oracle": 0.5,
+    "oracle_token_f1": 0.5090180360721442,
+    "oracle_fpr": 0.22356091030789826,
+    "oracle_precision": 0.5034687809712587
+   },
+   {
+    "outer": 10,
+    "pairs": 53,
+    "threshold_transfer": 0.5,
+    "transfer_token_f1": 0.4048865619546248,
+    "transfer_fpr": 0.26817826426896013,
+    "threshold_oracle": 0.5,
+    "oracle_token_f1": 0.4048865619546248,
+    "oracle_fpr": 0.26817826426896013,
+    "oracle_precision": 0.40347826086956523
+   }
+  ],
+  "oracle_threshold_std": 0.04358898943540673,
+  "oracle_threshold_min": 0.45,
+  "oracle_threshold_max": 0.6,
+  "oracle_threshold_mean": 0.51,
+  "transfer_threshold_std": 0.01846618531261938,
+  "transfer_threshold_min": 0.45,
+  "transfer_threshold_max": 0.5,
+  "threshold_gap_mean": 0.027000000000000007,
+  "transfer_pooled_token_f1": 0.5058005779543769,
+  "oracle_pooled_token_f1": 0.43906368824678305
+ },
+ "transfer": {
+  "per_fold": [
+   {
+    "outer": 1,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.5223852419224339,
+    "inner_pooled_fpr": 0.3822436909145982,
+    "token_f1": 0.48939319190922553,
+    "fpr_token": 0.5726807888970051,
+    "precision": 0.3875
+   },
+   {
+    "outer": 2,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.5220973374072456,
+    "inner_pooled_fpr": 0.3752651980411236,
+    "token_f1": 0.7275405007363771,
+    "fpr_token": 0.3465259454705365,
+    "precision": 0.652863436123348
+   },
+   {
+    "outer": 3,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.5214813600535497,
+    "inner_pooled_fpr": 0.38722917177663313,
+    "token_f1": 0.46031746031746035,
+    "fpr_token": 0.7304347826086957,
+    "precision": 0.31905037637521716
+   },
+   {
+    "outer": 4,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.5313363620431658,
+    "inner_pooled_fpr": 0.39806503091960904,
+    "token_f1": 0.5793684210526316,
+    "fpr_token": 0.42473498233215545,
+    "precision": 0.5337470907680373
+   },
+   {
+    "outer": 5,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.53116701798571,
+    "inner_pooled_fpr": 0.39706926275225635,
+    "token_f1": 0.5453539823008849,
+    "fpr_token": 0.5531574740207834,
+    "precision": 0.4160337552742616
+   },
+   {
+    "outer": 6,
+    "threshold_lofo": 0.49,
+    "inner_pooled_token_f1": 0.5320562119834998,
+    "inner_pooled_fpr": 0.3697131827571027,
+    "token_f1": 0.5823665893271461,
+    "fpr_token": 0.13531914893617022,
+    "precision": 0.7594553706505295
+   },
+   {
+    "outer": 7,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.530901996911155,
+    "inner_pooled_fpr": 0.385160346499663,
+    "token_f1": 0.39087947882736157,
+    "fpr_token": 0.2697201017811705,
+    "precision": 0.3312302839116719
+   },
+   {
+    "outer": 8,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.5210183860255406,
+    "inner_pooled_fpr": 0.3847602794861062,
+    "token_f1": 0.34345186470078065,
+    "fpr_token": 0.37903893951946976,
+    "precision": 0.30205949656750575
+   },
+   {
+    "outer": 9,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.5226868505863946,
+    "inner_pooled_fpr": 0.38305841102876725,
+    "token_f1": 0.5316348195329086,
+    "fpr_token": 0.33110218652387324,
+    "precision": 0.45760233918128657
+   },
+   {
+    "outer": 10,
+    "threshold_lofo": 0.48,
+    "inner_pooled_token_f1": 0.5218858425743248,
+    "inner_pooled_fpr": 0.37743774856650003,
+    "token_f1": 0.45389048991354464,
+    "fpr_token": 0.3924941360437842,
+    "precision": 0.38555691554467564
+   }
+  ],
+  "pooled_token_f1": 0.5104196798618321,
+  "pooled_fpr": 0.4135208486133644,
+  "mean_precision": 0.45450990643965333,
+  "min_token_f1": 0.34345186470078065,
+  "max_token_f1": 0.7275405007363771,
+  "thresholds": [
+   0.48,
+   0.49
+  ],
+  "rule": "порог выбран по внутренним сеткам девяти фолдов (объединённые счётчики, FPR <= 0.40), применён к десятому; метки отложенного фолда при выборе не участвуют"
+ },
+ "losses": {
+  "база (поставка)": {
+   "mean_token_f1": 0.5058005779543769,
+   "mean_fpr": 0.41620052839250543,
+   "mean_precision": 0.4479742319802136,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": 1,
+    "nms": 0.1,
+    "gate": 0.45
+   },
+   "delta_vs_base": 0.0
+  },
+  "max_spans без ограничения": {
+   "mean_token_f1": 0.5058005779543769,
+   "mean_fpr": 0.41620052839250543,
+   "mean_precision": 0.4479742319802136,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": null,
+    "nms": 0.1,
+    "gate": 0.45
+   },
+   "delta_vs_base": 0.0
+  },
+  "max_spans=3": {
+   "mean_token_f1": 0.5058005779543769,
+   "mean_fpr": 0.41620052839250543,
+   "mean_precision": 0.4479742319802136,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": 3,
+    "nms": 0.1,
+    "gate": 0.45
+   },
+   "delta_vs_base": 0.0
+  },
+  "nms=0.30": {
+   "mean_token_f1": 0.5058005779543769,
+   "mean_fpr": 0.41620052839250543,
+   "mean_precision": 0.4479742319802136,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": 1,
+    "nms": 0.3,
+    "gate": 0.45
+   },
+   "delta_vs_base": 0.0
+  },
+  "nms=0.50": {
+   "mean_token_f1": 0.5058005779543769,
+   "mean_fpr": 0.41620052839250543,
+   "mean_precision": 0.4479742319802136,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": 1,
+    "nms": 0.5,
+    "gate": 0.45
+   },
+   "delta_vs_base": 0.0
+  },
+  "гейт снят (gate=0)": {
+   "mean_token_f1": 0.5058005779543769,
+   "mean_fpr": 0.41620052839250543,
+   "mean_precision": 0.4479742319802136,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": 1,
+    "nms": 0.1,
+    "gate": 0.0
+   },
+   "delta_vs_base": 0.0
+  },
+  "гейт 0.30": {
+   "mean_token_f1": 0.5058005779543769,
+   "mean_fpr": 0.41620052839250543,
+   "mean_precision": 0.4479742319802136,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": 1,
+    "nms": 0.1,
+    "gate": 0.3
+   },
+   "delta_vs_base": 0.0
+  },
+  "extend=start (ratio 1.0)": {
+   "mean_token_f1": 0.2312400979564634,
+   "mean_fpr": 0.16218884241157785,
+   "mean_precision": 0.41930008872458224,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": 1,
+    "nms": 0.1,
+    "gate": 0.45,
+    "ratio": 1.0
+   },
+   "delta_vs_base": -0.27456047999791355
+  },
+  "extend=start*0.75": {
+   "mean_token_f1": 0.504694732180903,
+   "mean_fpr": 0.41288137945633524,
+   "mean_precision": 0.44932415901521194,
+   "predicted_spans_total": 199,
+   "config": {
+    "max_spans": 1,
+    "nms": 0.1,
+    "gate": 0.45,
+    "ratio": 0.75
+   },
+   "delta_vs_base": -0.0011058457734739457
+  }
+ },
+ "grid": {
+  "axes": {
+   "max_spans": [
+    1,
+    2,
+    3,
+    null
+   ],
+   "nms_iou": [
+    0.1,
+    0.3,
+    0.5
+   ],
+   "extend_ratio": [
+    0.5,
+    0.75,
+    1.0
+   ],
+   "gate": [
+    0.0,
+    0.3,
+    0.45
+   ],
+   "start": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+   ]
+  },
+  "per_fold": [
+   {
+    "outer": 1,
+    "pairs": 48,
+    "selected_by_train_val": {
+     "start": 0.5,
+     "gate": 0.45,
+     "extend": 0.25,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.47154471544715443,
+     "fpr_token": 0.5529583637691746,
+     "token_precision": 0.38001638001638
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.2682418346073662,
+     "fpr_token": 0.36449963476990505,
+     "token_precision": 0.27890173410404623,
+     "gate": 0.0,
+     "start": 0.5,
+     "extend": 0.5,
+     "max_spans": 3,
+     "nms_iou": 0.5
+    }
+   },
+   {
+    "outer": 2,
+    "pairs": 52,
+    "selected_by_train_val": {
+     "start": 0.5,
+     "gate": 0.45,
+     "extend": 0.25,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.6730462519936204,
+     "fpr_token": 0.3043095866314864,
+     "token_precision": 0.6465781409601634
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.6730462519936204,
+     "fpr_token": 0.3043095866314864,
+     "token_precision": 0.6465781409601634,
+     "gate": 0.0,
+     "start": 0.5,
+     "extend": 0.25,
+     "max_spans": 1,
+     "nms_iou": 0.1
+    }
+   },
+   {
+    "outer": 3,
+    "pairs": 52,
+    "selected_by_train_val": {
+     "start": 0.48,
+     "gate": 0.45,
+     "extend": 0.24,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.46031746031746035,
+     "fpr_token": 0.7304347826086957,
+     "token_precision": 0.31905037637521716
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.4575960951799878,
+     "fpr_token": 0.37080745341614907,
+     "token_precision": 0.38580246913580246,
+     "gate": 0.0,
+     "start": 0.55,
+     "extend": 0.275,
+     "max_spans": 1,
+     "nms_iou": 0.1
+    }
+   },
+   {
+    "outer": 4,
+    "pairs": 56,
+    "selected_by_train_val": {
+     "start": 0.45,
+     "gate": 0.45,
+     "extend": 0.225,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.618689581095596,
+     "fpr_token": 0.5957597173144876,
+     "token_precision": 0.5061511423550088
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.5883408071748879,
+     "fpr_token": 0.3448763250883392,
+     "token_precision": 0.5734265734265734,
+     "gate": 0.0,
+     "start": 0.45,
+     "extend": 0.45,
+     "max_spans": 3,
+     "nms_iou": 0.3
+    }
+   },
+   {
+    "outer": 5,
+    "pairs": 51,
+    "selected_by_train_val": {
+     "start": 0.46,
+     "gate": 0.45,
+     "extend": 0.23,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.5230769230769231,
+     "fpr_token": 0.6147082334132694,
+     "token_precision": 0.3906497622820919
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.5385121790651745,
+     "fpr_token": 0.38928856914468424,
+     "token_precision": 0.4564732142857143,
+     "gate": 0.0,
+     "start": 0.5,
+     "extend": 0.5,
+     "max_spans": null,
+     "nms_iou": 0.1
+    }
+   },
+   {
+    "outer": 6,
+    "pairs": 57,
+    "selected_by_train_val": {
+     "start": 0.46,
+     "gate": 0.45,
+     "extend": 0.23,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.6425855513307985,
+     "fpr_token": 0.31063829787234043,
+     "token_precision": 0.6493756003842459
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.7239698715108552,
+     "fpr_token": 0.32085106382978723,
+     "token_precision": 0.6842546063651591,
+     "gate": 0.45,
+     "start": 0.35,
+     "extend": 0.35,
+     "max_spans": 1,
+     "nms_iou": 0.1
+    }
+   },
+   {
+    "outer": 7,
+    "pairs": 130,
+    "selected_by_train_val": {
+     "start": 0.49,
+     "gate": 0.45,
+     "extend": 0.245,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.39010189228529835,
+     "fpr_token": 0.2474554707379135,
+     "token_precision": 0.34067796610169493
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.40171673819742487,
+     "fpr_token": 0.31202290076335876,
+     "token_precision": 0.32298136645962733,
+     "gate": 0.45,
+     "start": 0.4,
+     "extend": 0.4,
+     "max_spans": 1,
+     "nms_iou": 0.1
+    }
+   },
+   {
+    "outer": 8,
+    "pairs": 98,
+    "selected_by_train_val": {
+     "start": 0.49,
+     "gate": 0.45,
+     "extend": 0.245,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.3647388059701492,
+     "fpr_token": 0.3140016570008285,
+     "token_precision": 0.34029590948651
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.4192323913960354,
+     "fpr_token": 0.364125932062966,
+     "token_precision": 0.36119186046511625,
+     "gate": 0.45,
+     "start": 0.4,
+     "extend": 0.4,
+     "max_spans": 2,
+     "nms_iou": 0.1
+    }
+   },
+   {
+    "outer": 9,
+    "pairs": 102,
+    "selected_by_train_val": {
+     "start": 0.5,
+     "gate": 0.45,
+     "extend": 0.25,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.5090180360721442,
+     "fpr_token": 0.22356091030789826,
+     "token_precision": 0.5034687809712587
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.5526823620223852,
+     "fpr_token": 0.3962516733601071,
+     "token_precision": 0.4463840399002494,
+     "gate": 0.0,
+     "start": 0.45,
+     "extend": 0.45,
+     "max_spans": null,
+     "nms_iou": 0.1
+    }
+   },
+   {
+    "outer": 10,
+    "pairs": 53,
+    "selected_by_train_val": {
+     "start": 0.5,
+     "gate": 0.45,
+     "extend": 0.25,
+     "max_spans": 1,
+     "nms_iou": 0.1,
+     "token_f1": 0.4048865619546248,
+     "fpr_token": 0.26817826426896013,
+     "token_precision": 0.40347826086956523
+    },
+    "oracle_upper_bound": {
+     "token_f1": 0.4713083397092579,
+     "fpr_token": 0.3346364347146208,
+     "token_precision": 0.41847826086956524,
+     "gate": 0.0,
+     "start": 0.45,
+     "extend": 0.45,
+     "max_spans": 3,
+     "nms_iou": 0.1
+    }
+   }
+  ],
+  "selected_by_train_val_mean_token_f1": 0.5058005779543769,
+  "selected_by_train_val_mean_fpr": 0.41620052839250543,
+  "selected_by_train_val_mean_precision": 0.4479742319802136,
+  "oracle_upper_bound_mean_token_f1": 0.5094646870856996,
+  "oracle_upper_bound_mean_fpr": 0.3501669573781404,
+  "oracle_upper_bound_mean_precision": 0.4574472265972017,
+  "oracle_upper_bound_min_token_f1": 0.2682418346073662,
+  "oracle_upper_bound_max_token_f1": 0.7239698715108552,
+  "note": "выбор по train/val возможен только для порога; остальные оси даны как верхняя граница «выбрано на самом фолде» и в конфигурацию не идут",
+  "test301": false
+ },
+ "ceiling_reconciliation": {
+  "ceiling_point": {
+   "gate": 0.4,
+   "start": 0.5,
+   "extend": 0.375,
+   "token_f1": 0.644,
+   "fpr_token": 0.3943,
+   "fpr_pair": 0.1897,
+   "iou_f1": 0.3878,
+   "exact_f1": 0.3469387755102041
+  },
+  "ceiling_pairs": 105,
+  "ceiling_split": "первый внешний фолд ПЯТИфолдового сплита (ceiling52.py: grouped_folds(pairs,5)[0])",
+  "ceiling_gold_share": 0.4157096922370234,
+  "ceiling_gold_tokens": 1810,
+  "ceiling_total_tokens": 4354,
+  "ceiling_trivial_f1": 0.5872809863724854,
+  "ceiling_over_trivial": 0.056719013627514636,
+  "pooled_10fold_token_f1": 0.5118790496760259,
+  "comparable": false,
+  "why": "pooled 0,5119 посчитан по 699 парам 10-фолдового сплита, где доля золотых 0,33345 и тривиальная базовая линия 0,5001; потолок 0,644 — на 105 парах, где доля золотых 0,4157 и тривиальная линия 0,5873. Разница 0,1321 — разница выборок, а не запас правила."
+ },
+ "verification": {
+  "folds": [
+   {
+    "fold": 1,
+    "reproduced": 0.4715447154471545,
+    "decode56": 0.47154471544715443,
+    "match": true
+   },
+   {
+    "fold": 2,
+    "reproduced": 0.6730462519936204,
+    "decode56": 0.6730462519936204,
+    "match": true
+   },
+   {
+    "fold": 3,
+    "reproduced": 0.4603174603174603,
+    "decode56": 0.46031746031746035,
+    "match": true
+   },
+   {
+    "fold": 4,
+    "reproduced": 0.6186895810955961,
+    "decode56": 0.618689581095596,
+    "match": true
+   },
+   {
+    "fold": 5,
+    "reproduced": 0.5230769230769231,
+    "decode56": 0.5230769230769231,
+    "match": true
+   },
+   {
+    "fold": 6,
+    "reproduced": 0.6425855513307985,
+    "decode56": 0.6425855513307985,
+    "match": true
+   },
+   {
+    "fold": 7,
+    "reproduced": 0.3901018922852984,
+    "decode56": 0.39010189228529835,
+    "match": true
+   },
+   {
+    "fold": 8,
+    "reproduced": 0.36473880597014924,
+    "decode56": 0.3647388059701492,
+    "match": true
+   },
+   {
+    "fold": 9,
+    "reproduced": 0.5090180360721442,
+    "decode56": 0.5090180360721442,
+    "match": true
+   },
+   {
+    "fold": 10,
+    "reproduced": 0.4048865619546248,
+    "decode56": 0.4048865619546248,
+    "match": true
+   }
+  ],
+  "all_match": true,
+  "source": "artifacts/orig56 (прогон 44218112557), а не перезаписанные файлы"
+ }
+}
