@@ -70,7 +70,12 @@ def main():
     else:
         inner = target_inner(outer)
     training, tuning, held = split(folds, outer, inner)
-    path = Path(args.out) if args.out else ROOT / f"artifacts/{args.prefix}_outer{args.outer}_inner{args.inner}.json"
+    # Имя — по РЕАЛЬНОМУ номеру внутреннего фолда (inner + 1), а не по смещению
+    # args.inner. Иначе для внешнего 6 при смещении 1 файл назывался бы
+    # ..._inner1.json и затирал отчёт задания (6, 1). Задания (a,1,1) и (a,2,4)
+    # оба дают inner+1 == 2, но смещения разные, поэтому затирания нет.
+    inner_tag = inner + 1
+    path = Path(args.out) if args.out else ROOT / f"artifacts/{args.prefix}_outer{args.outer}_inner{inner_tag}.json"
     report = {
         "status": "в процессе",
         "variant": args.variant_tag,
