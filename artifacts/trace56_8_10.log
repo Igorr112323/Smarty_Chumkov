@@ -1,13 +1,40 @@
-Traceback (most recent call last):
-  File "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/train51_ten.py", line 120, in <module>
-    main()
-  File "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/train51_ten.py", line 64, in main
-    summary = json.loads((ROOT / "artifacts/nested38_summary.json").read_text(encoding="utf-8"))
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py", line 1058, in read_text
-    with self.open(mode='r', encoding=encoding, errors=errors) as f:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py", line 1044, in open
-    return io.open(self, mode, buffering, encoding, errors, newline)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/artifacts/nested38_summary.json'
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 0, эпоха 1: loss 0.334281, best 1, stale 0
+v2 seed 0, эпоха 2: loss 0.336919, best 1, stale 1
+v2 seed 0, эпоха 3: loss 0.336435, best 1, stale 2
+v2 seed 0, эпоха 4: loss 0.367055, best 1, stale 3
+ten outer 8 inner 10 seed 0: готов
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 1, эпоха 1: loss 0.376553, best 1, stale 0
+v2 seed 1, эпоха 2: loss 0.357639, best 2, stale 0
+v2 seed 1, эпоха 3: loss 0.343879, best 3, stale 0
+v2 seed 1, эпоха 4: loss 0.353798, best 3, stale 1
+v2 seed 1, эпоха 5: loss 0.355851, best 3, stale 2
+v2 seed 1, эпоха 6: loss 0.355501, best 3, stale 3
+ten outer 8 inner 10 seed 1: готов
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 2, эпоха 1: loss 0.342954, best 1, stale 0
+v2 seed 2, эпоха 2: loss 0.345632, best 1, stale 1
+v2 seed 2, эпоха 3: loss 0.350777, best 1, stale 2
+v2 seed 2, эпоха 4: loss 0.380465, best 1, stale 3
+ten outer 8 inner 10 seed 2: готов
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 3, эпоха 1: loss 0.348328, best 1, stale 0
+v2 seed 3, эпоха 2: loss 0.338475, best 2, stale 0
+v2 seed 3, эпоха 3: loss 0.353574, best 2, stale 1
+v2 seed 3, эпоха 4: loss 0.369532, best 2, stale 2
+v2 seed 3, эпоха 5: loss 0.377161, best 2, stale 3
+ten outer 8 inner 10 seed 3: готов
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+v2 seed 4, эпоха 1: loss 0.399002, best 1, stale 0
+v2 seed 4, эпоха 2: loss 0.344644, best 2, stale 0
+v2 seed 4, эпоха 3: loss 0.365834, best 2, stale 1
+v2 seed 4, эпоха 4: loss 0.370409, best 2, stale 2
+v2 seed 4, эпоха 5: loss 0.371430, best 2, stale 3
+ten outer 8 inner 10 seed 4: готов
+ten outer 8 inner 10: завершено
