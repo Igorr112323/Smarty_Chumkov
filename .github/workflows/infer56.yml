@@ -27,6 +27,28 @@ env:
   SOURCE_RUN: "44218112557"
 
 jobs:
+  summarize:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools
+            artifacts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Свести 10 фолдов в два числа
+        run: |
+          set -euo pipefail
+          python tools/summarize56_test.py
+      - name: Сохранить в ветку
+        if: always()
+        run: |
+          bash tools/commit56.sh "Инференс 56: свод test 301 [skip ci]" \
+            "artifacts/eval56_test_*.json"
+
   prepare:
     runs-on: ubuntu-latest
     steps:
