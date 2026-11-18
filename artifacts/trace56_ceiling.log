@@ -1,0 +1,19 @@
+Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{
+ "auc_chars": 0.7126246198681546,
+ "auc_pairs": 0.7391782831988262,
+ "positives_chars": 2587,
+ "negatives_chars": 3690,
+ "gold_char_share": 0.42793018846883013,
+ "oracle_threshold_point": {
+  "gate": 0.4,
+  "start": 0.5,
+  "extend": 0.375,
+  "token_f1": 0.644,
+  "fpr_token": 0.3943,
+  "fpr_pair": 0.1897,
+  "iou_f1": 0.3878,
+  "exact_f1": 0.3469387755102041
+ }
+}
