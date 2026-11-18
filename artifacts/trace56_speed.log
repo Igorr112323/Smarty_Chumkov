@@ -1,4 +1,4 @@
-speed56: версия с проверкой ключей, вход artifacts/ours56_docs.jsonl, фолд 1
+speed56: вход artifacts/ours56_docs.jsonl, фолд 1, сидов 1,3,5
 Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
@@ -9,20 +9,34 @@ Some weights of BertForTokenClassification were not initialized from the model c
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 Some weights of BertForTokenClassification were not initialized from the model checkpoint at /home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-tiny2 and are newly initialized: ['classifier.bias', 'classifier.weight']
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
-{"length": 838, "documents": 5, "doc_chars": 4190, "answer_chars": 1084, "ms_per_1000_doc_median": 77.70072362768776, "ms_per_1000_doc_min": 77.50488114558517, "ms_per_1000_doc_max": 79.31111503580044, "samples": [79.31111503580044, 77.70072362768776, 77.50488114558517], "passes_limit": false}
-{"length": 1000, "documents": 5, "doc_chars": 5000, "answer_chars": 1084, "ms_per_1000_doc_median": 74.11802620000003, "ms_per_1000_doc_min": 73.12357739999698, "ms_per_1000_doc_max": 74.2080441999974, "samples": [74.2080441999974, 73.12357739999698, 74.11802620000003], "passes_limit": false}
-{"length": 3980, "documents": 5, "doc_chars": 19900, "answer_chars": 1225, "ms_per_1000_doc_median": 100.67336743718523, "ms_per_1000_doc_min": 99.3530026633165, "ms_per_1000_doc_max": 101.13030839196016, "samples": [100.67336743718523, 99.3530026633165, 101.13030839196016], "passes_limit": false}
-{"length": 5000, "documents": 5, "doc_chars": 25000, "answer_chars": 900, "ms_per_1000_doc_median": 79.22062812000036, "ms_per_1000_doc_min": 78.83376320000025, "ms_per_1000_doc_max": 83.16393727999981, "samples": [78.83376320000025, 83.16393727999981, 79.22062812000036], "passes_limit": false}
+порог 0.5, гейт 0.45, сидов загружено 5
+{"models": 1, "length": 838, "documents": 5, "doc_chars": 4190, "answer_chars": 1084, "ms_per_1000_doc_median": 27.4754272076379, "ms_per_1000_doc_min": 26.497959427206947, "ms_per_1000_doc_max": 27.94712744630276, "samples": [26.497959427206947, 27.4754272076379, 27.94712744630276], "passes_limit": true}
+{"models": 3, "length": 838, "documents": 5, "doc_chars": 4190, "answer_chars": 1084, "ms_per_1000_doc_median": 78.93295489260171, "ms_per_1000_doc_min": 78.84464582338896, "ms_per_1000_doc_max": 85.38551670644263, "samples": [78.93295489260171, 78.84464582338896, 85.38551670644263], "passes_limit": false}
+{"models": 5, "length": 838, "documents": 5, "doc_chars": 4190, "answer_chars": 1084, "ms_per_1000_doc_median": 131.28599212410398, "ms_per_1000_doc_min": 131.24804606205416, "ms_per_1000_doc_max": 136.6948233890217, "samples": [131.28599212410398, 136.6948233890217, 131.24804606205416], "passes_limit": false}
+{"models": 1, "length": 1000, "documents": 5, "doc_chars": 5000, "answer_chars": 1084, "ms_per_1000_doc_median": 24.615686600000686, "ms_per_1000_doc_min": 24.596254000002205, "ms_per_1000_doc_max": 29.24667239999792, "samples": [24.615686600000686, 24.596254000002205, 29.24667239999792], "passes_limit": true}
+{"models": 3, "length": 1000, "documents": 5, "doc_chars": 5000, "answer_chars": 1084, "ms_per_1000_doc_median": 73.8741057999988, "ms_per_1000_doc_min": 73.71035820000031, "ms_per_1000_doc_max": 75.76880100000096, "samples": [73.8741057999988, 73.71035820000031, 75.76880100000096], "passes_limit": false}
+{"models": 5, "length": 1000, "documents": 5, "doc_chars": 5000, "answer_chars": 1084, "ms_per_1000_doc_median": 132.62334159999796, "ms_per_1000_doc_min": 124.5070830000003, "ms_per_1000_doc_max": 133.35883340000123, "samples": [124.5070830000003, 132.62334159999796, 133.35883340000123], "passes_limit": false}
+{"models": 1, "length": 3980, "documents": 5, "doc_chars": 19900, "answer_chars": 1225, "ms_per_1000_doc_median": 36.16178718592976, "ms_per_1000_doc_min": 35.655492964824035, "ms_per_1000_doc_max": 37.382643065326626, "samples": [35.655492964824035, 36.16178718592976, 37.382643065326626], "passes_limit": false}
+{"models": 3, "length": 3980, "documents": 5, "doc_chars": 19900, "answer_chars": 1225, "ms_per_1000_doc_median": 108.0674209547742, "ms_per_1000_doc_min": 106.19637341708544, "ms_per_1000_doc_max": 110.06536432160763, "samples": [108.0674209547742, 106.19637341708544, 110.06536432160763], "passes_limit": false}
+{"models": 5, "length": 3980, "documents": 5, "doc_chars": 19900, "answer_chars": 1225, "ms_per_1000_doc_median": 183.0212395979892, "ms_per_1000_doc_min": 174.58416949748772, "ms_per_1000_doc_max": 184.02297271356747, "samples": [174.58416949748772, 183.0212395979892, 184.02297271356747], "passes_limit": false}
+{"models": 1, "length": 5000, "documents": 5, "doc_chars": 25000, "answer_chars": 900, "ms_per_1000_doc_median": 26.887498080000114, "ms_per_1000_doc_min": 26.485009479999917, "ms_per_1000_doc_max": 27.671484519999012, "samples": [27.671484519999012, 26.485009479999917, 26.887498080000114], "passes_limit": true}
+{"models": 3, "length": 5000, "documents": 5, "doc_chars": 25000, "answer_chars": 900, "ms_per_1000_doc_median": 82.66544567999972, "ms_per_1000_doc_min": 80.83067524000057, "ms_per_1000_doc_max": 83.50396632000069, "samples": [80.83067524000057, 82.66544567999972, 83.50396632000069], "passes_limit": false}
+{"models": 5, "length": 5000, "documents": 5, "doc_chars": 25000, "answer_chars": 900, "ms_per_1000_doc_median": 139.57960916000047, "ms_per_1000_doc_min": 135.66108104000023, "ms_per_1000_doc_max": 142.3812690400007, "samples": [139.57960916000047, 135.66108104000023, 142.3812690400007], "passes_limit": false}
+Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
+{"models": 1, "length": 20000, "documents": 5, "doc_chars": 100000, "answer_chars": 1084, "ms_per_1000_doc_median": 10.13000462000008, "ms_per_1000_doc_min": 10.124359300000094, "ms_per_1000_doc_max": 10.276072560000102, "samples": [10.276072560000102, 10.13000462000008, 10.124359300000094], "passes_limit": true}
 Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
 Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
+{"models": 3, "length": 20000, "documents": 5, "doc_chars": 100000, "answer_chars": 1084, "ms_per_1000_doc_median": 30.51735067999999, "ms_per_1000_doc_min": 30.37883297999997, "ms_per_1000_doc_max": 31.063337539999907, "samples": [30.37883297999997, 30.51735067999999, 31.063337539999907], "passes_limit": false}
 Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
 Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
-Token indices sequence length is longer than the specified maximum sequence length for this model (4354 > 2048). Running this sequence through the model will result in indexing errors
-{"length": 20000, "documents": 5, "doc_chars": 100000, "answer_chars": 1084, "ms_per_1000_doc_median": 33.494559770000194, "ms_per_1000_doc_min": 33.19137530000006, "ms_per_1000_doc_max": 34.96368275000009, "samples": [34.96368275000009, 33.19137530000006, 33.494559770000194], "passes_limit": false}
-пар в сценарии 498, записей в кэшах [498, 498, 498, 498, 498]
-{"documents": 498, "doc_chars": 2002989, "seconds": 173.65382886199998}
-пар в сценарии 498, записей в кэшах [498, 498, 498, 498, 498]
-{"documents": 498, "doc_chars": 2002989, "seconds": 174.925486443}
-пар в сценарии 498, записей в кэшах [498, 498, 498, 498, 498]
-{"documents": 498, "doc_chars": 2002989, "seconds": 174.687099584}
-{"2.7_ms_per_1000_le_30": false, "2.7_two_million_le_60s": false}
+{"models": 5, "length": 20000, "documents": 5, "doc_chars": 100000, "answer_chars": 1084, "ms_per_1000_doc_median": 52.50288503999997, "ms_per_1000_doc_min": 50.75085898999987, "ms_per_1000_doc_max": 53.0177066600001, "samples": [52.50288503999997, 53.0177066600001, 50.75085898999987], "passes_limit": false}
+{"models": 1, "documents": 498, "doc_chars": 2002989, "seconds": 58.988334656999996}
+{"models": 1, "documents": 498, "doc_chars": 2002989, "seconds": 59.08624092599999}
+{"models": 1, "documents": 498, "doc_chars": 2002989, "seconds": 59.11745777099998}
+{"models": 3, "documents": 498, "doc_chars": 2002989, "seconds": 176.78534013099994}
+{"models": 3, "documents": 498, "doc_chars": 2002989, "seconds": 177.37932014600005}
+{"models": 3, "documents": 498, "doc_chars": 2002989, "seconds": 178.194154842}
+{"models": 5, "documents": 498, "doc_chars": 2002989, "seconds": 295.91302669900006}
+{"models": 5, "documents": 498, "doc_chars": 2002989, "seconds": 295.367185997}
+{"models": 5, "documents": 498, "doc_chars": 2002989, "seconds": 293.12409522100006}
+{"2.7_ms_per_1000_le_30": false, "2.7_two_million_le_60s": true}
