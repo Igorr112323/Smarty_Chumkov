@@ -49,20 +49,36 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -euo pipefail
-          mkdir -p weights/ablation51
-          for fold in 1 2 3 4 5 6 7 8 9 10; do
-            id=$(gh api "repos/${{ github.repository }}/actions/runs/$SOURCE_RUN/artifacts" \
-                 --jq ".artifacts[]|select(.name==\"weights56-outer${fold}\")|.id")
-            test -n "$id" || { echo "нет артефакта весов для фолда $fold"; exit 1; }
-            gh api "repos/${{ github.repository }}/actions/artifacts/${id}/zip" > /tmp/w.zip
-            mkdir -p /tmp/unzip && rm -rf /tmp/unzip/* && unzip -q -o /tmp/w.zip -d /tmp/unzip
+          set +e
+          exec > >(tee /tmp/weights56.log) 2>&1
+          set -e
+          repo="${{ github.repository }}"
+          ids=$(gh api "repos/${repo}/actions/runs/$SOURCE_RUN/artifacts" --paginate \
+                --jq '.artifacts[]|select(.name|startswith("weights56-outer"))|"\(.name) \(.id)"')
+          echo "найдено артефактов весов: $(echo "$ids" | grep -c .)"
+          echo "$ids" | head -12
+          mkdir -p weights/ablation51/ten
+          while read -r name id; do
+            test -n "$id" || continue
+            fold=${name##*outer}
+            echo "=== фолд $fold (artifact $id)"
+            curl -sSL -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${repo}/actions/artifacts/${id}/zip" -o /tmp/w.zip
+            echo "размер архива: $(stat -c%s /tmp/w.zip)"
+            rm -rf /tmp/unzip && mkdir -p /tmp/unzip
+            unzip -q -o /tmp/w.zip -d /tmp/unzip
+            echo "верхний уровень:"; ls /tmp/unzip | head -5
             mkdir -p "weights/ablation51/ten/fold${fold}"
-            cp -r /tmp/unzip/*/. "weights/ablation51/ten/fold${fold}/" 2>/dev/null || \
-              cp -r /tmp/unzip/ten/fold${fold}/. "weights/ablation51/ten/fold${fold}/"
-            test -f "weights/ablation51/ten/fold${fold}/manifest.json" || \
-              { echo "в артефакте фолда $fold нет manifest.json"; ls -R /tmp/unzip | head -20; exit 1; }
-          done
+            cp -r /tmp/unzip/. "weights/ablation51/ten/fold${fold}/"
+            if [ ! -f "weights/ablation51/ten/fold${fold}/manifest.json" ]; then
+              found=$(find /tmp/unzip -name manifest.json | head -1)
+              if [ -n "$found" ]; then cp -r "$(dirname "$found")/." "weights/ablation51/ten/fold${fold}/"; fi
+            fi
+            test -f "weights/ablation51/ten/fold${fold}/manifest.json" || {
+              echo "ОШИБКА: нет manifest.json для фолда $fold"; find /tmp/unzip -maxdepth 3 | head -20; exit 1; }
+          done <<< "$ids"
+          echo "готово, фолдов с весами: $(ls -d weights/ablation51/ten/fold* | wc -l)"
       - name: 2.5 потолок (оракул) на новом входе
         run: |
           set -euo pipefail
@@ -84,8 +100,10 @@ jobs:
           set -euo pipefail
           git config user.name github-actions
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          tail -40 /tmp/weights56.log > artifacts/trace56_infer.log 2>/dev/null || true
           git add --sparse -f artifacts/ceiling56.json artifacts/speed56.json \
-            artifacts/eval56_test_docs.json artifacts/eval56_test_joined.json 2>/dev/null || true
+            artifacts/eval56_test_docs.json artifacts/eval56_test_joined.json \
+            artifacts/trace56_infer.log 2>/dev/null || true
           git commit -m "Инференс 56: потолок, скорость, test 301 [skip ci]" || echo "нечего коммитить"
           for attempt in 1 2 3; do
             git fetch origin "$BRANCH"
