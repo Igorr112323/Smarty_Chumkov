@@ -44,6 +44,11 @@ def merge(points):
         if totals["negative_pairs"] else None,
         "span_exact_f1": 2 * totals["span_tp"] / span_denom if span_denom else 0.0,
         "counts": totals,
+        # каждая пара оценивается каждым фолд-детектором, поэтому счётчики
+        # накоплены по всем фолдам: 301 пара × 10 фолдов = 3010 оценок.
+        # Дроби (P, R, F1, FPR) от этого не зависят, счётчики при чтении делить на число фолдов.
+        "evaluations": totals["negative_pairs"] + 0,
+        "per_fold_counts": {key: value // max(1, len(points)) for key, value in totals.items()},
         "folds": len(points),
     }
 
