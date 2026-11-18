@@ -1,0 +1,115 @@
+{
+ "prompt": 59,
+ "stage": 0,
+ "frozen_before_run": true,
+ "branch": "arena/4a5c459f-smarty-chumkov",
+ "base_commit": "acf49a40d784afc9bbf2ba286a0abc0f8bf27ebd",
+ "files": {
+  "artifacts/protocol59.md": "3289d297b4c033f4ec78854aee32ebb1c768a671f8af0dc3258d87c3dacc6c64",
+  "spanver/lexfeat.py": "bf4a61e522b1d9896548f83ebc4bef6d6f656a7b27841c677084960724ea6d3d",
+  "tools/train52_chunks.py": "1b5dbe9aa0eb831baa43f9482a33888df5859ff8c0ebca3cdc9ffd6b33317cec",
+  "tools/preflight_13.py": "4c5f5a9b80c2b81a02ea7d11cae8a3a9a623400381c2ea6f3485908d770c24b1"
+ },
+ "primary_metric": {
+  "name": "token_f1_full_label",
+  "label": "полная метка, все 6 типов",
+  "aggregation": "pooled (объединённые счётчики), не среднее по парам",
+  "decoder": "поставка: max_spans=1, nms_iou=0.10, min_chars=2, extend=start/2, gate=0.45"
+ },
+ "secondary_metric": {
+  "name": "token_f1_document_types",
+  "label": "Contradiction + Unconfirmed + Excess",
+  "tokens": 2644,
+  "share": 0.2877,
+  "note": "считается всегда и приводится рядом; единственное подмножество, сопоставимое с RAGTruth/LettuceDetect"
+ },
+ "question_relative_types": {
+  "types": [
+   "Partial",
+   "Missing",
+   "Oversight"
+  ],
+  "tokens": 6547,
+  "share": 0.7123,
+  "note": "доля токенов, определимых только относительно вопроса"
+ },
+ "acceptance": {
+  "token_f1_min": 0.5,
+  "fpr_max": 0.4,
+  "precision_min": 0.45
+ },
+ "baselines": {
+  "rule": "обе базовые линии к каждой цифре, иначе цифра в отчёт не идёт",
+  "mark_all": "покрыть все токены ответа",
+  "all_positive": {
+   "train_val_699": 0.5001320461281141,
+   "test_clean_167": 0.473042,
+   "test_301": 0.443169
+  },
+  "source": "artifacts/baselines58.json"
+ },
+ "architecture": {
+  "input": "[CLS] question [SEP] document [SEP] answer",
+  "changes": [
+   "вопрос добавлен в первый сегмент",
+   "doc_overlap по (question + document)"
+  ],
+  "unchanged": [
+   "модель rubert-tiny2",
+   "схема 52",
+   "гиперпараметры",
+   "число эпох",
+   "декодер"
+  ]
+ },
+ "run_a": {
+  "flag": "--with-question=false",
+  "role": "контроль",
+  "expect": {
+   "token_f1": 0.5119,
+   "tolerance": 0.002,
+   "fpr": 0.3896,
+   "fpr_tolerance": 0.002
+  }
+ },
+ "run_b": {
+  "flag": "--with-question=true",
+  "role": "опыт"
+ },
+ "protocol": {
+  "folds": 10,
+  "fold_key": "doc_ids",
+  "seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "scheme": 52,
+  "threshold_selection": "по внутреннему фолду, FPR <= 0.40",
+  "test301": "не используется"
+ },
+ "criteria": {
+  "1.5": "A воспроизводит 0.5119 +-0.002 и FPR 0.3896 +-0.002",
+  "1.6": "B token F1 pooled >= 0.55",
+  "1.7": "B FPR pooled <= 0.40",
+  "1.8": "B token precision >= 0.45",
+  "1.9": "отрыв B от базлайна >= 0.05, нижняя граница CI выше базлайна",
+  "1.10": "подмножество документных типов, A и B",
+  "1.11": "CI 95% bootstrap для B"
+ },
+ "decision_1_12": {
+  "confirmed": "B >= 0.55 при precision >= 0.45 и FPR <= 0.40 -> стадия 2 п.2.2",
+  "partial": "0.52 < B < 0.55 -> стадия 2 п.2.1",
+  "refuted": "B <= 0.52 -> гипотеза опровергнута"
+ },
+ "forbidden": [
+  "выбор архитектуры/эпох/порога/подмножества по test 301",
+  "подмена основной метрики подмножеством",
+  "правка протокола после чисел стадии 1",
+  "изменение человеческих меток",
+  "поломка обратной совместимости API/CLI",
+  "обучение в песочнице"
+ ]
+}
