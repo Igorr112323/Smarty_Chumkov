@@ -145,7 +145,8 @@ def main():
     rows = load_test_rows(args.entry, args.pairs)
     clean = clean_subset(rows)
     path = Path(args.out) if args.out else ROOT / f"artifacts/eval56_test_{args.entry}.json"
-    report = {"status": "в процессе", "entry": args.entry, "test_pairs": len(rows),
+    report = {"status": "в процессе", "entry": args.entry, "fold": args.folds,
+              "test_pairs": len(rows),
               "clean_pairs": len(clean), "fold_metrics": [], "test301": True,
               "usage": "только финальный замер; порог из манифеста внутренних фолдов"}
     thresholds = {}

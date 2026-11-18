@@ -1,8 +1,15 @@
 name: Инференс 56 (потолок, скорость, test 301)
 
 # ПРОМПТ 56, критерии 2.5, 2.7, 2.8 — только инференс по уже сохранённым весам
-# прогона 44218112557. Переобучения нет: train не вызывается ни разу.
-# Веса берутся из артефактов weights56-outer*, отчётные записи 40 фолдов — уже в ветке.
+# прогона 44218112557. train не вызывается ни разу.
+#
+# Веса разложены по заданиям и качаются по одному фолду за раз: один фолд это
+# 5 сидов, ~537 МБ в архиве и ~1,6 ГБ распакованных. Ранее все десять архивов
+# скачивались в одно задание и оно падало по диску до начала расчётов.
+#
+#   ceiling — фолд 1          (2.5 потолок)
+#   speed   — фолд 1          (2.7 скорость, включая прогон 2 млн знаков)
+#   test    — все 10 фолдов   (2.8 test 301 в двух видах), по одному за шаг
 on:
   workflow_dispatch:
   push:
@@ -20,7 +27,106 @@ env:
   SOURCE_RUN: "44218112557"
 
 jobs:
-  infer:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: artifacts
+      - name: Проверить план
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json
+          plan = json.load(open("artifacts/plan56_infer.json"))
+          assert plan["no_training"] is True, plan
+          assert plan["source_run"] == "44218112557", plan
+          digest = hashlib.sha256(open("artifacts/ours56_docs.jsonl", "rb").read()).hexdigest()
+          assert digest == plan["sha256_docs"], (digest, plan["sha256_docs"])
+          print("план принят:", digest)
+          PY
+
+  ceiling:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Зависимости и вход
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python tools/prepare_ours33.py
+          python tools/entry56.py --pairs "$PAIRS"
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+          df -h /home/runner | tail -1
+      - name: Скачать веса фолда 1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash tools/fetch_weights56.sh 1
+      - name: 2.5 потолок (оракул) на новом входе
+        run: |
+          set -euo pipefail
+          python tools/ceiling52.py --outer 1 --pairs "$PAIRS" --out artifacts/ceiling56.json
+      - name: Сохранить в ветку
+        if: always()
+        run: |
+          bash tools/commit56.sh "Инференс 56: потолок [skip ci]" artifacts/ceiling56.json
+
+  speed:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Зависимости и вход
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python tools/prepare_ours33.py
+          python tools/entry56.py --pairs "$PAIRS"
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Скачать веса фолда 1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash tools/fetch_weights56.sh 1
+      - name: 2.7 скорость, включая 2 млн знаков
+        run: |
+          set -euo pipefail
+          python tools/speed56.py --pairs "$PAIRS" --fold 1 --out artifacts/speed56.json
+      - name: Сохранить в ветку
+        if: always()
+        run: |
+          bash tools/commit56.sh "Инференс 56: скорость [skip ci]" artifacts/speed56.json
+
+  test:
+    needs: prepare
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
@@ -45,68 +151,26 @@ jobs:
           python tools/prepare_ours33.py
           python tools/entry56.py --pairs "$PAIRS"
           python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
-      - name: Скачать сохранённые веса 10 фолдов
+      - name: 2.8 test 301, по одному фолду за шаг
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set +e
-          exec > >(tee /tmp/weights56.log) 2>&1
-          set -e
-          repo="${{ github.repository }}"
-          ids=$(gh api "repos/${repo}/actions/runs/$SOURCE_RUN/artifacts" --paginate \
-                --jq '.artifacts[]|select(.name|startswith("weights56-outer"))|"\(.name) \(.id)"')
-          echo "найдено артефактов весов: $(echo "$ids" | grep -c .)"
-          echo "$ids" | head -12
-          mkdir -p weights/ablation51/ten
-          while read -r name id; do
-            test -n "$id" || continue
-            fold=${name##*outer}
-            echo "=== фолд $fold (artifact $id)"
-            curl -sSL -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/${repo}/actions/artifacts/${id}/zip" -o /tmp/w.zip
-            echo "размер архива: $(stat -c%s /tmp/w.zip)"
-            rm -rf /tmp/unzip && mkdir -p /tmp/unzip
-            unzip -q -o /tmp/w.zip -d /tmp/unzip
-            echo "верхний уровень:"; ls /tmp/unzip | head -5
-            mkdir -p "weights/ablation51/ten/fold${fold}"
-            cp -r /tmp/unzip/. "weights/ablation51/ten/fold${fold}/"
-            if [ ! -f "weights/ablation51/ten/fold${fold}/manifest.json" ]; then
-              found=$(find /tmp/unzip -name manifest.json | head -1)
-              if [ -n "$found" ]; then cp -r "$(dirname "$found")/." "weights/ablation51/ten/fold${fold}/"; fi
-            fi
-            test -f "weights/ablation51/ten/fold${fold}/manifest.json" || {
-              echo "ОШИБКА: нет manifest.json для фолда $fold"; find /tmp/unzip -maxdepth 3 | head -20; exit 1; }
-          done <<< "$ids"
-          echo "готово, фолдов с весами: $(ls -d weights/ablation51/ten/fold* | wc -l)"
-      - name: 2.5 потолок (оракул) на новом входе
+          set -euo pipefail
+          for fold in 1 2 3 4 5 6 7 8 9 10; do
+            echo "=== фолд $fold"
+            bash tools/fetch_weights56.sh "$fold"
+            python tools/eval56_test.py --entry docs --pairs "$PAIRS" --folds "$fold" \
+              --out "artifacts/eval56_fold${fold}_docs.json"
+            python tools/eval56_test.py --entry joined_reference --pairs artifacts/ours33.jsonl \
+              --folds "$fold" --out "artifacts/eval56_fold${fold}_joined.json"
+            rm -rf weights/ablation51
+            df -h /home/runner | tail -1
+          done
+      - name: Свести 10 фолдов в два числа
         run: |
           set -euo pipefail
-          python tools/ceiling52.py --outer 1 --pairs "$PAIRS" --out artifacts/ceiling56.json
-      - name: 2.7 скорость, включая 2 млн знаков
-        run: |
-          set -euo pipefail
-          python tools/speed56.py --pairs "$PAIRS" --out artifacts/speed56.json
-      - name: 2.8 финальный замер test 301 — только здесь
-        run: |
-          set -euo pipefail
-          python tools/eval56_test.py --entry docs --pairs "$PAIRS" \
-            --out artifacts/eval56_test_docs.json
-          python tools/eval56_test.py --entry joined_reference --pairs artifacts/ours33.jsonl \
-            --out artifacts/eval56_test_joined.json
-      - name: Сохранить результаты в ветку
+          python tools/summarize56_test.py
+      - name: Сохранить в ветку
         if: always()
         run: |
-          set -euo pipefail
-          git config user.name github-actions
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          tail -40 /tmp/weights56.log > artifacts/trace56_infer.log 2>/dev/null || true
-          git add --sparse -f artifacts/ceiling56.json artifacts/speed56.json \
-            artifacts/eval56_test_docs.json artifacts/eval56_test_joined.json \
-            artifacts/trace56_infer.log 2>/dev/null || true
-          git commit -m "Инференс 56: потолок, скорость, test 301 [skip ci]" || echo "нечего коммитить"
-          for attempt in 1 2 3; do
-            git fetch origin "$BRANCH"
-            git rebase FETCH_HEAD && git push origin HEAD:"$BRANCH" && break
-            sleep 10
-          done
+          bash tools/commit56.sh "Инференс 56: test 301 [skip ci]" "artifacts/eval56_*.json"
