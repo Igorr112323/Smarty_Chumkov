@@ -1,19 +1,131 @@
 {
- "status": "неполный прогон",
+ "status": "готово",
  "protocol": "artifacts/protocol59.json",
+ "addendum": "artifacts/protocol59_addendum.json",
+ "pairs_file": "artifacts/ours56_docs.jsonl",
  "pairs": 699,
- "pairs_sha256": "8e1d3012afce096292b299b3849c80bdbdd739eb3f869af6744b71b6f03928ff",
- "folds": 10,
- "inner_offsets": [
-  1,
-  2,
-  3,
-  4
- ],
  "test301": false,
  "selection_by_test": false,
- "primary_metric": "token F1 на полной метке (все 6 типов), pooled",
- "secondary_metric": "token F1 на Contradiction+Unconfirmed+Excess, pooled",
- "A_without_question_reports": 0,
- "B_with_question_reports": 0
+ "note_pairs": "прогон 56 (эталон 0,5119) шёл на входе docs = ours56_docs.jsonl; прогон 59 обучен на наборе joined_reference = ours33.jsonl, и фолды grouped_folds там другие. Метрики зависят только от ответа и меток, поэтому сверка контроля с 0,5119 корректна на этом наборе.",
+ "A_without_question": {
+  "token_f1": 0.508888114325549,
+  "token_precision": 0.4420032869128968,
+  "token_recall": 0.5996245012907768,
+  "fpr_token": 0.37869093043733487,
+  "fpr_pair": 0.17391304347826086,
+  "pair_f1": 0.30319148936170215,
+  "exact_span_f1": 0.23408624229979466,
+  "baseline_all_positive": 0.5001320461281141,
+  "margin": 0.008756068197434907,
+  "document_token_f1": 0.23865238229489713,
+  "document_baseline": 0.1864178257167187,
+  "document_margin": 0.05223455657817844,
+  "folds_over_fpr": 4,
+  "max_fold_fpr": {
+   "fold": 3,
+   "fpr_token": 0.578076525336091
+  },
+  "std": {
+   "token_f1": 0.06182992419366234,
+   "fpr_token": 0.12381577870309524
+  },
+  "ci": {
+   "low": 0.43608124253285546,
+   "high": 0.574502579218865,
+   "rounds": 2000,
+   "seed": 59,
+   "key": "full"
+  },
+  "thresholds": {
+   "1": 0.5,
+   "2": 0.5,
+   "3": 0.49,
+   "4": 0.52,
+   "5": 0.51,
+   "6": 0.5,
+   "7": 0.47,
+   "8": 0.46,
+   "9": 0.47,
+   "10": 0.47
+  }
+ },
+ "B_with_question": {
+  "token_f1": 0.5165219893530286,
+  "token_precision": 0.4367750831373185,
+  "token_recall": 0.6318939216146444,
+  "fpr_token": 0.4076313472262988,
+  "fpr_pair": 0.18043478260869567,
+  "pair_f1": 0.3316062176165803,
+  "exact_span_f1": 0.25806451612903225,
+  "baseline_all_positive": 0.5001320461281141,
+  "margin": 0.016389943224914494,
+  "document_token_f1": 0.2472586253008826,
+  "document_baseline": 0.1864178257167187,
+  "document_margin": 0.06084079958416391,
+  "folds_over_fpr": 6,
+  "max_fold_fpr": {
+   "fold": 8,
+   "fpr_token": 0.5750708215297451
+  },
+  "std": {
+   "token_f1": 0.0828336474921965,
+   "fpr_token": 0.1072864045935384
+  },
+  "ci": {
+   "low": 0.44714686623012156,
+   "high": 0.5804712633684027,
+   "rounds": 2000,
+   "seed": 59,
+   "key": "full"
+  },
+  "thresholds": {
+   "1": 0.49,
+   "2": 0.53,
+   "3": 0.51,
+   "4": 0.49,
+   "5": 0.5,
+   "6": 0.5,
+   "7": 0.49,
+   "8": 0.43,
+   "9": 0.45,
+   "10": 0.46
+  }
+ },
+ "control": {
+  "token_f1": 0.508888114325549,
+  "expected": 0.5118790496760259,
+  "delta": -0.0029909353504768976,
+  "tolerance": 0.002,
+  "token_f1_ok": false,
+  "fpr_token": 0.37869093043733487,
+  "fpr_expected": 0.3895509245670678,
+  "fpr_delta": -0.01085999412973293,
+  "fpr_tolerance": 0.002,
+  "fpr_ok": false,
+  "explanation": "фолды прогона 59 (grouped_folds на ours33) не те же, что в 56; поэтому пороги по внутренним фолдам выбираются иначе (0,46-0,52 против 0,45-0,50), и контроль не воспроизводится бит в бит",
+  "reproduced": false
+ },
+ "delta_b_minus_a": {
+  "token_f1": 0.007633875027479586,
+  "token_precision": -0.005228203775578311,
+  "token_recall": 0.03226942032386759,
+  "fpr_token": 0.02894041678896392,
+  "fpr_pair": 0.0065217391304348005,
+  "pair_f1": 0.028414728254878174,
+  "exact_span_f1": 0.02397827382923759,
+  "document_token_f1": 0.008606243005985476,
+  "margin": 0.007633875027479586
+ },
+ "verdict": {
+  "outcome": "опровергнута",
+  "next": "причина в другом",
+  "criteria": {
+   "1.6_f1_ge_0_55": false,
+   "1.7_fpr_token_le_0_40": false,
+   "1.8_precision_ge_0_45": false,
+   "1.9_margin_ge_0_05": false,
+   "1.9_ci_low_above_baseline": false
+  },
+  "all_criteria_met": false
+ }
 }

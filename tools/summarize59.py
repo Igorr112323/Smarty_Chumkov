@@ -277,7 +277,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--a", default="q59_a")
     parser.add_argument("--b", default="q59_b")
-    parser.add_argument("--pairs", default="artifacts/ours33.jsonl")
+    # ВАЖНО: прогон 56 (и, значит, эталон 0,5119 в decode56.json) шёл на входе
+    # `docs`, это artifacts/ours56_docs.jsonl. Прогон 59 на входе
+    # `joined_reference` — artifacts/ours33.jsonl. Наборы дают РАЗНЫЕ фолды
+    # grouped_folds, поэтому сравнивать A с 0,5119 можно только на ours56_docs.
+    parser.add_argument("--pairs", default="artifacts/ours56_docs.jsonl")
     parser.add_argument("--out", default="artifacts/question59.json")
     parser.add_argument("--rounds", type=int, default=10000)
     parser.add_argument("--only", default=None, choices=("a", "b"))
@@ -285,6 +289,8 @@ def main():
 
     source = ROOT / args.pairs
     pairs = read_jsonl(source)
+    if any((row.get("query_text") or "").strip() for row in pairs):
+        raise ValueError("в наборе есть query_text: это не тот вход, на котором мерился 0,5119")
     output = {
         "status": "неполный прогон",
         "protocol": "artifacts/protocol59.json",
