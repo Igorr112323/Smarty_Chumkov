@@ -35,7 +35,10 @@ from tools.train_base33 import grouped_folds
 from tools.train_scheme13_full import save_json
 
 SEEDS = (0, 1, 2, 3, 4)
-FOLDS = 5
+# ПРОМПТ 59: десять внешних фолдов, как в схеме 56. В схеме 52 фолдов было 5,
+# и ограничение --outer {1..5} молча роняло задания (a, 6..10) на разборе
+# аргументов — до обучения дело не доходило.
+FOLDS = 10
 
 
 def main():
@@ -68,7 +71,9 @@ def main():
             raise SystemExit(f"--inner вне 1..{FOLDS - 1}: {args.inner}")
         inner = (outer + args.inner) % FOLDS
     else:
-        inner = target_inner(outer)
+        # target_inner внутри зашит на пятифолдовую схему ((outer+1) % 5);
+        # при FOLDS=10 берём ту же формулу по модулю FOLDS
+        inner = (outer + 1) % FOLDS
     training, tuning, held = split(folds, outer, inner)
     # Имя — по РЕАЛЬНОМУ номеру внутреннего фолда (inner + 1), а не по смещению
     # args.inner. Иначе для внешнего 6 при смещении 1 файл назывался бы
