@@ -1,0 +1,37 @@
+{
+ "status": "неполный прогон",
+ "protocol": "artifacts/protocol59c.json",
+ "pairs": "artifacts/ours33.jsonl",
+ "test301": false,
+ "selection_by_test": false,
+ "criteria_thresholds": {
+  "C.1_fpr_token_le_0_3896": 0.3896,
+  "C.2_token_f1_ge_0_5165": 0.5165,
+  "C.3_exact_span_f1_ge_0_2581": 0.2581,
+  "C.4_pair_f1_ge_0_3316": 0.3316,
+  "C.5_precision_ge_0_45": 0.45,
+  "C.6_margin_ge_0_02_and_ci_low_above_baseline": 0.02,
+  "C.7_folds_over_fpr_le_4": 4
+ },
+ "comparison_base": {
+  "A": {
+   "token_f1": 0.508888,
+   "fpr_token": 0.378691,
+   "exact_span_f1": 0.234086,
+   "pair_f1": 0.303191,
+   "precision": 0.442003,
+   "folds_over_fpr": 4
+  },
+  "B": {
+   "token_f1": 0.516522,
+   "fpr_token": 0.407631,
+   "exact_span_f1": 0.258065,
+   "pair_f1": 0.331606,
+   "precision": 0.436775,
+   "folds_over_fpr": 6
+  },
+  "note": "0,5119 не цитировать как контроль: другой набор"
+ },
+ "reports": 0,
+ "missing": "отчётов 0 из 40"
+}
