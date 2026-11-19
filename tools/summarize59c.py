@@ -102,9 +102,13 @@ def main():
         return 2
 
     thresholds = thresholds_for(reports)
+    # отчёты C уже содержат спаны в формате pair_id -> [{start, end}], декодер
+    # применять не нужно (в отличие от A/B, где лежали вероятности)
     predicted_all = {}
     for outer in sorted(thresholds):
         predicted_all.update(reports[outer, outer % FOLDS + 1]["outer_predictions"])
+    if predicted_all and not isinstance(next(iter(predicted_all.values())), list):
+        raise SystemExit("формат outer_predictions в отчётах C не спаны")
 
     token = counts_for(pairs, predicted_all, None)
     document = counts_for(pairs, predicted_all, DOCUMENT_TYPES)

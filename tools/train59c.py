@@ -227,7 +227,11 @@ def main():
         predicted[pair["pair_id"]] = [{"start": best["start"], "end": best["end"]}]
 
     scored = score_pairs(held, predicted)
-    report["outer_predictions"] = predicted
+    # формат как в A и B: pair_id -> список спанов (а не список кортежей)
+    report["outer_predictions"] = {
+        pair_id: [{"start": span["start"], "end": span["end"]} for span in spans]
+        for pair_id, spans in predicted.items()
+    }
     report["outer_at_selected"] = {
         "token_f1": scored["token"]["f1"],
         "token_precision": scored["token"]["precision"],
