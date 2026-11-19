@@ -337,3 +337,18 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def baseline_of(pairs):
+    """Базовая линия «пометить всё» — значение, а не словарь."""
+    return baseline(pairs, None)["f1"]
+
+
+def thresholds_for(reports):
+    """Порог каждого внешнего фолда по его четырём внутренним."""
+    result = {}
+    for outer in range(1, FOLDS + 1):
+        point = fold_threshold(reports, outer)
+        if point is not None:
+            result[outer] = point["start"]
+    return result

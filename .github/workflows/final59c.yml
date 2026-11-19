@@ -1,0 +1,185 @@
+name: Двухступенчатый отбор 59C (порог по опоре, вопрос ранжирует)
+
+# ПРОМПТ 59C — двухступенчатый отбор, зафиксированный в artifacts/protocol59c.md.
+#
+# Порог ставится по документной опоре (как в A), вопрос только ранжирует
+# кандидатов, прошедших порог, и никогда не опускает порог. Ожидание: FPR
+# уровня A (0,3787) и прирост фрагментов уровня B (exact span 0,2581).
+#
+# Схема: 10 фолдов по doc_ids, по 4 внутренних на фолд (смещение +1..+4), как
+# в схеме 56. Каждое задание обучает 5 сидов на 8 фолдах, выбирает порог по
+# СВОИМ внутренним фолдам и оценивает на своём внешнем. Веса не сохраняются и в
+# ветку не едут: в ветку пишется только отчёт задания (~90 КБ), поэтому нет ни
+# проблемы с диском раннера, ни надобности в артефактах Actions.
+#
+# test 301 не используется и не читается.
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/4a5c459f-smarty-chumkov
+    paths:
+      - "artifacts/plan59c.json"
+
+permissions:
+  contents: write
+
+env:
+  BRANCH: arena/4a5c459f-smarty-chumkov
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            artifacts
+            tools
+            spanver
+            Dataset/1_rushallu_rag_gold
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Проверить, что протокол зафиксирован до прогона
+        run: |
+          set -euo pipefail
+          pip install pyyaml
+          python - <<'PY'
+          import json, subprocess
+          plan = json.load(open("artifacts/plan59c.json"))
+          protocol = json.load(open("artifacts/protocol59c.json"))
+          assert plan["frozen_before_run"] is True, plan
+          assert protocol["frozen_before_run"] is True, protocol
+          assert protocol["frozen_before_run"] is True, protocol
+          # протокол должен быть закоммичен РАНЬШЕ этого запуска
+          head = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+          assert protocol["files"]["artifacts/protocol59c.md"], protocol
+          print("протокол C зафиксирован до прогона")
+          print("критериев:", len(plan["criteria"]), "| веса:", plan["relevance"]["formula"])
+          PY
+      - name: Проверить вход на месте (те же шаги, что в фолдах)
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          python tools/prepare_ours33.py
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+          python - <<'PY'
+          import json
+          rows = [json.loads(line) for line in open("artifacts/ours33.jsonl", encoding="utf-8")]
+          assert len(rows) == 699, len(rows)
+          with_q = sum(1 for row in rows if (row.get("query_text") or "").strip())
+          print(f"пар {len(rows)}, с вопросом {with_q}")
+          assert with_q == 699, f"вопрос есть только у {with_q} пар"
+          PY
+
+  folds:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 40
+      matrix:
+        run: [c]
+        outer: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        inner: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Зависимости и вход
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          pip install 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install 'transformers==4.57.6' huggingface_hub
+          python tools/prepare_ours33.py
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Обучить и оценить фолд
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN: ${{ matrix.run }}
+          OUTER: ${{ matrix.outer }}
+          INNER: ${{ matrix.inner }}
+        run: |
+          set -uo pipefail
+          echo "прогон C: внешний $OUTER, внутреннее смещение $INNER"
+          INNER_FILE=$(( (OUTER - 1 + INNER) % 10 + 1 ))
+          echo "отчёт: artifacts/q59c_outer${OUTER}_inner${INNER_FILE}.json"
+          python -u tools/train59c.py \
+            --outer "$OUTER" --inner "$INNER" \
+            --prefix "q59c" --git-sha "${{ github.sha }}" > /tmp/fold.log 2>&1 || true
+          # маскировать код возврата нельзя: прогон 5 показал «успех» за 50 с,
+          # то есть падение до обучения, а причина была скрыта || echo
+          status=$?
+          tail -30 /tmp/fold.log
+          if [ ! -f "artifacts/q59c_outer${OUTER}_inner${INNER_FILE}.json" ]; then
+            echo "ОТЧЁТА НЕТ: обучение не дошло до записи"
+            # логи Actions из песочницы не читаются — кладём хвост лога в ветку
+            cp /tmp/fold.log "artifacts/q59c_outer${OUTER}_inner${INNER_FILE}.log"
+            bash tools/push_file58.sh "59C: лог падения $OUTER/$INNER" \
+              "artifacts/q59c_outer${OUTER}_inner${INNER_FILE}.log" || true
+            exit 1
+          fi
+          # отчёт пишется даже при падении: train52_chunks.guarded кладёт traceback
+          bash tools/push_file58.sh "59C: фолд $OUTER/$INNER" \
+            "artifacts/q59c_outer${OUTER}_inner${INNER_FILE}.json" || true
+
+  summarize:
+    needs: folds
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Зависимости и вход
+        run: |
+          set -euo pipefail
+          pip install pyarrow
+          python tools/prepare_ours33.py
+      - name: Свод A и B
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          python tools/summarize59c.py --out artifacts/question59c.json 2>&1 | tail -20 || true
+          bash tools/push_file58.sh "59C: свод" artifacts/question59c.json || true
+          python - <<'PY'
+          import json
+          try:
+              r = json.load(open("artifacts/question59c.json"))
+          except Exception:
+              raise SystemExit("свода нет: смотри отчёты фолдов в ветке")
+          if r.get("status") != "готово":
+              raise SystemExit(f"свод не готов: {r.get('missing')}")
+          print(f"C: token F1 {r['token_f1']:.4f} | P {r['token_precision']:.4f} | "
+                f"exact span {r['exact_span_f1']:.4f} | pair {r['pair_f1']:.4f}")
+          print(f"   FPR_token {r['fpr_token']:.4f} | фолдов >0.40: "
+                f"{r['folds']['folds_over_fpr']} | базлайн {r['baseline']:.4f} | "
+                f"отрыв {r['margin']:+.4f}")
+          print(f"   CI95 {r['ci']['low']:.4f}-{r['ci']['high']:.4f}")
+          print("критерии:", json.dumps(r["checks"], ensure_ascii=False))
+          print("C.1 и C.3 вместе (главное):", r["main_goal"])
+          PY

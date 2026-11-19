@@ -216,12 +216,16 @@ class FeatureModel(nn.Module):
         self.base = base
         self.proj = nn.Linear(base.config.hidden_size + FEATURE_COUNT, base.config.hidden_size)
 
-    def forward(self, input_ids, attention_mask, features):
+    def forward(self, input_ids, attention_mask, features, return_hidden=False):
         embeddings = self.base.bert.embeddings(input_ids)
         mixed = self.proj(torch.cat([embeddings, features.to(embeddings.dtype)], dim=-1))
         mask = (1.0 - attention_mask[:, None, None, :].to(mixed.dtype)) * torch.finfo(mixed.dtype).min
         hidden = self.base.bert.encoder(mixed, attention_mask=mask)[0]
-        return self.base.classifier(hidden)
+        logits = self.base.classifier(hidden)
+        # ПРОМПТ 59C: скрытые состояния нужны для ранжирования спанов по
+        # релевантности вопросу. Это НЕ новое обучение: те же векторы, что уже
+        # посчитаны прямым проходом, просто отдаются наружу.
+        return (logits, hidden) if return_hidden else logits
 
 
 def load_feature_model(directory, labels=2, seed=0):
