@@ -131,6 +131,52 @@ def baseline(pairs, types):
     return counts_for(pairs, marks, types)
 
 
+def fold_metrics(reports, pairs_by_id, thresholds):
+    """Метрики КАЖДОГО внешнего фолда: pooled их скрывает.
+
+    Дополнение к протоколу, п. 1: pooled без `folds_over_fpr`, худшего фолда и
+    разброса не публикуется. На A четыре фолда из десяти пробивают FPR 0,40,
+    худший — 0,7304, то есть pooled 0,3896 держится за счёт хороших фолдов.
+    """
+    import statistics
+
+    rows = []
+    for outer in sorted(thresholds):
+        report = reports.get((outer, outer % FOLDS + 1))
+        if report is None:
+            continue
+        folds_pairs = [pairs_by_id[pid] for pid in report["outer_predictions"]]
+        predicted = predict_fold(report, pairs_by_id, thresholds[outer])
+        token = counts_for(folds_pairs, predicted, None)
+        pair_point = score_pairs(folds_pairs, predicted)
+        rows.append({
+            "fold": outer,
+            "pairs": len(folds_pairs),
+            "threshold": thresholds[outer],
+            "token_f1": token["f1"],
+            "token_precision": token["precision"],
+            "token_recall": token["recall"],
+            "fpr_token": token["fpr_token"],
+            "fpr_pair": pair_point["fpr_pair"],
+            "pair_f1": pair_point["pair_f1"],
+            "exact_span_f1": pair_point["exact_span_f1"],
+        })
+    if not rows:
+        return {}
+    f1 = [row["token_f1"] for row in rows]
+    fpr = [row["fpr_token"] for row in rows]
+    worst = max(rows, key=lambda row: row["fpr_token"])
+    return {
+        "per_fold": rows,
+        "folds_over_fpr": sum(1 for value in fpr if value > 0.40),
+        "fpr_limit": 0.40,
+        "max_fold": {"fold": worst["fold"], "fpr_token": worst["fpr_token"]},
+        "std": {"token_f1": statistics.pstdev(f1), "fpr_token": statistics.pstdev(fpr)},
+        "min_fold_token_f1": min(f1),
+        "max_fold_token_f1": max(f1),
+    }
+
+
 def score_run(reports, pairs, with_bootstrap=True, rounds=10000):
     """Полный свод по десяти фолдам: pooled, документные типы, базлайны, CI."""
     pairs_by_id = {row["pair_id"]: row for row in pairs}
@@ -166,6 +212,7 @@ def score_run(reports, pairs, with_bootstrap=True, rounds=10000):
     question = counts_for(pairs, predicted_all, QUESTION_TYPES)
     result.update({
         "status": "готово",
+        "fpr_primary": "token",
         "full": {"token": full, "baseline": baseline(pairs, None),
                  "exact_span_f1": scored["exact_span_f1"], "pair_f1": scored["pair_f1"],
                  "fpr_pair": scored["fpr_pair"]},
@@ -174,6 +221,13 @@ def score_run(reports, pairs, with_bootstrap=True, rounds=10000):
         "question_types": {"types": list(QUESTION_TYPES), "token": question,
                            "baseline": baseline(pairs, QUESTION_TYPES)},
     })
+    result["per_fold"] = fold_metrics(reports, pairs_by_id, thresholds)
+    # дополнение, п. 1: pooled не идёт в отчёт без folds_over_fpr / max_fold / std
+    pooled_required = ("folds_over_fpr", "max_fold", "std")
+    missing_required = [key for key in pooled_required if key not in result["per_fold"]]
+    result["pooled_requirements_met"] = not missing_required
+    if missing_required:
+        result["missing_required"] = missing_required
     result["margin"] = margin(full["f1"], result["full"]["baseline"]["f1"])
     result["margin_document"] = margin(document["f1"], result["document"]["baseline"]["f1"])
     if with_bootstrap:
@@ -198,12 +252,13 @@ def verdict(run_b):
     """Правило 1.12, зафиксированное до прогона."""
     full = run_b["full"]["token"]
     f1, precision = full["f1"], full["precision"]
-    fpr = run_b["full"]["fpr_pair"]
+    # дополнение, п. 3: основной уровень FPR — токенный, зафиксировано до B
+    fpr = full["fpr_token"]
     low = run_b["ci"]["low"] if run_b.get("ci") else None
     base = run_b["full"]["baseline"]["f1"]
     criteria = {
         "1.6_f1_ge_0_55": f1 >= 0.55,
-        "1.7_fpr_pair_le_0_40": fpr <= 0.40,
+        "1.7_fpr_token_le_0_40": fpr <= 0.40,
         "1.8_precision_ge_0_45": precision >= 0.45,
         "1.9_margin_ge_0_05": run_b["margin"] >= 0.05,
         "1.9_ci_low_above_baseline": bool(low is not None and low > base),

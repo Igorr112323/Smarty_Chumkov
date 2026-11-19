@@ -1,0 +1,121 @@
+{
+ "prompt": 59,
+ "kind": "addendum",
+ "frozen_before_run": "B",
+ "frozen_before_b": true,
+ "basis": "промпт 59, дополнение, пункты 0-4",
+ "base_commit": "b92d811dd72f1d44b74db819274543b5674ce351",
+ "confirmed": {
+  "fpr_level_3896": "fpr_token, не парный",
+  "thresholds": "пофолдовые 0.45-0.50",
+  "query_text_absent_before": true
+ },
+ "reproduced_a": {
+  "source": "artifacts/ablation56_ten_outer*_inner*.json, 10 primary",
+  "pooled_token_f1": 0.5118790496760259,
+  "pooled_fpr_token": 0.3895509245670678,
+  "per_fold_token_f1": {
+   "1": 0.4715,
+   "2": 0.673,
+   "3": 0.4603,
+   "4": 0.6187,
+   "5": 0.5231,
+   "6": 0.6426,
+   "7": 0.3901,
+   "8": 0.3647,
+   "9": 0.509,
+   "10": 0.4049
+  },
+  "per_fold_fpr_token": {
+   "1": 0.553,
+   "2": 0.3043,
+   "3": 0.7304,
+   "4": 0.5958,
+   "5": 0.6147,
+   "6": 0.3106,
+   "7": 0.2475,
+   "8": 0.314,
+   "9": 0.2236,
+   "10": 0.2682
+  },
+  "folds_over_fpr": 4,
+  "max_fold_fpr_token": 0.7304347826086957,
+  "std_fpr_token": 0.1762656426045179,
+  "min_fold_token_f1": 0.3647388059701492,
+  "max_fold_token_f1": 0.6730462519936204,
+  "std_token_f1": 0.1031719059174291
+ },
+ "pair_f1_defect": {
+  "finding": "pooled/pair_f1 = 0.0 — дефект свода, не свойство модели",
+  "cause": "decode56.pooled_metrics читает support['pair_tp'|'pair_fp'|'pair_fn'] и span_counts, а rule57._tally их не пишет",
+  "keys_actually_present": [
+   "flagged_negative_pairs",
+   "flagged_negative_tokens",
+   "negative_pairs",
+   "negative_tokens",
+   "span_fn",
+   "span_fp",
+   "span_tp",
+   "token_fn",
+   "token_fp",
+   "token_tp"
+  ],
+  "honest_a": {
+   "pair_tp": 50,
+   "pair_fp": 85,
+   "pair_fn": 189,
+   "pair_precision": 0.37037,
+   "pair_recall": 0.2092,
+   "pair_f1": 0.26738,
+   "fpr_pair": 0.184783,
+   "pairs": 699
+  },
+  "resolution": "свод B считается своим кодом по outer_predictions, не агрегатами decode56-образца",
+  "note_fpr_pair": "в моём воспроизведении 0.1848 (85/460), в previous_entry 0.1891 (87/460); расхождение 2 пары, в отчёте приводится моя цифра с указанием расхождения"
+ },
+ "fpr_primary": {
+  "level": "token",
+  "value_on_a": 0.3895509245670678,
+  "secondary": "fpr_pair всегда второй строкой, значение на A 0.1848",
+  "freeze_note": "смена уровня после результатов B считается подгонкой",
+  "criterion_1_7": "fpr_token <= 0.40, рядом folds_over_fpr"
+ },
+ "ceiling_644": {
+  "allowed_form": "0,644 при собственном базлайне 0,5873 на 105 парах пятифолдового сплита",
+  "over_own_baseline": 0.056719,
+  "forbidden": "ставить в одну строку с 0.4791 как оракул против переносимого",
+  "decoder_evidence_instead": [
+   "delta от MAX_SPANS/NMS_IOU/гейта = 0.000000",
+   "один спан на пару",
+   "оракул по сетке на самом фолде 0.5095"
+  ]
+ },
+ "reporting_rules": {
+  "pooled_requires": [
+   "folds_over_fpr",
+   "max_fold",
+   "std"
+  ],
+  "fpr_level_explicit": true,
+  "levels": [
+   "токены (полная метка)",
+   "токены (документные типы)",
+   "спаны (exact span F1)",
+   "пары (pair F1)",
+   "FPR токенный (основной)",
+   "FPR парный (вторая строка)"
+  ]
+ },
+ "unchanged": [
+  "архитектура",
+  "схема",
+  "число эпох",
+  "порог",
+  "декодер",
+  "состав меток"
+ ],
+ "files": {
+  "artifacts/protocol59_addendum.md": "1f42ab0cfd6d5c653e6a71e806b9ca1d4da52bae39757d0d0bc90db57fb72829",
+  "artifacts/protocol59.md": "3289d297b4c033f4ec78854aee32ebb1c768a671f8af0dc3258d87c3dacc6c64"
+ }
+}
