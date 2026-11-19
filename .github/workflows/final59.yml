@@ -120,13 +120,27 @@ jobs:
           set -uo pipefail
           if [ "$RUN" = "a" ]; then flag=false; else flag=true; fi
           echo "прогон $RUN: --with-question=$flag, внешний $OUTER, внутреннее смещение $INNER"
-          timeout --signal=TERM --kill-after=60s 260m python -u tools/train52_chunks.py \
+          INNER_FILE=$(( (OUTER - 1 + INNER) % 10 + 1 ))
+          echo "отчёт: artifacts/q59_${RUN}_outer${OUTER}_inner${INNER_FILE}.json"
+          python -u tools/train52_chunks.py \
             --outer "$OUTER" --inner "$INNER" --with-question "$flag" \
             --prefix "q59_${RUN}" --variant-tag "q59-${RUN}" \
-            --git-sha "${{ github.sha }}" || echo "фолд завершился с ошибкой: $?"
+            --git-sha "${{ github.sha }}" > /tmp/fold.log 2>&1 || true
+          # маскировать код возврата нельзя: прогон 5 показал «успех» за 50 с,
+          # то есть падение до обучения, а причина была скрыта || echo
+          status=$?
+          tail -30 /tmp/fold.log
+          if [ ! -f "artifacts/q59_${RUN}_outer${OUTER}_inner${INNER_FILE}.json" ]; then
+            echo "ОТЧЁТА НЕТ: обучение не дошло до записи"
+            # логи Actions из песочницы не читаются — кладём хвост лога в ветку
+            cp /tmp/fold.log "artifacts/q59_${RUN}_outer${OUTER}_inner${INNER_FILE}.log"
+            bash tools/push_file58.sh "59: лог падения $RUN $OUTER/$INNER" \
+              "artifacts/q59_${RUN}_outer${OUTER}_inner${INNER_FILE}.log" || true
+            exit 1
+          fi
           # отчёт пишется даже при падении: train52_chunks.guarded кладёт traceback
           bash tools/push_file58.sh "59 прогон $RUN: фолд $OUTER/$INNER" \
-            "artifacts/q59_${RUN}_outer${OUTER}_inner${INNER}.json" || true
+            "artifacts/q59_${RUN}_outer${OUTER}_inner${INNER_FILE}.json" || true
 
   summarize:
     needs: folds
