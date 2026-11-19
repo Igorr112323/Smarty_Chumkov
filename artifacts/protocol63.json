@@ -1,0 +1,62 @@
+{
+ "prompt": 63,
+ "frozen_before_run": true,
+ "base_sha": "c9a3fe758d9657854d406c46e76c33a51b822b67",
+ "stage1": {
+  "oracle_token_f1": 0.8237,
+  "threshold": 0.75,
+  "passed": true,
+  "candidates_total": 5973,
+  "candidate_length_median": 121,
+  "pairs_with_positive": 239,
+  "positive_share": 0.140465,
+  "digest": "889478b4e56332751bc097648a9cbb077cc4855b6fbc98f90b47a1882d4f7d7b"
+ },
+ "splitting": {
+  "sentence_max": 200,
+  "clause_split": ",;:",
+  "max_union": 3,
+  "whole_answer": true,
+  "label_rule": "candidate covers >= 50% of gold span tokens"
+ },
+ "model": {
+  "encoder": "rubert-tiny2",
+  "input": "[CLS] question [SEP] chunk [SEP] candidate [SEP]",
+  "heads": [
+   "binary",
+   "6-type"
+  ],
+  "question_required": true
+ },
+ "loss": {
+  "bce": 1.0,
+  "ce_type": 0.3,
+  "soft_iou": 0.3
+ },
+ "protocol": {
+  "folds": 10,
+  "split": "grouped_folds by doc_ids",
+  "seeds": 5,
+  "threshold_rule": "internal grid, fpr_token <= 0.40"
+ },
+ "criteria": {
+  "3.1_token_f1": 0.6,
+  "3.2_token_precision": 0.55,
+  "3.3_fpr_token": 0.3,
+  "3.4_exact_span_f1": 0.4,
+  "3.5_ci_low_above": 0.5001,
+  "3.6_folds_over_fpr": 0,
+  "3.7_ms_per_1000_chars": 30,
+  "3.8_package_mb": 0.6
+ },
+ "test301": {
+  "used_once": true,
+  "note": "test 301 использовался ранее, для новой архитектуры не полностью слепой"
+ },
+ "forbidden": [
+  "подбирать порог, эпохи или нарезку по test 301",
+  "менять человеческие метки",
+  "опускать оракул 1.4",
+  "смешивать старую и новую метрику без пометки"
+ ]
+}

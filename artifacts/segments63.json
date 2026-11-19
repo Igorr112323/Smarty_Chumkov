@@ -1,0 +1,45 @@
+{
+ "pairs": 699,
+ "gold_spans": 300,
+ "digest": "889478b4e56332751bc097648a9cbb077cc4855b6fbc98f90b47a1882d4f7d7b",
+ "expected_digest": null,
+ "digest_ok": true,
+ "candidates": {
+  "total": 5973,
+  "per_pair": {
+   "mean": 8.545064377682403,
+   "median": 3,
+   "min": 1,
+   "max": 76
+  },
+  "length": {
+   "median": 121,
+   "p10": 23,
+   "p90": 300,
+   "min": 2,
+   "max": 1554,
+   "share_80_160": 0.3381885149840951
+  }
+ },
+ "labels": {
+  "positive_share": 0.14046542775824544,
+  "positive_total": 839,
+  "pairs_with_positive": 239,
+  "pairs_without_positive": 460,
+  "by_type": {
+   "Unconfirmed": 297,
+   "Partial": 215,
+   "Contradiction": 170,
+   "Missing": 65,
+   "Oversight": 54,
+   "Excess": 38
+  }
+ },
+ "oracle": {
+  "token_precision": 0.7002465078060806,
+  "token_recall": 1.0,
+  "token_f1": 0.8236999806688575,
+  "threshold": 0.75,
+  "passed": true
+ }
+}
