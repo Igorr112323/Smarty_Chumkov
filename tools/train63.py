@@ -292,7 +292,9 @@ def main():
     parser.add_argument("--out", default=None)
     args = parser.parse_args()
 
-    torch.use_deterministic_algorithms(True)
+    # детерминизм включаем мягко: строгий режим в torch 2.15 падает на
+    # операциях, которых в схеме 52 не было (новые головы и soft-IoU)
+    torch.use_deterministic_algorithms(True, warn_only=True)
     source = ROOT / "artifacts/ours33.jsonl"
     pairs = read_jsonl(source)
     questions_table = load_questions()

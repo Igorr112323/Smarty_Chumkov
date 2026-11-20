@@ -38,9 +38,9 @@ jobs:
           python-version: '3.11'
       - name: Зависимости и вход
         run: |
-          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
-          pip install -q transformers==4.44.2
-          ls models/rubert-tiny2 >/dev/null
+          pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install -q 'transformers==4.57.6' huggingface_hub pyarrow
+          ls models/rubert-tiny2
       - name: Обучить и оценить фолд
         env:
           OUTER: ${{ matrix.outer }}
@@ -91,7 +91,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Зависимости
-        run: pip install -q torch --index-url https://download.pytorch.org/whl/cpu && pip install -q transformers==4.44.2
+        run: pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu && pip install -q 'transformers==4.57.6' pyarrow
       - name: Свод
         run: |
           python -u tools/summarize63.py --prefix seg63 --rounds 2000 | tee /tmp/summary.log
