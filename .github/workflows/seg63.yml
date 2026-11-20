@@ -1,0 +1,99 @@
+name: Промпт 63 — посегментный отбор
+
+on:
+  push:
+    branches: [arena/4a5c459f-smarty-chumkov]
+    paths:
+      - '.github/workflows/seg63.yml'
+      - 'tools/train63.py'
+      - 'spanver/segment_model.py'
+  workflow_dispatch:
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Проверить протокол и план
+        run: python -u tools/check63_plan.py
+
+  folds:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 40
+      matrix:
+        outer: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        inner: [1, 2, 3, 4]
+        seed: [0]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости и вход
+        run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q transformers==4.44.2
+          ls models/rubert-tiny2 >/dev/null
+      - name: Обучить и оценить фолд
+        env:
+          OUTER: ${{ matrix.outer }}
+          INNER: ${{ matrix.inner }}
+          SEED: ${{ matrix.seed }}
+        run: |
+          set -uo pipefail
+          INNER_FILE=$(( (OUTER - 1 + INNER) % 10 + 1 ))
+          python -u tools/train63.py \
+            --outer "$OUTER" --inner "$INNER" --seed "$SEED" \
+            --prefix seg63 --git-sha "${{ github.sha }}" > /tmp/fold.log 2>&1
+          status=$?
+          tail -30 /tmp/fold.log
+          if [ "$status" -ne 0 ]; then
+            echo "ОБУЧЕНИЕ УПАЛО: $status"
+            cp /tmp/fold.log "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" || true
+            exit 1
+          fi
+          if [ ! -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" ]; then
+            echo "ОТЧЁТА НЕТ"
+            exit 1
+          fi
+      - name: Залить отчёт
+        if: always()
+        run: |
+          INNER_FILE=$(( (OUTER - 1 + INNER) % 10 + 1 ))
+          git config user.name "ci" && git config user.email "ci@local"
+          git pull --rebase --autostash -q origin arena/4a5c459f-smarty-chumkov || true
+          git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
+          git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" || true
+          git commit -q -m "63: отчёт фолда ${OUTER}/${INNER_FILE} сид ${SEED}" || true
+          for attempt in 1 2 3 4 5; do
+            git push -q origin HEAD:arena/4a5c459f-smarty-chumkov && break
+            sleep $((attempt * 5))
+            git pull --rebase --autostash -q origin arena/4a5c459f-smarty-chumkov || true
+          done
+
+  summarize:
+    needs: folds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/4a5c459f-smarty-chumkov
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости
+        run: pip install -q torch --index-url https://download.pytorch.org/whl/cpu && pip install -q transformers==4.44.2
+      - name: Свод
+        run: |
+          python -u tools/summarize63.py --prefix seg63 --rounds 2000 | tee /tmp/summary.log
+          git config user.name "ci" && git config user.email "ci@local"
+          git add -f artifacts/summary63.json
+          git commit -q -m "63: свод стадии 3" || true
+          git push -q origin HEAD:arena/4a5c459f-smarty-chumkov

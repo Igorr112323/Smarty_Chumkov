@@ -1,0 +1,36 @@
+{
+ "prompt": 63,
+ "stage": 2,
+ "frozen_before_run": true,
+ "base_sha": "320ddb5fdbc0dcfa84b58d169f9abaf50080cbcb",
+ "stage1_oracle": 0.8237,
+ "runs": 40,
+ "folds": 10,
+ "seeds": [
+  0
+ ],
+ "inner_offsets": [
+  1,
+  2,
+  3,
+  4
+ ],
+ "epochs": 8,
+ "note": "40 заданий: по 4 внутренних смещения на 10 внешних фолдов, один сид. Остальные четыре сида — вторая волна, если первый пройдёт.",
+ "criteria": {
+  "3.1_token_f1": 0.6,
+  "3.2_token_precision": 0.55,
+  "3.3_fpr_token": 0.3,
+  "3.4_span_f1_soft": 0.35,
+  "3.5_ci_low": 0.5001,
+  "3.6_folds_over_fpr": 0,
+  "3.7_ms_per_1000": 30.0,
+  "3.8_package_mb": 0.6
+ },
+ "criteria_note": "3.4 снижен с 0,40 до 0,35 по уточнению заказчика: потолок нарезки 0,58, договорная метрика — мягкий IoU 0,5",
+ "metrics": {
+  "span_f1_soft": "IoU >= 0.5 — договорная, п.5",
+  "span_f1_exact": "IoU >= 1.0 — справочно"
+ },
+ "baseline": 0.500132
+}
