@@ -340,7 +340,8 @@ def main():
     with torch.no_grad():
         for pair in pairs:
             scan = lexfeat.pair_probabilities(tokenizer, base, pair)
-            probabilities[pair["pair_id"]] = [] if scan is None else scan
+            # `pair_probabilities` отдаёт {"answer", "pieces"}; тренеру нужны pieces
+            probabilities[pair["pair_id"]] = [] if scan is None else scan["pieces"]
 
     training_rows = []
     for pair in training:
