@@ -53,7 +53,8 @@ jobs:
             --outer "$OUTER" --inner "$INNER" --seed "$SEED" \
             --prefix seg63 --git-sha "${{ github.sha }}" > /tmp/fold.log 2>&1
           status=$?
-          tail -30 /tmp/fold.log
+          tail -60 /tmp/fold.log
+          cp /tmp/fold.log "/tmp/fold_${OUTER}_${INNER_FILE}.log"
           if [ "$status" -ne 0 ]; then
             echo "ОБУЧЕНИЕ УПАЛО: $status"
             cp /tmp/fold.log "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" || true
@@ -70,6 +71,7 @@ jobs:
           git config user.name "ci" && git config user.email "ci@local"
           git pull --rebase --autostash -q origin arena/4a5c459f-smarty-chumkov || true
           git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
+          cp "/tmp/fold_${OUTER}_${INNER_FILE}.log" "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" 2>/dev/null || true
           git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" || true
           git commit -q -m "63: отчёт фолда ${OUTER}/${INNER_FILE} сид ${SEED}" || true
           for attempt in 1 2 3 4 5; do
