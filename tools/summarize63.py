@@ -70,6 +70,9 @@ def main():
     parser.add_argument("--rounds", type=int, default=2000)
     args = parser.parse_args()
 
+    if args.prefix == "seg63b":
+        raise SystemExit("seg63b: неполные сиды и несогласованное правило отбора; приёмочный свод запрещён")
+
     pairs = read_jsonl(ROOT / "artifacts/ours33.jsonl")
     folds = grouped_folds(pairs, FOLDS)
     # Отчёты другой конфигурации в свод не попадают: у них другой epochs/unfreeze.

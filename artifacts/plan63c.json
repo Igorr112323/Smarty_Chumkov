@@ -1,0 +1,18 @@
+{
+  "description": "Согласованная повторная итерация после исправления сбоев в предыдущем запуске; не использовать test 301.",
+  "frozen_before_run": true,
+  "folds": 10,
+  "inner_offsets": [1, 2, 3, 4],
+  "seeds": [0, 1, 2, 3, 4],
+  "epochs": 20,
+  "unfreeze_after": 3,
+  "encoder_lr": 0.00001,
+  "gradient_clip": 1.0,
+  "model": "rubert-tiny2",
+  "run_count": 200,
+  "acceptance_folds": "offset 1 для каждого внешнего фолда; усреднение вероятностей всех пяти сидов",
+  "threshold": "максимальный token F1 по внутреннему фолду ансамбля, при token FPR <= 0.40",
+  "metrics": "span F1 soft IoU >= 0.5 — договорная; exact отдельно; 3.7 и 3.8 пока не измерены",
+  "previous_run": "seg63b: 4 сида, разморозка после 5-й эпохи; отдельно, с текущим сводом непригоден для приёмки",
+  "no_test301_selection": true
+}
