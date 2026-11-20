@@ -1,5 +1,11 @@
 name: Промпт 63 — посегментный отбор
 
+permissions:
+  contents: write
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 on:
   push:
     branches: [arena/4a5c459f-smarty-chumkov]
@@ -65,19 +71,14 @@ jobs:
           test -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json"
       - name: Залить отчёт
         if: always()
+        env:
+          OUTER: ${{ matrix.outer }}
+          INNER: ${{ matrix.inner }}
+          SEED: ${{ matrix.seed }}
         run: |
           INNER_FILE=$(( (OUTER - 1 + INNER) % 10 + 1 ))
-          git config user.name "ci" && git config user.email "ci@local"
-          git pull --rebase --autostash -q origin arena/4a5c459f-smarty-chumkov || true
-          git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
-          cp "/tmp/fold_${OUTER}_${INNER_FILE}.log" "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" 2>/dev/null || true
-          git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
-          git commit -q -m "63: отчёт фолда ${OUTER}/${INNER_FILE} сид ${SEED}" || true
-          for attempt in 1 2 3 4 5; do
-            git push -q origin HEAD:arena/4a5c459f-smarty-chumkov && break
-            sleep $((attempt * 5))
-            git pull --rebase --autostash -q origin arena/4a5c459f-smarty-chumkov || true
-          done
+          bash tools/push_file58.sh "63: фолд ${OUTER}/${INNER_FILE} сид ${SEED}" \
+            "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
 
   summarize:
     needs: folds
@@ -94,7 +95,4 @@ jobs:
       - name: Свод
         run: |
           python -u tools/summarize63.py --prefix seg63 --rounds 2000 | tee /tmp/summary.log
-          git config user.name "ci" && git config user.email "ci@local"
-          git add -f artifacts/summary63.json
-          git commit -q -m "63: свод стадии 3" || true
-          git push -q origin HEAD:arena/4a5c459f-smarty-chumkov
+          bash tools/push_file58.sh "63: свод стадии 3" artifacts/summary63.json || true
