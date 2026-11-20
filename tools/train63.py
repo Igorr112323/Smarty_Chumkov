@@ -394,29 +394,40 @@ def main():
 if __name__ == "__main__":
     import traceback
 
+    # Логи Actions из песочницы не читаются, поэтому traceback кладём ВНУТРЬ
+    # json-отчёта: он заливается в ветку шагом «Залить отчёт» даже при падении.
+    prefix, outer, inner, seed, out = "seg63", 0, 0, 0, None
+    for index, value in enumerate(sys.argv):
+        nxt = sys.argv[index + 1] if index + 1 < len(sys.argv) else None
+        if value == "--prefix" and nxt:
+            prefix = nxt
+        elif value == "--outer" and nxt:
+            outer = int(nxt)
+        elif value == "--inner" and nxt:
+            inner = int(nxt)
+        elif value == "--seed" and nxt:
+            seed = int(nxt)
+        elif value == "--out" and nxt:
+            out = nxt
     try:
         main()
     except Exception:
         details = traceback.format_exc()
         print(details, flush=True)
-        target = None
-        for index, value in enumerate(sys.argv):
-            if value == "--out" and index + 1 < len(sys.argv):
-                target = Path(sys.argv[index + 1])
-        if target is None:
-            prefix = "seg63"
-            outer = inner = seed = 0
-            for index, value in enumerate(sys.argv):
-                if value == "--prefix" and index + 1 < len(sys.argv):
-                    prefix = sys.argv[index + 1]
-                if value == "--outer" and index + 1 < len(sys.argv):
-                    outer = int(sys.argv[index + 1])
-                if value == "--inner" and index + 1 < len(sys.argv):
-                    inner = int(sys.argv[index + 1])
-                if value == "--seed" and index + 1 < len(sys.argv):
-                    seed = int(sys.argv[index + 1])
-            inner_file = (outer - 1 + inner) % 10 + 1
-            target = ROOT / f"artifacts/{prefix}_outer{outer}_inner{inner_file}_seed{seed}.log"
+        inner_file = (outer - 1 + inner) % 10 + 1 if outer else inner
+        target = Path(out) if out else (ROOT / f"artifacts/{prefix}_outer{outer}_inner{inner_file}_seed{seed}.json")
+        try:
+            existing = json.loads(target.read_text(encoding="utf-8")) if target.is_file() else {}
+        except Exception:  # noqa: BLE001
+            existing = {}
+        existing.update({
+            "status": "падение",
+            "stage": existing.get("stage", "неизвестно"),
+            "error": details[-4000:],
+            "outer_fold": outer or existing.get("outer_fold"),
+            "inner_fold": inner_file or existing.get("inner_fold"),
+            "seed": seed,
+        })
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(details, encoding="utf-8")
+        target.write_text(json.dumps(existing, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         raise SystemExit(1)
