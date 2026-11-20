@@ -32,11 +32,11 @@ jobs:
     timeout-minutes: 350
     strategy:
       fail-fast: false
-      max-parallel: 40
+      max-parallel: 50
       matrix:
         outer: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         inner: [1, 2, 3, 4]
-        seed: [0]
+        seed: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -60,15 +60,15 @@ jobs:
           INNER_FILE=$(( (OUTER - 1 + INNER) % 10 + 1 ))
           python -u tools/train63.py \
             --outer "$OUTER" --inner "$INNER" --seed "$SEED" \
-            --prefix seg63 --git-sha "${{ github.sha }}" > /tmp/fold.log 2>&1
+            --prefix seg63b --git-sha "${{ github.sha }}" > /tmp/fold.log 2>&1
           status=$?
           tail -80 /tmp/fold.log
           if [ "$status" -ne 0 ]; then
             echo "ОБУЧЕНИЕ УПАЛО: $status"
-            python tools/report63_stage.py "$OUTER" "$INNER_FILE" "$SEED"
+            python tools/report63_stage.py "$OUTER" "$INNER_FILE" "$SEED" seg63b
             exit 1
           fi
-          test -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json"
+          test -f "artifacts/seg63b_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json"
       - name: Залить отчёт
         if: always()
         env:
@@ -78,7 +78,7 @@ jobs:
         run: |
           INNER_FILE=$(( (OUTER - 1 + INNER) % 10 + 1 ))
           bash tools/push_file58.sh "63: фолд ${OUTER}/${INNER_FILE} сид ${SEED}" \
-            "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
+            "artifacts/seg63b_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
 
   summarize:
     needs: folds
@@ -94,5 +94,5 @@ jobs:
         run: pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu && pip install -q 'transformers==4.57.6' pyarrow
       - name: Свод
         run: |
-          python -u tools/summarize63.py --prefix seg63 --rounds 2000 | tee /tmp/summary.log
-          bash tools/push_file58.sh "63: свод стадии 3" artifacts/summary63.json || true
+          python -u tools/summarize63.py --prefix seg63b --rounds 2000 | tee /tmp/summary.log
+          bash tools/push_file58.sh "63: свод стадии 3" artifacts/summary63b.json || true

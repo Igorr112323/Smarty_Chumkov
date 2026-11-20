@@ -38,7 +38,16 @@ from tools.train_scheme13_full import save_json
 
 FOLDS = 10
 SEEDS = (0, 1, 2, 3, 4)
-EPOCHS = 8
+EPOCHS = 20
+UNFREEZE_AFTER = 5      # замер: замороженная эпоха 315 с, размороженная 522 с
+                        # 20 эпох с разморозкой с 5-й = 160 мин + инференс, влезает в 350      # эпохи, после которых энкодер размораживается (схема 52)
+# Скорость энкодера после разморозки. Первый замер дал взрыв loss до 27886 при
+# 3e-4: размороженный энкодер получает градиенты, которых не видел, а AdamW
+# пересоздаётся без накопленных моментов. 1e-5 на порядок ниже и безопаснее;
+# при таком значении энкодер почти не двигается — это осознанный компромисс,
+# а не подобранное число.
+ENCODER_LR = 1e-5
+GRAD_CLIP = 1.0         # обрезка градиента после разморозки
 BATCH = 16
 MICRO = 4
 MAX_LENGTH = 256
@@ -145,12 +154,25 @@ def collate(rows, pad_id):
 
 
 def train_model(model, tokenizer, rows, seed, epochs=EPOCHS):
-    """Обучение голов при замороженном энкодере — как вариант v2 схемы 52."""
-    for parameter in model.base.bert.parameters():
+    """Обучение с разморозкой энкодера после `UNFREEZE_AFTER`.
+
+    Разморозка сделана ОДНИМ оптимизатором с двумя группами параметров, а
+    скорость энкодера в первые эпохи равна нулю. Это принципиально: пересоздание
+    оптимизатора/планировщика посреди обучения дало расхождение loss до 27886,
+    потому что AdamW теряет накопленные моменты, а `initial_lr` новой группы
+    берётся из уже уменьшенного текущего значения. Здесь группы создаются сразу,
+    и разморозка — это просто смена скорости, без пересоздания объектов.
+    """
+    head_names = ("proj.", "binary.", "kind.")
+    head_params = [p for n, p in model.named_parameters() if n.startswith(head_names)]
+    encoder_params = [p for n, p in model.named_parameters() if n.startswith("base.")]
+    for parameter in encoder_params:
         parameter.requires_grad_(False)
-    parameters = list(model.proj.parameters()) + list(model.binary.parameters()) + \
-                 list(model.kind.parameters())
-    optimizer = torch.optim.AdamW(parameters, weight_decay=0.01, lr=LR)
+    optimizer = torch.optim.AdamW(
+        [{"params": head_params, "lr": LR},
+         {"params": encoder_params, "lr": 0.0}],
+        weight_decay=0.01,
+    )
     total_steps = math.ceil(len(rows) / BATCH) * epochs
     warmup = max(1, int(total_steps * 0.1))
 
@@ -161,7 +183,15 @@ def train_model(model, tokenizer, rows, seed, epochs=EPOCHS):
 
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, rate)
     history = []
+    step_now = 0
     for epoch in range(1, epochs + 1):
+        if epoch == UNFREEZE_AFTER + 1:
+            # разморозка = поднять скорость энкодера. Никаких новых объектов.
+            for parameter in encoder_params:
+                parameter.requires_grad_(True)
+            for group in optimizer.param_groups[1:]:
+                group["lr"] = ENCODER_LR
+            history.append({"epoch": epoch, "unfroze": True, "encoder_lr": ENCODER_LR})
         order = list(range(len(rows)))
         random.Random(seed * 1000 + epoch).shuffle(order)
         model.train()
@@ -180,9 +210,19 @@ def train_model(model, tokenizer, rows, seed, epochs=EPOCHS):
                 (loss * len(part) / len(batch)).backward()
                 total += float(loss.detach()) * len(part)
                 count += len(part)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), GRAD_CLIP)
             optimizer.step()
             scheduler.step()
-        history.append({"epoch": epoch, "loss": total / max(1, count)})
+            # планировщик глушит группу энкодера: возвращаем ей заданную скорость
+            if epoch > UNFREEZE_AFTER:
+                for group in optimizer.param_groups[1:]:
+                    group["lr"] = ENCODER_LR
+            step_now += 1
+        epoch_loss = total / max(1, count)
+        history.append({"epoch": epoch, "loss": epoch_loss})
+        if not math.isfinite(epoch_loss) or epoch_loss > 100:
+            history.append({"epoch": epoch, "diverged": True, "loss": epoch_loss})
+            break
     return history
 
 
@@ -321,6 +361,8 @@ def main():
         "inner_fold": inner_tag,
         "seed": args.seed,
         "epochs": args.epochs,
+        "unfreeze_after": UNFREEZE_AFTER,
+        "encoder_lr": ENCODER_LR,
         "git_sha": args.git_sha,
         "torch": str(torch.__version__),
         "gold_sha256": file_digest(source),

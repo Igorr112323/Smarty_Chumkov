@@ -27,7 +27,8 @@ from tools.train63 import FPR_LIMIT, score, support_of
 from tools.train_base33 import grouped_folds
 
 FOLDS = 10
-SEEDS = (0, 1, 2, 3, 4)
+SEEDS = (1, 2, 3, 4)      # сид 0 первой конфигурации в итерацию не входит
+EXPECTED_EPOCHS = 20      # конфигурация итерации; отчёты с другим epochs отсеиваются
 CRITERIA = {
     "3.1_token_f1": 0.60,
     "3.2_token_precision": 0.55,
@@ -65,16 +66,21 @@ def bootstrap(pairs, predicted, rounds=2000, seed=0):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--prefix", default="seg63")
-    parser.add_argument("--out", default="artifacts/summary63.json")
+    parser.add_argument("--out", default=None)
     parser.add_argument("--rounds", type=int, default=2000)
     args = parser.parse_args()
 
     pairs = read_jsonl(ROOT / "artifacts/ours33.jsonl")
     folds = grouped_folds(pairs, FOLDS)
+    # Отчёты другой конфигурации в свод не попадают: у них другой epochs/unfreeze.
+    # Сид 0 прогона seg63 обучен иначе (8 эпох, энкодер заморожен) и в итерации
+    # не участвует — иначе «среднее по сидам» смешает две схемы обучения.
     reports = {}
     for path in sorted(Path(ROOT / "artifacts").glob(f"{args.prefix}_outer*_inner*_seed*.json")):
         report = json.loads(path.read_text(encoding="utf-8"))
         if report.get("status") != "готово":
+            continue
+        if report.get("epochs") != EXPECTED_EPOCHS or not report.get("unfreeze_after"):
             continue
         reports[(report["outer_fold"], report["inner_fold"], report["seed"])] = report
     print(f"отчётов: {len(reports)}")
@@ -121,7 +127,7 @@ def main():
 
     if missing:
         summary = {"status": "неполный прогон", "missing_folds": missing, "per_fold": per_fold}
-        Path(args.out).write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n",
+        Path(args.out or f"artifacts/summary63_{args.prefix}.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n",
                                   encoding="utf-8")
         print(f"нет отчётов по фолдам: {missing}")
         return
@@ -187,8 +193,9 @@ def main():
                                                               "3.3_fpr_token"))
                                and all(summary["better_than_a"].values()))
 
-    Path(args.out).write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n",
-                              encoding="utf-8")
+    out = args.out or f"artifacts/summary63_{args.prefix}.json"
+    Path(out).write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n",
+                         encoding="utf-8")
     print(f"token F1 {token['f1']:.4f} | precision {token['precision']:.4f} | "
           f"fpr {token['fpr_token']:.4f}")
     print(f"span F1: exact {span_exact:.4f} | soft {span_soft:.4f} (договорная)")

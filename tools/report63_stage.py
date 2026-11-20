@@ -6,7 +6,8 @@ from pathlib import Path
 
 def main():
     outer, inner, seed = sys.argv[1], sys.argv[2], sys.argv[3]
-    path = Path(f"artifacts/seg63_outer{outer}_inner{inner}_seed{seed}.json")
+    prefix = sys.argv[4] if len(sys.argv) > 4 else "seg63"
+    path = Path(f"artifacts/{prefix}_outer{outer}_inner{inner}_seed{seed}.json")
     if not path.is_file():
         print(f"отчёта нет: {path}")
         return
