@@ -57,6 +57,7 @@ jobs:
           tail -80 /tmp/fold.log
           if [ "$status" -ne 0 ]; then
             echo "ОБУЧЕНИЕ УПАЛО: $status"
+            python tools/report63_stage.py "$OUTER" "$INNER_FILE" "$SEED"
             exit 1
           fi
           test -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json"
@@ -68,7 +69,7 @@ jobs:
           git pull --rebase --autostash -q origin arena/4a5c459f-smarty-chumkov || true
           git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
           cp "/tmp/fold_${OUTER}_${INNER_FILE}.log" "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" 2>/dev/null || true
-          git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" || true
+          git add -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" || true
           git commit -q -m "63: отчёт фолда ${OUTER}/${INNER_FILE} сид ${SEED}" || true
           for attempt in 1 2 3 4 5; do
             git push -q origin HEAD:arena/4a5c459f-smarty-chumkov && break

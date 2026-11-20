@@ -345,6 +345,8 @@ def main():
             # `pair_probabilities` отдаёт {"answer", "pieces"}; тренеру нужны pieces
             probabilities[pair["pair_id"]] = [] if scan is None else scan["pieces"]
 
+    report["stage"] = "инференс модели поставки"
+    save_json(path, report)
     training_rows = []
     for pair in training:
         training_rows.extend(build_rows(tokenizer, pair, questions[pair["pair_id"]],
@@ -353,9 +355,15 @@ def main():
     report["positive_rows"] = sum(1 for row in training_rows if row["label"] > 0.5)
     save_json(path, report)
 
+    report["stage"] = "обучение"
+    report["training_rows"] = len(training_rows)
+    report["positive_rows"] = sum(1 for row in training_rows if row["label"] > 0.5)
+    save_json(path, report)
     history = train_model(model, tokenizer, training_rows, args.seed, args.epochs)
     report["history"] = history
 
+    report["stage"] = "предсказание"
+    save_json(path, report)
     inner_spans = predict_pairs(model, tokenizer, tuning, questions, probabilities)
     outer_spans = predict_pairs(model, tokenizer, held, questions, probabilities)
     picked = pick_threshold(tuning, inner_spans)
