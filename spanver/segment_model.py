@@ -126,8 +126,19 @@ class CandidateModel(nn.Module):
         self.kind = nn.Linear(hidden, types)
 
     def forward(self, input_ids, attention_mask, features):
+        """Признаки кандидата — один вектор на строку.
+
+        Они относятся к кандидату целиком, а не к токену, поэтому кладутся в
+        позицию [CLS]: остальные позиции получают нули. Так энкодер видит
+        «контекст + кандидат» и сводку признаков в одной точке, и размер входа
+        не растёт.
+        """
         embeddings = self.base.bert.embeddings(input_ids)
-        mixed = self.proj(torch.cat([embeddings, features.to(embeddings.dtype)], dim=-1))
+        batch, length, hidden = embeddings.shape
+        token_features = torch.zeros(batch, length, self.feature_count,
+                                     dtype=embeddings.dtype, device=embeddings.device)
+        token_features[:, 0, :] = features.to(embeddings.dtype)
+        mixed = self.proj(torch.cat([embeddings, token_features], dim=-1))
         mask = (1.0 - attention_mask[:, None, None, :].to(mixed.dtype)) * torch.finfo(mixed.dtype).min
         hidden = self.base.bert.encoder(mixed, attention_mask=mask)[0]
         # [CLS] агрегирует пару «контекст + кандидат»

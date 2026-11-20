@@ -40,7 +40,8 @@ jobs:
         run: |
           pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
           pip install -q 'transformers==4.57.6' huggingface_hub pyarrow
-          ls models/rubert-tiny2
+          # весов в репозитории нет: они собираются из частей в weights/
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
       - name: Обучить и оценить фолд
         env:
           OUTER: ${{ matrix.outer }}
@@ -53,17 +54,12 @@ jobs:
             --outer "$OUTER" --inner "$INNER" --seed "$SEED" \
             --prefix seg63 --git-sha "${{ github.sha }}" > /tmp/fold.log 2>&1
           status=$?
-          tail -60 /tmp/fold.log
-          cp /tmp/fold.log "/tmp/fold_${OUTER}_${INNER_FILE}.log"
+          tail -80 /tmp/fold.log
           if [ "$status" -ne 0 ]; then
             echo "ОБУЧЕНИЕ УПАЛО: $status"
-            cp /tmp/fold.log "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.log" || true
             exit 1
           fi
-          if [ ! -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json" ]; then
-            echo "ОТЧЁТА НЕТ"
-            exit 1
-          fi
+          test -f "artifacts/seg63_outer${OUTER}_inner${INNER_FILE}_seed${SEED}.json"
       - name: Залить отчёт
         if: always()
         run: |
