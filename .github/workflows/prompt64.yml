@@ -1,0 +1,100 @@
+name: Промпт 64 — документный сплит 1000 пар
+on:
+  push:
+    branches: [arena/4a5c459f-smarty-chumkov]
+    paths: ['.github/workflows/prompt64.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  BRANCH: arena/4a5c459f-smarty-chumkov
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            tests
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python tools/split64.py --check
+          python -m unittest discover -s tests -p 'test_split64.py' -v
+          python -m unittest discover -s tests -p 'test_metrics64.py' -v
+  folds:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        outer: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            models/rubert-tiny2
+            weights/rubert-tiny2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости и веса
+        run: |
+          pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install -q 'transformers==4.57.6' huggingface_hub pyarrow
+          python tools/split64.py --check
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Обучить схему 52 и оценить отложенный фолд
+        env:
+          OUTER: ${{ matrix.outer }}
+        run: |
+          set -uo pipefail
+          python -u tools/run64.py --outer "$OUTER" --git-sha '${{ github.sha }}' > /tmp/run64.log 2>&1
+          rc=$?
+          tail -80 /tmp/run64.log
+          if [ "$rc" -ne 0 ]; then
+            mkdir -p artifacts
+            cp /tmp/run64.log "artifacts/p64_fold$(printf '%02d' "$OUTER").log"
+          fi
+          exit "$rc"
+      - name: Записать отчёт или ошибку
+        if: always()
+        env:
+          OUTER: ${{ matrix.outer }}
+        run: |
+          number=$(printf '%02d' "$OUTER")
+          path="artifacts/p64_fold${number}.json"
+          log="artifacts/p64_fold${number}.log"
+          if [ -f "$path" ]; then bash tools/push_file58.sh "64: фолд ${OUTER}" "$path"; fi
+          if [ -f "$log" ]; then bash tools/push_file58.sh "64: ошибка фолда ${OUTER}" "$log"; fi
+          if [ ! -f "$path" ] && [ ! -f "$log" ]; then echo 'Нет отчёта и лога'; exit 1; fi
+  summary:
+    needs: folds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/4a5c459f-smarty-chumkov
+          sparse-checkout: |
+            Dataset/1_rushallu_rag_gold
+            spanver
+            tools
+            artifacts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install -q 'transformers==4.57.6' huggingface_hub pyarrow
+          python tools/summary64.py
+          bash tools/push_file58.sh '64: свод 1000 пар' artifacts/summary64.json
