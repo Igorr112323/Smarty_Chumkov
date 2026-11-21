@@ -1,0 +1,119 @@
+{
+  "status": "готово: нет допустимого порога",
+  "variant": "scheme63-segment",
+  "with_question": true,
+  "question_input": true,
+  "candidate_rule": "предложения/клаузы + объединения до 3 + весь ответ",
+  "loss": {
+    "bce": 1.0,
+    "ce_type": 0.3,
+    "soft_iou": 0.3
+  },
+  "outer_fold": 7,
+  "inner_fold": 9,
+  "seed": 2,
+  "epochs": 20,
+  "unfreeze_after": 5,
+  "encoder_lr": 1e-05,
+  "git_sha": "aeb14bc10b9cd845a5f0e4a318b2b7c49e1ff140",
+  "torch": "2.15.0+cpu",
+  "gold_sha256": "8e1d3012afce096292b299b3849c80bdbdd739eb3f869af6744b71b6f03928ff",
+  "train_id_sha256": "61bf775b2460bca38190dc6e3e76143335d9127bc200ea242cd771e492e5e758",
+  "inner_id_sha256": "6694d40807ef83fadd99d8c590486398f25edbd39f21b36544ab11317e06e418",
+  "outer_id_sha256": "a552b4f414bf0d60e6eb6e9b530a97f03b0aa450753ec935bd64eb84d4ce4207",
+  "test301": false,
+  "external_data": false,
+  "stage": "предсказание",
+  "training_rows": 4750,
+  "positive_rows": 664,
+  "history": [
+    {
+      "epoch": 1,
+      "loss": 0.8693331794989736
+    },
+    {
+      "epoch": 2,
+      "loss": 0.7619998358864534
+    },
+    {
+      "epoch": 3,
+      "loss": 0.7227808108329773
+    },
+    {
+      "epoch": 4,
+      "loss": 0.6401321159412986
+    },
+    {
+      "epoch": 5,
+      "loss": 0.6277844343185425
+    },
+    {
+      "epoch": 6,
+      "unfroze": true,
+      "encoder_lr": 1e-05
+    },
+    {
+      "epoch": 6,
+      "loss": 0.5407403104101357
+    },
+    {
+      "epoch": 7,
+      "loss": 0.49565962463774177
+    },
+    {
+      "epoch": 8,
+      "loss": 0.47944750251346513
+    },
+    {
+      "epoch": 9,
+      "loss": 0.4590424045034145
+    },
+    {
+      "epoch": 10,
+      "loss": 0.4347020535476898
+    },
+    {
+      "epoch": 11,
+      "loss": 0.4193480515295738
+    },
+    {
+      "epoch": 12,
+      "loss": 0.39332464359524216
+    },
+    {
+      "epoch": 13,
+      "loss": 0.3971967960181401
+    },
+    {
+      "epoch": 14,
+      "loss": 0.3773222908523718
+    },
+    {
+      "epoch": 15,
+      "loss": 0.36016934828195524
+    },
+    {
+      "epoch": 16,
+      "loss": 0.33459036648518553
+    },
+    {
+      "epoch": 17,
+      "loss": 0.33603876421240303
+    },
+    {
+      "epoch": 18,
+      "loss": 0.3116033641588139
+    },
+    {
+      "epoch": 19,
+      "loss": 0.2907734944248376
+    },
+    {
+      "epoch": 20,
+      "loss": 0.29973811295953284
+    }
+  ],
+  "threshold_point": null,
+  "threshold": null,
+  "elapsed_s": 4229.018
+}
