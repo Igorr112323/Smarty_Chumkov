@@ -1,0 +1,366 @@
+{
+  "status": "готово",
+  "gold_sha256": "bad3196fe7c4dd22e0a699a8f59c7c621070b3a0e2e5fe8aaa840b438b136a5d",
+  "fold_ids_sha256": [
+    "d21575a45f5b49098aafb30d9b3dcc755685961615aac081af002966ffe08989",
+    "5f92a87502f3e039b7ea5971d4c7fb80efe2be1fe414ef5a1ccb895139ab88bf",
+    "9703e7da00f2d4eefb5713509c90d39f23d6c51ae3d6551306394cad780a196d",
+    "ff3dd72cb288a8d95862e8db2c9c6de55eaaae15cdcc4793d7c8e25855146465",
+    "e3c22358f4fe017d778948741c9d9cdf32c4a36b85fbdd69f2882beb055cf2d4",
+    "8f16daa5d99f9040afad9c90f11d566ed45885208199ec16d843372e94d2f416",
+    "498fbdafb7ea97bcb88cc84ba5cead4ec8b49e07ae1291d03f049ca9050dc6f3",
+    "c55d90b11f21e43b51d07e289d83ac77c817099e7021a9daee89d6a6c4aec8a0",
+    "26a4f33e70a4f7d17b3d0e31887071b81a1727c1ca2c9aed97e89d275141b328",
+    "2da15ed9756fd5b974fd56764ba21a965857a3ad374f2aeb7e99063f25dbcb48"
+  ],
+  "git_sha": "2a97aca29be11e450025d626235ef86d505f5847",
+  "pooled": {
+    "pairs": 1000,
+    "token": {
+      "tp": 6360,
+      "fp": 8866,
+      "fn": 5057,
+      "precision": 0.41770655457769607,
+      "recall": 0.5570640273276692,
+      "f1": 0.47742371354577184
+    },
+    "fpr_token": 0.36470588235294116,
+    "fpr_pair": 0.17091454272863568,
+    "span_f1_soft": 0.26112759643916916,
+    "span_f1_exact": 0.20771513353115728,
+    "pair_f1": 0.32897196261682243,
+    "predicted_pairs": 251,
+    "gold_spans": 423,
+    "predicted_spans": 251
+  },
+  "baseline_all_positive": {
+    "tp": 11417,
+    "fp": 24310,
+    "fn": 0,
+    "precision": 0.31956223584403953,
+    "recall": 1.0,
+    "f1": 0.4843458340403869
+  },
+  "delta_vs_baseline": -0.006922120494615047,
+  "folds_over_fpr": 4,
+  "max_fold": {
+    "fold": 5,
+    "fpr_token": 0.5584699453551912
+  },
+  "std": {
+    "token_f1": 0.14243224789573136,
+    "fpr_token": 0.12593208116070853
+  },
+  "per_fold": [
+    {
+      "fold": 1,
+      "threshold": 0.43,
+      "train_pairs": 801,
+      "inner_pairs": 99,
+      "pairs": 100,
+      "token": {
+        "tp": 1060,
+        "fp": 1248,
+        "fn": 229,
+        "precision": 0.4592720970537262,
+        "recall": 0.8223429014740109,
+        "f1": 0.5893800389213233
+      },
+      "fpr_token": 0.5024154589371981,
+      "fpr_pair": 0.2647058823529412,
+      "span_f1_soft": 0.3291139240506329,
+      "span_f1_exact": 0.3037974683544304,
+      "pair_f1": 0.4126984126984127,
+      "predicted_pairs": 36,
+      "gold_spans": 43,
+      "predicted_spans": 36
+    },
+    {
+      "fold": 2,
+      "threshold": 0.43,
+      "train_pairs": 801,
+      "inner_pairs": 100,
+      "pairs": 99,
+      "token": {
+        "tp": 936,
+        "fp": 751,
+        "fn": 293,
+        "precision": 0.5548310610551275,
+        "recall": 0.7615947925142392,
+        "f1": 0.6419753086419753
+      },
+      "fpr_token": 0.35915829746532757,
+      "fpr_pair": 0.16666666666666666,
+      "span_f1_soft": 0.3333333333333333,
+      "span_f1_exact": 0.3055555555555556,
+      "pair_f1": 0.42857142857142855,
+      "predicted_pairs": 29,
+      "gold_spans": 43,
+      "predicted_spans": 29
+    },
+    {
+      "fold": 3,
+      "threshold": 0.51,
+      "train_pairs": 801,
+      "inner_pairs": 99,
+      "pairs": 100,
+      "token": {
+        "tp": 173,
+        "fp": 307,
+        "fn": 1084,
+        "precision": 0.36041666666666666,
+        "recall": 0.13762927605409706,
+        "f1": 0.19919401266551523
+      },
+      "fpr_token": 0.1431235431235431,
+      "fpr_pair": 0.07462686567164178,
+      "span_f1_soft": 0.11764705882352941,
+      "span_f1_exact": 0.0392156862745098,
+      "pair_f1": 0.14634146341463414,
+      "predicted_pairs": 9,
+      "gold_spans": 42,
+      "predicted_spans": 9
+    },
+    {
+      "fold": 4,
+      "threshold": 0.47,
+      "train_pairs": 801,
+      "inner_pairs": 100,
+      "pairs": 99,
+      "token": {
+        "tp": 345,
+        "fp": 440,
+        "fn": 723,
+        "precision": 0.4394904458598726,
+        "recall": 0.32303370786516855,
+        "f1": 0.3723691311386941
+      },
+      "fpr_token": 0.21706956092747903,
+      "fpr_pair": 0.15384615384615385,
+      "span_f1_soft": 0.16129032258064516,
+      "span_f1_exact": 0.12903225806451613,
+      "pair_f1": 0.20408163265306123,
+      "predicted_pairs": 19,
+      "gold_spans": 43,
+      "predicted_spans": 19
+    },
+    {
+      "fold": 5,
+      "threshold": 0.51,
+      "train_pairs": 800,
+      "inner_pairs": 100,
+      "pairs": 100,
+      "token": {
+        "tp": 497,
+        "fp": 1533,
+        "fn": 527,
+        "precision": 0.24482758620689654,
+        "recall": 0.4853515625,
+        "f1": 0.3254747871643746
+      },
+      "fpr_token": 0.5584699453551912,
+      "fpr_pair": 0.2537313432835821,
+      "span_f1_soft": 0.1643835616438356,
+      "span_f1_exact": 0.136986301369863,
+      "pair_f1": 0.21428571428571427,
+      "predicted_pairs": 31,
+      "gold_spans": 42,
+      "predicted_spans": 31
+    },
+    {
+      "fold": 6,
+      "threshold": 0.49,
+      "train_pairs": 800,
+      "inner_pairs": 100,
+      "pairs": 100,
+      "token": {
+        "tp": 462,
+        "fp": 772,
+        "fn": 641,
+        "precision": 0.37439222042139386,
+        "recall": 0.4188576609247507,
+        "f1": 0.39537869062901154
+      },
+      "fpr_token": 0.31179321486268174,
+      "fpr_pair": 0.10606060606060606,
+      "span_f1_soft": 0.19672131147540983,
+      "span_f1_exact": 0.03278688524590164,
+      "pair_f1": 0.25531914893617025,
+      "predicted_pairs": 19,
+      "gold_spans": 42,
+      "predicted_spans": 19
+    },
+    {
+      "fold": 7,
+      "threshold": 0.52,
+      "train_pairs": 800,
+      "inner_pairs": 100,
+      "pairs": 100,
+      "token": {
+        "tp": 654,
+        "fp": 981,
+        "fn": 606,
+        "precision": 0.4,
+        "recall": 0.5190476190476191,
+        "f1": 0.4518134715025907
+      },
+      "fpr_token": 0.31829980532122,
+      "fpr_pair": 0.16417910447761194,
+      "span_f1_soft": 0.24615384615384617,
+      "span_f1_exact": 0.09230769230769231,
+      "pair_f1": 0.3076923076923077,
+      "predicted_pairs": 23,
+      "gold_spans": 42,
+      "predicted_spans": 23
+    },
+    {
+      "fold": 8,
+      "threshold": 0.47,
+      "train_pairs": 799,
+      "inner_pairs": 101,
+      "pairs": 100,
+      "token": {
+        "tp": 491,
+        "fp": 1327,
+        "fn": 235,
+        "precision": 0.2700770077007701,
+        "recall": 0.6763085399449036,
+        "f1": 0.38600628930817604
+      },
+      "fpr_token": 0.47733812949640286,
+      "fpr_pair": 0.22727272727272727,
+      "span_f1_soft": 0.24324324324324326,
+      "span_f1_exact": 0.24324324324324326,
+      "pair_f1": 0.31034482758620696,
+      "predicted_pairs": 32,
+      "gold_spans": 42,
+      "predicted_spans": 32
+    },
+    {
+      "fold": 9,
+      "threshold": 0.47,
+      "train_pairs": 798,
+      "inner_pairs": 101,
+      "pairs": 101,
+      "token": {
+        "tp": 785,
+        "fp": 949,
+        "fn": 287,
+        "precision": 0.4527104959630911,
+        "recall": 0.7322761194029851,
+        "f1": 0.5595153243050606
+      },
+      "fpr_token": 0.41350762527233115,
+      "fpr_pair": 0.14705882352941177,
+      "span_f1_soft": 0.34782608695652173,
+      "span_f1_exact": 0.3188405797101449,
+      "pair_f1": 0.43636363636363634,
+      "predicted_pairs": 27,
+      "gold_spans": 42,
+      "predicted_spans": 27
+    },
+    {
+      "fold": 10,
+      "threshold": 0.48,
+      "train_pairs": 799,
+      "inner_pairs": 100,
+      "pairs": 101,
+      "token": {
+        "tp": 957,
+        "fp": 558,
+        "fn": 432,
+        "precision": 0.6316831683168317,
+        "recall": 0.6889848812095032,
+        "f1": 0.6590909090909091
+      },
+      "fpr_token": 0.2553775743707094,
+      "fpr_pair": 0.14925373134328357,
+      "span_f1_soft": 0.4117647058823529,
+      "span_f1_exact": 0.38235294117647056,
+      "pair_f1": 0.4827586206896552,
+      "predicted_pairs": 26,
+      "gold_spans": 42,
+      "predicted_spans": 26
+    }
+  ],
+  "ci_95_pair_bootstrap": {
+    "low": 0.4151665430122222,
+    "high": 0.5344647701189399,
+    "rounds": 10000,
+    "seed": 64,
+    "key": "full"
+  },
+  "speed": {
+    "models": 1,
+    "seed": 0,
+    "length_median_corpus": 835.5,
+    "length_sample": 836,
+    "pair_id": "sber000185",
+    "samples_ms_per_1000": [
+      30.624305024054756,
+      30.399326555128432,
+      30.50487081352686,
+      30.181742822899622,
+      30.08751196165703
+    ],
+    "ms_per_1000": 30.399326555128432,
+    "threads": 4,
+    "platform": "Linux-7.0.0-1020-azure-x86_64-with-glibc2.43",
+    "note": "внутреннее сравнение, 1 сид; длина документа"
+  },
+  "contract": {
+    "3.1_f1_ge_0.50": false,
+    "3.2_fpr_le_0.40": true,
+    "3.7_speed_le_30": false
+  },
+  "previous_699": {
+    "source": "artifacts/question59.json / A_without_question",
+    "metrics": {
+      "token_f1": 0.508888114325549,
+      "token_precision": 0.4420032869128968,
+      "token_recall": 0.5996245012907768,
+      "fpr_token": 0.37869093043733487,
+      "fpr_pair": 0.17391304347826086,
+      "pair_f1": 0.30319148936170215,
+      "exact_span_f1": 0.23408624229979466,
+      "baseline_all_positive": 0.5001320461281141,
+      "margin": 0.008756068197434907,
+      "document_token_f1": 0.23865238229489713,
+      "document_baseline": 0.1864178257167187,
+      "document_margin": 0.05223455657817844,
+      "folds_over_fpr": 4,
+      "max_fold_fpr": {
+        "fold": 3,
+        "fpr_token": 0.578076525336091
+      },
+      "std": {
+        "token_f1": 0.06182992419366234,
+        "fpr_token": 0.12381577870309524
+      },
+      "ci": {
+        "low": 0.43608124253285546,
+        "high": 0.574502579218865,
+        "rounds": 2000,
+        "seed": 59,
+        "key": "full"
+      },
+      "thresholds": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.49,
+        "4": 0.52,
+        "5": 0.51,
+        "6": 0.5,
+        "7": 0.47,
+        "8": 0.46,
+        "9": 0.47,
+        "10": 0.47
+      }
+    },
+    "span_f1_soft": null,
+    "note": "свод предыдущей линии; другое разбиение и правило объединения внутренних фолдов; pair F1 может иметь иное определение, сравнение не причинное"
+  },
+  "old_test": "входит в 1000 как обычные пары, отдельного замера нет",
+  "attribution": "эффекты объёма и чистоты одновременно изменены: причинное разложение без контрольных прогонов не идентифицируется",
+  "train_size_note": "сохранён внутренний фолд схемы 52; фактические train_pairs указаны по фолдам"
+}
