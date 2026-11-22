@@ -112,8 +112,9 @@ jobs:
             artifacts/package.json
           if-no-files-found: error
 
+  # Проверка памяти уже завершена; повторный тренировочный шаг отключён.
   memory66:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       BRANCH: arena/4a5c459f-smarty-chumkov
@@ -151,3 +152,103 @@ jobs:
           set -euo pipefail
           test -f artifacts/memory66_step.json
           bash tools/push_file58.sh '66: память одного пробного шага' artifacts/memory66_step.json
+
+  plan66:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /spanver/
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/memory66_step.json
+            /artifacts/length65_check.json
+            /artifacts/anchor65_check.json
+            /artifacts/threshold65_check.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python tools/check66_plan.py
+  iteration66:
+    needs: plan66
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        outer: [1,2,3,4,5,6,7,8,9,10]
+        seed: [0,1,2,3,4]
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /spanver/
+            /models/rubert-tiny2/
+            /weights/rubert-tiny2/
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/memory66_step.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости и базовый энкодер
+        run: |
+          set -euo pipefail
+          pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install -q 'transformers==4.57.6' huggingface_hub
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Обучить текущую модель признака и сегментную модель
+        env:
+          OUTER: ${{ matrix.outer }}
+          SEED: ${{ matrix.seed }}
+        run: python -u tools/train66.py --outer "$OUTER" --seed "$SEED" --git-sha '${{ github.sha }}'
+      - name: Сохранить отчёт фолда даже при ошибке
+        if: always()
+        env:
+          OUTER: ${{ matrix.outer }}
+          SEED: ${{ matrix.seed }}
+        run: |
+          set -euo pipefail
+          path="artifacts/iter66_outer${OUTER}_seed${SEED}.json"
+          test -f "$path"
+          bash tools/push_file58.sh "66: фолд ${OUTER}, сид ${SEED}" "$path"
+  summary66:
+    if: ${{ always() && needs.plan66.result == 'success' }}
+    needs: [plan66, iteration66]
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/4a5c459f-smarty-chumkov
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /spanver/
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/q59_a_outer*_inner*.json
+            /artifacts/iter66_outer*_seed*.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Свод 699 пар и парный CI разности
+        run: |
+          set -uo pipefail
+          python tools/summarize66.py
+          rc=$?
+          test -f artifacts/summary66.json || exit 1
+          bash tools/push_file58.sh '66: итог или ошибки прогона' artifacts/summary66.json || exit $?
+          exit "$rc"
