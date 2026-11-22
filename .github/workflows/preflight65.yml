@@ -1,0 +1,95 @@
+name: Промпт 65 — проверка сигнала без обучения
+on:
+  push:
+    branches: [arena/4a5c459f-smarty-chumkov]
+    paths: ['.github/workflows/preflight65.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  BRANCH: arena/4a5c459f-smarty-chumkov
+jobs:
+  signal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        include:
+          - {outer: 1, inner: 2}
+          - {outer: 2, inner: 3}
+          - {outer: 3, inner: 4}
+          - {outer: 4, inner: 5}
+          - {outer: 5, inner: 6}
+          - {outer: 6, inner: 7}
+          - {outer: 7, inner: 8}
+          - {outer: 8, inner: 9}
+          - {outer: 9, inner: 10}
+          - {outer: 10, inner: 1}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Данные и зависимости
+        run: |
+          pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install -q 'transformers==4.57.6' huggingface_hub pyarrow
+          python tools/prepare_ours33.py
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Скачать кандидата весов схемы 51
+        uses: actions/download-artifact@v4
+        with:
+          name: weights51-ten-outer${{ matrix.outer }}
+          path: /tmp/weights51
+          run-id: 44076340166
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Скачать отчёт происхождения весов
+        uses: actions/download-artifact@v4
+        with:
+          name: report51-ten-outer${{ matrix.outer }}-inner${{ matrix.inner }}
+          path: /tmp/report51
+          run-id: 44076340166
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Проверить split и контрольные суммы; измерить корреляцию без обучения
+        env:
+          OUTER: ${{ matrix.outer }}
+        run: |
+          mkdir -p /tmp/signal65
+          python -u tools/preflight65_signal.py --fold "$OUTER" \
+            --weights /tmp/weights51 --report51 /tmp/report51 \
+            --out "/tmp/signal65/signal65_fold$(printf '%02d' "$OUTER").json"
+      - name: Сохранить результат проверки
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preflight65-fold-${{ matrix.outer }}
+          path: /tmp/signal65/*.json
+          if-no-files-found: warn
+          retention-days: 30
+  summary:
+    if: always()
+    needs: signal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Получить результаты проверки
+        uses: actions/download-artifact@v4
+        with:
+          pattern: preflight65-fold-*
+          path: /tmp/signal65
+          merge-multiple: true
+      - name: Свод и сохранение в ветку
+        run: |
+          set -uo pipefail
+          mkdir -p artifacts
+          python tools/aggregate65_signal.py /tmp/signal65
+          rc=$?
+          bash tools/push_file58.sh '65: проверка контрольного сигнала без обучения' artifacts/signal65_check.json
+          exit "$rc"

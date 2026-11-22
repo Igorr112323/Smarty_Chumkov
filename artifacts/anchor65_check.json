@@ -1,0 +1,49 @@
+{
+  "status": "готово",
+  "pairs": 699,
+  "reports": 40,
+  "expected_rounded_6": {
+    "token_f1": 0.508888,
+    "fpr_token": 0.378691,
+    "span_f1_exact": 0.234086,
+    "pair_f1": 0.303191
+  },
+  "actual": {
+    "token_f1": 0.508888114325549,
+    "fpr_token": 0.37869093043733487,
+    "span_f1_exact": 0.23408624229979466,
+    "pair_f1": 0.30319148936170215
+  },
+  "checks": {
+    "token_f1": true,
+    "fpr_token": true,
+    "span_f1_exact": true,
+    "pair_f1": true
+  },
+  "all_pass": true,
+  "thresholds": {
+    "1": 0.5,
+    "2": 0.5,
+    "3": 0.49,
+    "4": 0.52,
+    "5": 0.51,
+    "6": 0.5,
+    "7": 0.47,
+    "8": 0.46,
+    "9": 0.47,
+    "10": 0.47
+  },
+  "folds_over_fpr": 4,
+  "max_fold": {
+    "fold": 3,
+    "fpr_token": 0.578076525336091
+  },
+  "std": {
+    "token_f1": 0.06182992419366234,
+    "fpr_token": 0.12381577870309524
+  },
+  "test301": false,
+  "training": false,
+  "model_inference": false,
+  "note": "повторная обработка сохранённых вероятностей A через существующий summarize59.score_run"
+}
