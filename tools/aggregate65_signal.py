@@ -18,7 +18,9 @@ def main():
     done=not errors and len(reports)==10 and sum(r['pairs'] for r in reports)==699
     rho=spearman(x,y) if done else None
     result={'status':'готово' if done else 'неполная проверка','pairs':sum(r.get('pairs',0) for r in reports),
-            'subtokens':len(x),'rho_spearman':rho,'criterion_1_1_pass':bool(done and rho>=.9),
+            'subtokens':len(x),'rho_spearman':rho,'correlation_check_pass':bool(done and rho>=.9),
+            'checkpoint_A_provenance_confirmed':False, 'criterion_1_1_pass':False,
+            'gate_blocker':'архивы 51 не доказаны как checkpoint A; A обучался отдельно, в q59 checkpoint не сохранён',
             'reference':'сохранённые OOF субтокенные вероятности q59 A',
             'checkpoint_candidate':'архивы weights51-ten, Actions 44076340166, не доказано что это checkpoint A',
             'folds':[{k:v for k,v in r.items() if k not in ('values_A','values_candidate')} for r in reports],

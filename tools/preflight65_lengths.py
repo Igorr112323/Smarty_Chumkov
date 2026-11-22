@@ -83,7 +83,9 @@ def main():
                    'new_candidate_cut_fraction':counts['new_candidate_cut']/counts['total'],
                    'old_pairs_with_cut':len(per_pair_old), 'new_pairs_with_cut':len(per_pair_new),
                    'new_context_tokens':MAX_LENGTH, 'overlength_candidates':worst,
-                   'criterion_1_2_pass':counts['new_candidate_cut']/counts['total'] <= .02,
+                   'candidate_loss_check_pass':counts['new_candidate_cut']/counts['total'] <= .02,
+                   'criterion_1_2_pass':False,
+                   'gate_blocker':'не проверен полный обучающий шаг с оптимизатором и реальной упаковкой 512',
                    'model_inference':False, 'training':False, 'test301':False})
     target = ROOT / 'artifacts/length65_check.json'
     target.write_text(json.dumps(counts, ensure_ascii=False, indent=2)+'\n',encoding='utf-8')
