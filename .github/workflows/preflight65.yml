@@ -1,8 +1,5 @@
 name: Промпт 65 — проверка сигнала без обучения
 on:
-  push:
-    branches: [arena/4a5c459f-smarty-chumkov]
-    paths: ['.github/workflows/preflight65.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -11,7 +8,9 @@ env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   BRANCH: arena/4a5c459f-smarty-chumkov
 jobs:
+  # Исторический аудит 65: по промпту 66 больше не запускать старые архивы.
   signal:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     strategy:
@@ -71,7 +70,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
   summary:
-    if: always()
+    if: ${{ false }}
     needs: signal
     runs-on: ubuntu-latest
     steps:
