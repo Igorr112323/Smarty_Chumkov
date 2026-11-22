@@ -3,8 +3,13 @@ name: evaluate
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
+  # Для ветки 65/66 старый общий gold/test технически недоступен.
   evaluate:
+    if: ${{ github.ref != 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
@@ -106,3 +111,43 @@ jobs:
             artifacts/spanver-0.2.0.zip
             artifacts/package.json
           if-no-files-found: error
+
+  memory66:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /spanver/
+            /models/rubert-tiny2/
+            /weights/rubert-tiny2/
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/q59_a_outer*_inner*.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости и базовый энкодер
+        run: |
+          set -euo pipefail
+          pip install -q 'torch==2.15.0' --index-url https://download.pytorch.org/whl/cpu
+          pip install -q 'transformers==4.57.6' huggingface_hub
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Полный шаг 512 на размеченном train батче; не сохранять веса
+        id: probe
+        run: python -u tools/memory66_step.py
+      - name: Опубликовать численный отчёт
+        if: always()
+        run: |
+          set -euo pipefail
+          test -f artifacts/memory66_step.json
+          bash tools/push_file58.sh '66: память одного пробного шага' artifacts/memory66_step.json
