@@ -153,8 +153,9 @@ jobs:
           test -f artifacts/memory66_step.json
           bash tools/push_file58.sh '66: память одного пробного шага' artifacts/memory66_step.json
 
+  # Последняя итерация уже проведена; повторное обучение недопустимо.
   plan66:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -173,6 +174,7 @@ jobs:
           python-version: '3.11'
       - run: python tools/check66_plan.py
   iteration66:
+    if: ${{ false }}
     needs: plan66
     runs-on: ubuntu-latest
     timeout-minutes: 355
@@ -251,4 +253,41 @@ jobs:
           rc=$?
           test -f artifacts/summary66.json || exit 1
           bash tools/push_file58.sh '66: итог или ошибки прогона' artifacts/summary66.json || exit $?
+          exit "$rc"
+
+  recovery66:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /spanver/
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/q59_a_outer*_inner*.json
+            /artifacts/iter66_outer*_seed*.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Проверить 50 отчётов и построить свод без обучения
+        run: |
+          set -uo pipefail
+          mkdir -p artifacts
+          python -u tools/recover66_summary.py > /tmp/recovery66.log 2>&1
+          rc=$?
+          cat /tmp/recovery66.log
+          if [ ! -f artifacts/recovery66_summary.json ]; then
+            python - <<'PYCODE'
+          import json
+          from pathlib import Path
+          Path('artifacts/recovery66_summary.json').write_text(json.dumps({'status':'ошибка до создания свода','log':Path('/tmp/recovery66.log').read_text()[-12000:],'training_repeated':False,'test301':False},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PYCODE
+          fi
+          bash tools/push_file58.sh '66: восстановленный свод или ошибка без переобучения' artifacts/recovery66_summary.json || exit $?
           exit "$rc"
