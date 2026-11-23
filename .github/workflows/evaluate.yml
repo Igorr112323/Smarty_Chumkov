@@ -548,7 +548,7 @@ jobs:
           path: artifacts/regression67_trainval_tests.json
           if-no-files-found: warn
   fix67_package:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -589,7 +589,7 @@ jobs:
           if-no-files-found: error
   fix67_verify:
     needs: fix67_package
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' && needs.fix67_package.result == 'success' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 75
     env:
@@ -652,7 +652,7 @@ jobs:
           if-no-files-found: warn
   fix67_tests:
     needs: fix67_package
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' && needs.fix67_package.result == 'success' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 50
     env:
@@ -699,4 +699,47 @@ jobs:
         with:
           name: fix67-tests
           path: artifacts/regression67_fixed_tests.json
+          if-no-files-found: warn
+  recalculate67_b:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/
+            /tests/test_recalculate67_b.py
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/q59_b_outer*_inner*.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости
+        run: |
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+      - name: Проверки отбора только на синтетических данных
+        run: python -m pytest -q tests/test_recalculate67_b.py
+      - name: Свод 40 сохранённых B отчётов без test
+        run: python -u tools/recalculate67_b.py
+      - name: Опубликовать сохранённый результат
+        if: always()
+        run: |
+          test -s artifacts/recalculated67_b.json
+          bash tools/push_file58.sh '67: пересчёт B по внутренним порогам' artifacts/recalculated67_b.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recalculate67-b
+          path: artifacts/recalculated67_b.json
           if-no-files-found: warn
