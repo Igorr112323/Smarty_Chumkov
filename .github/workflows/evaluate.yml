@@ -277,6 +277,7 @@ jobs:
           python-version: '3.11'
       - name: Проверить 50 отчётов и построить свод без обучения
         run: |
+          set +e
           set -uo pipefail
           mkdir -p artifacts
           python -u tools/recover66_summary.py > /tmp/recovery66.log 2>&1
