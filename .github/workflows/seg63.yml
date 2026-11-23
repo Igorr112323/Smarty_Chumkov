@@ -7,12 +7,6 @@ env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 on:
-  push:
-    branches: [arena/4a5c459f-smarty-chumkov]
-    paths:
-      - '.github/workflows/seg63.yml'
-      - 'tools/train63.py'
-      - 'spanver/segment_model.py'
   workflow_dispatch:
 
 jobs:

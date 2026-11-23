@@ -12,12 +12,6 @@ name: Инференс 56 (потолок, скорость, test 301)
 #   test    — все 10 фолдов   (2.8 test 301 в двух видах), по одному за шаг
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - arena/4a5c459f-smarty-chumkov
-    paths:
-      - "artifacts/plan56_infer.json"
-
 permissions:
   contents: write
 

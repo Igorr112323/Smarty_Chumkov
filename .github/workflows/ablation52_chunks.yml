@@ -6,6 +6,8 @@ name: ablation52 (согласованные чанки)
 on:
   workflow_dispatch:
   push:
+    branches-ignore:
+      - arena/4a5c459f-smarty-chumkov
     paths:
       - "artifacts/ablation52_plan.json"
 

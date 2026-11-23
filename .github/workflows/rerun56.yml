@@ -6,12 +6,6 @@ name: Перепрогон 56 на docs
 # test 301 используется один раз, в самом конце, для замера.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - arena/4a5c459f-smarty-chumkov
-    paths:
-      - "artifacts/plan56.json"
-
 permissions:
   contents: write
 
