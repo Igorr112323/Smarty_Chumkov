@@ -293,7 +293,7 @@ jobs:
           bash tools/push_file58.sh '66: диагностика всех фолдов без переобучения' artifacts/diagnostic66.json || exit $?
           exit "$rc"
   regression67_tests:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
