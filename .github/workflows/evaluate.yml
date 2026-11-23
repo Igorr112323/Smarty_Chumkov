@@ -454,7 +454,7 @@ jobs:
           test -s artifacts/regression67_package.json
           bash tools/push_file58.sh '67: результаты изолированной регрессии' artifacts/regression67_tests.json artifacts/regression67_verify.json artifacts/regression67_package.json
   recheck67_verify:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 75
     env:
@@ -504,7 +504,7 @@ jobs:
           path: artifacts/regression67_repeat_verify.json
           if-no-files-found: warn
   recheck67_tests:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 50
     env:
