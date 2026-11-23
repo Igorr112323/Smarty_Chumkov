@@ -87,6 +87,7 @@ def main():
             rows.append(item)
         output.update(pairs=699,gold_sha256=GOLD_SHA,report_count=len(reports),report_sha256=filehash,
                       selection_rule='по четырём inner: максимум pooled inner token F1 при pooled inner token FPR <= 0,40; при равенстве меньший start',
+                      outer_source_rule='предопределён inner=outer%10+1 как в tools/summarize59.py; ошибочный флаг primary не используется; ID outer проверены',
                       folds=rows,folds_without_eligible=missing)
         if missing:
             output.update(status='отказ: нет допустимого inner порога',pooled=None,
@@ -96,10 +97,11 @@ def main():
             for outer in range(1,11):
                 r=reports[outer,outer%10+1]
                 expected={p['pair_id'] for p in folds[outer-1]}
-                if r.get('primary') is not True or set(r.get('outer_predictions',{}))!=expected:raise ValueError(f'отсутствуют outer predictions {outer}')
+                if set(r.get('outer_predictions',{}))!=expected:raise ValueError(f'отсутствуют outer predictions {outer}')
                 pred=predict_fold(r,by_id,choices[outer]);predictions.update(pred)
                 m=counts_for(folds[outer-1],pred,None)
-                per.append({'fold':outer,'pairs':len(expected),'threshold':choices[outer],'token':m})
+                per.append({'fold':outer,'pairs':len(expected),'threshold':choices[outer],'outer_source_inner':outer%10+1,
+                            'stored_primary_flag':r.get('primary'),'token':m})
             if set(predictions)!=set(by_id):raise ValueError('outer пары не покрывают весь train/val')
             all_positive={p['pair_id']:[{'start':a,'end':b} for a,b in token_positions(p['model_output'])] for p in pairs}
             token=counts_for(pairs,predictions,None);base=counts_for(pairs,all_positive,None)
