@@ -256,7 +256,7 @@ jobs:
           exit "$rc"
 
   recovery66:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -292,3 +292,129 @@ jobs:
           fi
           bash tools/push_file58.sh '66: диагностика всех фолдов без переобучения' artifacts/diagnostic66.json || exit $?
           exit "$rc"
+  regression67_tests:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/
+            /tests/
+            /scripts/
+            /models/
+            /artifacts/gold66_trainval.jsonl
+            /package.sha256
+      - uses: actions/checkout@v4
+        with:
+          ref: b7dc1cbcf93e982f662fd376c9021c6753bb491b
+          path: baseline52
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/
+            /tests/
+            /scripts/
+            /models/
+            /package.sha256
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости
+        run: |
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+      - name: Все тесты с изоляцией test и сравнением со схемой 52
+        run: python tools/regression67_tests.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression67-tests
+          path: artifacts/regression67_tests.json
+          if-no-files-found: warn
+  regression67_package:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/build_package.py
+            /package.sha256
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Пересобрать и проверить пакет
+        run: |
+          python tools/build_package.py --out /tmp/package67
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result=json.loads(Path('/tmp/package67/package.json').read_text())
+          result['recorded_sha256']=Path('package.sha256').read_text().split()[0]
+          result['matches_record']=result['sha256']==result['recorded_sha256']
+          result['under_600000_decimal']=result['bytes']<=600000
+          result['note']='Архив исходного кода; внешние веса и зависимости не включены.'
+          Path('package67_result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression67-package
+          path: package67_result.json
+          if-no-files-found: warn
+  regression67_verify:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/
+            /models/rubert-tiny2/
+            /weights/rubert-tiny2/
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/tiny_head.json
+            /artifacts/cli52.json
+            /package.sha256
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости и оригинальные базовые веса
+        run: |
+          pip install pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Получить только V5 fold 1 и проверить манифест
+        run: |
+          gh run download 44056101776 --repo "$GITHUB_REPOSITORY" --name weights47-v5-outer1 --dir /tmp/weights47
+          gh run download 44056101776 --repo "$GITHUB_REPOSITORY" --name report47-v5-outer1-inner2 --dir /tmp/report47
+          gh api "repos/$GITHUB_REPOSITORY/contents/weights/final/manifest.json?ref=arena/5afadcb0-smarty-chumkov" --jq .content | base64 -d > /tmp/final47_manifest.json
+      - name: Сравнить пути без вопроса и измерить скорость
+        run: python -u tools/regression67_verify.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression67-verify
+          path: artifacts/regression67_verify.json
+          if-no-files-found: warn
