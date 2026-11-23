@@ -1,0 +1,92 @@
+{
+  "status": "готово",
+  "test301": false,
+  "suite": "все тесты без исключений; реальные 1000-парные CSV не доступны в целях изоляции",
+  "baseline_commit": "b7dc1cbcf93e982f662fd376c9021c6753bb491b",
+  "current": {
+    "name": "current",
+    "cwd": "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov",
+    "status": "готово",
+    "exit_code": 1,
+    "passed": 255,
+    "failed": 4,
+    "errors": 2,
+    "skipped": 0,
+    "cases_total": 261,
+    "failed_cases": [
+      {
+        "id": "tests.test_calibration::test_ai_share_tracks_share_and_stays_in_range",
+        "status": "failure",
+        "message": "assert 0.050100000000000006 <= 0.05\n +  where 0.050100000000000006 = abs((0.1999 - 0.25))"
+      },
+      {
+        "id": "tests.test_lt::test_third_party_notice_exists",
+        "status": "failure",
+        "message": "FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/THIRD_PARTY.md'"
+      },
+      {
+        "id": "tests.test_package::test_package_is_reproducible_and_matches_record",
+        "status": "failure",
+        "message": "AssertionError: пакет в репозитории устарел: пересоберите python tools/build_package.py\nassert '1b0926579bc3...196d5271dea0c' == '840df1cc04be...f20b46b38fae7'\n  \n  - 840df1cc04be47e629b3817eae7b913454524846e399e1d588ef20b46b38fae7\n  + 1b0926579bc34bef1b68867481ad60242dffc5a8c0dda4e26f7196d5271dea0c"
+      },
+      {
+        "id": "tests.test_question59::test_question_transferred_for_all_pairs",
+        "status": "failure",
+        "message": "FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'"
+      },
+      {
+        "id": "tests.test_split64.DocumentSplit64Tests::test_complete_deterministic_no_overlap",
+        "status": "error",
+        "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'\""
+      },
+      {
+        "id": "tests.test_split64.DocumentSplit64Tests::test_overlap_is_a_hard_error",
+        "status": "error",
+        "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'\""
+      }
+    ],
+    "skipped_cases": [],
+    "log_tail": "......................F................................................. [ 27%]\n......................F................................F................ [ 55%]\n...F................................................................EE.. [ 82%]\n.............................................                            [100%]\n==================================== ERRORS ====================================\n_ ERROR at setup of DocumentSplit64Tests.test_complete_deterministic_no_overlap _\n\ncls = <class 'test_split64.DocumentSplit64Tests'>\n\n    @classmethod\n    def setUpClass(cls):\n>       cls.rows = gold_rows()\n                   ^^^^^^^^^^^\n\ntests/test_split64.py:9: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntools/split64.py:23: in gold_rows\n    rows = build_gold(ROOT / 'Dataset', {})\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nspanver/build.py:45: in build_gold\n    for number, row in enumerate(read_gold(path)):\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\npath = PosixPath('/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv')\n\n    def read_gold(path):\n>       with open(path, encoding=\"utf-8-sig\", newline=\"\") as handle:\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'\n\nspanver/io_csv.py:5: FileNotFoundError\n_____ ERROR at setup of DocumentSplit64Tests.test_overlap_is_a_hard_error ______\n\ncls = <class 'test_split64.DocumentSplit64Tests'>\n\n    @classmethod\n    def setUpClass(cls):\n>       cls.rows = gold_rows()\n                   ^^^^^^^^^^^\n\ntests/test_split64.py:9: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntools/split64.py:23: in gold_rows\n    rows = build_gold(ROOT / 'Dataset', {})\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nspanver/build.py:45: in build_gold\n    for number, row in enumerate(read_gold(path)):\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\npath = PosixPath('/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv')\n\n    def read_gold(path):\n>       with open(path, encoding=\"utf-8-sig\", newline=\"\") as handle:\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'\n\nspanver/io_csv.py:5: FileNotFoundError\n=================================== FAILURES ===================================\n________________ test_ai_share_tracks_share_and_stays_in_range _________________\n\n    def test_ai_share_tracks_share_and_stays_in_range():\n        measured = []\n        for row in read_mixtures():\n            value = verify(row[\"text\"], row[\"document\"])[\"ai_share\"]\n            assert 0.0 <= value <= 1.0\n>           assert abs(value - row[\"share\"]) <= 0.05\nE           assert 0.050100000000000006 <= 0.05\nE            +  where 0.050100000000000006 = abs((0.1999 - 0.25))\n\ntests/test_calibration.py:54: AssertionError\n________________________ test_third_party_notice_exists ________________________\n\n    def test_third_party_notice_exists():\n>       text = (ROOT / \"THIRD_PARTY.md\").read_text(encoding=\"utf-8\")\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/test_lt.py:42: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py:1058: in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = PosixPath('/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/THIRD_PARTY.md')\nmode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None\n\n    def open(self, mode='r', buffering=-1, encoding=None,\n             errors=None, newline=None):\n        \"\"\"\n        Open the file pointed by this path and return a file object, as\n        the built-in open() function does.\n        \"\"\"\n        if \"b\" not in mode:\n            encoding = io.text_encoding(encoding)\n>       return io.open(self, mode, buffering, encoding, errors, newline)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/THIRD_PARTY.md'\n\n/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py:1044: FileNotFoundError\n_______________ test_package_is_reproducible_and_matches_record ________________\n\ntmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_package_is_reproducible_a0')\n\n    def test_package_is_reproducible_and_matches_record(tmp_path):\n        target = build(tmp_path)\n        data = json.loads((tmp_path / \"package.json\").read_text(encoding=\"utf-8\"))\n        assert data[\"under_limit\"], data[\"bytes\"]\n        record = (ROOT / \"package.sha256\").read_text(encoding=\"utf-8\").split()[0]\n>       assert data[\"sha256\"] == record, \"пакет в репозитории устарел: пересоберите python tools/build_package.py\"\nE       AssertionError: пакет в репозитории устарел: пересоберите python tools/build_package.py\nE       assert '1b0926579bc3...196d5271dea0c' == '840df1cc04be...f20b46b38fae7'\nE         \nE         - 840df1cc04be47e629b3817eae7b913454524846e399e1d588ef20b46b38fae7\nE         + 1b0926579bc34bef1b68867481ad60242dffc5a8c0dda4e26f7196d5271dea0c\n\ntests/test_package.py:17: AssertionError\n----------------------------- Captured stdout call -----------------------------\npackage spanver-0.2.0.zip\nbytes 334329\nsize_kb 326.5\nunder_limit True\nsha256 1b0926579bc34bef1b68867481ad60242dffc5a8c0dda4e26f7196d5271dea0c\n___________________ test_question_transferred_for_all_pairs ____________________\n\n    def test_question_transferred_for_all_pairs():\n        \"\"\"699 из 699 пар train/val имеют непустой вопрос (стадия 1.2).\"\"\"\n        from tools.preflight_13 import our_rows\n    \n>       rows = our_rows()\n               ^^^^^^^^^^\n\ntests/test_question59.py:86: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntools/preflight_13.py:67: in our_rows\n    for number, row in enumerate(read_gold(path)):\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\npath = PosixPath('/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv')\n\n    def read_gold(path):\n>       with open(path, encoding=\"utf-8-sig\", newline=\"\") as handle:\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'\n\nspanver/io_csv.py:5: FileNotFoundError\n=========================== short test summary info ============================\nFAILED tests/test_calibration.py::test_ai_share_tracks_share_and_stays_in_range - assert 0.050100000000000006 <= 0.05\n +  where 0.050100000000000006 = abs((0.1999 - 0.25))\nFAILED tests/test_lt.py::test_third_party_notice_exists - FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/THIRD_PARTY.md'\nFAILED tests/test_package.py::test_package_is_reproducible_and_matches_record - AssertionError: пакет в репозитории устарел: пересоберите python tools/build_package.py\nassert '1b0926579bc3...196d5271dea0c' == '840df1cc04be...f20b46b38fae7'\n  \n  - 840df1cc04be47e629b3817eae7b913454524846e399e1d588ef20b46b38fae7\n  + 1b0926579bc34bef1b68867481ad60242dffc5a8c0dda4e26f7196d5271dea0c\nFAILED tests/test_question59.py::test_question_transferred_for_all_pairs - FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'\nERROR tests/test_split64.py::DocumentSplit64Tests::test_complete_deterministic_no_overlap - FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'\nERROR tests/test_split64.py::DocumentSplit64Tests::test_overlap_is_a_hard_error - FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/Dataset/1_rushallu_rag_gold/sberquad-rag.csv'\n4 failed, 255 passed, 2 errors in 10.38s\n"
+  },
+  "baseline52": {
+    "name": "baseline52",
+    "cwd": "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/baseline52",
+    "status": "готово",
+    "exit_code": 1,
+    "passed": 229,
+    "failed": 3,
+    "errors": 0,
+    "skipped": 0,
+    "cases_total": 232,
+    "failed_cases": [
+      {
+        "id": "tests.test_calibration::test_ai_share_tracks_share_and_stays_in_range",
+        "status": "failure",
+        "message": "assert 0.050100000000000006 <= 0.05\n +  where 0.050100000000000006 = abs((0.1999 - 0.25))"
+      },
+      {
+        "id": "tests.test_lt::test_third_party_notice_exists",
+        "status": "failure",
+        "message": "FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/baseline52/THIRD_PARTY.md'"
+      },
+      {
+        "id": "tests.test_package::test_package_is_reproducible_and_matches_record",
+        "status": "failure",
+        "message": "AssertionError: пакет в репозитории устарел: пересоберите python tools/build_package.py\nassert '95b7c8389062...51e613b8a904e' == '840df1cc04be...f20b46b38fae7'\n  \n  - 840df1cc04be47e629b3817eae7b913454524846e399e1d588ef20b46b38fae7\n  + 95b7c8389062d05b1e0299d8d628306dcf275fbdf344a1d02d251e613b8a904e"
+      }
+    ],
+    "skipped_cases": [],
+    "log_tail": "......................F................................................. [ 31%]\n..........F...............................F............................. [ 62%]\n........................................................................ [ 93%]\n................                                                         [100%]\n=================================== FAILURES ===================================\n________________ test_ai_share_tracks_share_and_stays_in_range _________________\n\n    def test_ai_share_tracks_share_and_stays_in_range():\n        measured = []\n        for row in read_mixtures():\n            value = verify(row[\"text\"], row[\"document\"])[\"ai_share\"]\n            assert 0.0 <= value <= 1.0\n>           assert abs(value - row[\"share\"]) <= 0.05\nE           assert 0.050100000000000006 <= 0.05\nE            +  where 0.050100000000000006 = abs((0.1999 - 0.25))\n\ntests/test_calibration.py:54: AssertionError\n________________________ test_third_party_notice_exists ________________________\n\n    def test_third_party_notice_exists():\n>       text = (ROOT / \"THIRD_PARTY.md\").read_text(encoding=\"utf-8\")\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/test_lt.py:42: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py:1058: in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = PosixPath('/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/baseline52/THIRD_PARTY.md')\nmode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None\n\n    def open(self, mode='r', buffering=-1, encoding=None,\n             errors=None, newline=None):\n        \"\"\"\n        Open the file pointed by this path and return a file object, as\n        the built-in open() function does.\n        \"\"\"\n        if \"b\" not in mode:\n            encoding = io.text_encoding(encoding)\n>       return io.open(self, mode, buffering, encoding, errors, newline)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/baseline52/THIRD_PARTY.md'\n\n/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py:1044: FileNotFoundError\n_______________ test_package_is_reproducible_and_matches_record ________________\n\ntmp_path = PosixPath('/tmp/pytest-of-runner/pytest-1/test_package_is_reproducible_a0')\n\n    def test_package_is_reproducible_and_matches_record(tmp_path):\n        target = build(tmp_path)\n        data = json.loads((tmp_path / \"package.json\").read_text(encoding=\"utf-8\"))\n        assert data[\"under_limit\"], data[\"bytes\"]\n        record = (ROOT / \"package.sha256\").read_text(encoding=\"utf-8\").split()[0]\n>       assert data[\"sha256\"] == record, \"пакет в репозитории устарел: пересоберите python tools/build_package.py\"\nE       AssertionError: пакет в репозитории устарел: пересоберите python tools/build_package.py\nE       assert '95b7c8389062...51e613b8a904e' == '840df1cc04be...f20b46b38fae7'\nE         \nE         - 840df1cc04be47e629b3817eae7b913454524846e399e1d588ef20b46b38fae7\nE         + 95b7c8389062d05b1e0299d8d628306dcf275fbdf344a1d02d251e613b8a904e\n\ntests/test_package.py:17: AssertionError\n----------------------------- Captured stdout call -----------------------------\npackage spanver-0.2.0.zip\nbytes 297385\nsize_kb 290.4\nunder_limit True\nsha256 95b7c8389062d05b1e0299d8d628306dcf275fbdf344a1d02d251e613b8a904e\n=========================== short test summary info ============================\nFAILED tests/test_calibration.py::test_ai_share_tracks_share_and_stays_in_range - assert 0.050100000000000006 <= 0.05\n +  where 0.050100000000000006 = abs((0.1999 - 0.25))\nFAILED tests/test_lt.py::test_third_party_notice_exists - FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/baseline52/THIRD_PARTY.md'\nFAILED tests/test_package.py::test_package_is_reproducible_and_matches_record - AssertionError: пакет в репозитории устарел: пересоберите python tools/build_package.py\nassert '95b7c8389062...51e613b8a904e' == '840df1cc04be...f20b46b38fae7'\n  \n  - 840df1cc04be47e629b3817eae7b913454524846e399e1d588ef20b46b38fae7\n  + 95b7c8389062d05b1e0299d8d628306dcf275fbdf344a1d02d251e613b8a904e\n3 failed, 229 passed in 11.05s\n"
+  },
+  "new_failed_test_ids": [
+    "tests.test_question59::test_question_transferred_for_all_pairs",
+    "tests.test_split64.DocumentSplit64Tests::test_complete_deterministic_no_overlap",
+    "tests.test_split64.DocumentSplit64Tests::test_overlap_is_a_hard_error"
+  ],
+  "same_failed_test_ids": [
+    "tests.test_calibration::test_ai_share_tracks_share_and_stays_in_range",
+    "tests.test_lt::test_third_party_notice_exists",
+    "tests.test_package::test_package_is_reproducible_and_matches_record"
+  ],
+  "criterion_1_1_pass": false
+}
