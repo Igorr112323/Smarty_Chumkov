@@ -293,7 +293,7 @@ jobs:
           bash tools/push_file58.sh '66: диагностика всех фолдов без переобучения' artifacts/diagnostic66.json || exit $?
           exit "$rc"
   regression67_tests:
-    if: ${{ false }}
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
@@ -312,6 +312,7 @@ jobs:
             /models/
             /artifacts/gold66_trainval.jsonl
             /package.sha256
+            /THIRD_PARTY.md
       - uses: actions/checkout@v4
         with:
           ref: b7dc1cbcf93e982f662fd376c9021c6753bb491b
@@ -324,6 +325,7 @@ jobs:
             /scripts/
             /models/
             /package.sha256
+            /THIRD_PARTY.md
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -334,6 +336,14 @@ jobs:
           pip install transformers huggingface_hub
       - name: Все тесты с изоляцией test и сравнением со схемой 52
         run: python tools/regression67_tests.py
+      - name: Сохранить результаты без повторного запуска
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: arena/4a5c459f-smarty-chumkov
+        run: |
+          test -s artifacts/regression67_tests.json
+          bash tools/push_file58.sh '67: исправить изоляцию checkout тестов' artifacts/regression67_tests.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -419,7 +429,7 @@ jobs:
           path: artifacts/regression67_verify.json
           if-no-files-found: warn
   regression67_retrieve:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:

@@ -34,7 +34,7 @@ def run_suite(folder,name):
         result.update(status='готово',exit_code=proc.returncode,
                       passed=sum(c['status']=='passed' for c in cases),failed=sum(c['status']=='failure' for c in cases),
                       errors=sum(c['status']=='error' for c in cases),skipped=sum(c['status']=='skipped' for c in cases),
-                      cases_total=len(cases),failed_cases=[c for c in cases if c['status'] in ('failure','error')],
+                      cases_total=len(cases),case_ids=[c['id'] for c in cases],failed_cases=[c for c in cases if c['status'] in ('failure','error')],
                       skipped_cases=[c for c in cases if c['status']=='skipped'],
                       log_tail=log.read_text(errors='replace')[-16000:])
     except Exception:result['error']=traceback.format_exc()
@@ -45,11 +45,14 @@ def main():
     if os.environ.get('GITHUB_ACTIONS')!='true':raise SystemExit('тесты только Actions')
     current=run_suite(ROOT,'current');baseline=run_suite(ROOT/'baseline52','baseline52')
     def ids(r):return {x['id'] for x in r.get('failed_cases',[])}
-    new=sorted(ids(current)-ids(baseline));same=sorted(ids(current)&ids(baseline))
+    shared=set(baseline.get('case_ids',[]))
+    new=sorted((ids(current)-ids(baseline)) & shared)
+    not_comparable=sorted(ids(current)-shared)
+    same=sorted(ids(current)&ids(baseline))
     result={'status':'готово' if current.get('status')==baseline.get('status')=='готово' else 'ошибка тестов',
             'test301':False,'suite':'все тесты без исключений; реальные 1000-парные CSV не доступны в целях изоляции',
             'baseline_commit':'b7dc1cbcf93e982f662fd376c9021c6753bb491b',
-            'current':current,'baseline52':baseline,'new_failed_test_ids':new,'same_failed_test_ids':same,
+            'current':current,'baseline52':baseline,'new_failed_test_ids':new,'failed_tests_not_in_baseline':not_comparable,'same_failed_test_ids':same,
             'criterion_1_1_pass':current.get('passed',0)>=232 and current.get('failed',1)==0 and current.get('errors',1)==0 and not new}
     path=ROOT/'artifacts/regression67_tests.json';path.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
     print(json.dumps({k:v for k,v in result.items() if k not in ('current','baseline52')},ensure_ascii=False,indent=2))
