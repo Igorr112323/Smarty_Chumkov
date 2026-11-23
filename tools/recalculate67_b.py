@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT))
 from tools.torchless57 import stub_if_absent
 stub_if_absent()
-from spanver.evaluate import covered_tokens, match_spans, read_jsonl, token_positions
+from spanver.evaluate import covered_tokens, match_spans, metrics as common_metrics, read_jsonl, token_positions
 from tools.metrics59 import spans_of, prf, score_pairs
 from tools.preflight_13 import id_digest
 from tools.rule57 import merge, metrics
@@ -112,6 +112,13 @@ def main():
             exact=2*exact_hits/(pred_n+gold_n) if pred_n+gold_n else 0
             fprs=[f['token']['fpr_token'] for f in per];f1s=[f['token']['f1'] for f in per]; worst=max(per,key=lambda f:f['token']['fpr_token'])
             ci=paired_ci(pairs,predictions)
+            # На всех 699 парах тем же оценщиком: baseline — один span весь ответ.
+            whole={p['pair_id']:([{'start':0,'end':len(p['model_output'])-1}] if p['model_output'] else []) for p in pairs}
+            common_b=common_metrics(pairs,lambda p:predictions[p['pair_id']],iou_threshold=.5)
+            common_base=common_metrics(pairs,lambda p:whole[p['pair_id']],iou_threshold=.5)
+            common={'definition':'span IoU>=0.5; pair TP только при совпадающем span; один и тот же evaluate.metrics; baseline один span весь ответ',
+                    'model':common_b,'whole_answer_baseline':common_base,
+                    'delta':{level:round(common_b[level]['f1']-common_base[level]['f1'],4) for level in ('token_level','pair_level','span_level')}}
             speed=None
             checks={'inner_fpr_all':True,'token_f1_ge_0_5165':token['f1']>=.5165,
                     'pooled_fpr_le_0_4':token['fpr_token']<=.4,'paired_ci_low_gt_0':ci['low']>0,
@@ -123,6 +130,7 @@ def main():
                                   'predicted_spans':pred_n,'gold_spans':gold_n,'paired_delta_ci95':ci,
                                   'folds_over_fpr':sum(x>.4 for x in fprs),'max_fold':{'fold':worst['fold'],'fpr_token':worst['token']['fpr_token']},
                                   'fold_std':{'token_f1':statistics.pstdev(f1s),'fpr_token':statistics.pstdev(fprs)}},
+                          three_levels_same_code=common,
                           speed_with_question_ms_per_1000=speed,criteria=checks,
                           accepted=False,reason='не все численные критерии выполнены' if any(v is False for v in checks.values()) else 'скорость B с вопросом не измерена')
     except Exception:
