@@ -1,0 +1,286 @@
+{
+  "status": "готово с ограничением отсутствия побитового эталона",
+  "test301": false,
+  "training": false,
+  "criterion_1_2_pass": false,
+  "criterion_1_3_speed_pass": true,
+  "criterion_1_3_package_pass": true,
+  "pairs": 140,
+  "data_sha256": "8e1d3012afce096292b299b3849c80bdbdd739eb3f869af6744b71b6f03928ff",
+  "saved_report": "artifacts/cli52.json: только агрегат; поэлементных старых ответов нет",
+  "model_reference": "восстановленный V5 outer1 seed0 из run 44056101776; не заявлен как checkpoint A",
+  "reference_checkpoint_sha256": "04eb7932a33a7ed1a2f4e166f536b002ba3ad4a16e2a410a21e292e1558d747a",
+  "source_run": 44056101776,
+  "current_backend": "TinyBundle через текущую CLI-конфигурацию; QUESTION_INPUT=false",
+  "saved_aggregate_comparison": {
+    "token_f1": {
+      "saved": 0.4799787854680456,
+      "restored": 0.4799787854680456,
+      "exact": true
+    },
+    "token_precision": {
+      "saved": 0.39092872570194387,
+      "restored": 0.39092872570194387,
+      "exact": true
+    },
+    "token_recall": {
+      "saved": 0.6215659340659341,
+      "restored": 0.6215659340659341,
+      "exact": true
+    },
+    "fpr_token": {
+      "saved": 0.3936348408710218,
+      "restored": 0.3936348408710218,
+      "exact": true
+    },
+    "span_exact_f1": {
+      "saved": 0.14432989690721648,
+      "restored": 0.14432989690721648,
+      "exact": true
+    },
+    "span_iou_f1": {
+      "saved": 0.2268041237113402,
+      "restored": 0.2268041237113402,
+      "exact": true
+    },
+    "predicted_spans": {
+      "saved": 41,
+      "restored": 41,
+      "exact": true
+    },
+    "gold_spans": {
+      "saved": 56,
+      "restored": 56,
+      "exact": true
+    }
+  },
+  "current_vs_restored_pairs_exact": 90,
+  "current_vs_restored_pairs_total": 140,
+  "current_vs_restored_fraction": 0.6428571428571429,
+  "example_differences": [
+    {
+      "pair_id": "rusci000164",
+      "current": [
+        {
+          "start": 150,
+          "end": 438,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ],
+      "restored_v5": [
+        {
+          "start": 0,
+          "end": 438,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "sber000114",
+      "current": [
+        {
+          "start": 0,
+          "end": 304,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ],
+      "restored_v5": [
+        {
+          "start": 135,
+          "end": 304,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "rusci000014",
+      "current": [],
+      "restored_v5": [
+        {
+          "start": 0,
+          "end": 795,
+          "type": "scope",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "rusci000213",
+      "current": [
+        {
+          "start": 0,
+          "end": 247,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ],
+      "restored_v5": [
+        {
+          "start": 0,
+          "end": 562,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "rusci000172",
+      "current": [
+        {
+          "start": 306,
+          "end": 556,
+          "type": "number",
+          "confidence": 0.0
+        }
+      ],
+      "restored_v5": [
+        {
+          "start": 0,
+          "end": 557,
+          "type": "number",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "rusci000003",
+      "current": [],
+      "restored_v5": [
+        {
+          "start": 0,
+          "end": 642,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "rusci000169",
+      "current": [
+        {
+          "start": 0,
+          "end": 127,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        },
+        {
+          "start": 156,
+          "end": 323,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ],
+      "restored_v5": [
+        {
+          "start": 0,
+          "end": 636,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "rusci000219",
+      "current": [],
+      "restored_v5": [
+        {
+          "start": 297,
+          "end": 607,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "rusci000264",
+      "current": [],
+      "restored_v5": [
+        {
+          "start": 25,
+          "end": 143,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "pair_id": "sber000569",
+      "current": [
+        {
+          "start": 216,
+          "end": 257,
+          "type": "unsupported_addition",
+          "confidence": 0.0
+        }
+      ],
+      "restored_v5": []
+    }
+  ],
+  "criterion_1_2_reason": "старые поэлементные ответы в артефактах отсутствуют; сравнение с восстановленным V5 показано отдельно",
+  "current_speed_ms_per_1000_median": 23.68683720624725,
+  "restored_v5_speed_ms_per_1000_median": 24.11597301377676,
+  "speed_pairs": 140,
+  "speed_definition": "медиана по 140 внешним train/val парам; время полного TinyBundle.verify, знаки документа",
+  "package": {
+    "package": "spanver-0.2.0.zip",
+    "bytes": 334329,
+    "size_kb": 326.5,
+    "limit_bytes": 614400,
+    "under_limit": true,
+    "sha256": "1b0926579bc34bef1b68867481ad60242dffc5a8c0dda4e26f7196d5271dea0c",
+    "files": [
+      "spanver/__init__.py",
+      "spanver/__main__.py",
+      "spanver/answer_json.py",
+      "spanver/api.py",
+      "spanver/build.py",
+      "spanver/candidates.py",
+      "spanver/cli.py",
+      "spanver/compliance.py",
+      "spanver/decode.py",
+      "spanver/decode44.py",
+      "spanver/detector.py",
+      "spanver/eval_report.py",
+      "spanver/evaluate.py",
+      "spanver/io_csv.py",
+      "spanver/io_parquet.py",
+      "spanver/lexfeat.py",
+      "spanver/local_model.py",
+      "spanver/locate.py",
+      "spanver/lt/__init__.py",
+      "spanver/lt/base.py",
+      "spanver/lt/compat.py",
+      "spanver/lt/evaluator.py",
+      "spanver/lt/trainer.py",
+      "spanver/lt/transformer.py",
+      "spanver/model_features.py",
+      "spanver/model_score.py",
+      "spanver/module.py",
+      "spanver/pairs.py",
+      "spanver/qc.py",
+      "spanver/ragtruth.py",
+      "spanver/report.py",
+      "spanver/segment_model.py",
+      "spanver/sentence_snap.py",
+      "spanver/snap.py",
+      "spanver/span_detector.py",
+      "spanver/split.py",
+      "spanver/splits.py",
+      "spanver/stage_train.py",
+      "spanver/tiny_backend.py",
+      "spanver/types.py",
+      "spanver/splits.json",
+      "spanver/splits1000.json",
+      "README.txt"
+    ],
+    "python_requires": ">=3.10",
+    "version": "0.2.0"
+  },
+  "package_recorded_sha256": "840df1cc04be47e629b3817eae7b913454524846e399e1d588ef20b46b38fae7",
+  "package_matches_record": false,
+  "note": "Сравнение двух реально разных состояний не доказывает 100% идентичность с отсутствующим сохранённым поэлементным эталоном."
+}
