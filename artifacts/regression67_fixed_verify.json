@@ -1,0 +1,207 @@
+{
+  "status": "готово",
+  "test301": false,
+  "training": false,
+  "criterion_1_2_pass": true,
+  "criterion_1_3_speed_pass": true,
+  "criterion_1_3_package_pass": true,
+  "pairs": 140,
+  "data_sha256": "8e1d3012afce096292b299b3849c80bdbdd739eb3f869af6744b71b6f03928ff",
+  "identical_decoder": {
+    "gate": 0.45,
+    "start": 0.49,
+    "extend": 0.245,
+    "max_spans": 3,
+    "top_chunks": 4,
+    "clause_expand": true
+  },
+  "current_state_sha256": "0d5ea899507011444ddbb75e125c1285fa560115f6e1b8f377ecbfd389b93059",
+  "restored_state_sha256": "0d5ea899507011444ddbb75e125c1285fa560115f6e1b8f377ecbfd389b93059",
+  "same_model_state": true,
+  "agreed_aggregate_reference": "замена исторического поэлементного эталона согласована пользователем; фактически сопоставимый агрегат V5 находится в artifacts/cli52.json, module52_report описывает лексический модуль",
+  "saved_report": "artifacts/cli52.json: только агрегат; поэлементных старых ответов нет",
+  "model_reference": "восстановленный V5 outer1 seed0 из run 44056101776; не заявлен как checkpoint A",
+  "reference_checkpoint_sha256": "04eb7932a33a7ed1a2f4e166f536b002ba3ad4a16e2a410a21e292e1558d747a",
+  "source_run": 44056101776,
+  "current_backend": "TinyBundle через текущую CLI-конфигурацию; QUESTION_INPUT=false",
+  "saved_aggregate_comparison": {
+    "token_f1": {
+      "saved": 0.4799787854680456,
+      "restored": 0.4799787854680456,
+      "current": 0.4799787854680456,
+      "exact": true
+    },
+    "token_precision": {
+      "saved": 0.39092872570194387,
+      "restored": 0.39092872570194387,
+      "current": 0.39092872570194387,
+      "exact": true
+    },
+    "token_recall": {
+      "saved": 0.6215659340659341,
+      "restored": 0.6215659340659341,
+      "current": 0.6215659340659341,
+      "exact": true
+    },
+    "fpr_token": {
+      "saved": 0.3936348408710218,
+      "restored": 0.3936348408710218,
+      "current": 0.3936348408710218,
+      "exact": true
+    },
+    "fpr_pair": {
+      "saved": 0.20833333333333334,
+      "restored": 0.20833333333333334,
+      "current": 0.20833333333333334,
+      "exact": true
+    },
+    "span_exact_f1": {
+      "saved": 0.14432989690721648,
+      "restored": 0.14432989690721648,
+      "current": 0.14432989690721648,
+      "exact": true
+    },
+    "span_overlap_f1": {
+      "saved": 0.4329896907216495,
+      "restored": 0.4329896907216495,
+      "current": 0.4329896907216495,
+      "exact": true
+    },
+    "span_iou_f1": {
+      "saved": 0.2268041237113402,
+      "restored": 0.2268041237113402,
+      "current": 0.2268041237113402,
+      "exact": true
+    },
+    "type_accuracy": {
+      "saved": 0.9090909090909091,
+      "restored": 0.9090909090909091,
+      "current": 0.9090909090909091,
+      "exact": true
+    },
+    "predicted_spans": {
+      "saved": 41,
+      "restored": 41,
+      "current": 41,
+      "exact": true
+    },
+    "gold_spans": {
+      "saved": 56,
+      "restored": 56,
+      "current": 56,
+      "exact": true
+    },
+    "bootstrap": {
+      "saved": {
+        "resamples": 10000,
+        "seed": 48,
+        "components": 133,
+        "token_f1_ci95": [
+          0.31641168289290683,
+          0.6127964699393271
+        ],
+        "token_f1_width": 0.2963847870464203,
+        "fpr_token_ci95": [
+          0.2805013927576602,
+          0.49949341438703143
+        ]
+      },
+      "restored": {
+        "resamples": 10000,
+        "seed": 48,
+        "components": 133,
+        "token_f1_ci95": [
+          0.31641168289290683,
+          0.6127964699393271
+        ],
+        "token_f1_width": 0.2963847870464203,
+        "fpr_token_ci95": [
+          0.2805013927576602,
+          0.49949341438703143
+        ]
+      },
+      "current": {
+        "resamples": 10000,
+        "seed": 48,
+        "components": 133,
+        "token_f1_ci95": [
+          0.31641168289290683,
+          0.6127964699393271
+        ],
+        "token_f1_width": 0.2963847870464203,
+        "fpr_token_ci95": [
+          0.2805013927576602,
+          0.49949341438703143
+        ]
+      },
+      "exact": true
+    }
+  },
+  "current_vs_restored_pairs_exact": 140,
+  "current_vs_restored_pairs_total": 140,
+  "current_vs_restored_fraction": 1.0,
+  "example_differences": [],
+  "criterion_1_2_reason": "совпадение на всех 140 парах",
+  "current_speed_ms_per_1000_median": 20.955883071817595,
+  "restored_v5_speed_ms_per_1000_median": 21.297917449653983,
+  "speed_pairs": 140,
+  "speed_definition": "медиана по 140 внешним train/val парам; время полного TinyBundle.verify, знаки документа",
+  "package": {
+    "package": "spanver-0.2.0.zip",
+    "bytes": 338409,
+    "size_kb": 330.5,
+    "limit_bytes": 614400,
+    "under_limit": true,
+    "sha256": "a741988762b7b447f6cd50b98924fa3b81b91f3ee66a4cd54589b69c6ac1c3ad",
+    "files": [
+      "spanver/__init__.py",
+      "spanver/__main__.py",
+      "spanver/answer_json.py",
+      "spanver/api.py",
+      "spanver/build.py",
+      "spanver/candidates.py",
+      "spanver/cli.py",
+      "spanver/compliance.py",
+      "spanver/decode.py",
+      "spanver/decode44.py",
+      "spanver/detector.py",
+      "spanver/eval_report.py",
+      "spanver/evaluate.py",
+      "spanver/io_csv.py",
+      "spanver/io_parquet.py",
+      "spanver/lexfeat.py",
+      "spanver/local_model.py",
+      "spanver/locate.py",
+      "spanver/lt/__init__.py",
+      "spanver/lt/base.py",
+      "spanver/lt/compat.py",
+      "spanver/lt/evaluator.py",
+      "spanver/lt/trainer.py",
+      "spanver/lt/transformer.py",
+      "spanver/model_features.py",
+      "spanver/model_score.py",
+      "spanver/module.py",
+      "spanver/pairs.py",
+      "spanver/qc.py",
+      "spanver/ragtruth.py",
+      "spanver/report.py",
+      "spanver/segment_model.py",
+      "spanver/sentence_snap.py",
+      "spanver/snap.py",
+      "spanver/span_detector.py",
+      "spanver/split.py",
+      "spanver/splits.py",
+      "spanver/stage_train.py",
+      "spanver/tiny_backend.py",
+      "spanver/types.py",
+      "spanver/splits.json",
+      "spanver/splits1000.json",
+      "README.txt"
+    ],
+    "python_requires": ">=3.10",
+    "version": "0.2.0"
+  },
+  "package_recorded_sha256": "a741988762b7b447f6cd50b98924fa3b81b91f3ee66a4cd54589b69c6ac1c3ad",
+  "package_matches_record": true,
+  "note": "TinyBundle автоматически загрузил проверенный V5. Сопоставимый агрегатный эталон cli52.json принят пользователем."
+}
