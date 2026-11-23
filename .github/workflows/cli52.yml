@@ -4,17 +4,11 @@ name: cli52
 # поэтому workflow сам забирает нужные чанки и проверяет расхождение путей.
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "spanver/tiny_backend.py"
-      - "spanver/cli.py"
-      - "spanver/api.py"
-      - "tools/cli52.py"
-      - "artifacts/tiny_head.json"
-      - ".github/workflows/cli52.yml"
 
 jobs:
   acceptance:
+    # Общий Dataset содержит test 301; на активной ветке запрещён даже dispatch.
+    if: ${{ github.ref != 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
