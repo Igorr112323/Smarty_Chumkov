@@ -453,3 +453,97 @@ jobs:
           test -s artifacts/regression67_verify.json
           test -s artifacts/regression67_package.json
           bash tools/push_file58.sh '67: результаты изолированной регрессии' artifacts/regression67_tests.json artifacts/regression67_verify.json artifacts/regression67_package.json
+  recheck67_verify:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/
+            /models/rubert-tiny2/
+            /weights/rubert-tiny2/
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/tiny_head.json
+            /artifacts/cli52.json
+            /package.sha256
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости и базовые веса
+        run: |
+          pip install pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Проверенные веса V5
+        run: |
+          gh run download 44056101776 --repo "$GITHUB_REPOSITORY" --name weights47-v5-outer1 --dir /tmp/weights47
+          gh run download 44056101776 --repo "$GITHUB_REPOSITORY" --name report47-v5-outer1-inner2 --dir /tmp/report47
+          gh api "repos/$GITHUB_REPOSITORY/contents/weights/final/manifest.json?ref=arena/5afadcb0-smarty-chumkov" --jq .content | base64 -d > /tmp/final47_manifest.json
+      - name: Явно одинаковые параметры и сравнение состояний
+        run: python -u tools/regression67_repeat.py
+      - name: Опубликовать результат
+        if: always()
+        run: |
+          test -s artifacts/regression67_repeat_verify.json
+          bash tools/push_file58.sh '67: повтор verify с одним декодером' artifacts/regression67_repeat_verify.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression67-repeat-verify
+          path: artifacts/regression67_repeat_verify.json
+          if-no-files-found: warn
+  recheck67_tests:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/
+            /tests/
+            /scripts/
+            /models/
+            /artifacts/gold66_trainval.jsonl
+            /package.sha256
+            /THIRD_PARTY.md
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости
+        run: |
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+      - name: Весь pytest с 699 train/val вместо общего gold
+        run: python tools/regression67_trainval_tests.py
+      - name: Опубликовать результат
+        if: always()
+        run: |
+          test -s artifacts/regression67_trainval_tests.json
+          bash tools/push_file58.sh '67: тесты в изоляции 699 train-val' artifacts/regression67_trainval_tests.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression67-trainval-tests
+          path: artifacts/regression67_trainval_tests.json
+          if-no-files-found: warn
