@@ -547,3 +547,156 @@ jobs:
           name: regression67-trainval-tests
           path: artifacts/regression67_trainval_tests.json
           if-no-files-found: warn
+  fix67_package:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/build_package.py
+            /tools/push_file58.sh
+            /package.sha256
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Пересобрать пакет после исправления V5
+        run: |
+          set -euo pipefail
+          python tools/build_package.py --out /tmp/fix67package
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('/tmp/fix67package/package.json').read_text())
+          assert p['bytes']<=600000
+          Path('package.sha256').write_text(p['sha256']+'  '+p['package']+'\n',encoding='utf8')
+          Path('artifacts').mkdir(exist_ok=True)
+          p['note']='Пакет кода; внешние веса и зависимости не включены.'
+          Path('artifacts/regression67_fixed_package.json').write_text(json.dumps(p,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+          PY
+          cp package.sha256 /tmp/fix67package/package.sha256
+          bash tools/push_file58.sh '67: новый SHA детерминированного пакета' package.sha256 artifacts/regression67_fixed_package.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fix67-package-sha
+          path: /tmp/fix67package/package.sha256
+          if-no-files-found: error
+  fix67_verify:
+    needs: fix67_package
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' && needs.fix67_package.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/
+            /models/rubert-tiny2/
+            /weights/rubert-tiny2/
+            /artifacts/gold66_trainval.jsonl
+            /artifacts/tiny_head.json
+            /artifacts/cli52.json
+            /package.sha256
+      - uses: actions/download-artifact@v4
+        with:
+          name: fix67-package-sha
+          path: /tmp/fix67sha
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости и базовые веса
+        run: |
+          cp /tmp/fix67sha/package.sha256 package.sha256
+          pip install pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+          python tools/assemble_weights.py weights/rubert-tiny2 models/rubert-tiny2/pytorch_model.bin
+      - name: Подготовить проверенный V5 seed 0
+        run: |
+          set -euo pipefail
+          gh run download 44056101776 --repo "$GITHUB_REPOSITORY" --name weights47-v5-outer1 --dir /tmp/weights47
+          gh run download 44056101776 --repo "$GITHUB_REPOSITORY" --name report47-v5-outer1-inner2 --dir /tmp/report47
+          gh api "repos/$GITHUB_REPOSITORY/contents/weights/final/manifest.json?ref=arena/5afadcb0-smarty-chumkov" --jq .content | base64 -d > /tmp/final47_manifest.json
+          seed_dir=$(find /tmp/weights47 -type d -name seed_0 -print)
+          test "$(printf '%s\n' "$seed_dir" | wc -l)" = 1
+          test -f "$seed_dir/manifest.json"
+          mkdir -p weights/final
+          cp -r "$seed_dir" weights/final/seed_0
+          cp /tmp/final47_manifest.json weights/final/manifest.json
+      - name: Реальный клиентский путь и V5 140 пар
+        run: python -u tools/regression67_repeat.py
+      - name: Опубликовать результаты даже при провале
+        if: always()
+        run: |
+          test -s artifacts/regression67_fixed_verify.json
+          bash tools/push_file58.sh '67: проверить исправленный V5' artifacts/regression67_fixed_verify.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fix67-verify
+          path: artifacts/regression67_fixed_verify.json
+          if-no-files-found: warn
+  fix67_tests:
+    needs: fix67_package
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' && needs.fix67_package.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /spanver/
+            /tools/
+            /tests/
+            /scripts/
+            /models/
+            /artifacts/gold66_trainval.jsonl
+            /package.sha256
+            /THIRD_PARTY.md
+      - uses: actions/download-artifact@v4
+        with:
+          name: fix67-package-sha
+          path: /tmp/fix67sha
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Зависимости
+        run: |
+          cp /tmp/fix67sha/package.sha256 package.sha256
+          pip install pytest pyarrow
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers huggingface_hub
+      - name: Все тесты без test 301, split64 пропущен по согласованной политике
+        run: python tools/regression67_trainval_tests.py
+      - name: Опубликовать результаты даже при провале
+        if: always()
+        run: |
+          test -s artifacts/regression67_fixed_tests.json
+          bash tools/push_file58.sh '67: тесты и диагностика калибровки' artifacts/regression67_fixed_tests.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fix67-tests
+          path: artifacts/regression67_fixed_tests.json
+          if-no-files-found: warn

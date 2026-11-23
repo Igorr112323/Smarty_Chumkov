@@ -19,7 +19,7 @@ def compare_spans(left,right):
 
 def main():
     if os.environ.get('GITHUB_ACTIONS')!='true':raise SystemExit('проверка инференса только в Actions')
-    out=ROOT/'artifacts/regression67_repeat_verify.json';out.parent.mkdir(exist_ok=True)
+    out=ROOT/'artifacts/regression67_fixed_verify.json';out.parent.mkdir(exist_ok=True)
     report={'status':'ошибка','test301':False,'training':False,'criterion_1_2_pass':False,'criterion_1_3_speed_pass':None,'criterion_1_3_package_pass':None}
     try:
         import torch
@@ -74,9 +74,9 @@ def main():
             if not compare_spans(c,r):
                 if len(differences)<10:differences.append({'pair_id':p['pair_id'],'current':[{k:x[k] for k in ('start','end','type','confidence')} for x in c], 'restored_v5':[{k:x[k] for k in ('start','end','type','confidence')} for x in r]})
         matches=sum(compare_spans(newpred[p['pair_id']],oldpred[p['pair_id']]) for p in held)
-        saved=historical['delivered']; reconstructed=span_metrics(held,oldpred)
-        names=('token_f1','token_precision','token_recall','fpr_token','span_exact_f1','span_iou_f1','predicted_spans','gold_spans')
-        comparisons={k:{'saved':saved.get(k),'restored':reconstructed.get(k),'exact':saved.get(k)==reconstructed.get(k)} for k in names}
+        saved=historical['delivered']; reconstructed=span_metrics(held,oldpred); actual_metrics=span_metrics(held,newpred)
+        names=('token_f1','token_precision','token_recall','fpr_token','fpr_pair','span_exact_f1','span_overlap_f1','span_iou_f1','type_accuracy','predicted_spans','gold_spans','bootstrap')
+        comparisons={k:{'saved':saved.get(k),'restored':reconstructed.get(k),'current':actual_metrics.get(k),'exact':saved.get(k)==reconstructed.get(k)==actual_metrics.get(k)} for k in names}
         speed=statistics.median(times_current);speed_ref=statistics.median(times_ref)
         with tempfile.TemporaryDirectory(prefix='package67-') as directory:
             build(directory);package=json.loads((Path(directory)/'package.json').read_text())
@@ -92,7 +92,7 @@ def main():
                       saved_aggregate_comparison=comparisons,
                       current_vs_restored_pairs_exact=matches,current_vs_restored_pairs_total=len(held),
                       current_vs_restored_fraction=matches/len(held),example_differences=differences,
-                      criterion_1_2_pass=matches==len(held) and all(v['exact'] for v in comparisons.values()),
+                      criterion_1_2_pass=matches==len(held) and actual_sha==reference_sha and all(v['exact'] for v in comparisons.values()),
                       criterion_1_2_reason='совпадение со сверенным V5 на идентичных параметрах не 100%' if matches!=len(held) else 'совпадение на всех 140 парах',
                       current_speed_ms_per_1000_median=speed,restored_v5_speed_ms_per_1000_median=speed_ref,
                       speed_pairs=len(held),speed_definition='медиана по 140 внешним train/val парам; время полного TinyBundle.verify, знаки документа',
@@ -100,10 +100,10 @@ def main():
                       package_recorded_sha256=(ROOT/'package.sha256').read_text().split()[0],
                       package_matches_record=package['sha256']==(ROOT/'package.sha256').read_text().split()[0],
                       criterion_1_3_package_pass=package['bytes']<=600000,
-                      note='Согласованная замена исторического поэлементного эталона на агрегаты; текущий TinyBundle и восстановленный V5 сравниваются с одинаковым tiny_head и явно заданными gate и max_spans.')
+                      note='TinyBundle автоматически загрузил проверенный V5. Сопоставимый агрегатный эталон cli52.json принят пользователем.')
     except Exception:report['error']=traceback.format_exc()
     out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
     print(json.dumps(report,ensure_ascii=False,indent=2))
-    return 0 if report['status'].startswith('готово') else 1
+    return 0 if report.get('criterion_1_2_pass') and report.get('criterion_1_3_speed_pass') else 1
 
 if __name__=='__main__':raise SystemExit(main())

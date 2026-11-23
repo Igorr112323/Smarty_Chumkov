@@ -23,6 +23,12 @@ README = """spanver {version}
   python -m spanver serve --port 8765 --backend model --weights models\\rubert-tiny2
   головка и порог берутся из artifacts/model_head.json (создаёт tools/run_model_eval.py)
 
+Tiny V5 seed 0 (веса и зависимости поставляются отдельно):
+  python -m spanver verify --backend tiny --answer a.txt --document d.txt
+Нужны models/rubert-tiny2, artifacts/tiny_head.json, проверенный манифест
+weights/final/manifest.json и части checkpoint в weights/final/seed_0/.
+При отсутствии или несовпадении контрольных сумм tiny не запускается.
+
 Сеть и GPU не используются. Канонический сплит: spanver/splits.json.
 """
 
