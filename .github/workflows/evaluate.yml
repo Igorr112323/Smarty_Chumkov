@@ -293,7 +293,7 @@ jobs:
           bash tools/push_file58.sh '66: диагностика всех фолдов без переобучения' artifacts/diagnostic66.json || exit $?
           exit "$rc"
   regression67_tests:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
@@ -341,7 +341,7 @@ jobs:
           path: artifacts/regression67_tests.json
           if-no-files-found: warn
   regression67_package:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -375,7 +375,7 @@ jobs:
           path: package67_result.json
           if-no-files-found: warn
   regression67_verify:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 75
     env:
@@ -418,3 +418,28 @@ jobs:
           name: regression67-verify
           path: artifacts/regression67_verify.json
           if-no-files-found: warn
+  regression67_retrieve:
+    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: arena/4a5c459f-smarty-chumkov
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/push_file58.sh
+      - name: Опубликовать сохранённые результаты запуска 45132149916
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts /tmp/package67
+          gh run download 45132149916 --repo "$GITHUB_REPOSITORY" -n regression67-tests -D artifacts
+          gh run download 45132149916 --repo "$GITHUB_REPOSITORY" -n regression67-verify -D artifacts
+          gh run download 45132149916 --repo "$GITHUB_REPOSITORY" -n regression67-package -D /tmp/package67
+          cp /tmp/package67/package67_result.json artifacts/regression67_package.json
+          test -s artifacts/regression67_tests.json
+          test -s artifacts/regression67_verify.json
+          test -s artifacts/regression67_package.json
+          bash tools/push_file58.sh '67: результаты изолированной регрессии' artifacts/regression67_tests.json artifacts/regression67_verify.json artifacts/regression67_package.json
