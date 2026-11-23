@@ -1,5 +1,5 @@
 {
-  "status": "ошибка",
+  "status": "полный расчёт B",
   "test301": false,
   "training_repeated": false,
   "gate": "пользователь разрешил пересчёт после 140/140; стадия 1 имеет отдельный провал калибровки",
@@ -49,6 +49,7 @@
     "10/4": "5a5a9dee3123806ac9b999f1ec048dc8fb0e13f7fe254fbf9402d2b8a6eb414e"
   },
   "selection_rule": "по четырём inner: максимум pooled inner token F1 при pooled inner token FPR <= 0,40; при равенстве меньший start",
+  "outer_source_rule": "предопределён inner=outer%10+1 как в tools/summarize59.py; ошибочный флаг primary не используется; ID outer проверены",
   "folds": [
     {
       "fold": 1,
@@ -242,5 +243,219 @@
     }
   ],
   "folds_without_eligible": [],
-  "error": "Traceback (most recent call last):\n  File \"/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/tools/recalculate67_b.py\", line 99, in main\n    if r.get('primary') is not True or set(r.get('outer_predictions',{}))!=expected:raise ValueError(f'отсутствуют outer predictions {outer}')\n                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: отсутствуют outer predictions 2\n"
+  "fold_metrics": [
+    {
+      "fold": 1,
+      "pairs": 70,
+      "threshold": 0.49,
+      "outer_source_inner": 2,
+      "stored_primary_flag": true,
+      "token": {
+        "tp": 307,
+        "fp": 468,
+        "fn": 255,
+        "precision": 0.3961290322580645,
+        "recall": 0.5462633451957295,
+        "f1": 0.45923709798055345,
+        "fpr_token": 0.2553191489361702
+      }
+    },
+    {
+      "fold": 2,
+      "pairs": 68,
+      "threshold": 0.53,
+      "outer_source_inner": 3,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 516,
+        "fp": 379,
+        "fn": 532,
+        "precision": 0.576536312849162,
+        "recall": 0.49236641221374045,
+        "f1": 0.5311374163664436,
+        "fpr_token": 0.2437299035369775
+      }
+    },
+    {
+      "fold": 3,
+      "pairs": 70,
+      "threshold": 0.51,
+      "outer_source_inner": 4,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 338,
+        "fp": 1059,
+        "fn": 434,
+        "precision": 0.24194702934860415,
+        "recall": 0.4378238341968912,
+        "f1": 0.3116643614568926,
+        "fpr_token": 0.5475698035160289
+      }
+    },
+    {
+      "fold": 4,
+      "pairs": 73,
+      "threshold": 0.49,
+      "outer_source_inner": 5,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 597,
+        "fp": 453,
+        "fn": 286,
+        "precision": 0.5685714285714286,
+        "recall": 0.6761041902604756,
+        "f1": 0.6176927056389032,
+        "fpr_token": 0.29453836150845253
+      }
+    },
+    {
+      "fold": 5,
+      "pairs": 71,
+      "threshold": 0.5,
+      "outer_source_inner": 6,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 563,
+        "fp": 831,
+        "fn": 199,
+        "precision": 0.40387374461979914,
+        "recall": 0.7388451443569554,
+        "f1": 0.5222634508348795,
+        "fpr_token": 0.434850863422292
+      }
+    },
+    {
+      "fold": 6,
+      "pairs": 70,
+      "threshold": 0.5,
+      "outer_source_inner": 7,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 529,
+        "fp": 721,
+        "fn": 365,
+        "precision": 0.4232,
+        "recall": 0.5917225950782998,
+        "f1": 0.49347014925373134,
+        "fpr_token": 0.41223556317895943
+      }
+    },
+    {
+      "fold": 7,
+      "pairs": 70,
+      "threshold": 0.49,
+      "outer_source_inner": 8,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 674,
+        "fp": 790,
+        "fn": 138,
+        "precision": 0.4603825136612022,
+        "recall": 0.8300492610837439,
+        "f1": 0.5922671353251318,
+        "fpr_token": 0.46010483401281305
+      }
+    },
+    {
+      "fold": 8,
+      "pairs": 71,
+      "threshold": 0.43,
+      "outer_source_inner": 9,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 631,
+        "fp": 1015,
+        "fn": 189,
+        "precision": 0.38335358444714457,
+        "recall": 0.7695121951219512,
+        "f1": 0.5117599351175994,
+        "fpr_token": 0.5750708215297451
+      }
+    },
+    {
+      "fold": 9,
+      "pairs": 68,
+      "threshold": 0.45,
+      "outer_source_inner": 10,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 703,
+        "fp": 679,
+        "fn": 268,
+        "precision": 0.5086830680173662,
+        "recall": 0.7239958805355304,
+        "f1": 0.5975350616234595,
+        "fpr_token": 0.42920353982300885
+      }
+    },
+    {
+      "fold": 10,
+      "pairs": 68,
+      "threshold": 0.46,
+      "outer_source_inner": 1,
+      "stored_primary_flag": false,
+      "token": {
+        "tp": 527,
+        "fp": 549,
+        "fn": 471,
+        "precision": 0.48977695167286245,
+        "recall": 0.5280561122244489,
+        "f1": 0.5081967213114753,
+        "fpr_token": 0.3783597518952447
+      }
+    }
+  ],
+  "pooled": {
+    "token": {
+      "tp": 5385,
+      "fp": 6944,
+      "fn": 3137,
+      "precision": 0.4367750831373185,
+      "recall": 0.6318939216146444,
+      "f1": 0.5165219893530286,
+      "fpr_token": 0.4076313472262988
+    },
+    "baseline": {
+      "tp": 8522,
+      "fp": 17035,
+      "fn": 0,
+      "precision": 0.3334507180028955,
+      "recall": 1.0,
+      "f1": 0.5001320461281141,
+      "fpr_token": 1.0
+    },
+    "delta_f1": 0.016389943224914494,
+    "soft_span_f1_iou_0_5": 0.29435483870967744,
+    "exact_span_f1": 0.25806451612903225,
+    "pair_f1_exact_hit": 0.3316062176165803,
+    "predicted_spans": 196,
+    "gold_spans": 300,
+    "paired_delta_ci95": {
+      "low": -0.0338824261475707,
+      "high": 0.06305289786092444,
+      "rounds": 10000,
+      "seed": 67,
+      "method": "парный bootstrap по парам; разность token F1 модели и all-positive пересчитывается на каждой выборке"
+    },
+    "folds_over_fpr": 6,
+    "max_fold": {
+      "fold": 8,
+      "fpr_token": 0.5750708215297451
+    },
+    "fold_std": {
+      "token_f1": 0.0828336474921965,
+      "fpr_token": 0.1072864045935384
+    }
+  },
+  "speed_with_question_ms_per_1000": null,
+  "criteria": {
+    "inner_fpr_all": true,
+    "token_f1_ge_0_5165": true,
+    "pooled_fpr_le_0_4": false,
+    "paired_ci_low_gt_0": false,
+    "outer_folds_over_fpr_zero": false,
+    "speed_le_30": null
+  },
+  "accepted": false,
+  "reason": "не все численные критерии выполнены"
 }
