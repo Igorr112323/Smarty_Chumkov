@@ -701,7 +701,7 @@ jobs:
           path: artifacts/regression67_fixed_tests.json
           if-no-files-found: warn
   recalculate67_b:
-    if: ${{ github.ref == 'refs/heads/arena/4a5c459f-smarty-chumkov' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 50
     env:
