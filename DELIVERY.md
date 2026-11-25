@@ -1,5 +1,9 @@
 # Поставка SpanVer 0.2.0
 
+## ВЕСА ИСТЕКАЮТ 17.12.2026
+
+Истекает **Actions-артефакт** `weights47-v5-outer1` (17.12.2026 в 10:11:53 UTC), а не все копии весов. Найдены и проверены обе части V5 seed 0 в ранее существовавшем Git-коммите `f1487214edf239db2e99c6748ac8926927ba0465`: общий SHA-256 `04eb7932a33a7ed1a2f4e166f536b002ba3ad4a16e2a410a21e292e1558d747a`, 116 806 133 байта. Для восстановления нужны доступ к репозиторию и сохранность этого коммита; сохраните проверенную копию отдельно до истечения артефакта. Прямая загрузка Actions-артефакта в этой среде завершилась EOF; его содержимое повторно не проверено. Ниже — команды получения проверенной Git-копии. Лексический режим работает и без весов.
+
 ## Назначение и состав
 
 Локальный модуль проверяет русскоязычный ответ по документу и возвращает подозрительные фрагменты (`spans` с границами, риском, типом и уверенностью), `ai_share` и служебные сведения `meta`. Концы фрагментов включительные. Интерфейсы: CLI, HTTP `POST /verify` и локальная веб-страница; все работают с одним выбранным backend. Это не гарантия истинности ответа.
@@ -19,7 +23,7 @@ a741988762b7b447f6cd50b98924fa3b81b91f3ee66a4cd54589b69c6ac1c3ad
 
 ## Сборка и запуск
 
-Ниже команды для Linux/macOS, Bash, из корня полученного репозитория этой поставки. Сборка не обучает модель и не читает Dataset. Для сверяемой сборки исходники `spanver/` и `tools/build_package.py` должны соответствовать зафиксированным ниже хешам. Требуются Python ≥3.10 и `unzip`.
+Ниже команды для Linux и Bash с GNU `sha256sum` и `base64`, из корня полученного репозитория этой поставки. Сборка не обучает модель и не читает Dataset. Для сверяемой сборки исходники `spanver/` и `tools/build_package.py` должны соответствовать зафиксированным ниже хешам. Требуются Python ≥3.10 и `unzip`.
 
 ```bash
 python3 tools/build_package.py --out artifacts
@@ -51,7 +55,7 @@ curl -sS http://127.0.0.1:8765/verify -H 'Content-Type: application/json' \
 
 ### Подготовка Tiny V5 seed 0
 
-Нужны исходное дерево репозитория, его файлы `models/rubert-tiny2/` и `weights/rubert-tiny2/`, доступ к GitHub Actions, GitHub CLI `gh` с авторизацией и свободное место под скачиваемый архив и веса. Следующие команды выполняются **из корня репозитория**, после распаковки архива как выше; они не запускают обучение или оценку. Создание окружения и загрузка зависимостей требуют сети; сам инференс использует локальные файлы.
+Нужны исходное дерево репозитория, его файлы `models/rubert-tiny2/` и `weights/rubert-tiny2/`, доступ к GitHub-репозиторию, GitHub CLI `gh` с авторизацией и свободное место для весов. Следующие команды выполняются **из корня репозитория**, после распаковки архива как выше; они не запускают обучение или оценку. Создание окружения и загрузка зависимостей требуют сети; сам инференс использует локальные файлы.
 
 ```bash
 set -euo pipefail
@@ -63,13 +67,22 @@ cp artifacts/tiny_head.json delivery-run/artifacts/tiny_head.json
 cp -R models/rubert-tiny2 delivery-run/models/
 python3 tools/assemble_weights.py weights/rubert-tiny2 delivery-run/models/rubert-tiny2/pytorch_model.bin
 
-# Артефакт содержит несколько seed; используется только seed_0.
-tmp=$(mktemp -d)
-gh run download 44056101776 --repo Igorr112323/Smarty_Chumkov \
-  --name weights47-v5-outer1 --dir "$tmp"
-mapfile -t seeds < <(find "$tmp" -type d -name seed_0 -print)
-[ "${#seeds[@]}" -eq 1 ]
-cp -R "${seeds[0]}" delivery-run/weights/final/seed_0
+# Проверенная Git-копия seed_0; SHA-1 ниже — идентификаторы Git blob, не SHA-256.
+mkdir -p delivery-run/weights/final/seed_0
+gh api -H 'Accept: application/vnd.github.raw+json' \
+  repos/Igorr112323/Smarty_Chumkov/git/blobs/89fc7bfac684af13f4f8a9cc9a5f6c7b330c78f0 \
+  > delivery-run/weights/final/seed_0/part-000.bin
+gh api -H 'Accept: application/vnd.github.raw+json' \
+  repos/Igorr112323/Smarty_Chumkov/git/blobs/169eeb3ac9872ac4185181d52ef7ce88b8ec540d \
+  > delivery-run/weights/final/seed_0/part-001.bin
+printf '%s  %s\n' \
+  '3eb21ac365ab9f2807fd6db872579c671138be124c26aafa6e05a88e03577cd6' \
+  'delivery-run/weights/final/seed_0/part-000.bin' \
+  '8702e663a46a0d4739191d0ee207d48fb88a76d7500aee8384be92780f59bbba' \
+  'delivery-run/weights/final/seed_0/part-001.bin' | sha256sum -c -
+total_sha=$(cat delivery-run/weights/final/seed_0/part-000.bin \
+                delivery-run/weights/final/seed_0/part-001.bin | sha256sum | cut -d' ' -f1)
+[ "$total_sha" = '04eb7932a33a7ed1a2f4e166f536b002ba3ad4a16e2a410a21e292e1558d747a' ]
 gh api 'repos/Igorr112323/Smarty_Chumkov/contents/weights/final/manifest.json?ref=f1487214edf239db2e99c6748ac8926927ba0465' \
   --jq .content | base64 -d > delivery-run/weights/final/manifest.json
 printf '%s  %s\n' \
@@ -77,7 +90,7 @@ printf '%s  %s\n' \
   'delivery-run/weights/final/manifest.json' | sha256sum -c -
 ```
 
-На момент проверки артефакт `weights47-v5-outer1` существует; GitHub указывает истечение **17 декабря 2026, 10:11:53 UTC**. Доступ зависит от прав и срока хранения. Это внешняя зависимость, не включённая в ZIP или текущую ветку; если артефакт недоступен, нужен отдельно сохранённый проверенный `seed_0`, иначе Tiny V5 не запустить. Не заменять его произвольными весами. Сборщик базовых весов сверяет части и полный SHA `137fa2b1d944dae19c74456dfe8fac2f780d9acf34e037f5d1e37acba1157768`.
+Команды получают Git-копию из существующего коммита, а не истекающий Actions-артефакт; проверенные файлы не входят в ZIP или текущую ветку. Если доступа к Git-копии и сохранённому `seed_0` нет, Tiny V5 не запустить; лексический режим остаётся доступен. Не заменять checkpoint произвольными весами. Сборщик базовых весов сверяет части и полный SHA `137fa2b1d944dae19c74456dfe8fac2f780d9acf34e037f5d1e37acba1157768`.
 
 Запуск из `delivery-run`:
 
@@ -99,6 +112,23 @@ CLI также принимает UTF-8 файлы вместо текстовы
 | Текущий Tiny V5 seed 0, 140 внешних train/val, без вопроса | Token F1 **0,479979**, precision 0,390929, recall 0,621566, token FPR 0,393635; exact span F1 0,144330, IoU span F1 0,226804; 41 предсказанный и 56 gold span. Клиентский путь и восстановленный V5 совпали **140/140**, а 12 проверенных агрегатов согласованного `cli52.json` совпали точно. Это не независимый test. |
 | B с вопросом, 699 train/val, nested CV | Token F1 **0,516522**, precision 0,436775, recall 0,631894, FPR **0,407631**; baseline «пометить всё» token F1 0,500132, точечная разность +0,016390. Парный 95% bootstrap CI разности **[−0,033882; +0,063053]**, 10 000 повторов, seed 67: включает ноль, **значимый отрыв не подтверждён**. Это не доказывает нулевой истинный эффект. В 6/10 outer FPR >0,40, максимум 0,575071; скорость B не измерена. B закрыт и не является поставляемым интерфейсом. |
 | A, 699 train/val | Token F1 **0,508888**, FPR **0,378691**, baseline 0,500132. Checkpoint A утрачен; его нельзя отождествить с восстановленным V5. |
+
+### B: 10 внешних фолдов (699 train/val)
+
+Это сохранённые **outer**-результаты B с вопросом; пороги выбраны на inner. FPR >0,40 у фолдов 3, 5, 6, 7, 8 и 9.
+
+| Outer | Порог start | Token FPR | Token F1 |
+|---:|---:|---:|---:|
+| 1 | 0,49 | 0,255319 | 0,459237 |
+| 2 | 0,53 | 0,243730 | 0,531137 |
+| 3 | 0,51 | 0,547570 | 0,311664 |
+| 4 | 0,49 | 0,294538 | 0,617693 |
+| 5 | 0,50 | 0,434851 | 0,522263 |
+| 6 | 0,50 | 0,412236 | 0,493470 |
+| 7 | 0,49 | 0,460105 | 0,592267 |
+| 8 | 0,43 | 0,575071 | 0,511760 |
+| 9 | 0,45 | 0,429204 | 0,597535 |
+| 10 | 0,46 | 0,378360 | 0,508197 |
 
 Три уровня B и **whole-answer** baseline на одних 699 парах, одним `spanver.evaluate.metrics`, soft совпадение при IoU ≥0,5:
 
@@ -132,11 +162,15 @@ CLI также принимает UTF-8 файлы вместо текстовы
 
 | Файл | SHA-256 | Основание |
 |---|---|---|
-| `artifacts/review67.md` | `57c980368fe664812c79b137968262fc97baffb9f21e098338855c0cdda89453` | Итог, границы и п.6–9 |
+| `artifacts/review67.md` | `1d63d8c147d0d39623f04405dc7cdc7d82f06894ce5cdc37914ddc950b39562a` | Итог, границы и п.6–9 |
 | `artifacts/regression67_fixed_verify.json` | `5cf39ac3199505f37d9fcce77f0257ea7b6ff91c306e45df9f36e0386e63b282` | V5, 140/140 и агрегаты |
 | `artifacts/regression67_fixed_tests.json` | `e79a8927570f638bf682b94be444d0cf8b8203fb1df81045a150bb60fb6fbae1` | Тесты, калибровка и skip |
 | `artifacts/regression67_fixed_package.json` | `cc961b9a5efb1e2a842f8aad29606ede1e27f031a5fe2e85c819a2d2e384cf35` | Текущий архив и SHA |
 | `artifacts/recalculated67_b.json` | `98a6d861605be94206e089685f291498ce5364c17d31ef92ee117fcca3546d32` | B, bootstrap и три уровня |
+| `artifacts/v5_weights_provenance.json` | `6ef6628689f2cd580a6b313d2fde07ba01828c1ee386bce309eacbc243d9197b` | Доступность, проверка и происхождение V5 |
+| `artifacts/review69.md` | `ef8503531c162ef6728fab678810b66173310c4cfb2016cc0c48d4ed0fe017c1` | Таблица сверки результатов и ограничения аудита |
+| `artifacts/question59.json` | `49b9b7ac2db84f76434ae92fcd113c210a65bf08086d24d3c3d1d46bbd7ef2f0` | Результаты A на 699 train/val |
+| `artifacts/regression67_repeat_verify.json` | `c65f0e219c351dd8e5554fc93007e0157b2f989a77c82fce5c55aed70b75d550` | Историческая скорость V5 без загрузки |
 | `artifacts/cli52.json` | `ef7c4d7c329ac3436dc777c4f6a588d7bb4f3874af82f244a5dda8065a9d57f0` | Согласованный агрегированный эталон V5 |
 | `artifacts/compliance52.json` | `76acca9cbad187311d67949c7a0438eeb37636a1b64e5a2a3d80cfe2a60f27d3` | Исторические статусы и размер архива |
 | `artifacts/regression67_recheck.md` | `9761e449314bcdaf0a8d6921e74b0d78b359d4507af4daa9200a5e4aeac54dec` | Исторический размер и замер V5; промежуточный отчёт, не итоговый статус |

@@ -1,0 +1,46 @@
+{
+  "session_date_utc": "2026-11-17",
+  "github_response_date_utc": "2026-11-25T15:33:57Z",
+  "date_note": "Дата сеанса задана платформой; заголовок Date ответа GitHub и системные часы среды показали 25 ноября. Несовпадение сохранено явно; время истечения взято из API GitHub.",
+  "scope": "Проверка существующего seed_0 без обучения, оценки и чтения test 301; веса не добавлены в текущую ветку.",
+  "actions_artifact": {
+    "name": "weights47-v5-outer1",
+    "id": 14319026568,
+    "run_id": 44056101776,
+    "size_in_bytes": 537060003,
+    "expires_at": "2026-12-17T10:11:53Z",
+    "expired_at_api_check": false,
+    "api_metadata": "available",
+    "direct_download": "failed_EOF_at_GitHub_Actions_blob_storage",
+    "current_artifact_contents_verified": false,
+    "note": "Размер относится к целому архиву со множеством seed, не к одному checkpoint. В этой проверке прочитать и повторно сверить содержимое именно Actions-архива не удалось. Предыдущая проверка Actions 45151350705 использовала этот артефакт и подтвердила SHA V5."
+  },
+  "verified_existing_git_copy": {
+    "repository": "Igorr112323/Smarty_Chumkov",
+    "branch_at_discovery": "arena/5afadcb0-smarty-chumkov",
+    "commit": "f1487214edf239db2e99c6748ac8926927ba0465",
+    "path": "weights/final/seed_0/",
+    "retrieval": "GitHub Git blobs API; обе части скачаны и прочитаны для сверки SHA-256, без сохранения в Git текущей ветки.",
+    "parts": [
+      {
+        "name": "part-000.bin",
+        "bytes": 83886080,
+        "git_blob_sha1": "89fc7bfac684af13f4f8a9cc9a5f6c7b330c78f0",
+        "sha256": "3eb21ac365ab9f2807fd6db872579c671138be124c26aafa6e05a88e03577cd6"
+      },
+      {
+        "name": "part-001.bin",
+        "bytes": 32920053,
+        "git_blob_sha1": "169eeb3ac9872ac4185181d52ef7ce88b8ec540d",
+        "sha256": "8702e663a46a0d4739191d0ee207d48fb88a76d7500aee8384be92780f59bbba"
+      }
+    ],
+    "concatenated_size_bytes": 116806133,
+    "concatenated_sha256": "04eb7932a33a7ed1a2f4e166f536b002ba3ad4a16e2a410a21e292e1558d747a",
+    "seed_manifest_sha256": "7bd131600d477ad0423ca069517469ec478779698a3e2ea7b68db1b33ff94e61",
+    "final_manifest_path": "weights/final/manifest.json",
+    "final_manifest_sha256": "51ecf33f34ac54481d71d0d5e54f849e33ce8e1399120be49e71aeb174c74709",
+    "result": "PASS: размеры, SHA каждой части и конкатенации совпадают с обоими манифестами и требуемым SHA checkpoint.",
+    "availability_limit": "Копия зависит от сохранности существующего коммита, GitHub и прав доступа. Рекомендуется сохранить проверенную независимую копию до истечения Actions-артефакта."
+  }
+}
