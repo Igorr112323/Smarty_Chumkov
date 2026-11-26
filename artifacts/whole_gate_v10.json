@@ -1,0 +1,4162 @@
+{
+  "rule": "whole gate trained on RusHallu+mFAVA train labels; dev sweeps only; held not read",
+  "params": {
+    "w": [
+      0.03183109,
+      0.05171405,
+      -0.66692519,
+      0.4321464,
+      0.0284732,
+      0.10535995,
+      0.0,
+      -0.38243061,
+      0.60793316,
+      -0.09550089,
+      -0.01346796,
+      -0.0216809,
+      -0.43076786,
+      0.06258557
+    ],
+    "b": -0.20213223,
+    "mu": [
+      427.43185079,
+      3051.28837877,
+      16.31133429,
+      0.57382621,
+      0.30823901,
+      0.53733715,
+      1.0,
+      0.60277638,
+      0.69440459,
+      0.54806313,
+      2.30416069,
+      0.45193687,
+      0.4997358,
+      0.10186514
+    ],
+    "sd": [
+      333.72880298,
+      3224.89536294,
+      15.17782875,
+      0.22125147,
+      0.12971988,
+      0.21669753,
+      1.0,
+      0.27097851,
+      1.99278043,
+      2.18138725,
+      4.43695158,
+      0.82172779,
+      0.23943545,
+      0.30247088
+    ],
+    "n_features": 14,
+    "positive_pairs": 137,
+    "train_pairs": 697
+  },
+  "best": [
+    {
+      "strategy": "force",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.391,
+        "token": 0.5272,
+        "pair": 0.7803,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.3115,
+        "token": 0.6133,
+        "pair": 0.4634,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3892,
+        "token": 0.5219,
+        "pair": 0.7755,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.2931,
+        "token": 0.5898,
+        "pair": 0.4304,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.522,
+        "pair": 0.7768,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2951,
+        "token": 0.589,
+        "pair": 0.4444,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.522,
+        "pair": 0.7768,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2951,
+        "token": 0.589,
+        "pair": 0.4444,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.522,
+        "pair": 0.7768,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2951,
+        "token": 0.589,
+        "pair": 0.4444,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2906,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2906,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3885,
+        "token": 0.5266,
+        "pair": 0.7606,
+        "fpr": 0.25
+      },
+      "val": {
+        "span": 0.2969,
+        "token": 0.6058,
+        "pair": 0.4176,
+        "fpr": 0.25
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3879,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2857,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3879,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2857,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3879,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2857,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3863,
+        "token": 0.5258,
+        "pair": 0.7644,
+        "fpr": 0.2019
+      },
+      "val": {
+        "span": 0.2764,
+        "token": 0.605,
+        "pair": 0.4048,
+        "fpr": 0.2019
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3826,
+        "token": 0.5195,
+        "pair": 0.7683,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.2957,
+        "token": 0.5926,
+        "pair": 0.4304,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.395,
+        "token": 0.5014,
+        "pair": 0.8702,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3822,
+        "token": 0.5183,
+        "pair": 0.7661,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2931,
+        "token": 0.5858,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.395,
+        "token": 0.5014,
+        "pair": 0.8702,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3822,
+        "token": 0.5183,
+        "pair": 0.7661,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2931,
+        "token": 0.5858,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.395,
+        "token": 0.5014,
+        "pair": 0.8702,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3818,
+        "token": 0.5289,
+        "pair": 0.7394,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3158,
+        "token": 0.615,
+        "pair": 0.4615,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3804,
+        "token": 0.5249,
+        "pair": 0.7403,
+        "fpr": 0.3269
+      },
+      "val": {
+        "span": 0.2941,
+        "token": 0.5958,
+        "pair": 0.4,
+        "fpr": 0.3269
+      },
+      "mfava": {
+        "span": 0.395,
+        "token": 0.5049,
+        "pair": 0.8702,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3795,
+        "token": 0.5236,
+        "pair": 0.7356,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2982,
+        "token": 0.59,
+        "pair": 0.4416,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3795,
+        "token": 0.5236,
+        "pair": 0.7356,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2982,
+        "token": 0.59,
+        "pair": 0.4416,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3795,
+        "token": 0.5236,
+        "pair": 0.7356,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2982,
+        "token": 0.59,
+        "pair": 0.4416,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    }
+  ],
+  "passing": [],
+  "configs": [
+    {
+      "strategy": "force",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.391,
+        "token": 0.5272,
+        "pair": 0.7803,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.3115,
+        "token": 0.6133,
+        "pair": 0.4634,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3892,
+        "token": 0.5219,
+        "pair": 0.7755,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.2931,
+        "token": 0.5898,
+        "pair": 0.4304,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.522,
+        "pair": 0.7768,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2951,
+        "token": 0.589,
+        "pair": 0.4444,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.522,
+        "pair": 0.7768,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2951,
+        "token": 0.589,
+        "pair": 0.4444,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.522,
+        "pair": 0.7768,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2951,
+        "token": 0.589,
+        "pair": 0.4444,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2906,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3888,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2906,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3885,
+        "token": 0.5266,
+        "pair": 0.7606,
+        "fpr": 0.25
+      },
+      "val": {
+        "span": 0.2969,
+        "token": 0.6058,
+        "pair": 0.4176,
+        "fpr": 0.25
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3879,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2857,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3879,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2857,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3879,
+        "token": 0.5207,
+        "pair": 0.7733,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2857,
+        "token": 0.583,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3863,
+        "token": 0.5258,
+        "pair": 0.7644,
+        "fpr": 0.2019
+      },
+      "val": {
+        "span": 0.2764,
+        "token": 0.605,
+        "pair": 0.4048,
+        "fpr": 0.2019
+      },
+      "mfava": {
+        "span": 0.403,
+        "token": 0.5051,
+        "pair": 0.8788,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3826,
+        "token": 0.5195,
+        "pair": 0.7683,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.2957,
+        "token": 0.5926,
+        "pair": 0.4304,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.395,
+        "token": 0.5014,
+        "pair": 0.8702,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3822,
+        "token": 0.5183,
+        "pair": 0.7661,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2931,
+        "token": 0.5858,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.395,
+        "token": 0.5014,
+        "pair": 0.8702,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3822,
+        "token": 0.5183,
+        "pair": 0.7661,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2931,
+        "token": 0.5858,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.395,
+        "token": 0.5014,
+        "pair": 0.8702,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3818,
+        "token": 0.5289,
+        "pair": 0.7394,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3158,
+        "token": 0.615,
+        "pair": 0.4615,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3804,
+        "token": 0.5249,
+        "pair": 0.7403,
+        "fpr": 0.3269
+      },
+      "val": {
+        "span": 0.2941,
+        "token": 0.5958,
+        "pair": 0.4,
+        "fpr": 0.3269
+      },
+      "mfava": {
+        "span": 0.395,
+        "token": 0.5049,
+        "pair": 0.8702,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3795,
+        "token": 0.5236,
+        "pair": 0.7356,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2982,
+        "token": 0.59,
+        "pair": 0.4416,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3795,
+        "token": 0.5236,
+        "pair": 0.7356,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2982,
+        "token": 0.59,
+        "pair": 0.4416,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3795,
+        "token": 0.5236,
+        "pair": 0.7356,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2982,
+        "token": 0.59,
+        "pair": 0.4416,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3789,
+        "token": 0.5223,
+        "pair": 0.7317,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2909,
+        "token": 0.5838,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3785,
+        "token": 0.5223,
+        "pair": 0.7317,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2883,
+        "token": 0.5838,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3785,
+        "token": 0.5223,
+        "pair": 0.7317,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2883,
+        "token": 0.5838,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3785,
+        "token": 0.5223,
+        "pair": 0.7317,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2883,
+        "token": 0.5838,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3785,
+        "token": 0.5211,
+        "pair": 0.7295,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.2883,
+        "token": 0.5769,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3785,
+        "token": 0.5211,
+        "pair": 0.7295,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.2883,
+        "token": 0.5769,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3783,
+        "token": 0.5271,
+        "pair": 0.7176,
+        "fpr": 0.2308
+      },
+      "val": {
+        "span": 0.2951,
+        "token": 0.6006,
+        "pair": 0.4091,
+        "fpr": 0.2308
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.378,
+        "token": 0.5097,
+        "pair": 0.7574,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.2936,
+        "token": 0.5678,
+        "pair": 0.4103,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.3895,
+        "token": 0.4955,
+        "pair": 0.8615,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3776,
+        "token": 0.5085,
+        "pair": 0.7552,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2909,
+        "token": 0.5611,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.3895,
+        "token": 0.4955,
+        "pair": 0.8615,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3776,
+        "token": 0.5085,
+        "pair": 0.7552,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2909,
+        "token": 0.5611,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.3895,
+        "token": 0.4955,
+        "pair": 0.8615,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3768,
+        "token": 0.5227,
+        "pair": 0.7105,
+        "fpr": 0.4904
+      },
+      "val": {
+        "span": 0.2953,
+        "token": 0.5598,
+        "pair": 0.3697,
+        "fpr": 0.4904
+      },
+      "mfava": {
+        "span": 0.392,
+        "token": 0.5111,
+        "pair": 0.8659,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3767,
+        "token": 0.5275,
+        "pair": 0.7229,
+        "fpr": 0.1731
+      },
+      "val": {
+        "span": 0.2783,
+        "token": 0.6065,
+        "pair": 0.4,
+        "fpr": 0.1731
+      },
+      "mfava": {
+        "span": 0.3919,
+        "token": 0.5069,
+        "pair": 0.8254,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3713,
+        "token": 0.5193,
+        "pair": 0.7239,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2909,
+        "token": 0.5838,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3833,
+        "token": 0.5031,
+        "pair": 0.816,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3709,
+        "token": 0.5181,
+        "pair": 0.7217,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.2883,
+        "token": 0.5769,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3833,
+        "token": 0.5031,
+        "pair": 0.816,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3709,
+        "token": 0.5181,
+        "pair": 0.7217,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.2883,
+        "token": 0.5769,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3833,
+        "token": 0.5031,
+        "pair": 0.816,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3693,
+        "token": 0.5249,
+        "pair": 0.6974,
+        "fpr": 0.3077
+      },
+      "val": {
+        "span": 0.2901,
+        "token": 0.5882,
+        "pair": 0.3918,
+        "fpr": 0.3077
+      },
+      "mfava": {
+        "span": 0.3833,
+        "token": 0.5068,
+        "pair": 0.816,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3673,
+        "token": 0.5119,
+        "pair": 0.716,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5712,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3772,
+        "token": 0.4971,
+        "pair": 0.8065,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3669,
+        "token": 0.5107,
+        "pair": 0.7138,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.2963,
+        "token": 0.5644,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3772,
+        "token": 0.4971,
+        "pair": 0.8065,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3669,
+        "token": 0.5107,
+        "pair": 0.7138,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.2963,
+        "token": 0.5644,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3772,
+        "token": 0.4971,
+        "pair": 0.8065,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3665,
+        "token": 0.5251,
+        "pair": 0.6721,
+        "fpr": 0.4712
+      },
+      "val": {
+        "span": 0.2993,
+        "token": 0.5624,
+        "pair": 0.3761,
+        "fpr": 0.4712
+      },
+      "mfava": {
+        "span": 0.3799,
+        "token": 0.5131,
+        "pair": 0.8112,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3605,
+        "token": 0.4999,
+        "pair": 0.7156,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.2963,
+        "token": 0.5693,
+        "pair": 0.4103,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.3697,
+        "token": 0.4824,
+        "pair": 0.8112,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.36,
+        "token": 0.4987,
+        "pair": 0.7134,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2936,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.3697,
+        "token": 0.4824,
+        "pair": 0.8112,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.36,
+        "token": 0.4987,
+        "pair": 0.7134,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2936,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.3697,
+        "token": 0.4824,
+        "pair": 0.8112,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3503,
+        "token": 0.5016,
+        "pair": 0.6835,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3019,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3577,
+        "token": 0.4832,
+        "pair": 0.7667,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3499,
+        "token": 0.5003,
+        "pair": 0.6814,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3577,
+        "token": 0.4832,
+        "pair": 0.7667,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3499,
+        "token": 0.5003,
+        "pair": 0.6814,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3577,
+        "token": 0.4832,
+        "pair": 0.7667,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3448,
+        "token": 0.5204,
+        "pair": 0.6645,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3301,
+        "token": 0.5991,
+        "pair": 0.4474,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3422,
+        "token": 0.5146,
+        "pair": 0.6602,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5731,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3422,
+        "token": 0.5146,
+        "pair": 0.6602,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5731,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3422,
+        "token": 0.5146,
+        "pair": 0.6602,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5731,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3422,
+        "token": 0.5146,
+        "pair": 0.6602,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5731,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3422,
+        "token": 0.5146,
+        "pair": 0.6602,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5731,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3422,
+        "token": 0.5146,
+        "pair": 0.6602,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5731,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3422,
+        "token": 0.5146,
+        "pair": 0.6602,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5731,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.342,
+        "token": 0.5198,
+        "pair": 0.648,
+        "fpr": 0.2212
+      },
+      "val": {
+        "span": 0.313,
+        "token": 0.5912,
+        "pair": 0.4138,
+        "fpr": 0.2212
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3417,
+        "token": 0.5133,
+        "pair": 0.6581,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5662,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3417,
+        "token": 0.5133,
+        "pair": 0.6581,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5662,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3404,
+        "token": 0.5202,
+        "pair": 0.6518,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5967,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.3472,
+        "token": 0.499,
+        "pair": 0.735,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.338,
+        "token": 0.5269,
+        "pair": 0.6132,
+        "fpr": 0.4615
+      },
+      "val": {
+        "span": 0.3056,
+        "token": 0.5648,
+        "pair": 0.3793,
+        "fpr": 0.4615
+      },
+      "mfava": {
+        "span": 0.3451,
+        "token": 0.5138,
+        "pair": 0.7296,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3378,
+        "token": 0.5126,
+        "pair": 0.6515,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5731,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3421,
+        "token": 0.4965,
+        "pair": 0.7241,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3373,
+        "token": 0.513,
+        "pair": 0.6515,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5744,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.3421,
+        "token": 0.4965,
+        "pair": 0.7241,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3373,
+        "token": 0.5113,
+        "pair": 0.6494,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5662,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3421,
+        "token": 0.4965,
+        "pair": 0.7241,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3373,
+        "token": 0.5113,
+        "pair": 0.6494,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5662,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3421,
+        "token": 0.4965,
+        "pair": 0.7241,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3369,
+        "token": 0.5117,
+        "pair": 0.6494,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5675,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3421,
+        "token": 0.4965,
+        "pair": 0.7241,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3369,
+        "token": 0.5117,
+        "pair": 0.6494,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5675,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3421,
+        "token": 0.4965,
+        "pair": 0.7241,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3364,
+        "token": 0.5188,
+        "pair": 0.628,
+        "fpr": 0.2981
+      },
+      "val": {
+        "span": 0.3065,
+        "token": 0.5789,
+        "pair": 0.3958,
+        "fpr": 0.2981
+      },
+      "mfava": {
+        "span": 0.3421,
+        "token": 0.5005,
+        "pair": 0.7241,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3347,
+        "token": 0.5078,
+        "pair": 0.5941,
+        "fpr": 0.8654
+      },
+      "val": {
+        "span": 0.2708,
+        "token": 0.5022,
+        "pair": 0.321,
+        "fpr": 0.8654
+      },
+      "mfava": {
+        "span": 0.3511,
+        "token": 0.5099,
+        "pair": 0.7769,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.324,
+        "token": 0.5093,
+        "pair": 0.5649,
+        "fpr": 0.8462
+      },
+      "val": {
+        "span": 0.2737,
+        "token": 0.5041,
+        "pair": 0.325,
+        "fpr": 0.8462
+      },
+      "mfava": {
+        "span": 0.3376,
+        "token": 0.5112,
+        "pair": 0.7296,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3151,
+        "token": 0.5018,
+        "pair": 0.6179,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.3163,
+        "token": 0.4821,
+        "pair": 0.6844,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3146,
+        "token": 0.5005,
+        "pair": 0.6159,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3163,
+        "token": 0.4821,
+        "pair": 0.6844,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.3146,
+        "token": 0.5005,
+        "pair": 0.6159,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.3163,
+        "token": 0.4821,
+        "pair": 0.6844,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 3,
+      "combined": {
+        "span": 0.2899,
+        "token": 0.5099,
+        "pair": 0.5079,
+        "fpr": 0.8462
+      },
+      "val": {
+        "span": 0.2766,
+        "token": 0.5041,
+        "pair": 0.325,
+        "fpr": 0.8462
+      },
+      "mfava": {
+        "span": 0.2939,
+        "token": 0.5121,
+        "pair": 0.6422,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.232,
+        "token": 0.4773,
+        "pair": 0.4907,
+        "fpr": 0.4712
+      },
+      "val": {
+        "span": 0.3056,
+        "token": 0.5635,
+        "pair": 0.3761,
+        "fpr": 0.4712
+      },
+      "mfava": {
+        "span": 0.2123,
+        "token": 0.4434,
+        "pair": 0.5561,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2307,
+        "token": 0.4756,
+        "pair": 0.4877,
+        "fpr": 0.4904
+      },
+      "val": {
+        "span": 0.3014,
+        "token": 0.5609,
+        "pair": 0.3697,
+        "fpr": 0.4904
+      },
+      "mfava": {
+        "span": 0.2115,
+        "token": 0.442,
+        "pair": 0.5561,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2301,
+        "token": 0.4766,
+        "pair": 0.4875,
+        "fpr": 0.4615
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5659,
+        "pair": 0.3793,
+        "fpr": 0.4615
+      },
+      "mfava": {
+        "span": 0.2093,
+        "token": 0.4415,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2278,
+        "token": 0.4641,
+        "pair": 0.5196,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3269,
+        "token": 0.5984,
+        "pair": 0.4416,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2266,
+        "token": 0.4665,
+        "pair": 0.4983,
+        "fpr": 0.3077
+      },
+      "val": {
+        "span": 0.304,
+        "token": 0.5785,
+        "pair": 0.3918,
+        "fpr": 0.3077
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4274,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2266,
+        "token": 0.4646,
+        "pair": 0.5068,
+        "fpr": 0.2308
+      },
+      "val": {
+        "span": 0.3103,
+        "token": 0.5906,
+        "pair": 0.4091,
+        "fpr": 0.2308
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2264,
+        "token": 0.4613,
+        "pair": 0.5161,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3366,
+        "token": 0.5952,
+        "pair": 0.4474,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.226,
+        "token": 0.4611,
+        "pair": 0.5141,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.3178,
+        "token": 0.588,
+        "pair": 0.425,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2253,
+        "token": 0.4638,
+        "pair": 0.495,
+        "fpr": 0.2981
+      },
+      "val": {
+        "span": 0.3115,
+        "token": 0.5753,
+        "pair": 0.3958,
+        "fpr": 0.2981
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4254,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2253,
+        "token": 0.4628,
+        "pair": 0.5034,
+        "fpr": 0.25
+      },
+      "val": {
+        "span": 0.3051,
+        "token": 0.5874,
+        "pair": 0.4,
+        "fpr": 0.25
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2253,
+        "token": 0.4618,
+        "pair": 0.5034,
+        "fpr": 0.2212
+      },
+      "val": {
+        "span": 0.3186,
+        "token": 0.5875,
+        "pair": 0.4138,
+        "fpr": 0.2212
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2252,
+        "token": 0.4648,
+        "pair": 0.495,
+        "fpr": 0.3269
+      },
+      "val": {
+        "span": 0.2992,
+        "token": 0.5755,
+        "pair": 0.3838,
+        "fpr": 0.3269
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.426,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2246,
+        "token": 0.4575,
+        "pair": 0.5143,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2243,
+        "token": 0.4562,
+        "pair": 0.5125,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2243,
+        "token": 0.4562,
+        "pair": 0.5125,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2243,
+        "token": 0.4562,
+        "pair": 0.5125,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2243,
+        "token": 0.4562,
+        "pair": 0.5125,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2243,
+        "token": 0.4562,
+        "pair": 0.5125,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2243,
+        "token": 0.4562,
+        "pair": 0.5125,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2243,
+        "token": 0.4562,
+        "pair": 0.5125,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2243,
+        "token": 0.4562,
+        "pair": 0.5125,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4643,
+        "pair": 0.507,
+        "fpr": 0.1731
+      },
+      "val": {
+        "span": 0.2963,
+        "token": 0.5961,
+        "pair": 0.4,
+        "fpr": 0.1731
+      },
+      "mfava": {
+        "span": 0.2086,
+        "token": 0.4222,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4558,
+        "pair": 0.5106,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.3019,
+        "token": 0.5693,
+        "pair": 0.4103,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4558,
+        "pair": 0.5106,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.3019,
+        "token": 0.5693,
+        "pair": 0.4103,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4558,
+        "pair": 0.5106,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.3019,
+        "token": 0.5693,
+        "pair": 0.4103,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4558,
+        "pair": 0.5106,
+        "fpr": 0.1538
+      },
+      "val": {
+        "span": 0.3019,
+        "token": 0.5693,
+        "pair": 0.4103,
+        "fpr": 0.1538
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4547,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.5689,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4547,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.5689,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4547,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.5689,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4547,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.5689,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4547,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.5689,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4547,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.5689,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4547,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.5689,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2233,
+        "token": 0.4547,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.5689,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.7,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.8,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4545,
+        "pair": 0.5088,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.2991,
+        "token": 0.5625,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4534,
+        "pair": 0.509,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3137,
+        "token": 0.562,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.5,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4534,
+        "pair": 0.509,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3137,
+        "token": 0.562,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4534,
+        "pair": 0.509,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3137,
+        "token": 0.562,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.6,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2229,
+        "token": 0.4534,
+        "pair": 0.509,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3137,
+        "token": 0.562,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2226,
+        "token": 0.4567,
+        "pair": 0.5108,
+        "fpr": 0.125
+      },
+      "val": {
+        "span": 0.3107,
+        "token": 0.5759,
+        "pair": 0.4267,
+        "fpr": 0.125
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.5,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2222,
+        "token": 0.4561,
+        "pair": 0.509,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.5727,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2222,
+        "token": 0.4554,
+        "pair": 0.509,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.569,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.4,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2222,
+        "token": 0.4554,
+        "pair": 0.509,
+        "fpr": 0.1346
+      },
+      "val": {
+        "span": 0.3077,
+        "token": 0.569,
+        "pair": 0.4211,
+        "fpr": 0.1346
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2219,
+        "token": 0.4615,
+        "pair": 0.5035,
+        "fpr": 0.1635
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5929,
+        "pair": 0.4051,
+        "fpr": 0.1635
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.3,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2219,
+        "token": 0.4548,
+        "pair": 0.5071,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "global",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2219,
+        "token": 0.4548,
+        "pair": 0.5071,
+        "fpr": 0.1442
+      },
+      "val": {
+        "span": 0.3048,
+        "token": 0.5659,
+        "pair": 0.4156,
+        "fpr": 0.1442
+      },
+      "mfava": {
+        "span": 0.2056,
+        "token": 0.4202,
+        "pair": 0.5419,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.7,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2215,
+        "token": 0.4612,
+        "pair": 0.5017,
+        "fpr": 0.2019
+      },
+      "val": {
+        "span": 0.2883,
+        "token": 0.5859,
+        "pair": 0.3855,
+        "fpr": 0.2019
+      },
+      "mfava": {
+        "span": 0.2078,
+        "token": 0.4209,
+        "pair": 0.549,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.5,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2069,
+        "token": 0.4749,
+        "pair": 0.4202,
+        "fpr": 0.8462
+      },
+      "val": {
+        "span": 0.2766,
+        "token": 0.5041,
+        "pair": 0.325,
+        "fpr": 0.8462
+      },
+      "mfava": {
+        "span": 0.1825,
+        "token": 0.4625,
+        "pair": 0.4975,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.4,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2058,
+        "token": 0.4734,
+        "pair": 0.4178,
+        "fpr": 0.8654
+      },
+      "val": {
+        "span": 0.2737,
+        "token": 0.5022,
+        "pair": 0.321,
+        "fpr": 0.8654
+      },
+      "mfava": {
+        "span": 0.1818,
+        "token": 0.4612,
+        "pair": 0.4975,
+        "fpr": 0.0
+      }
+    },
+    {
+      "strategy": "force",
+      "cut": 0.3,
+      "whole_threshold": 0.4,
+      "fallback_threshold": 0.6,
+      "max_spans": 1,
+      "combined": {
+        "span": 0.2047,
+        "token": 0.4738,
+        "pair": 0.4157,
+        "fpr": 0.8462
+      },
+      "val": {
+        "span": 0.2766,
+        "token": 0.5041,
+        "pair": 0.325,
+        "fpr": 0.8462
+      },
+      "mfava": {
+        "span": 0.1794,
+        "token": 0.4609,
+        "pair": 0.4898,
+        "fpr": 0.0
+      }
+    }
+  ]
+}
