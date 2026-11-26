@@ -1,0 +1,141 @@
+{
+  "rule": "QA start/end; frozen pair gate; val+mFAVA selection only",
+  "history": [
+    {
+      "epoch": 0,
+      "loss": 1.1486,
+      "best": {
+        "threshold": 0.05,
+        "max_spans": 1,
+        "val": {
+          "n_pairs": 150,
+          "n_pairs_with_spans": 46,
+          "n_neg_pairs": 104,
+          "span_level": {
+            "tp": 3,
+            "fp": 49,
+            "fn": 52,
+            "precision": 0.0577,
+            "recall": 0.0545,
+            "f1": 0.0561
+          },
+          "token_level": {
+            "precision": 0.4583,
+            "recall": 0.1934,
+            "f1": 0.272
+          },
+          "pair_level": {
+            "precision": 0.15,
+            "recall": 0.0652,
+            "f1": 0.0909
+          },
+          "fpr": 0.1635,
+          "type_accuracy": 0.3333,
+          "type_correct": 1,
+          "iou_threshold": 0.5
+        },
+        "mfava": {
+          "n_pairs": 150,
+          "n_pairs_with_spans": 150,
+          "n_neg_pairs": 0,
+          "span_level": {
+            "tp": 3,
+            "fp": 141,
+            "fn": 395,
+            "precision": 0.0208,
+            "recall": 0.0075,
+            "f1": 0.0111
+          },
+          "token_level": {
+            "precision": 0.3025,
+            "recall": 0.2035,
+            "f1": 0.2434
+          },
+          "pair_level": {
+            "precision": 1.0,
+            "recall": 0.02,
+            "f1": 0.0392
+          },
+          "fpr": 0.0,
+          "type_accuracy": 1.0,
+          "type_correct": 3,
+          "iou_threshold": 0.5
+        }
+      },
+      "sec": 158.6
+    },
+    {
+      "epoch": 1,
+      "loss": 0.7073,
+      "best": {
+        "threshold": 0.05,
+        "max_spans": 3,
+        "val": {
+          "n_pairs": 150,
+          "n_pairs_with_spans": 46,
+          "n_neg_pairs": 104,
+          "span_level": {
+            "tp": 6,
+            "fp": 150,
+            "fn": 49,
+            "precision": 0.0385,
+            "recall": 0.1091,
+            "f1": 0.0569
+          },
+          "token_level": {
+            "precision": 0.4506,
+            "recall": 0.375,
+            "f1": 0.4093
+          },
+          "pair_level": {
+            "precision": 0.2609,
+            "recall": 0.1304,
+            "f1": 0.1739
+          },
+          "fpr": 0.1635,
+          "type_accuracy": 0.5,
+          "type_correct": 3,
+          "iou_threshold": 0.5
+        },
+        "mfava": {
+          "n_pairs": 150,
+          "n_pairs_with_spans": 150,
+          "n_neg_pairs": 0,
+          "span_level": {
+            "tp": 25,
+            "fp": 407,
+            "fn": 373,
+            "precision": 0.0579,
+            "recall": 0.0628,
+            "f1": 0.0602
+          },
+          "token_level": {
+            "precision": 0.2983,
+            "recall": 0.4642,
+            "f1": 0.3632
+          },
+          "pair_level": {
+            "precision": 1.0,
+            "recall": 0.1467,
+            "f1": 0.2558
+          },
+          "fpr": 0.0,
+          "type_accuracy": 1.0,
+          "type_correct": 25,
+          "iou_threshold": 0.5
+        }
+      },
+      "sec": 323.4
+    }
+  ],
+  "config": {
+    "window": 1200,
+    "step": 900,
+    "doc_limit": 1500,
+    "max_len": 512,
+    "batch": 8,
+    "lr": 3e-05,
+    "epochs": 2,
+    "pos_weight": 8.0
+  }
+}
