@@ -1,0 +1,648 @@
+{
+  "rule": "RAGTruth_ru phrase spans + v3 train/mFAVA; held docs excluded; dev only",
+  "rag_pairs": 600,
+  "rows": 29131,
+  "positive": 3342,
+  "export_diff": 1.1102230246251565e-16,
+  "chosen": {
+    "threshold": 0.85,
+    "max_spans": 3,
+    "combined": {
+      "span_level": 0.0164,
+      "token_level": 0.0988,
+      "pair_level": 0.0747,
+      "fpr": 0.3654
+    },
+    "val": {
+      "span_level": 0.0076,
+      "token_level": 0.0921,
+      "pair_level": 0.0235,
+      "fpr": 0.3654
+    },
+    "mfava": {
+      "span_level": 0.0193,
+      "token_level": 0.1007,
+      "pair_level": 0.1026,
+      "fpr": 0.0
+    }
+  },
+  "grid": [
+    {
+      "threshold": 0.25,
+      "max_spans": 1,
+      "combined": {
+        "span_level": 0.0109,
+        "token_level": 0.0242,
+        "pair_level": 0.027,
+        "fpr": 0.9423
+      },
+      "val": {
+        "span_level": 0.0404,
+        "token_level": 0.0563,
+        "pair_level": 0.0541,
+        "fpr": 0.9423
+      },
+      "mfava": {
+        "span_level": 0.0,
+        "token_level": 0.0114,
+        "pair_level": 0.0,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.25,
+      "max_spans": 2,
+      "combined": {
+        "span_level": 0.0203,
+        "token_level": 0.0548,
+        "pair_level": 0.0662,
+        "fpr": 0.9423
+      },
+      "val": {
+        "span_level": 0.04,
+        "token_level": 0.1029,
+        "pair_level": 0.08,
+        "fpr": 0.9423
+      },
+      "mfava": {
+        "span_level": 0.0116,
+        "token_level": 0.0349,
+        "pair_level": 0.0526,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.25,
+      "max_spans": 3,
+      "combined": {
+        "span_level": 0.0227,
+        "token_level": 0.1054,
+        "pair_level": 0.0915,
+        "fpr": 0.9423
+      },
+      "val": {
+        "span_level": 0.0303,
+        "token_level": 0.1173,
+        "pair_level": 0.08,
+        "fpr": 0.9423
+      },
+      "mfava": {
+        "span_level": 0.0192,
+        "token_level": 0.1006,
+        "pair_level": 0.1026,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.25,
+      "max_spans": 5,
+      "combined": {
+        "span_level": 0.0187,
+        "token_level": 0.1307,
+        "pair_level": 0.1039,
+        "fpr": 0.9423
+      },
+      "val": {
+        "span_level": 0.0208,
+        "token_level": 0.1568,
+        "pair_level": 0.08,
+        "fpr": 0.9423
+      },
+      "mfava": {
+        "span_level": 0.0177,
+        "token_level": 0.12,
+        "pair_level": 0.1266,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.35,
+      "max_spans": 1,
+      "combined": {
+        "span_level": 0.0109,
+        "token_level": 0.0243,
+        "pair_level": 0.0273,
+        "fpr": 0.9135
+      },
+      "val": {
+        "span_level": 0.041,
+        "token_level": 0.0572,
+        "pair_level": 0.0552,
+        "fpr": 0.9135
+      },
+      "mfava": {
+        "span_level": 0.0,
+        "token_level": 0.0114,
+        "pair_level": 0.0,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.35,
+      "max_spans": 2,
+      "combined": {
+        "span_level": 0.0205,
+        "token_level": 0.055,
+        "pair_level": 0.0669,
+        "fpr": 0.9135
+      },
+      "val": {
+        "span_level": 0.0414,
+        "token_level": 0.1046,
+        "pair_level": 0.0816,
+        "fpr": 0.9135
+      },
+      "mfava": {
+        "span_level": 0.0116,
+        "token_level": 0.0349,
+        "pair_level": 0.0526,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.35,
+      "max_spans": 3,
+      "combined": {
+        "span_level": 0.023,
+        "token_level": 0.1058,
+        "pair_level": 0.0924,
+        "fpr": 0.9135
+      },
+      "val": {
+        "span_level": 0.0313,
+        "token_level": 0.1191,
+        "pair_level": 0.0816,
+        "fpr": 0.9135
+      },
+      "mfava": {
+        "span_level": 0.0192,
+        "token_level": 0.1006,
+        "pair_level": 0.1026,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.35,
+      "max_spans": 5,
+      "combined": {
+        "span_level": 0.019,
+        "token_level": 0.1308,
+        "pair_level": 0.1049,
+        "fpr": 0.9135
+      },
+      "val": {
+        "span_level": 0.0215,
+        "token_level": 0.1576,
+        "pair_level": 0.0816,
+        "fpr": 0.9135
+      },
+      "mfava": {
+        "span_level": 0.0177,
+        "token_level": 0.12,
+        "pair_level": 0.1266,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.45,
+      "max_spans": 1,
+      "combined": {
+        "span_level": 0.0111,
+        "token_level": 0.0247,
+        "pair_level": 0.0284,
+        "fpr": 0.8077
+      },
+      "val": {
+        "span_level": 0.0435,
+        "token_level": 0.0601,
+        "pair_level": 0.0597,
+        "fpr": 0.8077
+      },
+      "mfava": {
+        "span_level": 0.0,
+        "token_level": 0.0114,
+        "pair_level": 0.0,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.45,
+      "max_spans": 2,
+      "combined": {
+        "span_level": 0.0208,
+        "token_level": 0.056,
+        "pair_level": 0.0694,
+        "fpr": 0.8077
+      },
+      "val": {
+        "span_level": 0.0436,
+        "token_level": 0.1109,
+        "pair_level": 0.0882,
+        "fpr": 0.8077
+      },
+      "mfava": {
+        "span_level": 0.0116,
+        "token_level": 0.0349,
+        "pair_level": 0.0526,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.45,
+      "max_spans": 3,
+      "combined": {
+        "span_level": 0.0234,
+        "token_level": 0.1073,
+        "pair_level": 0.0959,
+        "fpr": 0.8077
+      },
+      "val": {
+        "span_level": 0.0331,
+        "token_level": 0.1252,
+        "pair_level": 0.0882,
+        "fpr": 0.8077
+      },
+      "mfava": {
+        "span_level": 0.0192,
+        "token_level": 0.1006,
+        "pair_level": 0.1026,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.45,
+      "max_spans": 5,
+      "combined": {
+        "span_level": 0.0193,
+        "token_level": 0.1326,
+        "pair_level": 0.1088,
+        "fpr": 0.8077
+      },
+      "val": {
+        "span_level": 0.0226,
+        "token_level": 0.1655,
+        "pair_level": 0.0882,
+        "fpr": 0.8077
+      },
+      "mfava": {
+        "span_level": 0.0177,
+        "token_level": 0.12,
+        "pair_level": 0.1266,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.55,
+      "max_spans": 1,
+      "combined": {
+        "span_level": 0.0084,
+        "token_level": 0.0223,
+        "pair_level": 0.022,
+        "fpr": 0.7308
+      },
+      "val": {
+        "span_level": 0.0343,
+        "token_level": 0.0524,
+        "pair_level": 0.048,
+        "fpr": 0.7308
+      },
+      "mfava": {
+        "span_level": 0.0,
+        "token_level": 0.0114,
+        "pair_level": 0.0,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.55,
+      "max_spans": 2,
+      "combined": {
+        "span_level": 0.0189,
+        "token_level": 0.054,
+        "pair_level": 0.0645,
+        "fpr": 0.7308
+      },
+      "val": {
+        "span_level": 0.038,
+        "token_level": 0.1058,
+        "pair_level": 0.0787,
+        "fpr": 0.7308
+      },
+      "mfava": {
+        "span_level": 0.0116,
+        "token_level": 0.0349,
+        "pair_level": 0.0526,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.55,
+      "max_spans": 3,
+      "combined": {
+        "span_level": 0.022,
+        "token_level": 0.106,
+        "pair_level": 0.0919,
+        "fpr": 0.7308
+      },
+      "val": {
+        "span_level": 0.0287,
+        "token_level": 0.1208,
+        "pair_level": 0.0787,
+        "fpr": 0.7308
+      },
+      "mfava": {
+        "span_level": 0.0192,
+        "token_level": 0.1006,
+        "pair_level": 0.1026,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.55,
+      "max_spans": 5,
+      "combined": {
+        "span_level": 0.0182,
+        "token_level": 0.132,
+        "pair_level": 0.1053,
+        "fpr": 0.7308
+      },
+      "val": {
+        "span_level": 0.0195,
+        "token_level": 0.1649,
+        "pair_level": 0.0787,
+        "fpr": 0.7308
+      },
+      "mfava": {
+        "span_level": 0.0177,
+        "token_level": 0.12,
+        "pair_level": 0.1266,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.65,
+      "max_spans": 1,
+      "combined": {
+        "span_level": 0.0029,
+        "token_level": 0.0163,
+        "pair_level": 0.0079,
+        "fpr": 0.5673
+      },
+      "val": {
+        "span_level": 0.0128,
+        "token_level": 0.0312,
+        "pair_level": 0.0189,
+        "fpr": 0.5673
+      },
+      "mfava": {
+        "span_level": 0.0,
+        "token_level": 0.0114,
+        "pair_level": 0.0,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.65,
+      "max_spans": 2,
+      "combined": {
+        "span_level": 0.0151,
+        "token_level": 0.0489,
+        "pair_level": 0.0538,
+        "fpr": 0.5673
+      },
+      "val": {
+        "span_level": 0.025,
+        "token_level": 0.0898,
+        "pair_level": 0.0556,
+        "fpr": 0.5673
+      },
+      "mfava": {
+        "span_level": 0.0116,
+        "token_level": 0.0349,
+        "pair_level": 0.0526,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.65,
+      "max_spans": 3,
+      "combined": {
+        "span_level": 0.019,
+        "token_level": 0.1022,
+        "pair_level": 0.0833,
+        "fpr": 0.5673
+      },
+      "val": {
+        "span_level": 0.0186,
+        "token_level": 0.1071,
+        "pair_level": 0.0556,
+        "fpr": 0.5673
+      },
+      "mfava": {
+        "span_level": 0.0192,
+        "token_level": 0.1006,
+        "pair_level": 0.1026,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.65,
+      "max_spans": 5,
+      "combined": {
+        "span_level": 0.0161,
+        "token_level": 0.1291,
+        "pair_level": 0.0977,
+        "fpr": 0.5673
+      },
+      "val": {
+        "span_level": 0.0125,
+        "token_level": 0.1559,
+        "pair_level": 0.0556,
+        "fpr": 0.5673
+      },
+      "mfava": {
+        "span_level": 0.0177,
+        "token_level": 0.12,
+        "pair_level": 0.1266,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.75,
+      "max_spans": 1,
+      "combined": {
+        "span_level": 0.0,
+        "token_level": 0.0152,
+        "pair_level": 0.0,
+        "fpr": 0.4712
+      },
+      "val": {
+        "span_level": 0.0,
+        "token_level": 0.0276,
+        "pair_level": 0.0,
+        "fpr": 0.4712
+      },
+      "mfava": {
+        "span_level": 0.0,
+        "token_level": 0.0114,
+        "pair_level": 0.0,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.75,
+      "max_spans": 2,
+      "combined": {
+        "span_level": 0.0132,
+        "token_level": 0.0475,
+        "pair_level": 0.0482,
+        "fpr": 0.4712
+      },
+      "val": {
+        "span_level": 0.0179,
+        "token_level": 0.0873,
+        "pair_level": 0.0412,
+        "fpr": 0.4712
+      },
+      "mfava": {
+        "span_level": 0.0116,
+        "token_level": 0.0349,
+        "pair_level": 0.0526,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.75,
+      "max_spans": 3,
+      "combined": {
+        "span_level": 0.0176,
+        "token_level": 0.1023,
+        "pair_level": 0.0791,
+        "fpr": 0.4712
+      },
+      "val": {
+        "span_level": 0.0134,
+        "token_level": 0.1079,
+        "pair_level": 0.0412,
+        "fpr": 0.4712
+      },
+      "mfava": {
+        "span_level": 0.0192,
+        "token_level": 0.1006,
+        "pair_level": 0.1026,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.75,
+      "max_spans": 5,
+      "combined": {
+        "span_level": 0.0152,
+        "token_level": 0.1282,
+        "pair_level": 0.0941,
+        "fpr": 0.4712
+      },
+      "val": {
+        "span_level": 0.009,
+        "token_level": 0.1543,
+        "pair_level": 0.0412,
+        "fpr": 0.4712
+      },
+      "mfava": {
+        "span_level": 0.0177,
+        "token_level": 0.12,
+        "pair_level": 0.1266,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.85,
+      "max_spans": 1,
+      "combined": {
+        "span_level": 0.0,
+        "token_level": 0.0151,
+        "pair_level": 0.0,
+        "fpr": 0.3654
+      },
+      "val": {
+        "span_level": 0.0,
+        "token_level": 0.0277,
+        "pair_level": 0.0,
+        "fpr": 0.3654
+      },
+      "mfava": {
+        "span_level": 0.0,
+        "token_level": 0.0114,
+        "pair_level": 0.0,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.85,
+      "max_spans": 2,
+      "combined": {
+        "span_level": 0.0113,
+        "token_level": 0.0435,
+        "pair_level": 0.0422,
+        "fpr": 0.3654
+      },
+      "val": {
+        "span_level": 0.01,
+        "token_level": 0.0724,
+        "pair_level": 0.0235,
+        "fpr": 0.3654
+      },
+      "mfava": {
+        "span_level": 0.0116,
+        "token_level": 0.0349,
+        "pair_level": 0.0526,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.85,
+      "max_spans": 3,
+      "combined": {
+        "span_level": 0.0164,
+        "token_level": 0.0988,
+        "pair_level": 0.0747,
+        "fpr": 0.3654
+      },
+      "val": {
+        "span_level": 0.0076,
+        "token_level": 0.0921,
+        "pair_level": 0.0235,
+        "fpr": 0.3654
+      },
+      "mfava": {
+        "span_level": 0.0193,
+        "token_level": 0.1007,
+        "pair_level": 0.1026,
+        "fpr": 0.0
+      }
+    },
+    {
+      "threshold": 0.85,
+      "max_spans": 5,
+      "combined": {
+        "span_level": 0.0134,
+        "token_level": 0.1239,
+        "pair_level": 0.0826,
+        "fpr": 0.3654
+      },
+      "val": {
+        "span_level": 0.0052,
+        "token_level": 0.1368,
+        "pair_level": 0.0235,
+        "fpr": 0.3654
+      },
+      "mfava": {
+        "span_level": 0.0162,
+        "token_level": 0.1202,
+        "pair_level": 0.1146,
+        "fpr": 0.0
+      }
+    }
+  ],
+  "weights_sha256": "455e96df586165c5153d1e41ab96206ce65b9fc1dd4feb7d2507b1ff42f4a7c4"
+}

@@ -1,0 +1,546 @@
+{
+  "architecture": "rubert-tiny2 + evidence-conditioned start/end pointer (CLS of candidate x CLS of evidence)",
+  "rule": "RAGTruth_ru (phrase spans) + v3 RusHallu train + mFAVA train; val/mFAVA dev only; held не читается",
+  "rag_pairs": 300,
+  "train_pairs": 549,
+  "mfava_pairs": 148,
+  "rows": 11920,
+  "positive_rows": 4799,
+  "pos_weight": 1.4838508022504688,
+  "epochs": 2,
+  "lr": 2e-05,
+  "batch": 16,
+  "max_len": 160,
+  "best": {
+    "epoch": 0,
+    "threshold": 0.45,
+    "max_spans": 3,
+    "dev": {
+      "span": 0.0134,
+      "token": 0.0339,
+      "pair": 0.0339,
+      "fpr": 0.3654
+    },
+    "val": {
+      "span": 0.0594,
+      "token": 0.0417,
+      "pair": 0.069,
+      "fpr": 0.3654
+    }
+  },
+  "history": [
+    {
+      "epoch": 0,
+      "threshold": 0.35,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0135,
+        "token": 0.0303,
+        "pair": 0.0332,
+        "fpr": 0.4135
+      },
+      "val": {
+        "span": 0.0561,
+        "token": 0.0458,
+        "pair": 0.0652,
+        "fpr": 0.4135
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.35,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.013,
+        "token": 0.0336,
+        "pair": 0.0332,
+        "fpr": 0.4135
+      },
+      "val": {
+        "span": 0.0556,
+        "token": 0.0457,
+        "pair": 0.0652,
+        "fpr": 0.4135
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.35,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.0128,
+        "token": 0.0347,
+        "pair": 0.0332,
+        "fpr": 0.4135
+      },
+      "val": {
+        "span": 0.0556,
+        "token": 0.0457,
+        "pair": 0.0652,
+        "fpr": 0.4135
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.45,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0139,
+        "token": 0.0293,
+        "pair": 0.0339,
+        "fpr": 0.3654
+      },
+      "val": {
+        "span": 0.06,
+        "token": 0.0418,
+        "pair": 0.069,
+        "fpr": 0.3654
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.45,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.0135,
+        "token": 0.0328,
+        "pair": 0.0339,
+        "fpr": 0.3654
+      },
+      "val": {
+        "span": 0.0594,
+        "token": 0.0417,
+        "pair": 0.069,
+        "fpr": 0.3654
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.45,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.0134,
+        "token": 0.0339,
+        "pair": 0.0339,
+        "fpr": 0.3654
+      },
+      "val": {
+        "span": 0.0594,
+        "token": 0.0417,
+        "pair": 0.069,
+        "fpr": 0.3654
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.55,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0143,
+        "token": 0.0267,
+        "pair": 0.0343,
+        "fpr": 0.3365
+      },
+      "val": {
+        "span": 0.0619,
+        "token": 0.0422,
+        "pair": 0.0714,
+        "fpr": 0.3365
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.55,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.014,
+        "token": 0.0286,
+        "pair": 0.0343,
+        "fpr": 0.3365
+      },
+      "val": {
+        "span": 0.0619,
+        "token": 0.0422,
+        "pair": 0.0714,
+        "fpr": 0.3365
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.55,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.0139,
+        "token": 0.0298,
+        "pair": 0.0343,
+        "fpr": 0.3365
+      },
+      "val": {
+        "span": 0.0619,
+        "token": 0.0422,
+        "pair": 0.0714,
+        "fpr": 0.3365
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.65,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0148,
+        "token": 0.0246,
+        "pair": 0.0356,
+        "fpr": 0.2596
+      },
+      "val": {
+        "span": 0.0682,
+        "token": 0.044,
+        "pair": 0.0789,
+        "fpr": 0.2596
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.65,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.0145,
+        "token": 0.0265,
+        "pair": 0.0356,
+        "fpr": 0.2596
+      },
+      "val": {
+        "span": 0.0682,
+        "token": 0.044,
+        "pair": 0.0789,
+        "fpr": 0.2596
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.65,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.0144,
+        "token": 0.0277,
+        "pair": 0.0356,
+        "fpr": 0.2596
+      },
+      "val": {
+        "span": 0.0682,
+        "token": 0.044,
+        "pair": 0.0789,
+        "fpr": 0.2596
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.75,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0152,
+        "token": 0.0232,
+        "pair": 0.0359,
+        "fpr": 0.2404
+      },
+      "val": {
+        "span": 0.0698,
+        "token": 0.0443,
+        "pair": 0.0811,
+        "fpr": 0.2404
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.75,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.015,
+        "token": 0.0252,
+        "pair": 0.0359,
+        "fpr": 0.2404
+      },
+      "val": {
+        "span": 0.0698,
+        "token": 0.0443,
+        "pair": 0.0811,
+        "fpr": 0.2404
+      }
+    },
+    {
+      "epoch": 0,
+      "threshold": 0.75,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.015,
+        "token": 0.0252,
+        "pair": 0.0359,
+        "fpr": 0.2404
+      },
+      "val": {
+        "span": 0.0698,
+        "token": 0.0443,
+        "pair": 0.0811,
+        "fpr": 0.2404
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.35,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0145,
+        "token": 0.0286,
+        "pair": 0.0346,
+        "fpr": 0.3173
+      },
+      "val": {
+        "span": 0.0625,
+        "token": 0.0481,
+        "pair": 0.0732,
+        "fpr": 0.3173
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.35,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.0142,
+        "token": 0.03,
+        "pair": 0.0346,
+        "fpr": 0.3173
+      },
+      "val": {
+        "span": 0.0619,
+        "token": 0.048,
+        "pair": 0.0732,
+        "fpr": 0.3173
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.35,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.0141,
+        "token": 0.0315,
+        "pair": 0.0346,
+        "fpr": 0.3173
+      },
+      "val": {
+        "span": 0.0619,
+        "token": 0.048,
+        "pair": 0.0732,
+        "fpr": 0.3173
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.45,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0146,
+        "token": 0.0274,
+        "pair": 0.0348,
+        "fpr": 0.3077
+      },
+      "val": {
+        "span": 0.0632,
+        "token": 0.0483,
+        "pair": 0.0741,
+        "fpr": 0.3077
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.45,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.0143,
+        "token": 0.0277,
+        "pair": 0.0348,
+        "fpr": 0.3077
+      },
+      "val": {
+        "span": 0.0625,
+        "token": 0.0481,
+        "pair": 0.0741,
+        "fpr": 0.3077
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.45,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.0143,
+        "token": 0.0293,
+        "pair": 0.0348,
+        "fpr": 0.3077
+      },
+      "val": {
+        "span": 0.0625,
+        "token": 0.0481,
+        "pair": 0.0741,
+        "fpr": 0.3077
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.55,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0148,
+        "token": 0.0251,
+        "pair": 0.0351,
+        "fpr": 0.2885
+      },
+      "val": {
+        "span": 0.0645,
+        "token": 0.0486,
+        "pair": 0.0759,
+        "fpr": 0.2885
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.55,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.0146,
+        "token": 0.0255,
+        "pair": 0.0351,
+        "fpr": 0.2885
+      },
+      "val": {
+        "span": 0.0638,
+        "token": 0.0484,
+        "pair": 0.0759,
+        "fpr": 0.2885
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.55,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.0145,
+        "token": 0.0271,
+        "pair": 0.0351,
+        "fpr": 0.2885
+      },
+      "val": {
+        "span": 0.0638,
+        "token": 0.0484,
+        "pair": 0.0759,
+        "fpr": 0.2885
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.65,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0149,
+        "token": 0.0252,
+        "pair": 0.0352,
+        "fpr": 0.2788
+      },
+      "val": {
+        "span": 0.0659,
+        "token": 0.0491,
+        "pair": 0.0769,
+        "fpr": 0.2788
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.65,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.0147,
+        "token": 0.0257,
+        "pair": 0.0352,
+        "fpr": 0.2788
+      },
+      "val": {
+        "span": 0.0659,
+        "token": 0.0491,
+        "pair": 0.0769,
+        "fpr": 0.2788
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.65,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.0147,
+        "token": 0.0272,
+        "pair": 0.0352,
+        "fpr": 0.2788
+      },
+      "val": {
+        "span": 0.0659,
+        "token": 0.0491,
+        "pair": 0.0769,
+        "fpr": 0.2788
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.75,
+      "max_spans": 1,
+      "dev": {
+        "span": 0.0152,
+        "token": 0.0254,
+        "pair": 0.0359,
+        "fpr": 0.2404
+      },
+      "val": {
+        "span": 0.069,
+        "token": 0.05,
+        "pair": 0.0811,
+        "fpr": 0.2404
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.75,
+      "max_spans": 2,
+      "dev": {
+        "span": 0.015,
+        "token": 0.0259,
+        "pair": 0.0359,
+        "fpr": 0.2404
+      },
+      "val": {
+        "span": 0.069,
+        "token": 0.05,
+        "pair": 0.0811,
+        "fpr": 0.2404
+      }
+    },
+    {
+      "epoch": 1,
+      "threshold": 0.75,
+      "max_spans": 3,
+      "dev": {
+        "span": 0.015,
+        "token": 0.0259,
+        "pair": 0.0359,
+        "fpr": 0.2404
+      },
+      "val": {
+        "span": 0.069,
+        "token": 0.05,
+        "pair": 0.0811,
+        "fpr": 0.2404
+      }
+    }
+  ],
+  "checkpoint": "/home/user/Smarty_Chumkov/artifacts/neural_pointer_v9/best",
+  "weights_sha256": null,
+  "head_sha256": "a6a576d312a392d6e8af79627da3bee73714f47deb425ad300482f6e3e1d1d97"
+}

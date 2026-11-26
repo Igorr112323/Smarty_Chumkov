@@ -1,0 +1,72 @@
+{
+  "protocol": "3-fold OOF; each fold trained on 2/3 mFAVA + RusHallu train; evaluated on held-out fold; val не используется в обучении весов, только в порогах",
+  "folds": {
+    "0": {
+      "train_pairs": 93,
+      "eval_pairs": 55,
+      "metrics": {
+        "span": 0.4706,
+        "token": 0.5215,
+        "pair": 0.866,
+        "fpr": 0.0
+      },
+      "weights_sha256": "5de784ad1012e81ea7bfd30438e181f0aaad864f00092ee9f155e7a855c3aa95"
+    },
+    "1": {
+      "train_pairs": 104,
+      "eval_pairs": 44,
+      "metrics": {
+        "span": 0.4661,
+        "token": 0.5854,
+        "pair": 0.8267,
+        "fpr": 0.0
+      },
+      "weights_sha256": "758f3cd53b4ff6386b128610ca5434e6d4aa479ebea4bf4465cb345cb66f0498"
+    },
+    "2": {
+      "train_pairs": 99,
+      "eval_pairs": 49,
+      "metrics": {
+        "span": 0.4766,
+        "token": 0.5159,
+        "pair": 0.8605,
+        "fpr": 0.0
+      },
+      "weights_sha256": "24170b30e81494c57b03e2a1c9e8eb56c287783e83e881b2c3fb360701ce54b7"
+    }
+  },
+  "oof_combined": {
+    "span": 0.4712,
+    "token": 0.5394,
+    "pair": 0.8527,
+    "fpr": 0.0
+  },
+  "full_metrics": {
+    "n_pairs": 148,
+    "n_pairs_with_spans": 148,
+    "n_neg_pairs": 0,
+    "span_level": {
+      "tp": 184,
+      "fp": 206,
+      "fn": 207,
+      "precision": 0.4718,
+      "recall": 0.4706,
+      "f1": 0.4712
+    },
+    "token_level": {
+      "precision": 0.5304,
+      "recall": 0.5487,
+      "f1": 0.5394
+    },
+    "pair_level": {
+      "precision": 1.0,
+      "recall": 0.7432,
+      "f1": 0.8527
+    },
+    "fpr": 0.0,
+    "type_accuracy": 0.663,
+    "type_correct": 122,
+    "iou_threshold": 0.5
+  },
+  "guard_pass": false
+}

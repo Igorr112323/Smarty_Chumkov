@@ -1,0 +1,104 @@
+{
+  "rule": "/oracle на train/val/mFAVA; held-out не используется",
+  "splits": {
+    "train": {
+      "pairs": 549,
+      "baseline_candidates": {
+        "oracle_recall": 0.9224489795918367,
+        "gold_candidates": 245,
+        "median_gold_rank": 2,
+        "top1": 0,
+        "top5": 172,
+        "oracle_span": 0.9597,
+        "oracle_token": 0.9866,
+        "oracle_pair": 0.9568,
+        "oracle_fpr": 0.0,
+        "actual_span": 0.2714,
+        "actual_token": 0.4937,
+        "actual_pair": 0.3848,
+        "actual_fpr": 0.2949
+      },
+      "v4_candidates": {
+        "oracle_recall": 0.9959183673469387,
+        "gold_candidates": 245,
+        "median_gold_rank": 2,
+        "top1": 0,
+        "top5": 161,
+        "oracle_span": 0.998,
+        "oracle_token": 0.993,
+        "oracle_pair": 1.0,
+        "oracle_fpr": 0.0,
+        "actual_span": 0.2714,
+        "actual_token": 0.4937,
+        "actual_pair": 0.3848,
+        "actual_fpr": 0.2949
+      }
+    },
+    "val": {
+      "pairs": 150,
+      "baseline_candidates": {
+        "oracle_recall": 0.8363636363636363,
+        "gold_candidates": 55,
+        "median_gold_rank": 3,
+        "top1": 0,
+        "top5": 28,
+        "oracle_span": 0.9109,
+        "oracle_token": 0.9871,
+        "oracle_pair": 0.9425,
+        "oracle_fpr": 0.0,
+        "actual_span": 0.2712,
+        "actual_token": 0.6331,
+        "actual_pair": 0.4051,
+        "actual_fpr": 0.1635
+      },
+      "v4_candidates": {
+        "oracle_recall": 1.0,
+        "gold_candidates": 55,
+        "median_gold_rank": 7,
+        "top1": 0,
+        "top5": 26,
+        "oracle_span": 1.0,
+        "oracle_token": 0.9979,
+        "oracle_pair": 1.0,
+        "oracle_fpr": 0.0,
+        "actual_span": 0.2712,
+        "actual_token": 0.6331,
+        "actual_pair": 0.4051,
+        "actual_fpr": 0.1635
+      }
+    },
+    "mfava": {
+      "pairs": 150,
+      "baseline_candidates": {
+        "oracle_recall": 0.8341708542713567,
+        "gold_candidates": 398,
+        "median_gold_rank": 8,
+        "top1": 0,
+        "top5": 106,
+        "oracle_span": 0.9096,
+        "oracle_token": 0.962,
+        "oracle_pair": 0.9831,
+        "oracle_fpr": 0.0,
+        "actual_span": 0.6443,
+        "actual_token": 0.6896,
+        "actual_pair": 0.9286,
+        "actual_fpr": 0.0
+      },
+      "v4_candidates": {
+        "oracle_recall": 1.0,
+        "gold_candidates": 398,
+        "median_gold_rank": 27,
+        "top1": 0,
+        "top5": 87,
+        "oracle_span": 1.0,
+        "oracle_token": 0.9834,
+        "oracle_pair": 1.0,
+        "oracle_fpr": 0.0,
+        "actual_span": 0.6443,
+        "actual_token": 0.6896,
+        "actual_pair": 0.9286,
+        "actual_fpr": 0.0
+      }
+    }
+  }
+}
