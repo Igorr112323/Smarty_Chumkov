@@ -1,0 +1,388 @@
+{
+  "rule": "IoU >= 0.5; только train/val/mFAVA-train, held-out не используется",
+  "splits": {
+    "train": {
+      "pairs": 549,
+      "gold_spans": 245,
+      "avg_candidates_v4": 246.9,
+      "baseline_recall": 0.9224,
+      "v4_recall": 0.9959,
+      "by_length": {
+        "80+": {
+          "gold": 190,
+          "baseline_ok": 189,
+          "baseline_recall": 0.9947,
+          "v4_ok": 189,
+          "v4_recall": 0.9947
+        },
+        "40-80": {
+          "gold": 30,
+          "baseline_ok": 26,
+          "baseline_recall": 0.8667,
+          "v4_ok": 30,
+          "v4_recall": 1.0
+        },
+        "20-40": {
+          "gold": 19,
+          "baseline_ok": 10,
+          "baseline_recall": 0.5263,
+          "v4_ok": 19,
+          "v4_recall": 1.0
+        },
+        "<20": {
+          "gold": 6,
+          "baseline_ok": 1,
+          "baseline_recall": 0.1667,
+          "v4_ok": 6,
+          "v4_recall": 1.0
+        }
+      },
+      "by_type": {
+        "unsupported_addition": {
+          "gold": 97,
+          "baseline_ok": 90,
+          "baseline_recall": 0.9278,
+          "v4_ok": 97,
+          "v4_recall": 1.0
+        },
+        "entity": {
+          "gold": 17,
+          "baseline_ok": 16,
+          "baseline_recall": 0.9412,
+          "v4_ok": 17,
+          "v4_recall": 1.0
+        },
+        "omission": {
+          "gold": 10,
+          "baseline_ok": 10,
+          "baseline_recall": 1.0,
+          "v4_ok": 10,
+          "v4_recall": 1.0
+        },
+        "number": {
+          "gold": 74,
+          "baseline_ok": 68,
+          "baseline_recall": 0.9189,
+          "v4_ok": 73,
+          "v4_recall": 0.9865
+        },
+        "contradiction": {
+          "gold": 26,
+          "baseline_ok": 23,
+          "baseline_recall": 0.8846,
+          "v4_ok": 26,
+          "v4_recall": 1.0
+        },
+        "temporal": {
+          "gold": 7,
+          "baseline_ok": 7,
+          "baseline_recall": 1.0,
+          "v4_ok": 7,
+          "v4_recall": 1.0
+        },
+        "scope": {
+          "gold": 14,
+          "baseline_ok": 12,
+          "baseline_recall": 0.8571,
+          "v4_ok": 14,
+          "v4_recall": 1.0
+        }
+      },
+      "short_under40_gate": {
+        "gold": 25,
+        "baseline": 11,
+        "v4": 25,
+        "baseline_recall": 0.44,
+        "v4_recall": 1.0
+      }
+    },
+    "val": {
+      "pairs": 150,
+      "gold_spans": 55,
+      "avg_candidates_v4": 215.7,
+      "baseline_recall": 0.8364,
+      "v4_recall": 1.0,
+      "by_length": {
+        "80+": {
+          "gold": 34,
+          "baseline_ok": 34,
+          "baseline_recall": 1.0,
+          "v4_ok": 34,
+          "v4_recall": 1.0
+        },
+        "40-80": {
+          "gold": 10,
+          "baseline_ok": 8,
+          "baseline_recall": 0.8,
+          "v4_ok": 10,
+          "v4_recall": 1.0
+        },
+        "20-40": {
+          "gold": 7,
+          "baseline_ok": 3,
+          "baseline_recall": 0.4286,
+          "v4_ok": 7,
+          "v4_recall": 1.0
+        },
+        "<20": {
+          "gold": 4,
+          "baseline_ok": 1,
+          "baseline_recall": 0.25,
+          "v4_ok": 4,
+          "v4_recall": 1.0
+        }
+      },
+      "by_type": {
+        "number": {
+          "gold": 12,
+          "baseline_ok": 11,
+          "baseline_recall": 0.9167,
+          "v4_ok": 12,
+          "v4_recall": 1.0
+        },
+        "entity": {
+          "gold": 5,
+          "baseline_ok": 5,
+          "baseline_recall": 1.0,
+          "v4_ok": 5,
+          "v4_recall": 1.0
+        },
+        "contradiction": {
+          "gold": 9,
+          "baseline_ok": 6,
+          "baseline_recall": 0.6667,
+          "v4_ok": 9,
+          "v4_recall": 1.0
+        },
+        "unsupported_addition": {
+          "gold": 24,
+          "baseline_ok": 19,
+          "baseline_recall": 0.7917,
+          "v4_ok": 24,
+          "v4_recall": 1.0
+        },
+        "scope": {
+          "gold": 1,
+          "baseline_ok": 1,
+          "baseline_recall": 1.0,
+          "v4_ok": 1,
+          "v4_recall": 1.0
+        },
+        "temporal": {
+          "gold": 3,
+          "baseline_ok": 3,
+          "baseline_recall": 1.0,
+          "v4_ok": 3,
+          "v4_recall": 1.0
+        },
+        "omission": {
+          "gold": 1,
+          "baseline_ok": 1,
+          "baseline_recall": 1.0,
+          "v4_ok": 1,
+          "v4_recall": 1.0
+        }
+      },
+      "short_under40_gate": {
+        "gold": 11,
+        "baseline": 4,
+        "v4": 11,
+        "baseline_recall": 0.3636,
+        "v4_recall": 1.0
+      }
+    },
+    "mfava_train": {
+      "pairs": 150,
+      "gold_spans": 398,
+      "avg_candidates_v4": 789.5,
+      "baseline_recall": 0.8342,
+      "v4_recall": 1.0,
+      "by_length": {
+        "40-80": {
+          "gold": 82,
+          "baseline_ok": 76,
+          "baseline_recall": 0.9268,
+          "v4_ok": 82,
+          "v4_recall": 1.0
+        },
+        "20-40": {
+          "gold": 49,
+          "baseline_ok": 32,
+          "baseline_recall": 0.6531,
+          "v4_ok": 49,
+          "v4_recall": 1.0
+        },
+        "<20": {
+          "gold": 44,
+          "baseline_ok": 1,
+          "baseline_recall": 0.0227,
+          "v4_ok": 44,
+          "v4_recall": 1.0
+        },
+        "80+": {
+          "gold": 223,
+          "baseline_ok": 223,
+          "baseline_recall": 1.0,
+          "v4_ok": 223,
+          "v4_recall": 1.0
+        }
+      },
+      "by_type": {
+        "unsupported_addition": {
+          "gold": 398,
+          "baseline_ok": 332,
+          "baseline_recall": 0.8342,
+          "v4_ok": 398,
+          "v4_recall": 1.0
+        }
+      },
+      "short_under40_gate": {
+        "gold": 93,
+        "baseline": 33,
+        "v4": 93,
+        "baseline_recall": 0.3548,
+        "v4_recall": 1.0
+      }
+    }
+  },
+  "datasets": {
+    "rus_hallu_train_val": {
+      "pairs": 699,
+      "gold_spans": 300,
+      "avg_candidates_v4": 240.2,
+      "baseline_recall": 0.9067,
+      "v4_recall": 0.9967,
+      "by_length": {
+        "80+": {
+          "gold": 224,
+          "baseline_ok": 223,
+          "baseline_recall": 0.9955,
+          "v4_ok": 223,
+          "v4_recall": 0.9955
+        },
+        "40-80": {
+          "gold": 40,
+          "baseline_ok": 34,
+          "baseline_recall": 0.85,
+          "v4_ok": 40,
+          "v4_recall": 1.0
+        },
+        "20-40": {
+          "gold": 26,
+          "baseline_ok": 13,
+          "baseline_recall": 0.5,
+          "v4_ok": 26,
+          "v4_recall": 1.0
+        },
+        "<20": {
+          "gold": 10,
+          "baseline_ok": 2,
+          "baseline_recall": 0.2,
+          "v4_ok": 10,
+          "v4_recall": 1.0
+        }
+      },
+      "by_type": {
+        "unsupported_addition": {
+          "gold": 121,
+          "baseline_ok": 109,
+          "baseline_recall": 0.9008,
+          "v4_ok": 121,
+          "v4_recall": 1.0
+        },
+        "entity": {
+          "gold": 22,
+          "baseline_ok": 21,
+          "baseline_recall": 0.9545,
+          "v4_ok": 22,
+          "v4_recall": 1.0
+        },
+        "omission": {
+          "gold": 11,
+          "baseline_ok": 11,
+          "baseline_recall": 1.0,
+          "v4_ok": 11,
+          "v4_recall": 1.0
+        },
+        "number": {
+          "gold": 86,
+          "baseline_ok": 79,
+          "baseline_recall": 0.9186,
+          "v4_ok": 85,
+          "v4_recall": 0.9884
+        },
+        "contradiction": {
+          "gold": 35,
+          "baseline_ok": 29,
+          "baseline_recall": 0.8286,
+          "v4_ok": 35,
+          "v4_recall": 1.0
+        },
+        "temporal": {
+          "gold": 10,
+          "baseline_ok": 10,
+          "baseline_recall": 1.0,
+          "v4_ok": 10,
+          "v4_recall": 1.0
+        },
+        "scope": {
+          "gold": 15,
+          "baseline_ok": 13,
+          "baseline_recall": 0.8667,
+          "v4_ok": 15,
+          "v4_recall": 1.0
+        }
+      }
+    },
+    "mfava_train": {
+      "pairs": 150,
+      "gold_spans": 398,
+      "avg_candidates_v4": 789.5,
+      "baseline_recall": 0.8342,
+      "v4_recall": 1.0,
+      "by_length": {
+        "40-80": {
+          "gold": 82,
+          "baseline_ok": 76,
+          "baseline_recall": 0.9268,
+          "v4_ok": 82,
+          "v4_recall": 1.0
+        },
+        "20-40": {
+          "gold": 49,
+          "baseline_ok": 32,
+          "baseline_recall": 0.6531,
+          "v4_ok": 49,
+          "v4_recall": 1.0
+        },
+        "<20": {
+          "gold": 44,
+          "baseline_ok": 1,
+          "baseline_recall": 0.0227,
+          "v4_ok": 44,
+          "v4_recall": 1.0
+        },
+        "80+": {
+          "gold": 223,
+          "baseline_ok": 223,
+          "baseline_recall": 1.0,
+          "v4_ok": 223,
+          "v4_recall": 1.0
+        }
+      },
+      "by_type": {
+        "unsupported_addition": {
+          "gold": 398,
+          "baseline_ok": 332,
+          "baseline_recall": 0.8342,
+          "v4_ok": 398,
+          "v4_recall": 1.0
+        }
+      }
+    }
+  },
+  "manifest": {
+    "gold_jsonl_sha256": "fddd62ce05baf028b64cb6db81b89053bdc5444a540c6e18e34e318577c8b32b",
+    "mfava_train_v2_sha256": "965b8245b7899ce0d23f46bb4b41a126d5d2f7d59ab524f32698e5e775aabb66"
+  }
+}

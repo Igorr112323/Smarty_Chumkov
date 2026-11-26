@@ -1,0 +1,137 @@
+{
+  "iteration": "v4",
+  "date": "2026-11-25",
+  "scope": "Только train/val/mFAVA-train. Held-out не использовался ни для выбора, ни для проверки гипотез.",
+  "reproduction": {
+    "head": "119a124",
+    "held351_from_artifacts_ranker_eval_v2": {
+      "span_f1": 0.3253,
+      "token_f1": 0.499,
+      "pair_f1": 0.5,
+      "fpr": 0.3043
+    },
+    "fresh_run": {
+      "span_f1": 0.3253,
+      "token_f1": 0.499,
+      "pair_f1": 0.5,
+      "fpr": 0.3043
+    }
+  },
+  "oracle_gate": {
+    "artifact": "artifacts/oracle_recall_v4.json",
+    "val_short_under40_before_after": [
+      0.3636,
+      1.0
+    ],
+    "mfava_short_under40_before_after": [
+      0.3548,
+      1.0
+    ],
+    "decision": "gate пройден: генерация коротких кандидатов больше не является блокером"
+  },
+  "mfava_integrity": {
+    "pairs": 150,
+    "spans": 398,
+    "types": {
+      "unsupported_addition": 398
+    },
+    "nbsp_in_answers": 0,
+    "bad_offsets_or_whitespace": 0,
+    "doc_overlap": 0
+  },
+  "experiments": [
+    {
+      "name": "pointwise HGB on full ngram candidates + base/local scores",
+      "train": "train",
+      "val": "val+mFAVA-train",
+      "weighted": {
+        "span_f1": 0.1664,
+        "token_f1": 0.4576,
+        "pair_f1": 0.3218,
+        "fpr": 0.7885
+      },
+      "verdict": "rejected"
+    },
+    {
+      "name": "bucket-balanced HGB with word-alignment features",
+      "train": "train",
+      "val": "val+mFAVA-train",
+      "weighted": {
+        "span_f1": 0.1726,
+        "token_f1": 0.4166,
+        "pair_f1": 0.2485,
+        "fpr": 0.7404
+      },
+      "verdict": "rejected"
+    },
+    {
+      "name": "listwise MLP ranker over sampled candidates",
+      "train": "train",
+      "val": "val+mFAVA-train",
+      "weighted": {
+        "span_f1": 0.1506,
+        "token_f1": 0.4391,
+        "pair_f1": 0.2272,
+        "fpr": 0.9808
+      },
+      "verdict": "rejected"
+    },
+    {
+      "name": "retrained local head on v4 candidates, global head unchanged",
+      "train": "train+mFAVA-train",
+      "val": "val+mFAVA-train",
+      "weighted": {
+        "span_f1": 0.2496,
+        "token_f1": 0.5355,
+        "pair_f1": 0.4416,
+        "fpr": 0.4712
+      },
+      "verdict": "rejected"
+    },
+    {
+      "name": "learned boundary re-ranking within baseline spans",
+      "train": "300 train + mFAVA-train",
+      "val": "val+mFAVA-train",
+      "candidate_top_is_gold": 0.028,
+      "verdict": "rejected"
+    },
+    {
+      "name": "rule-based conservative boundary replacement",
+      "train": "rule tuned on val+mFAVA-train",
+      "val": "val+mFAVA-train",
+      "weighted": {
+        "span_f1": 0.4485,
+        "token_f1": 0.6461,
+        "pair_f1": 0.592,
+        "fpr": 0.1635
+      },
+      "baseline_weighted_span_f1": 0.4731,
+      "verdict": "rejected"
+    },
+    {
+      "name": "add short v4 candidates to baseline predictions",
+      "train": "rule tuned on val+mFAVA-train",
+      "val": "val+mFAVA-train",
+      "weighted": {
+        "span_f1": 0.4731,
+        "token_f1": 0.6519,
+        "pair_f1": 0.5995,
+        "fpr": 0.1635
+      },
+      "verdict": "no change: no added candidate passed the risk gate"
+    },
+    {
+      "name": "direct word-alignment mismatch decoder",
+      "train": "rule tuned on val+mFAVA-train",
+      "val": "val+mFAVA-train",
+      "best_mfava_span_f1": 0.2422,
+      "val_fpr": 0.6731,
+      "verdict": "rejected"
+    }
+  ],
+  "bug_note": {
+    "issue": "Ранние прототипы (/tmp/decode_v4.py, /tmp/meta_v4.py, /tmp/align_feat_v4.py) кешировали кандидаты только для val; mFAVA декодировался в пусто.",
+    "fix": "Пересобран splits: Rtr/Rex/V в /tmp/meta_v4b.py и последующих скриптах. Неверные результаты в отчёт не включены."
+  },
+  "conclusion": "Oracle recall по коротким спанам полностью валидирован и закрыт, но ни один из восьми декодеров не улучшил baseline при FPR<=0.40. Конфигурация не менялась; held-out не трогался."
+}
