@@ -1,0 +1,582 @@
+{
+  "analysis": {
+    "train": {
+      "n_pairs": 549,
+      "gold_spans": 245,
+      "stats": {
+        "oracle_ok": 226,
+        "tp": 73,
+        "fp_negative_pair": 127,
+        "long_answer": 113,
+        "whole_pred_long": 68,
+        "fp_or_bad_boundary": 93,
+        "overlap_low": 19
+      },
+      "by_type": {
+        "unsupported_addition": {
+          "total": 97,
+          "oracle_ok": 90,
+          "overlap_low": 7
+        },
+        "entity": {
+          "total": 17,
+          "oracle_ok": 16,
+          "overlap_low": 1
+        },
+        "omission": {
+          "total": 10,
+          "oracle_ok": 10
+        },
+        "number": {
+          "total": 74,
+          "oracle_ok": 68,
+          "overlap_low": 6
+        },
+        "contradiction": {
+          "total": 26,
+          "oracle_ok": 23,
+          "overlap_low": 3
+        },
+        "temporal": {
+          "total": 7,
+          "oracle_ok": 7
+        },
+        "scope": {
+          "total": 14,
+          "oracle_ok": 12,
+          "overlap_low": 2
+        }
+      },
+      "by_gold_length": {
+        "long": {
+          "oracle_ok": 124,
+          "total": 124
+        },
+        "mid": {
+          "oracle_ok": 91,
+          "total": 96,
+          "overlap_low": 5
+        },
+        "short": {
+          "oracle_ok": 11,
+          "total": 25,
+          "overlap_low": 14
+        }
+      },
+      "examples": [
+        {
+          "pair": "sber000149",
+          "gold": [
+            100,
+            124,
+            "System V Release 3 (SVR3)"
+          ],
+          "best_cand": [
+            100,
+            153,
+            "System V Release 3 (SVR3) и System V Release 4 (SVR4)."
+          ],
+          "iou": 0.463
+        },
+        {
+          "pair": "sber000312",
+          "gold": [
+            133,
+            165,
+            "уволено было примерно 280 человек"
+          ],
+          "best_cand": [
+            129,
+            201,
+            "что уволено было примерно 280 человек (из примерно 800 работавших в ней)."
+          ],
+          "iou": 0.452
+        },
+        {
+          "pair": "sber000314",
+          "gold": [
+            28,
+            32,
+            "Астею"
+          ],
+          "best_cand": [
+            0,
+            45,
+            "Карл Людвиг Хенке обнаружил Астею в 1845 году."
+          ],
+          "iou": 0.109
+        },
+        {
+          "pair": "sber000317",
+          "gold": [
+            29,
+            56,
+            "как рациональная способность"
+          ],
+          "best_cand": [
+            0,
+            57,
+            "Пророчество поначалу видится как рациональная способность."
+          ],
+          "iou": 0.483
+        },
+        {
+          "pair": "sber000320",
+          "gold": [
+            99,
+            124,
+            "независимо от воли автора."
+          ],
+          "best_cand": [
+            0,
+            124,
+            "Произведение Сервантеса «Дон Кихот» перешло в глубокий психологический анализ че"
+          ],
+          "iou": 0.208
+        },
+        {
+          "pair": "sber000329",
+          "gold": [
+            207,
+            244,
+            "от нескольких часов до нескольких дней"
+          ],
+          "best_cand": [
+            155,
+            255,
+            "В разных случаях инкубационный период может длиться от нескольких часов до неско"
+          ],
+          "iou": 0.376
+        },
+        {
+          "pair": "sber000379",
+          "gold": [
+            166,
+            209,
+            "привлекает средства физических лиц во вклады"
+          ],
+          "best_cand": [
+            155,
+            248,
+            "Также банк привлекает средства физических лиц во вклады и оказывает услуги розни"
+          ],
+          "iou": 0.468
+        },
+        {
+          "pair": "sber000410",
+          "gold": [
+            60,
+            79,
+            "началось в 1895 году"
+          ],
+          "best_cand": [
+            0,
+            80,
+            "Возведение Средне-Сибирской железной дороги (Обь — Иркутск) началось в 1895 году"
+          ],
+          "iou": 0.247
+        }
+      ]
+    },
+    "val": {
+      "n_pairs": 150,
+      "gold_spans": 55,
+      "stats": {
+        "fp_negative_pair": 19,
+        "oracle_ok": 46,
+        "fp_or_bad_boundary": 28,
+        "long_answer": 20,
+        "tp": 16,
+        "whole_pred_long": 11,
+        "overlap_low": 9
+      },
+      "by_type": {
+        "number": {
+          "total": 12,
+          "oracle_ok": 11,
+          "overlap_low": 1
+        },
+        "entity": {
+          "total": 5,
+          "oracle_ok": 5
+        },
+        "contradiction": {
+          "total": 9,
+          "oracle_ok": 6,
+          "overlap_low": 3
+        },
+        "unsupported_addition": {
+          "total": 24,
+          "oracle_ok": 19,
+          "overlap_low": 5
+        },
+        "scope": {
+          "total": 1,
+          "oracle_ok": 1
+        },
+        "temporal": {
+          "total": 3,
+          "oracle_ok": 3
+        },
+        "omission": {
+          "total": 1,
+          "oracle_ok": 1
+        }
+      },
+      "by_gold_length": {
+        "long": {
+          "oracle_ok": 24,
+          "total": 24
+        },
+        "mid": {
+          "oracle_ok": 18,
+          "total": 20,
+          "overlap_low": 2
+        },
+        "short": {
+          "oracle_ok": 4,
+          "total": 11,
+          "overlap_low": 7
+        }
+      },
+      "examples": [
+        {
+          "pair": "sber000397",
+          "gold": [
+            166,
+            209,
+            "вплоть до совершеннолетия короля в 1651 году"
+          ],
+          "best_cand": [
+            93,
+            210,
+            "который стал фактическим правителем Франции после смерти Людовика XIII и вплоть "
+          ],
+          "iou": 0.373
+        },
+        {
+          "pair": "sber000514",
+          "gold": [
+            213,
+            265,
+            "в современном языке приобрело метафорическое значение"
+          ],
+          "best_cand": [
+            209,
+            315,
+            "что в современном языке приобрело метафорическое значение — заниматься бесполезн"
+          ],
+          "iou": 0.495
+        },
+        {
+          "pair": "sber000514",
+          "gold": [
+            269,
+            296,
+            "заниматься бесполезным делом"
+          ],
+          "best_cand": [
+            209,
+            315,
+            "что в современном языке приобрело метафорическое значение — заниматься бесполезн"
+          ],
+          "iou": 0.262
+        },
+        {
+          "pair": "sber000598",
+          "gold": [
+            9,
+            42,
+            "первым иском о признании отцовства"
+          ],
+          "best_cand": [
+            0,
+            116,
+            "Вслед за первым иском о признании отцовства был возбуждён второй иск о признании"
+          ],
+          "iou": 0.291
+        },
+        {
+          "pair": "sber000626",
+          "gold": [
+            53,
+            69,
+            "холдинг WhoTrades"
+          ],
+          "best_cand": [
+            0,
+            70,
+            "Лучшим брокером Восточной Европы в 2014 году признан холдинг WhoTrades."
+          ],
+          "iou": 0.239
+        },
+        {
+          "pair": "sber000637",
+          "gold": [
+            36,
+            65,
+            "изучение творчества Вяземского"
+          ],
+          "best_cand": [
+            0,
+            149,
+            "В 1920-х годах значительный вклад в изучение творчества Вяземского внесли советс"
+          ],
+          "iou": 0.2
+        },
+        {
+          "pair": "rusci000011",
+          "gold": [
+            272,
+            296,
+            "когнитивные теории эмоций"
+          ],
+          "best_cand": [
+            252,
+            347,
+            "Также анализируются когнитивные теории эмоций и различные виды эмоционального со"
+          ],
+          "iou": 0.26
+        },
+        {
+          "pair": "rusci000180",
+          "gold": [
+            372,
+            386,
+            "в нейрохирургии"
+          ],
+          "best_cand": [
+            319,
+            387,
+            "ассоциированные с высокой частотой летальных исходов в нейрохирургии;"
+          ],
+          "iou": 0.217
+        }
+      ]
+    },
+    "mfava_train": {
+      "n_pairs": 150,
+      "gold_spans": 398,
+      "stats": {
+        "oracle_ok": 332,
+        "tp": 269,
+        "long_answer": 147,
+        "overlap_low": 66,
+        "fp_or_bad_boundary": 168,
+        "whole_pred_long": 5
+      },
+      "by_type": {
+        "unsupported_addition": {
+          "total": 398,
+          "oracle_ok": 332,
+          "overlap_low": 66
+        }
+      },
+      "by_gold_length": {
+        "mid": {
+          "oracle_ok": 263,
+          "total": 269,
+          "overlap_low": 6
+        },
+        "short": {
+          "oracle_ok": 33,
+          "total": 93,
+          "overlap_low": 60
+        },
+        "long": {
+          "oracle_ok": 36,
+          "total": 36
+        }
+      },
+      "examples": [
+        {
+          "pair": "mfava000900",
+          "gold": [
+            250,
+            257,
+            "обнимать"
+          ],
+          "best_cand": [
+            235,
+            272,
+            "но он начал её обнимать после свадьбы."
+          ],
+          "iou": 0.211
+        },
+        {
+          "pair": "mfava000900",
+          "gold": [
+            636,
+            657,
+            "после разлуки с Селией"
+          ],
+          "best_cand": [
+            608,
+            658,
+            "за которого она вышла замуж после разлуки с Селией."
+          ],
+          "iou": 0.431
+        },
+        {
+          "pair": "mfava000901",
+          "gold": [
+            927,
+            966,
+            "никогда не работал в университете Тулейн"
+          ],
+          "best_cand": [
+            920,
+            1000,
+            "Типлер никогда не работал в университете Тулейн и не имеет степени доктора филос"
+          ],
+          "iou": 0.494
+        },
+        {
+          "pair": "mfava000907",
+          "gold": [
+            468,
+            487,
+            "изготовления игрушек"
+          ],
+          "best_cand": [
+            391,
+            488,
+            "Данный тест широко используется для определения пригодности видов дерева для изг"
+          ],
+          "iou": 0.204
+        },
+        {
+          "pair": "mfava000916",
+          "gold": [
+            397,
+            407,
+            "не выступал"
+          ],
+          "best_cand": [
+            373,
+            445,
+            "На церемонии посвящения не выступал 2-й Южнокаролинский струнный оркестр."
+          ],
+          "iou": 0.151
+        },
+        {
+          "pair": "mfava000917",
+          "gold": [
+            256,
+            264,
+            "снизилась"
+          ],
+          "best_cand": [
+            190,
+            268,
+            "с 1 февраля 2020 года базовая ставка за отправку внутренних писем снизилась $1."
+          ],
+          "iou": 0.114
+        },
+        {
+          "pair": "mfava000917",
+          "gold": [
+            275,
+            297,
+            "начиная с 3 января 2023"
+          ],
+          "best_cand": [
+            273,
+            319,
+            "а начиная с 3 января 2023 года она упала до $1."
+          ],
+          "iou": 0.489
+        },
+        {
+          "pair": "mfava000917",
+          "gold": [
+            308,
+            312,
+            "упала"
+          ],
+          "best_cand": [
+            273,
+            319,
+            "а начиная с 3 января 2023 года она упала до $1."
+          ],
+          "iou": 0.106
+        }
+      ]
+    }
+  },
+  "experiments": {
+    "rule": "Все эксперименты оценивались только на train/val/mFAVA-train; held351 не использовался.",
+    "baseline_weighted_val_x6_plus_mfava_train": {
+      "span_f1": 0.4731,
+      "token_f1": 0.6519,
+      "pair_f1": 0.5995,
+      "fpr": 0.1635
+    },
+    "tried_and_rejected": [
+      {
+        "name": "enhanced candidates (token windows, low doc overlap) + retrained heads",
+        "best_weighted_span_f1": 0.4359,
+        "token_f1": 0.5566,
+        "pair_f1": 0.56,
+        "fpr": 0.125,
+        "reason": "ниже baseline по span/token/pair"
+      },
+      {
+        "name": "boundary refinement by best overlapping short candidate",
+        "best_weighted_span_f1": 0.4426,
+        "token_f1": 0.642,
+        "fpr": 0.1635,
+        "reason": "ниже baseline по span; ухудшает val"
+      },
+      {
+        "name": "add top short candidates to decoded spans",
+        "best_weighted_span_f1": 0.4439,
+        "token_f1": 0.6217,
+        "pair_f1": 0.5629,
+        "fpr": 0.2788,
+        "reason": "ниже baseline и почти вдвое выше FPR"
+      },
+      {
+        "name": "token-level logistic (20 features)",
+        "best_weighted_span_f1": 0.214,
+        "token_f1": 0.5615,
+        "pair_f1": 0.4424,
+        "fpr": 0.2596,
+        "reason": "далеко ниже baseline"
+      },
+      {
+        "name": "token-level HistGradientBoosting",
+        "best_weighted_span_f1": 0.2326,
+        "token_f1": 0.5364,
+        "pair_f1": 0.422,
+        "fpr": 0.1923,
+        "reason": "далеко ниже baseline"
+      },
+      {
+        "name": "frozen ruBERT candidate scorer (lexical features + embeddings)",
+        "best_weighted_span_f1": 0.38,
+        "token_f1": 0.5056,
+        "pair_f1": 0.5127,
+        "fpr": 0.1635,
+        "reason": "ниже baseline"
+      },
+      {
+        "name": "fine-tuned ruBERT token classifier (2 epochs)",
+        "best_weighted_span_f1": 0.0811,
+        "token_f1": 0.4602,
+        "pair_f1": 0.2697,
+        "fpr": 0.9519,
+        "reason": "нестабильные границы и высокий FPR"
+      },
+      {
+        "name": "merge adjacent decoded spans",
+        "reason": "ухудшает multi-span mFAVA: weighted span 0.2713 при gap=0 против 0.4731 baseline"
+      }
+    ],
+    "key_diagnosis": {
+      "short_gold_spans_lt40": "oracle recall 44% train, 36% val, 35% mfava_train; основные потери локализации",
+      "long_gold_spans": "oracle recall ~100%, но scoring выбирает слишком длинные кандидаты",
+      "false_positives": "127(fp на neg)-pair в train и 19 в val; boundary/refinement увеличивает FP"
+    }
+  }
+}
