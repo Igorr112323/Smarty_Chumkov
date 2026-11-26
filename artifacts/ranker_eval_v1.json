@@ -1,0 +1,188 @@
+{
+  "dataset": "artifacts/gold1200.jsonl",
+  "dataset_sha256": "7a27f08b33249ede2bd07a3c952162c62341f4f78ac222fbb779118fc2ff9b1c",
+  "config": {
+    "gate": 0.5,
+    "threshold": 0.6,
+    "max_spans": 1,
+    "nms_iou": 0.1
+  },
+  "weights_sha256": "a7b0e19a260fe2c3ffc2a6ee55eeb3c1e3315aa332d9bc858825c2b2b25106ed",
+  "python": "3.11.2",
+  "split_sizes": {
+    "test301": 301,
+    "extra200": 200,
+    "held501": 501
+  },
+  "results": {
+    "test301": {
+      "ranker": {
+        "n_pairs": 301,
+        "n_pairs_with_spans": 94,
+        "n_neg_pairs": 207,
+        "span_level": {
+          "tp": 36,
+          "fp": 89,
+          "fn": 87,
+          "precision": 0.288,
+          "recall": 0.2927,
+          "f1": 0.2903
+        },
+        "token_level": {
+          "precision": 0.3617,
+          "recall": 0.7817,
+          "f1": 0.4945
+        },
+        "pair_level": {
+          "precision": 0.3673,
+          "recall": 0.383,
+          "f1": 0.375
+        },
+        "fpr": 0.2995,
+        "type_accuracy": 0.8889,
+        "type_correct": 32,
+        "iou_threshold": 0.5
+      },
+      "lexical_baseline": {
+        "n_pairs": 301,
+        "n_pairs_with_spans": 94,
+        "n_neg_pairs": 207,
+        "span_level": {
+          "tp": 36,
+          "fp": 95,
+          "fn": 87,
+          "precision": 0.2748,
+          "recall": 0.2927,
+          "f1": 0.2835
+        },
+        "token_level": {
+          "precision": 0.2856,
+          "recall": 0.6259,
+          "f1": 0.3923
+        },
+        "pair_level": {
+          "precision": 0.3303,
+          "recall": 0.383,
+          "f1": 0.3547
+        },
+        "fpr": 0.3527,
+        "type_accuracy": 0.75,
+        "type_correct": 27,
+        "iou_threshold": 0.5
+      }
+    },
+    "extra200": {
+      "ranker": {
+        "n_pairs": 200,
+        "n_pairs_with_spans": 200,
+        "n_neg_pairs": 0,
+        "span_level": {
+          "tp": 8,
+          "fp": 176,
+          "fn": 508,
+          "precision": 0.0435,
+          "recall": 0.0155,
+          "f1": 0.0229
+        },
+        "token_level": {
+          "precision": 0.2656,
+          "recall": 0.9407,
+          "f1": 0.4143
+        },
+        "pair_level": {
+          "precision": 1.0,
+          "recall": 0.04,
+          "f1": 0.0769
+        },
+        "fpr": 0.0,
+        "type_accuracy": 0.0,
+        "type_correct": 0,
+        "iou_threshold": 0.5
+      },
+      "lexical_baseline": {
+        "n_pairs": 200,
+        "n_pairs_with_spans": 200,
+        "n_neg_pairs": 0,
+        "span_level": {
+          "tp": 2,
+          "fp": 195,
+          "fn": 514,
+          "precision": 0.0102,
+          "recall": 0.0039,
+          "f1": 0.0056
+        },
+        "token_level": {
+          "precision": 0.2541,
+          "recall": 0.9981,
+          "f1": 0.4051
+        },
+        "pair_level": {
+          "precision": 1.0,
+          "recall": 0.01,
+          "f1": 0.0198
+        },
+        "fpr": 0.0,
+        "type_accuracy": 0.0,
+        "type_correct": 0,
+        "iou_threshold": 0.5
+      }
+    },
+    "held501": {
+      "ranker": {
+        "n_pairs": 501,
+        "n_pairs_with_spans": 294,
+        "n_neg_pairs": 207,
+        "span_level": {
+          "tp": 44,
+          "fp": 265,
+          "fn": 595,
+          "precision": 0.1424,
+          "recall": 0.0689,
+          "f1": 0.0928
+        },
+        "token_level": {
+          "precision": 0.2881,
+          "recall": 0.8876,
+          "f1": 0.4351
+        },
+        "pair_level": {
+          "precision": 0.4151,
+          "recall": 0.1497,
+          "f1": 0.22
+        },
+        "fpr": 0.2995,
+        "type_accuracy": 0.7273,
+        "type_correct": 32,
+        "iou_threshold": 0.5
+      },
+      "lexical_baseline": {
+        "n_pairs": 501,
+        "n_pairs_with_spans": 294,
+        "n_neg_pairs": 207,
+        "span_level": {
+          "tp": 38,
+          "fp": 290,
+          "fn": 601,
+          "precision": 0.1159,
+          "recall": 0.0595,
+          "f1": 0.0786
+        },
+        "token_level": {
+          "precision": 0.261,
+          "recall": 0.8738,
+          "f1": 0.402
+        },
+        "pair_level": {
+          "precision": 0.3423,
+          "recall": 0.1293,
+          "f1": 0.1877
+        },
+        "fpr": 0.3527,
+        "type_accuracy": 0.7105,
+        "type_correct": 27,
+        "iou_threshold": 0.5
+      }
+    }
+  },
+  "notes": "Пороги зафиксированы на train/val до оценки; test301 и extra200 — только финальная проверка."
+}

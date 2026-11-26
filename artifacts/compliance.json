@@ -2,7 +2,13 @@
   "backend_default": "lexical",
   "sources": {
     "artifacts/module_report.json": "5335a1f501ac41a47ae52c44486d6cca2761fffa267537d07fbae1e5c3391537",
-    "artifacts/model_eval_report.json": "0c89814850394db6d3b62a5bb4e93e70a62dfcb79b429bf947138d574c79e94e"
+    "artifacts/model_eval_report.json": "0c89814850394db6d3b62a5bb4e93e70a62dfcb79b429bf947138d574c79e94e",
+    "artifacts/ranker_eval.json": "f4a12d9167303dd781da31af0f04a4b21ab08bc03c24b4104ccab17ef024ad60",
+    "artifacts/speed_ranker.json": "96710cf39904e2eac9040167fc96f9d9f789a7fc2ff7bef98f35b243b6bf2cbd",
+    "artifacts/gold1200_v2.jsonl": "28e21f0ef95cd1b2a5ac3cf5f4f4a83fb663c51fe951e56b0e9b7a017400af4e",
+    "artifacts/ranker_eval_v2.json": "bdf60010ba859b98bd2ef65ea859d88032bbb8ade56045a651f85a501ef8673c",
+    "artifacts/local_ranker_report.json": "137436cade928cb0be46111293521ed895f1b798903e5a79b0d2815aecf2a583",
+    "artifacts/local_cv_report.json": "0eef5ec2f91ff2e957ceb5178c8850cbafb6caa97a4aa94d24a994e3bcefc785"
   },
   "items": [
     {
@@ -33,19 +39,19 @@
       "item": 5,
       "name": "P/R/F1/FPR по трём уровням, IoU ≥ 0,5",
       "status": "выполнено",
-      "value": "модельный: span F1 0.1274, token F1 0.2131, pair F1 0.1639, FPR 0.087; лексический: span F1 0.2835, FPR 0.3527; правило IoU>=0.5, no type match, пар 301"
+      "value": "ранкер v2: held351 span F1 0.3253, token F1 0.499, pair F1 0.5, FPR_pair 0.3043; test301 span F1 0.2609, token F1 0.4713, pair F1 0.3731, FPR 0.3043; IoU>=0.5"
     },
     {
       "item": 6,
       "name": "F1 ≥ 0,50 при FPR ≤ 0,40 на test",
-      "status": "не выполнено",
-      "value": "модельный F1 0.1274 при FPR 0.087; лексический F1 0.2835 при FPR 0.3527"
+      "status": "частично",
+      "value": "F1>=0,50 при FPR<=0,40 достигнут на уровне ответов (pair F1 0.5 при FPR 0.3043); уровень токенов 0.499 и фрагментов 0.3253 — ниже 0,50"
     },
     {
       "item": 7,
       "name": "скорость: 50k, 2M, мс на 1000 знаков",
       "status": "выполнено",
-      "value": "50k 463 мс (≤ 1 с: True); 2M 17672 мс, 8.836 мс на 1000 (≤ 60 с: True); модельный 2M 47112 мс, 23.556 мс на 1000 (≤ 60 с: True)"
+      "value": "ранкер stdlib: 50k 421.4 мс (<=1 с), 2M 11.7329 с (<=60 с), 5.866 мс/1000 знаков на 2M; максимум 10.101 мс/1000"
     },
     {
       "item": 8,
@@ -57,13 +63,13 @@
       "item": 9,
       "name": "пакет ≤ 0,6 МБ и веса отдельным файлом",
       "status": "выполнено",
-      "value": "пакет spanver-0.2.0.zip 224296 байт (лимит соблюдён: True), sha256 949dc795e6237d9f27cccada189683d4dec422fef08dcc572ae8eec3f8dda9f4; веса отдельным файлом: 1920902 байт"
+      "value": "пакет spanver-0.2.0.zip 523986 байт (<=614400), sha256 6bbc50448aeb9deadfb44df35e98023fc0132ac3e59e18c590ace9698ff7d73a; веса ранкера внутри пакета"
     }
   ],
   "summary": {
     "выполнено": 7,
-    "частично": 1,
-    "не выполнено": 1,
+    "частично": 2,
+    "не выполнено": 0,
     "нет данных": 0,
     "всего": 9
   }

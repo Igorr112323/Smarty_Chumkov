@@ -408,11 +408,60 @@ def select(scored, limit, nms_iou=NMS_IOU):
     return accepted
 
 
-def verify(answer, document, threshold=None, weights=None, max_spans=None, nms_iou=None):
+def _finish(text, doc, spans, document_tokens, started, support_by_span=None):
+    """Собирает ответ по контракту из уже выбранных спанов и поддержки предложений."""
+    if support_by_span is None:
+        support_by_span = {}
+        for start, end, _fragment in candidate_spans(text):
+            whole = start == 0 and end == len(text) - 1
+            _, support = feature_vector(
+                text[start : end + 1],
+                len(text),
+                document_tokens,
+                whole,
+                None,
+                None,
+                start,
+                len(doc),
+            )
+            support_by_span[(start, end)] = support
+    covered = 0.0
+    total = 0.0
+    for start, end in sentence_spans(text):
+        length = end - start + 1
+        total += length
+        support = support_by_span.get((start, end))
+        if support is None:
+            features = token_features(text[start : end + 1], document_tokens)
+            support = sum(1 for item in features if item[-1]) / len(features) if features else 0.0
+        covered += length * (1.0 - support)
+    raw_share = covered / total if total else 0.0
+    ai_share = calibrate_share(raw_share)
+    elapsed = int(round((time.perf_counter() - started) * 1000))
+    return {
+        "spans": spans,
+        "ai_share": ai_share,
+        "meta": {
+            "answer_len": len(text),
+            "doc_len": len(doc),
+            "n_spans": len(spans),
+            "ai_share_raw": round(raw_share, 4),
+            "elapsed_ms": elapsed,
+        },
+    }
+
+
+def verify(answer, document, threshold=None, weights=None, max_spans=None, nms_iou=None, use_ranker=True):
     started = time.perf_counter()
     text = answer or ""
     doc = document or ""
     limit = THRESHOLD if threshold is None else threshold
+    if use_ranker and weights is None and threshold is None:
+        from .ranker import select_spans
+
+        context = document_context(doc)
+        spans, support_map = select_spans(text, doc, collect_support=True)
+        return _finish(text, doc, spans, context[0], started, support_map)
     document_tokens, document_stems, document_ngrams = document_context(doc)
     scored = []
     for start, end, fragment in candidate_spans(text):
@@ -444,24 +493,4 @@ def verify(answer, document, threshold=None, weights=None, max_spans=None, nms_i
                 "confidence": confidence(item["risk"]),
             }
         )
-    support_by_span = {(item["start"], item["end"]): item["support"] for item in scored}
-    covered = 0.0
-    total = 0.0
-    for start, end in sentence_spans(text):
-        length = end - start + 1
-        total += length
-        covered += length * (1.0 - support_by_span.get((start, end), 1.0))
-    raw_share = covered / total if total else 0.0
-    ai_share = calibrate_share(raw_share)
-    elapsed = int(round((time.perf_counter() - started) * 1000))
-    return {
-        "spans": spans,
-        "ai_share": ai_share,
-        "meta": {
-            "answer_len": len(text),
-            "doc_len": len(doc),
-            "n_spans": len(spans),
-            "ai_share_raw": round(raw_share, 4),
-            "elapsed_ms": elapsed,
-        },
-    }
+    return _finish(text, doc, spans, document_tokens, started)

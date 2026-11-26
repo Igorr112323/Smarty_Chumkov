@@ -190,5 +190,101 @@
   },
   "seed": 0,
   "python": "3.11.2",
-  "built_utc": "2026-11-14T18:10:05Z"
+  "built_utc": "2026-11-14T18:10:05Z",
+  "ranker_v2": {
+    "dataset": "artifacts/gold1200_v2.jsonl",
+    "dataset_sha256": "28e21f0ef95cd1b2a5ac3cf5f4f4a83fb663c51fe951e56b0e9b7a017400af4e",
+    "eval_report": "artifacts/ranker_eval_v2.json",
+    "eval_sha256": "bdf60010ba859b98bd2ef65ea859d88032bbb8ade56045a651f85a501ef8673c",
+    "config": {
+      "gate": 0.5,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "nms_iou": 0.1
+    },
+    "results": {
+      "test301": {
+        "n_pairs": 301,
+        "n_pairs_with_spans": 94,
+        "n_neg_pairs": 207,
+        "span_level": {
+          "tp": 36,
+          "fp": 117,
+          "fn": 87,
+          "precision": 0.2353,
+          "recall": 0.2927,
+          "f1": 0.2609
+        },
+        "token_level": {
+          "precision": 0.354,
+          "recall": 0.7047,
+          "f1": 0.4713
+        },
+        "pair_level": {
+          "precision": 0.3636,
+          "recall": 0.383,
+          "f1": 0.3731
+        },
+        "fpr": 0.3043,
+        "type_accuracy": 0.8611,
+        "type_correct": 31,
+        "iou_threshold": 0.5
+      },
+      "extra50": {
+        "n_pairs": 50,
+        "n_pairs_with_spans": 50,
+        "n_neg_pairs": 0,
+        "span_level": {
+          "tp": 58,
+          "fp": 87,
+          "fn": 99,
+          "precision": 0.4,
+          "recall": 0.3694,
+          "f1": 0.3841
+        },
+        "token_level": {
+          "precision": 0.4699,
+          "recall": 0.68,
+          "f1": 0.5557
+        },
+        "pair_level": {
+          "precision": 1.0,
+          "recall": 0.66,
+          "f1": 0.7952
+        },
+        "fpr": 0.0,
+        "type_accuracy": 0.6207,
+        "type_correct": 36,
+        "iou_threshold": 0.5
+      },
+      "held351": {
+        "n_pairs": 351,
+        "n_pairs_with_spans": 144,
+        "n_neg_pairs": 207,
+        "span_level": {
+          "tp": 94,
+          "fp": 204,
+          "fn": 186,
+          "precision": 0.3154,
+          "recall": 0.3357,
+          "f1": 0.3253
+        },
+        "token_level": {
+          "precision": 0.3891,
+          "recall": 0.6954,
+          "f1": 0.499
+        },
+        "pair_level": {
+          "precision": 0.5227,
+          "recall": 0.4792,
+          "f1": 0.5
+        },
+        "fpr": 0.3043,
+        "type_accuracy": 0.7128,
+        "type_correct": 67,
+        "iou_threshold": 0.5
+      }
+    },
+    "note": "Двухкаскадный ranker + локальный HGB; пороги выбраны на train/val/CV, held351 — только финальная проверка."
+  }
 }

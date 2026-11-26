@@ -1,3 +1,4 @@
+from spanver import ranker
 from spanver.module import FEATURE_NAMES, THRESHOLD, stem, token_features, verify
 
 TYPES = {"number", "temporal", "entity", "omission", "unsupported_addition", "contradiction", "scope"}
@@ -17,7 +18,7 @@ def test_schema_and_ranges():
         assert span["type"] in TYPES
         assert 0.0 <= span["risk"] <= 1.0
         assert 0.0 <= span["confidence"] <= 1.0
-        assert span["risk"] >= THRESHOLD
+        assert span["risk"] >= min(THRESHOLD, ranker._model()["config"]["threshold"])
 
 
 def test_deterministic():

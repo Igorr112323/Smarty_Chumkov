@@ -63,7 +63,7 @@ sha256sum Dataset/7_ruscibench/ru_sci_bench_ru.parquet
 
 ## Использование
 
-Python 3.10+, только стандартная библиотека, из корня репозитория.
+Python 3.10+, только стандартная библиотека в рантайме, из корня репозитория.
 
 ```
 python -m spanver verify --answer answer.txt --document doc.txt
@@ -73,9 +73,46 @@ python tools/make_calibration.py
 python tools/build_package.py
 ```
 
+### Воспроизводимый ранкер (по умолчанию)
+
+Лексический бэкенд по умолчанию использует двухкаскадный ранкер `spanver/ranker.py`:
+логистическая модель кандидата (37 признаков) и гейт пары (9 признаков). Веса —
+`spanver/ranker_weights.json` (2 643 байта, sha256 `a7b0e19a260fe2c3ffc2a6ee55eeb3c1e3315aa332d9bc858825c2b2b25106ed`),
+пороги зафиксированы на train/val: gate 0,50, candidate threshold 0,60, max_spans 1.
+Рантайм не требует numpy/scikit-learn; training-only версии зафиксированы в `requirements-train.txt`.
+
+Воспроизведение полного цикла:
+
+```
+python -m spanver build --dataset Dataset --out artifacts
+python tools/build_gold1200.py
+python tools/train_ranker.py
+python tools/build_gold1200_v2.py
+python tools/cv_local_ranker.py
+python tools/train_local_ranker.py
+python tools/eval_ranker.py --gold artifacts/gold1200_v2.jsonl --report artifacts/ranker_eval_v2.json
+python tools/speed_ranker.py
+python tools/build_package.py
+python -m pytest -q
+```
+
+`tools/build_gold1200.py` собирает 1 200 пар: 1 000 RusHallu-RAG + 200 удержанных
+русских пар mFAVA_ru; ещё 48 пар mFAVA_ru идут только в дополнительный train.
+Версия 2 (`tools/build_gold1200_v2.py`) использует позиционную конвертацию
+mFAVA_ru и детерминированное деление 150 train / 50 held; оба набора сохраняются.
+
+В ранкере два каскада: глобальный logistic-скрипт для RusHallu и локальный
+`HistGradientBoostingClassifier`, экспортированный в JSON и работающий на
+чистом Python (`spanver/local_ranker.py`). Гейт режима и пороги выбраны на
+train/val/CV с учётом ожидаемой доли источников в удержанной выборке;
+`artifacts/local_cv_report.json` и `artifacts/local_ranker_report.json`
+содержат решётку и выбранные значения. `tools/eval_ranker.py` оценивает
+удержанные сплиты без подбора порогов. Явный legacy-режим:
+`verify(..., threshold=0.98, use_ranker=False)`.
+
 Веб-интерфейс: `http://localhost:8765/` — поля «ответ» и «документ», кнопка «Проверить», таблица найденных фрагментов (координаты, риск, тип, confidence). Страница самодостаточна, внешних ресурсов не использует.
 
-Переносимый пакет: `artifacts/spanver-0.2.0.zip` (224 296 байт, sha256 949dc795e6237d9f27cccada189683d4dec422fef08dcc572ae8eec3f8dda9f4, эталон в `package.sha256`), собирается `python tools/build_package.py`; в архив входят только файлы пакета `spanver/` (оба бэкенда и канонический сплит) и краткая инструкция, без данных, артефактов, тестов и кэша; архив собирается без сжатия, поэтому его sha256 не зависит от версии zlib и совпадает на Python 3.10 и 3.11.
+Переносимый пакет: `artifacts/spanver-0.2.0.zip` (523 986 байт, sha256 6bbc50448aeb9deadfb44df35e98023fc0132ac3e59e18c590ace9698ff7d73a, эталон в `package.sha256`), собирается `python tools/build_package.py`; в архив входят только файлы пакета `spanver/` (оба бэкенда и канонический сплит) и краткая инструкция, без данных, артефактов, тестов и кэша; архив собирается без сжатия, поэтому его sha256 не зависит от версии zlib и совпадает на Python 3.10 и 3.11.
 
 ## Модельный режим
 
