@@ -1,0 +1,75 @@
+{
+  "protocol": "train=RusHallu train + mFAVA fold0; thresholds=val RusHallu + mFAVA fold1; report=val RusHallu + mFAVA fold2; held-out не читается",
+  "fold_sizes": {
+    "0": 55,
+    "1": 44,
+    "2": 49
+  },
+  "fold_sha256": {
+    "0": "39eb172ad3e2de1abebdc8d5b058ae36f501a10d4e7564a34e44dea28393613c",
+    "1": "7d27b55fc7a713c82e4d650b4f78063d57d3c3ddf2effd3ae6ecc7f2016f63f9",
+    "2": "f5f0e4bab25eb5391440891d4ee2541f7c419ab0772998cb65ece0b6092333fc"
+  },
+  "weights_sha256": "2dd6750f1fbf75f26a2042333f1436c5ad21d1e640770a81686d8fd0780c6780",
+  "config": {
+    "gate": 0.5,
+    "threshold": 0.6,
+    "max_spans": 1,
+    "nms_iou": 0.1,
+    "mode_cut": 0.5,
+    "local_config": {
+      "threshold": 0.6,
+      "max_spans": 4,
+      "nms_iou": 0.1
+    }
+  },
+  "dev_combined": {
+    "span": 0.3422,
+    "token": 0.4658,
+    "pair": 0.5786,
+    "fpr": 0.1731,
+    "iou": 0.5
+  },
+  "dev_rushallu_val": {
+    "span": 0.2542,
+    "token": 0.5087,
+    "pair": 0.3797,
+    "fpr": 0.1731,
+    "iou": 0.5
+  },
+  "dev_mfava_fold2": {
+    "span": 0.3891,
+    "token": 0.4225,
+    "pair": 0.775,
+    "fpr": 0.0,
+    "iou": 0.5
+  },
+  "full_dev_metrics": {
+    "n_pairs": 199,
+    "n_pairs_with_spans": 95,
+    "n_neg_pairs": 104,
+    "span_level": {
+      "tp": 58,
+      "fp": 96,
+      "fn": 127,
+      "precision": 0.3766,
+      "recall": 0.3135,
+      "f1": 0.3422
+    },
+    "token_level": {
+      "precision": 0.4884,
+      "recall": 0.4451,
+      "f1": 0.4658
+    },
+    "pair_level": {
+      "precision": 0.7188,
+      "recall": 0.4842,
+      "f1": 0.5786
+    },
+    "fpr": 0.1731,
+    "type_accuracy": 0.7931,
+    "type_correct": 46,
+    "iou_threshold": 0.5
+  },
+  "guard_pass": false
+}

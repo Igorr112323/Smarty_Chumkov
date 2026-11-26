@@ -1,0 +1,216 @@
+{
+  "seed": 0,
+  "train_pairs": 549,
+  "train_extra_pairs": 148,
+  "val_pairs": 150,
+  "candidate_rows": 11369,
+  "positive_candidates": 1429,
+  "versions": {
+    "python": "3.11.2",
+    "numpy": "1.26.4",
+    "scikit_learn": "1.9.1"
+  },
+  "model": {
+    "candidate": "LogisticRegression(C=1, class_weight={0:1,1:4})",
+    "pair_gate": "LogisticRegression(C=1, class_weight={0:1,1:2})"
+  },
+  "config": {
+    "gate": 0.5,
+    "threshold": 0.6,
+    "max_spans": 1,
+    "nms_iou": 0.1
+  },
+  "val": {
+    "n_pairs": 150,
+    "n_pairs_with_spans": 46,
+    "n_neg_pairs": 104,
+    "span_level": {
+      "tp": 19,
+      "fp": 33,
+      "fn": 35,
+      "precision": 0.3654,
+      "recall": 0.3519,
+      "f1": 0.3585
+    },
+    "token_level": {
+      "precision": 0.5019,
+      "recall": 0.8756,
+      "f1": 0.638
+    },
+    "pair_level": {
+      "precision": 0.5278,
+      "recall": 0.413,
+      "f1": 0.4634
+    },
+    "fpr": 0.1635,
+    "type_accuracy": 0.9474,
+    "type_correct": 18,
+    "iou_threshold": 0.5
+  },
+  "grid": [
+    {
+      "gate": 0.4,
+      "threshold": 0.5,
+      "max_spans": 1,
+      "span_f1": 0.3471,
+      "token_f1": 0.6103,
+      "pair_f1": 0.4468,
+      "fpr": 0.2596
+    },
+    {
+      "gate": 0.4,
+      "threshold": 0.5,
+      "max_spans": 2,
+      "span_f1": 0.3415,
+      "token_f1": 0.6103,
+      "pair_f1": 0.4468,
+      "fpr": 0.2596
+    },
+    {
+      "gate": 0.4,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "span_f1": 0.3551,
+      "token_f1": 0.6332,
+      "pair_f1": 0.4578,
+      "fpr": 0.1731
+    },
+    {
+      "gate": 0.4,
+      "threshold": 0.6,
+      "max_spans": 2,
+      "span_f1": 0.3551,
+      "token_f1": 0.6332,
+      "pair_f1": 0.4578,
+      "fpr": 0.1731
+    },
+    {
+      "gate": 0.4,
+      "threshold": 0.7,
+      "max_spans": 1,
+      "span_f1": 0.3297,
+      "token_f1": 0.5975,
+      "pair_f1": 0.4167,
+      "fpr": 0.1058
+    },
+    {
+      "gate": 0.4,
+      "threshold": 0.7,
+      "max_spans": 2,
+      "span_f1": 0.3297,
+      "token_f1": 0.5975,
+      "pair_f1": 0.4167,
+      "fpr": 0.1058
+    },
+    {
+      "gate": 0.5,
+      "threshold": 0.5,
+      "max_spans": 1,
+      "span_f1": 0.3486,
+      "token_f1": 0.629,
+      "pair_f1": 0.4578,
+      "fpr": 0.1731
+    },
+    {
+      "gate": 0.5,
+      "threshold": 0.5,
+      "max_spans": 2,
+      "span_f1": 0.3423,
+      "token_f1": 0.629,
+      "pair_f1": 0.4578,
+      "fpr": 0.1731
+    },
+    {
+      "gate": 0.5,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "span_f1": 0.3585,
+      "token_f1": 0.638,
+      "pair_f1": 0.4634,
+      "fpr": 0.1635
+    },
+    {
+      "gate": 0.5,
+      "threshold": 0.6,
+      "max_spans": 2,
+      "span_f1": 0.3585,
+      "token_f1": 0.638,
+      "pair_f1": 0.4634,
+      "fpr": 0.1635
+    },
+    {
+      "gate": 0.5,
+      "threshold": 0.7,
+      "max_spans": 1,
+      "span_f1": 0.3297,
+      "token_f1": 0.5975,
+      "pair_f1": 0.4167,
+      "fpr": 0.1058
+    },
+    {
+      "gate": 0.5,
+      "threshold": 0.7,
+      "max_spans": 2,
+      "span_f1": 0.3297,
+      "token_f1": 0.5975,
+      "pair_f1": 0.4167,
+      "fpr": 0.1058
+    },
+    {
+      "gate": 0.6,
+      "threshold": 0.5,
+      "max_spans": 1,
+      "span_f1": 0.3125,
+      "token_f1": 0.5871,
+      "pair_f1": 0.4054,
+      "fpr": 0.125
+    },
+    {
+      "gate": 0.6,
+      "threshold": 0.5,
+      "max_spans": 2,
+      "span_f1": 0.3061,
+      "token_f1": 0.5871,
+      "pair_f1": 0.4054,
+      "fpr": 0.125
+    },
+    {
+      "gate": 0.6,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "span_f1": 0.3158,
+      "token_f1": 0.595,
+      "pair_f1": 0.411,
+      "fpr": 0.1154
+    },
+    {
+      "gate": 0.6,
+      "threshold": 0.6,
+      "max_spans": 2,
+      "span_f1": 0.3158,
+      "token_f1": 0.595,
+      "pair_f1": 0.411,
+      "fpr": 0.1154
+    },
+    {
+      "gate": 0.6,
+      "threshold": 0.7,
+      "max_spans": 1,
+      "span_f1": 0.3146,
+      "token_f1": 0.5881,
+      "pair_f1": 0.4,
+      "fpr": 0.0962
+    },
+    {
+      "gate": 0.6,
+      "threshold": 0.7,
+      "max_spans": 2,
+      "span_f1": 0.3146,
+      "token_f1": 0.5881,
+      "pair_f1": 0.4,
+      "fpr": 0.0962
+    }
+  ],
+  "weights": "artifacts/ranker_weights_v3.json",
+  "weights_sha256": "468f5238afc2f4c73a9b5426dad9ca2508d434cb53fc3cbe84fa4ff46bbb87f5"
+}

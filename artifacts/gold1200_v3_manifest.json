@@ -1,0 +1,42 @@
+{
+  "rule": "C1_min_containing_clause from tools/convert_labels_v3.py",
+  "sources": {
+    "gold.jsonl_sha256": "fddd62ce05baf028b64cb6db81b89053bdc5444a540c6e18e34e318577c8b32b",
+    "gold1200_v2_sha256": "28e21f0ef95cd1b2a5ac3cf5f4f4a83fb663c51fe951e56b0e9b7a017400af4e",
+    "mfava_train_v2_sha256": "965b8245b7899ce0d23f46bb4b41a126d5d2f7d59ab524f32698e5e775aabb66"
+  },
+  "outputs": {
+    "gold_v3.jsonl": [
+      "cba82c37407733533f019b216981b26229bd9bbad8fdc7c989e58dcd013b3e8b",
+      3743302
+    ],
+    "mfava_train_v3.jsonl": [
+      "228e2466eeaea38a8ae413c72b420863edc5ce5aca47f24eccb1d01f9118964e",
+      1877316
+    ],
+    "gold1200_v3.jsonl": [
+      "910398513413d8a2896fdc8e1d13b716220ce0199a81c29cd39472e87951a9e5",
+      7933632
+    ]
+  },
+  "counts": {
+    "gold_v3_pairs": 699,
+    "mfava_train_v3_pairs": 148,
+    "gold1200_v3_pairs": 1200,
+    "v3_held_pairs": 351,
+    "v3_train_spans": 289,
+    "v3_mfava_spans": 391,
+    "v3_held_spans": 271
+  },
+  "excluded_train_pairs_due_to_doc_overlap": [
+    "mfava000947",
+    "mfava000949"
+  ],
+  "doc_overlap_train_vs_held": 0,
+  "doc_overlap_held_v2_vs_v3": 333,
+  "old_versions_kept": [
+    "artifacts/gold.jsonl",
+    "artifacts/gold1200_v2.jsonl",
+    "artifacts/mfava_train_v2.jsonl"
+  ]
+}
