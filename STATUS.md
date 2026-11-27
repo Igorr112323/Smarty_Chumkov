@@ -626,3 +626,26 @@ F1 ≥ 0,50 не достигнут ни одним бэкендом. Причи
 | приёмка собранного пакета и сверка SHA-256 | после сборки, дата не установлена |
 
 Сроки задаёт куратор по календарному плану; в репозитории они не зафиксированы.
+
+## Цикл 11 (2026-11-25): RusHallu-style данные и listwise-выбор границ
+
+Построены данные в стиле RusHallu: 84 pseudo-clause пар из whole-меток
+(`tools/build_clause_pseudo_v11.py`) и 3 563 синтетические пары с точными
+границами (number/entity mutation + clause swap, `tools/build_rushallu_synth_v11.py`),
+doc_overlap = 0, манифесты с SHA. Обучены listwise-ранкер (LightGBM lambdarank),
+stacker на скорах двух голов, router whole/clause/short и boundary adjuster.
+OOF 3-fold по документам на объединённом train.
+
+| конфигурация | val span | val token | val pair | mFAVA span |
+|---|---|---|---|---|
+| v10 baseline (v3 mode gate) | 0,3186 | 0,6182 | 0,4675 | 0,6895 |
+| listwise (synth) | 0,1379 | 0,2568 | 0,2500 | 0,5598 |
+| stacker (реальные метки) | 0,1758 | 0,4480 | 0,2424 | 0,7850 |
+| router v2 + local chooser | 0,2414 | 0,5643 | 0,3889 | 0,6943 |
+| **boundary adjuster (hybrid)** | **0,3363** | **0,6191** | **0,4872** | **0,6895** |
+
+Router отклонён по правилу >15 % ложных whole (факт 88,9 %). OOF на реальных
+парах 0,4714 / 0,6507 / 0,7083 при FPR 0,0; OOF на всём пуле 0,6871 — артефакт
+доли синтетики. Guard 0,50/0,50/0,50 не пройден, held-out не запускался.
+Отчёт: `artifacts/final_report_117812_v11.md`. Тесты: 142 passed.
+Пакет: 523 986 байт, sha256 `6bbc50448aeb9deadfb44df35e98023fc0132ac3e59e18c590ace9698ff7d73a`.
