@@ -1,0 +1,109 @@
+{
+  "rule": "проверка каждого найденного кандидата: лицензия, размер, файлы данных, наличие span-аннотаций (start/end), русский клаузовый стиль, doc_overlap",
+  "candidates": [
+    {
+      "repo": "https://github.com/s-nlp/PsiloQA",
+      "facts": "16\t1298\tnone\t2026-04-24T11:23:34Z",
+      "data_files": [
+        "50870 evaluation/1_annotator.csv",
+        "50837 evaluation/2_annotator.csv",
+        "51035 evaluation/3_annotator.csv",
+        "50815 evaluation/gpt.csv"
+      ],
+      "assessment": "span-level, мультиязычный (14 языков), но данные на HF, а в репозитории только пайплайн и CSV аннотаторов без контекстов",
+      "used": false,
+      "reason": "нет реальных русских клаузовых span-аннотаций с doc_overlap = 0"
+    },
+    {
+      "repo": "https://github.com/sb-ai-lab/TOHA",
+      "facts": "2\t4754\tnone\t2026-04-17T09:55:52Z",
+      "data_files": [
+        "503550 haloscope/TruthfulQA/TruthfulQA.csv",
+        "7702487 haloscope/coqa-dev-v1.0.json",
+        "17117104 haloscope/coqa_haloscope_llama7B.csv"
+      ],
+      "assessment": "topological hallucination detection; данные — CoQA/TruthfulQA (en), русских span-аннотаций нет",
+      "used": false,
+      "reason": "нет реальных русских клаузовых span-аннотаций с doc_overlap = 0"
+    },
+    {
+      "repo": "https://github.com/slivka83/ru_rag_test_dataset",
+      "facts": "18\t41147\tnone\t2024-05-06T20:59:17Z",
+      "data_files": [
+        "51158366 raw/RuBQ_2.0_paragraphs.json",
+        "4980094 raw/RuBQ_2.0_test.json"
+      ],
+      "assessment": "RuBQ 2.0: вопросы/ответы/параграфы для retrieval, span-аннотаций галлюцинаций нет",
+      "used": false,
+      "reason": "нет реальных русских клаузовых span-аннотаций с doc_overlap = 0"
+    },
+    {
+      "repo": "https://github.com/AndreisLavrov/LegalBenchRu-RAG",
+      "facts": "1\t44138\tnone\t2025-06-15T22:04:35Z",
+      "data_files": [
+        "670271 Data_For_RAG/RAG_data.csv",
+        "1260613 Data_For_RAG/rag_results/cleaned_dataset.csv",
+        "103626 Data_For_RAG/small_datasets/data_градостроительный _augmented_output.csv",
+        "83523 Data_For_RAG/small_datasets/data_гражданский_процессуальный_augmented_output.csv",
+        "92086 Data_For_RAG/small_datasets/data_жилищный_augmented_output.csv",
+        "66933 Data_For_RAG/small_datasets/data_земельный_augmented_output.csv",
+        "69342 Data_For_RAG/small_datasets/data_права_потребителей_augmented_output.csv",
+        "63814 Data_For_RAG/small_datasets/data_реклама_augmented_output.csv"
+      ],
+      "assessment": "юридический RAG-бенчмарк; есть RAG-ответы, но нет span-разметки неподтверждённых фрагментов",
+      "used": false,
+      "reason": "нет реальных русских клаузовых span-аннотаций с doc_overlap = 0"
+    },
+    {
+      "repo": "https://github.com/TheNarhawl/RAG-Scope-RU",
+      "facts": "10\t76589\tnone\t2026-11-08T09:41:53Z",
+      "data_files": [
+        "2213187 experiments/ab_base_user_bge_c512_pymupdf/metrics_ab_parse_base_user_bge_pymupdf_c512_20261107_214604.json",
+        "2485905 experiments/ab_base_user_bge_c512_pypdf/metrics_ab_parse_base_user_bge_pypdf_c512_20261107_223000.json",
+        "2253872 experiments/ab_large_bge_m3_c512_pymupdf/metrics_ab_parse_large_bge_m3_pymupdf_c512_20261108_003035.json",
+        "2504810 experiments/ab_large_bge_m3_c512_pypdf/metrics_ab_parse_large_bge_m3_pypdf_c512_20261108_011236.json",
+        "2279370 experiments/ab_large_e5_c512_pymupdf/metrics_ab_parse_large_e5_pymupdf_c512_20261108_002046.json",
+        "2557761 experiments/ab_large_e5_c512_pypdf/metrics_ab_parse_large_e5_pypdf_c512_20261108_005937.json",
+        "2048919 experiments/ab_small_rubert_c512_pymupdf/metrics_ab_parse_small_rubert_pymupdf_c512_20261107_234351.json",
+        "2313252 experiments/ab_small_rubert_c512_pypdf/metrics_ab_parse_small_rubert_pypdf_c512_20261107_235553.json"
+      ],
+      "assessment": "песочница абляций RAG на русских корпусах; метрики retrieval, span-аннотаций нет",
+      "used": false,
+      "reason": "нет реальных русских клаузовых span-аннотаций с doc_overlap = 0"
+    },
+    {
+      "repo": "https://github.com/DFKonGH/ru_hallucination_detector",
+      "facts": "0\t22712\tnone\t2026-05-30T18:14:36Z",
+      "data_files": [
+        "30461228 data/ds_v0.parquet"
+      ],
+      "assessment": "синтетические флипы предложений (number/entity/negation), уже обучение v16–v17: Group-CV 0.98, перенос на реальные клаузы отрицательный (val AUC 0.60–0.69)",
+      "used": false,
+      "reason": "нет реальных русских клаузовых span-аннотаций с doc_overlap = 0"
+    },
+    {
+      "repo": "https://github.com/sber-summer-practice/hybrid-rag-hallucination-verification",
+      "facts": "0\t152\tnone\t2026-07-10T07:45:24Z",
+      "data_files": [],
+      "assessment": "88 КБ xlsx ручной разметки ответов без span-координат",
+      "used": false,
+      "reason": "нет реальных русских клаузовых span-аннотаций с doc_overlap = 0"
+    },
+    {
+      "repo": "https://github.com/ParticleMedia/RAGTruth",
+      "facts": "294\t9517\tMIT\t2024-12-02T21:28:34Z",
+      "data_files": [
+        "21458735 dataset/response.jsonl",
+        "15117971 dataset/source_info.jsonl"
+      ],
+      "assessment": "реальные человеческие span-аннотации, но английский; использован в v14 как en-проекция — ухудшил метрики",
+      "used": false,
+      "reason": "нет реальных русских клаузовых span-аннотаций с doc_overlap = 0"
+    }
+  ],
+  "conclusion": {
+    "found_real_russian_clause_span_data": false,
+    "why": "реальные человеческие span-аннотации есть только у RAGTruth (en) и у нашего же RusHallu-RAG (doc_overlap = 100 %); всё русское, что находится на GitHub, либо синтетические флипы (перенос отрицательный), либо retrieval-данные без разметки",
+    "doc_overlap_note": "проверять doc_overlap не пришлось: ни один кандидат не содержит span-аннотаций неподтверждённых фрагментов"
+  }
+}

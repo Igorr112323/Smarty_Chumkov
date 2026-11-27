@@ -798,3 +798,23 @@ Guard: Span 0,2523 (лучший переобученный) / 0,3621 (кали�
 Скорость пути с вниманием (int8-ONNX, окно 256, batch 8): 1k 0,0143 ✅, 50k 1,0060 ❌ (0,6 %
 выше лимита), 2M 44,7375 ✅. В рантайм признаки не встроены. Пакет 523 986 B, SHA `6bbc5044…d73a`,
 142 теста passed. Отчёт: `artifacts/final_report_117812_v17.md`.
+
+## Цикл 18 (финальный поиск реальных русских клаузовых span-данных — данных нет)
+
+Проверены все внешние источники: 15 хостов (Kaggle, Zenodo, figshare, Mendeley, GitLab,
+Bitbucket, SourceForge, arXiv, data.world, Yandex Cloud, Sber, HF, hf-mirror, ModelScope,
+текстовый прокси) — `TLS/SSL connection has been closed (EOF)`; на PyPI и npm датасета нет (404).
+GitHub: 16 repository- и 5 code-запросов, обход 10 деревьев → 8 кандидатов, ни один не содержит
+реальных русских клаузовых span-аннотаций с `doc_overlap = 0`: PsiloQA (данные на HF + авто-аннотация),
+TOHA (CoQA/TruthfulQA, en), RuBQ/LegalBench-RU/RAG-Scope-RU (retrieval без span-координат),
+`ru_hallucination_detector` (синтетические флипы, перенос отрицательный), RAGTruth (en, v14 — хуже).
+
+Итог по договору: ✅ Token 0,6247, Pair 0,5122, FPR 0,1442, ai_share, скорость (0,0089 / 0,1695 /
+8,8141 с; LM int8 0,0070 / 0,9920 / 30,2318 с), пакет 523 986 B (SHA `6bbc5044…d73a`), 142 теста,
+localhost:8765; ❌ Span 0,3621 против 0,50. Held-out не читался.
+
+Блокер финальный: нужен ранжировщик AUC ≳ 0,9 в кросс-домене (in-domain на новых данных 0,9814,
+cross-domain 0,60–0,69; oracle при идеальном ранжировании 0,6165), а реальных русских клаузовых
+span-данных с `doc_overlap = 0` в открытом доступе нет и GPU/cross-encoder в песочнице недоступен.
+Отчёт: `artifacts/final_report_117812_v18.md`, лог поиска: `artifacts/ru_clause_search_v18.json`,
+проверка кандидатов: `artifacts/ru_clause_data_v18.json`.

@@ -1,0 +1,450 @@
+{
+  "rule": "поиск реальных русских клаузовых span-данных; в песочнице разрешены только github.com / codeload.github.com / api.github.com / pypi.org / files.pythonhosted.org / registry.npmjs.org; каждый хост фиксируется с реальным ответом",
+  "hosts": {
+    "kaggle.com": [
+      {
+        "url": "https://www.kaggle.com/api/v1/datasets/list?search=russian%20hallucination",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.03
+      },
+      {
+        "url": "https://www.kaggle.com/api/v1/datasets/list?search=ru%20rag%20factuality",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.03
+      }
+    ],
+    "zenodo.org": [
+      {
+        "url": "https://zenodo.org/api/records?q=russian%20hallucination&size=5",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.03
+      },
+      {
+        "url": "https://zenodo.org/api/records?q=ru%20factuality%20dataset&size=5",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.03
+      }
+    ],
+    "figshare.com": [
+      {
+        "url": "https://api.figshare.com/v2/articles?search_for=russian+hallucination",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.05
+      }
+    ],
+    "data.mendeley.com": [
+      {
+        "url": "https://data.mendeley.com/public-api/datasets?query=russian%20hallucination",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.06
+      }
+    ],
+    "gitlab.com": [
+      {
+        "url": "https://gitlab.com/api/v4/projects?search=russian%20hallucination",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.04
+      }
+    ],
+    "bitbucket.org": [
+      {
+        "url": "https://api.bitbucket.org/2.0/repositories?q=name~%22hallucination%22",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.05
+      }
+    ],
+    "sourceforge.net": [
+      {
+        "url": "https://sourceforge.net/directory/?q=russian%20dataset",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.04
+      }
+    ],
+    "arxiv.org": [
+      {
+        "url": "https://export.arxiv.org/api/query?search_query=all:%22russian%20hallucination%22&max_results=5",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.04
+      }
+    ],
+    "data.world": [
+      {
+        "url": "https://api.data.world/v0/search?query=russian%20hallucination",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.12
+      }
+    ],
+    "cloud.yandex.ru": [
+      {
+        "url": "https://cloud.yandex.ru/docs/datasets/",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.03
+      }
+    ],
+    "sber.ru": [
+      {
+        "url": "https://sber.ru/",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.05
+      }
+    ],
+    "huggingface.co": [
+      {
+        "url": "https://huggingface.co/api/datasets?search=russian%20hallucination",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.05
+      }
+    ],
+    "hf-mirror.com": [
+      {
+        "url": "https://hf-mirror.com/api/datasets?search=ru%20rag",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.03
+      }
+    ],
+    "modelscope.cn": [
+      {
+        "url": "https://modelscope.cn/api/v1/datasets?Name=ru-hallucination",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.04
+      }
+    ],
+    "r.jina.ai": [
+      {
+        "url": "https://r.jina.ai/https://huggingface.co/datasets?search=ru+hallucination",
+        "status": "fail",
+        "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+        "seconds": 0.03
+      }
+    ],
+    "pypi.org": [
+      {
+        "url": "https://pypi.org/pypi/ruhallu/json",
+        "status": 404,
+        "error": "HTTPError: Not Found",
+        "seconds": 0.19
+      }
+    ],
+    "registry.npmjs.org": [
+      {
+        "url": "https://registry.npmjs.org/russian-hallucination-dataset",
+        "status": 404,
+        "error": "HTTPError: Not Found",
+        "seconds": 0.1
+      }
+    ]
+  },
+  "github": {
+    "repositories": [
+      {
+        "query": "russian hallucination dataset",
+        "code": 0,
+        "seconds": 0.5,
+        "stdout": "sber-summer-practice/hybrid-rag-hallucination-verification\t0\t152\tThe module is specifically tailored for the Russian language using the SberQuAD dataset.",
+        "stderr": ""
+      },
+      {
+        "query": "RuHalu",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "query": "ru hallucination",
+        "code": 0,
+        "seconds": 0.6,
+        "stdout": "Alqemist-labs/ruby_llm-tribunal\t72\t74\tLLM evaluation framework for Ruby, powered by RubyLLM. Tribunal provides tools for evaluating and testing LLM outputs, detecting hallucinations, measuring response quality, and ensuring safety. Perfect for RAG systems, chatbots, and any LLM-powered application.\nashp15205/guardian-runtime\t20\t2448\tGuardian Runtime sits securely on your machine, acting as a bodyguard for your code. Whenever you use AI tools like Cursor or Claude Code, it intercept every prompt and response locally to stop data leaks and runaway token costs. A zero-latency, local-first runtime firewall for LLMs.\nzhonghuajin/scenario-based-runtime-context-for-ai\t16\t1778\tAbout Essays, and Poc on using runtime evidence to build cleaner code context for AI to reduce hallucinations.\nchronostesis/1-SPACE-2-Rule-Them-All\t6\t7930\tSPACE provides an intersection-subspace framework for activation-based guidance, enabling large language models to jointly mitigate factuality and faithfulness hallucinations.\nvishalchincholi1/Anti-Hallucination-Rules\t4\t7\tThis repository contains guidelines and templates for using Large Language Models (LLMs) to generate software test cases with high precision and zero \"hallucinations\" (invented or false information).\nsylenthai/uzex-spot-ai-agent\t3\t24229\tZero-Hallucination Bilingual (UZ/RU) AI Agent, Telegram Bot & FastAPI Service indexing 500,000 UZEX commodity exchange spot transactions with SQLite FTS5 (~11.5ms latency) and DeepSeek V3.\ncollinzrj/rust_hallucination_benchmark\t2\t13127\tnull\nlilysli/when-rubrics-fail\t2\t518\tWhen Rubrics Fail: clinician-validated study of hallucination blind spots in HealthBench, HealthBench Professional, and LiveMedBench rubrics",
+        "stderr": ""
+      },
+      {
+        "query": "russian factuality dataset",
+        "code": 0,
+        "seconds": 0.5,
+        "stdout": "vladusty/russian-history-llm-benchmark-100-lv\t1\t42\tDataset of 100 Russian history multiple-choice questions (translated to Latvian) adapted from the Unified State Exam. Includes model evaluation code and results for several LLMs. Designed as a small benchmark to test factual accuracy on Russian history.",
+        "stderr": ""
+      },
+      {
+        "query": "russian fact verification dataset",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "query": "ru fact checking dataset",
+        "code": 0,
+        "seconds": 0.5,
+        "stdout": "fxlcj/china-food-rules-facts\t0\t56\tVerified food rules for eating in China, machine-readable JSON facts dataset with official Chinese sources and check dates",
+        "stderr": ""
+      },
+      {
+        "query": "RAGTruth russian",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "query": "russian RAG benchmark",
+        "code": 0,
+        "seconds": 0.7,
+        "stdout": "TheNarhawl/RAG-Scope-RU\t10\t76589\tResearch sandbox for ablation studies of RAG components (chunking, embeddings, retrieval, LLMs) on Russian-language corpora.\nAndreisLavrov/LegalBenchRu-RAG\t1\t44138\tLegalBench-RU: A Benchmark for Evaluating Retrieval-Augmented Generation Systems in the Context of Russian Legislation\nwwewtech/russian-it-community-corpus\t1\t190611\tRussian IT Community Conversational Corpus (2017-2026) · Zero-PII Curation Platform, Multi-turn SFT, DPO, RAG Knowledge Base, Streamlit Studio & RTX 3060 LoRA benchmark\nfedorova-av/sberquad-hybrid-rag\t0\t19\tBenchmarking lexical, dense and hybrid retrieval for Russian RAG on SberQuAD with Elasticsearch and local LLMs.\ndiyorjon-olimjonov/uz-rag-eval\t0\t4340\tBenchmark for cross-lingual Uzbek-Russian RAG retrieval on Uzbekistan's legal codes: OpenAI / Gemini / Voyage embeddings, rerankers, mixed-language corpus\nik-slyadnev/ru-reranker-benchmark\t0\t208\tRussian code reranking benchmark: 23 open-weight rerankers, 2,454 queries, 5 languages. Vector and hybrid search, MRR@10, labeled dataset. Бенчмарк реранкеров для RAG\nik-slyadnev/ru-embeddings-benchmark\t0\t251\tRussian code search benchmark: 63 embedding model configurations + BM25, 2,454 queries, 5 programming languages. MRR@10, Recall@k, nDCG@10, dataset and methodology. Бенчмарк эмбеддингов для RAG и поиска кода\nai-babai/yuanbao-reranker-gguf\t0\t1177\tTencent’s multilingual Yuanbao reranker, built on Qwen3-0.6B and quantized to GGUF for local search and RAG. Runs in llama.cpp, QMD and Open WebUI. Includes a Russian RuBQ benchmark, English and Chinese examples, and Apple Silicon and Linux CPU measurements.",
+        "stderr": ""
+      },
+      {
+        "query": "ru rag dataset",
+        "code": 0,
+        "seconds": 0.6,
+        "stdout": "slivka83/ru_rag_test_dataset\t18\t41147\tnull\nfarjanaferdausi-cs50ai/AI-Barista-Agent-RAG-CloudRun\t2\t36\tRAG-powered AI barista agent built with Google ADK and Gemini, grounded in a real menu dataset and deployed on Google Cloud Run.\nSDaniel7official/Patient-Medical-RAG-LLM-System-for-Rural-Healthcare\t1\t70688\tRetrieval-Augmented Generation (RAG) system for querying patient medical history from EHR datasets. Combines semantic search, patient-level metadata filtering, and LLM-based generation to produce structured clinical reports. Designed for accurate, context-aware retrieval and efficient analysis of longitudinal patient data.\nwwewtech/russian-it-community-corpus\t1\t190611\tRussian IT Community Conversational Corpus (2017-2026) · Zero-PII Curation Platform, Multi-turn SFT, DPO, RAG Knowledge Base, Streamlit Studio & RTX 3060 LoRA benchmark\noahednoorforhad/Disaster-Response-Planning-with-LLM-Powered-Knowledge-Synthesis-and-Rumor-Detection\t1\t129\tAn LLM-powered pipeline using RAG to analyze disaster-related tweets, detect rumors, and extract structured intelligence. Features a Streamlit dashboard for real-time crisis monitoring and response planning.\nslivka83/ru_rag_test_dataset_2\t0\t1131\tnull\nDam4323/Agentic_Rust_CLI_Dataset\t0\t2392\tDataset pour l'entrainement ou un utilisation RAG stabilisé de programme CLI en langage RUST\nAgenoElizabeth/Ruforum_RAG_ASSISTANT\t0\t0\tRAG Agent for RUFORUM dataset - Mining, processing, and Q&A system",
+        "stderr": ""
+      },
+      {
+        "query": "clause hallucination annotation",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "query": "hallucination spans dataset",
+        "code": 0,
+        "seconds": 0.5,
+        "stdout": "s-nlp/PsiloQA\t16\t1298\tThe PsiloQA pipeline automates the construction of a multilingual, span-level hallucination detection dataset with contexts.\nDSP-AGH/HALAS\t2\t1146\tHALAS (Hallucination Annotations for Large-scale ASR Systems) is a human-annotated dataset of hallucinations produced by modern automatic speech recognition (ASR) systems on real-world speech recordings. The dataset contains span-level hallucination annotations for ASR outputs generated from recordings in the Earnings22 corpus.",
+        "stderr": ""
+      },
+      {
+        "query": "ru span annotation dataset",
+        "code": 0,
+        "seconds": 0.3,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "query": "Russian NLI dataset",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "query": "russe fact checking",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "query": "CheRRI russian",
+        "code": 1,
+        "seconds": 0.2,
+        "stdout": "{\n\t\"message\": \"API rate limit exceeded for user ID 234988680. If you reach out to GitHub Support for help, please include the request ID 83CE:3A1E77:562520:895094:6B09914E and timestamp 2026-11-27 14:18:54 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https:\\/\\/docs.github.com\\/en\\/site-policy\\/github-terms\\/github-terms-of-service)\",\n\t\"documentation_url\": \"https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api#rate-limiting\",\n\t\"status\": \"403\"\n}",
+        "stderr": "gh: API rate limit exceeded for user ID 234988680. If you reach out to GitHub Support for help, please include the request ID 83CE:3A1E77:562520:895094:6B09914E and timestamp 2026-11-27 14:18:54 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (h"
+      },
+      {
+        "query": "russian claim verification",
+        "code": 1,
+        "seconds": 0.2,
+        "stdout": "{\n\t\"message\": \"API rate limit exceeded for user ID 234988680. If you reach out to GitHub Support for help, please include the request ID 83D4:3B38DD:5722C2:8A45C5:6B09914E and timestamp 2026-11-27 14:18:54 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https:\\/\\/docs.github.com\\/en\\/site-policy\\/github-terms\\/github-terms-of-service)\",\n\t\"documentation_url\": \"https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api#rate-limiting\",\n\t\"status\": \"403\"\n}",
+        "stderr": "gh: API rate limit exceeded for user ID 234988680. If you reach out to GitHub Support for help, please include the request ID 83D4:3B38DD:5722C2:8A45C5:6B09914E and timestamp 2026-11-27 14:18:54 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (h"
+      }
+    ],
+    "code": [
+      {
+        "query": "ру галлюцинации разметка spans",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "timoncool/speech-studio\tcrates/speech-server/locales/ru/server.ftl\ntimoncool/dub-studio\tcrates/dub-server/src/analyze.rs\nbogemadumb/mood-news-grid\tREADME.md\naverkij/top_papers\tu/2308.11432.html\nSergey-Chernyshev/jarvis\tdocs/superpowers/specs/2026-07-03-chat-turn-summaries-design.md",
+        "stderr": ""
+      },
+      {
+        "query": "hallucination russian jsonl spans",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "eugeniughelbur/obsidian-second-brain\tCHANGELOG.md\nyibie/awesome-jev\tREADME.md\nCSQianDong/Awesome-arXiv-Daily-Reporter\t23-Jul-2026/NLP/papers.jsonl\nCSQianDong/Awesome-arXiv-Daily-Reporter\t17-Apr-2026/NLP/papers.jsonl\nZumingHuang/awesome-ocr-resources\tdatasets/README.md",
+        "stderr": ""
+      },
+      {
+        "query": "ru_hallucination filename:data",
+        "code": 0,
+        "seconds": 0.2,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "query": "RAGTruth filename:ru",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "amazon-science/Query-Conditioned-NLI\tsrc/ragtruth.py\nF4biian/RAGognizer\tragognizer/ragognizer/benchmarks/RAGTruth.py\nsb-ai-lab/TOHA\tsrc/preprocess/PreprocessRAGTruth.py\nkamran1993/tda4halluAppl\tbuild/lib/src/preprocess/PreprocessRAGTruth.py\nqwefep/distrib_distances4hallucinations\tsrc/preprocess/PreprocessRAGTruth.py",
+        "stderr": ""
+      },
+      {
+        "query": "factuality russian filename:jsonl",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "CSQianDong/Awesome-arXiv-Daily-Reporter\t9-Jul-2025/topic/RAG_related_papers.jsonl\nbilibili/Index-1.9B\tevaluate/opencompass/datasets/leval/turbo-16k-0613.pred.jsonl\nCSQianDong/Awesome-arXiv-Daily-Reporter\t9-Jul-2025/NLP/papers.jsonl\nCSQianDong/Awesome-arXiv-Daily-Reporter\t9-Jul-2025/AI/papers.jsonl\nCSQianDong/Awesome-arXiv-Daily-Reporter\t9-May-2025/NLP/papers.jsonl",
+        "stderr": ""
+      }
+    ],
+    "trees": [
+      {
+        "repo": "DFKonGH/ru_hallucination_detector",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "30461228 data/ds_v0.parquet",
+        "stderr": ""
+      },
+      {
+        "repo": "sber-summer-practice/hybrid-rag-hallucination-verification",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "repo": "IlyaGusev/ru_turbo_alpaca",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "{\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/git/trees#get-a-tree\",\"status\":\"404\"}",
+        "stderr": "gh: Not Found (HTTP 404)"
+      },
+      {
+        "repo": "avidale/russe",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "{\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/git/trees#get-a-tree\",\"status\":\"404\"}",
+        "stderr": "gh: Not Found (HTTP 404)"
+      },
+      {
+        "repo": "RostislavGrin/RuFAct",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "{\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/git/trees#get-a-tree\",\"status\":\"404\"}",
+        "stderr": "gh: Not Found (HTTP 404)"
+      },
+      {
+        "repo": "RussianNLP/ruadapt",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "{\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/git/trees#get-a-tree\",\"status\":\"404\"}",
+        "stderr": "gh: Not Found (HTTP 404)"
+      },
+      {
+        "repo": "NightStar/ru-fact-checking",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "{\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/git/trees#get-a-tree\",\"status\":\"404\"}",
+        "stderr": "gh: Not Found (HTTP 404)"
+      },
+      {
+        "repo": "ai-forever/RuFactChecking",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "{\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/git/trees#get-a-tree\",\"status\":\"404\"}",
+        "stderr": "gh: Not Found (HTTP 404)"
+      },
+      {
+        "repo": "saucam/ru-hallucination",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "{\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/git/trees#get-a-tree\",\"status\":\"404\"}",
+        "stderr": "gh: Not Found (HTTP 404)"
+      },
+      {
+        "repo": "bond005/ru_fact_checking",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "{\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/git/trees#get-a-tree\",\"status\":\"404\"}",
+        "stderr": "gh: Not Found (HTTP 404)"
+      }
+    ]
+  },
+  "downloaded": [
+    {
+      "path": "tools/external/RAGTruth/dataset/response.jsonl",
+      "bytes": 21458735,
+      "sha256": "e4c2e4ac24fff676d8984cc61c35d791612fadc58015335d97dd632375e18073"
+    },
+    {
+      "path": "tools/external/RAGTruth/dataset/source_info.jsonl",
+      "bytes": 15117971,
+      "sha256": "0dffc26ea9f3c1c3d7c7e8336b56ef1646e3cec876edffcca3c9c624d12d578b"
+    },
+    {
+      "path": "tools/external/RusHallu-RAG/results/annotation/human/merged/ruscibench-rag.csv",
+      "bytes": 10427694,
+      "sha256": "f44f10e574ce547f832f2215189e40e158d06be3dbeec712926f1c59df60375e"
+    },
+    {
+      "path": "tools/external/RusHallu-RAG/results/annotation/human/merged/sberquad-rag.csv",
+      "bytes": 7124247,
+      "sha256": "f1e9043bb092eeef2c765e52652d40839aeab84268ed3badb0d417fb987d8f6f"
+    },
+    {
+      "path": "tools/external/ru_hallucination_detector/data/ds_v0.parquet",
+      "bytes": 30461228,
+      "sha256": "965ac3effe96084e495151d251f23df4a77e486e3ebe4f0d50388db6f4c15916"
+    },
+    {
+      "path": "tools/external/rubert-turbo-payments/data/processed/dataset.csv",
+      "bytes": 1656083,
+      "sha256": "d3bba430830e8cade9f23d71e2b99041cdedb80cc6d277ceff09eff2cbd28ce3"
+    },
+    {
+      "path": "tools/external/rubert-turbo-payments/data/raw/dataset_dumps/dump_1.json",
+      "bytes": 1365105,
+      "sha256": "97491bf4b337ed887e539c4915fa4852a745ea25c43ece4fd76cae63d540ee8b"
+    },
+    {
+      "path": "tools/external/rubert-turbo-payments/data/raw/dataset_dumps/dump_2.json",
+      "bytes": 1970826,
+      "sha256": "37db8a385435502768fe9a5b47942abb29b7808724a30e5d96809974ed552aaf"
+    },
+    {
+      "path": "tools/external/rubert-turbo-payments/data/raw/dataset_dumps/dump_3.json",
+      "bytes": 2051757,
+      "sha256": "0a92759a8d9ace7c70936ed0faacd6a49621680a24ad6ce262b277cabe39ba29"
+    },
+    {
+      "path": "tools/external/rubert-turbo-payments/models/onnx_model/tokenizer.json",
+      "bytes": 2413691,
+      "sha256": "2475c0f7e72668b4cd5ae8a758acf4cbe66a18759b8eebaf4e00e82133a38a26"
+    }
+  ],
+  "verdict": {
+    "hosts_reachable": [],
+    "hosts_blocked": [
+      "kaggle.com",
+      "zenodo.org",
+      "figshare.com",
+      "data.mendeley.com",
+      "gitlab.com",
+      "bitbucket.org",
+      "sourceforge.net",
+      "arxiv.org",
+      "data.world",
+      "cloud.yandex.ru",
+      "sber.ru",
+      "huggingface.co",
+      "hf-mirror.com",
+      "modelscope.cn",
+      "r.jina.ai"
+    ]
+  }
+}
