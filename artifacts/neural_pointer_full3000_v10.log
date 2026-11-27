@@ -1,0 +1,19 @@
+data 6000 549 148 150
+rows 6000 pairs 500 sec 57.8
+rows 12000 pairs 1000 sec 116.3
+rows 18000 pairs 1500 sec 175.6
+rows 24000 pairs 2000 sec 233.1
+rows 30000 pairs 2500 sec 292.4
+rows 36000 pairs 3000 sec 355.5
+rows 41956 pairs 3500 sec 388.8
+train rows 44320 positive 28507
+/home/user/Smarty_Chumkov/.venv/lib/python3.11/site-packages/torch/_utils.py:776: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+epoch 0 loss 0.2153 sec 1300.7
+Traceback (most recent call last):
+  File "/home/user/Smarty_Chumkov/tools/train_neural_pointer_v9.py", line 316, in <module>
+    main()
+  File "/home/user/Smarty_Chumkov/tools/train_neural_pointer_v9.py", line 289, in main
+    print("best", best["row"] if best["row"] else None, flush=True)
+                                 ~~~~^^^^^^^
+KeyError: 'row'

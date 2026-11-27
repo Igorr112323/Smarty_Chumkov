@@ -1,0 +1,20 @@
+{
+  "architecture": "rubert-tiny2 + evidence-conditioned start/end pointer (CLS of candidate x CLS of evidence)",
+  "rule": "RAGTruth_ru (phrase spans) + v3 RusHallu train + mFAVA train; val/mFAVA dev only; held не читается",
+  "rag_pairs": 3000,
+  "train_pairs": 549,
+  "mfava_pairs": 148,
+  "no_dev_eval": true,
+  "rows": 44320,
+  "positive_rows": 28507,
+  "pos_weight": 0.5547058617181745,
+  "epochs": 2,
+  "lr": 2e-05,
+  "batch": 16,
+  "max_len": 160,
+  "best": null,
+  "history": [],
+  "checkpoint": "/home/user/Smarty_Chumkov/artifacts/neural_pointer_full3000b_v10/best",
+  "weights_sha256": "206b8567ec6dd71998c1a0bd1cb3760cb23818630e2c7ec66e459d8ea23dbfc0",
+  "head_sha256": "5a7ac4522c4954633d822e15bdecd60ec5ef71ebf0e3698871fa59282230bb98"
+}
