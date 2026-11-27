@@ -1,0 +1,94 @@
+{
+  "rule": "только программные источники; ручная разметка не использовалась; doc_overlap с нашими train/val/held-out обязателен = 0",
+  "sources": {
+    "RusHallu-RAG": {
+      "repo": "https://github.com/feudor2/RusHallu-RAG",
+      "license": "Apache-2.0 (badge в README; файла LICENSE в дереве нет)",
+      "files": {
+        "sberquad-rag.csv": {
+          "rows": 655,
+          "unique_documents": 614,
+          "documents_overlapping_ours": 614,
+          "usable_new_pairs": 0,
+          "reason": "все документы уже в наших сплитах (doc_overlap=100 %), обучение на них нарушило бы doc_overlap=0",
+          "sha256": "f1e9043bb092eeef2c765e52652d40839aeab84268ed3badb0d417fb987d8f6f"
+        },
+        "ruscibench-rag.csv": {
+          "rows": 345,
+          "unique_documents": 345,
+          "documents_overlapping_ours": 345,
+          "usable_new_pairs": 0,
+          "reason": "все документы уже в наших сплитах (doc_overlap=100 %), обучение на них нарушило бы doc_overlap=0",
+          "sha256": "f44f10e574ce547f832f2215189e40e158d06be3dbeec712926f1c59df60375e"
+        }
+      },
+      "verdict": "reject как новые данные: doc_overlap = 100 %"
+    },
+    "rusBEIR": {
+      "repo": "https://github.com/kaengreg/rusBEIR",
+      "license": "не указана",
+      "corpus": {
+        "status": "git-lfs pointer",
+        "lfs_pointer_bytes": 440592185,
+        "usable_documents": 0,
+        "reason": "LFS-хост недоступен в песочнице; 440 МБ в пакет не тащим"
+      },
+      "verdict": "reject: корпус в Git LFS, хост недоступен"
+    },
+    "RAGTruth": {
+      "repo": "https://github.com/ParticleMedia/RAGTruth",
+      "license": "MIT",
+      "language": "en",
+      "files": {
+        "response.jsonl": "e4c2e4ac24fff676d8984cc61c35d791612fadc58015335d97dd632375e18073",
+        "source_info.jsonl": "0dffc26ea9f3c1c3d7c7e8336b56ef1646e3cec876edffcca3c9c624d12d578b"
+      },
+      "verdict": "accept как проекция стиля (структурные признаки), doc_overlap = 0"
+    },
+    "hf_only": {
+      "list": [
+        "hallucination-detection-benchmark (ru)",
+        "RU-QA/RU-RAG",
+        "RU-RAGTruth",
+        "полный mFAVA",
+        "RAGTruth-RU"
+      ],
+      "blocker": "huggingface.co недоступен в песочнице (разрешены github/codeload/api.github/npm/pypi); SHA и статистика получить нельзя"
+    }
+  },
+  "dataset": {
+    "file": "artifacts/ragtruth_proj_v14.jsonl",
+    "sha256": "19bfb877ab3cc74590a2a8c5df041ceae6cd30b045c5648d50a2428154656093",
+    "bytes": 4349691,
+    "pairs": 958,
+    "spans": 1283,
+    "spans_per_pair": 1.34,
+    "documents": 958,
+    "type_src": {
+      "contradictory": 547,
+      "unverifiable": 736
+    },
+    "style": {
+      "whole": 101,
+      "short": 250,
+      "clause": 607
+    },
+    "doc_overlap_with_ours": 0,
+    "skipped": {
+      "no_labels": 3796,
+      "too_long": 191,
+      "split": 1332,
+      "dup_document": 1542
+    },
+    "normalization": "C1_min_containing_clause (tools/convert_labels_v3.py)"
+  },
+  "our_val_style": {
+    "pairs": 150,
+    "style": {
+      "clean": 104,
+      "whole": 23,
+      "clause": 18,
+      "short": 5
+    }
+  }
+}
