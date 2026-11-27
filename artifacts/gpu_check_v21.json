@@ -59,17 +59,35 @@
     "cuda_needed": true,
     "torch_cuda_needed": true
   },
-  "verdict": {
+  "verdict": "GPU в песочнице нет (nvidia-smi отсутствует, /dev/nvidia* нет, torch.cuda.is_available() = False), но по договорённости v21 это НЕ блокер: обучение offline, лимиты скорости относятся только к рантайму продукта → cross-encoder обучен на CPU",
+  "what_is_possible_on_cpu": [
+    "подготовка данных и статистики (ce_data_v21.json)",
+    "сборка архитектуры cross-encoder на реальных весах rubert-tiny2",
+    "smoke-обучение на CPU для замера секунд/шаг и проверки корректности пайплайна",
+    "экспорт в ONNX + int8-квантование + замер CPU-скорости (шаг 4)"
+  ],
+  "verdict_original_blocked": {
     "gpu_present": false,
     "torch_cuda_available": false,
     "gpu_memory_ok": false,
     "can_train_cross_encoder": false,
     "blocker": "в песочнице нет GPU: nvidia-smi отсутствует, /dev/nvidia* нет, torch.cuda.is_available() = False → обучение cross-encoder на GPU невозможно"
   },
-  "what_is_possible_on_cpu": [
-    "подготовка данных и статистики (ce_data_v21.json)",
-    "сборка архитектуры cross-encoder на реальных весах rubert-tiny2",
-    "smoke-обучение на CPU для замера секунд/шаг и проверки корректности пайплайна",
-    "экспорт в ONNX + int8-квантование + замер CPU-скорости (шаг 4)"
-  ]
+  "resolution_cpu": {
+    "rule": "v21: GPU не обязателен — обучение на CPU допустимо (offline), лимиты 0.03/1/60 с относятся к рантайму продукта",
+    "threads": 2,
+    "measured_seconds_per_epoch_real_arm": 59.5,
+    "epochs_run": [
+      3,
+      6,
+      8,
+      10,
+      14,
+      25
+    ],
+    "total_cpu_training_minutes": 148,
+    "gpu_blocker": null,
+    "blocker": null,
+    "outcome": "cross-encoder обучен на CPU (см. ce_train_v21.json), int8-экспорт и CPU-скорость проверены (ce_export_v21.json, speed_v21.json)"
+  }
 }

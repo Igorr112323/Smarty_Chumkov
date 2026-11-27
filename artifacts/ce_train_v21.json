@@ -1,110 +1,597 @@
 {
-  "rule": "шаг 3 v21: обучение cross-encoder (span start/end + risk). Loss = BCE(start) + BCE(end) + BCE(risk). Held-out не читается",
+  "rule": "v21: обучение cross-encoder rubert-tiny2 на CPU (GPU в песочнице нет, обучение — offline). Loss = CE(start) + CE(end) + BCE(risk), батчи 50/50, окно [CLS] doc_window [SEP] candidate [SEP]. Выбор конфигурации — по val AUC/Span в бюджете FPR <= 0.40; held-out не читается",
   "device": {
-    "requested": "auto",
-    "used": "cpu",
-    "cuda_available": false,
-    "gpu": [],
+    "gpu_present": false,
+    "torch_cuda_available": false,
+    "gpu_memory_ok": false,
+    "can_train_cross_encoder": false,
+    "blocker": "в песочнице нет GPU: nvidia-smi отсутствует, /dev/nvidia* нет, torch.cuda.is_available() = False → обучение cross-encoder на GPU невозможно",
     "torch": "2.2.2+cu121",
-    "cuda_version": "12.1"
-  },
-  "architecture": {
-    "encoder": "cointegrated/rubert-tiny2",
-    "parameters": {
-      "total": 29194707,
-      "trainable": 29194707,
-      "fp32_mb": 111.37,
-      "int8_mb": 27.84
-    },
-    "heads": [
-      "start",
-      "end",
-      "risk"
-    ],
-    "max_len": 256,
-    "doc_tokens": 128
+    "threads": 2,
+    "cpu_cores": 2,
+    "ram_gb": 3.85
   },
   "data": {
     "pairs": 5848,
     "candidates": 94267,
     "positives": 11253,
-    "batch": 8,
-    "steps_per_epoch": 11784
+    "hard_negatives": 5026,
+    "doc_overlap_val_nonzero": {},
+    "excluded_v19_pairs": 7,
+    "doc_overlap_heldout_nonzero": {
+      "real": 539,
+      "synth_v11": 203,
+      "pseudo_v11": 84
+    },
+    "excluded_v19_pairs_leaking_heldout": 7
   },
-  "smoke": {
-    "steps": 8,
-    "losses": [
+  "architecture": {
+    "encoder": "cointegrated/rubert-tiny2 (локальные веса, SHA 137fa2b1…)",
+    "parameters": 29194707,
+    "heads": [
+      "start",
+      "end",
+      "risk"
+    ]
+  },
+  "arms_3_epochs": {
+    "real": {
+      "pairs": 549,
+      "examples": 1632,
+      "val_auc": 0.6887,
+      "within_pair": 0.7734,
+      "val": {
+        "span": 0.3486,
+        "token": 0.6235,
+        "pair": 0.5,
+        "fpr": 0.1058,
+        "span_p": 0.3455,
+        "span_r": 0.3519,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 2.5973,
+          "seconds": 37.3
+        },
+        {
+          "epoch": 1,
+          "loss": 0.5983,
+          "seconds": 36.7
+        },
+        {
+          "epoch": 2,
+          "loss": 0.5028,
+          "seconds": 39.3
+        }
+      ]
+    },
+    "v19": {
+      "pairs": 1659,
+      "examples": 8205,
+      "val_auc": 0.642,
+      "within_pair": 0.7354,
+      "val": {
+        "span": 0.2466,
+        "token": 0.4998,
+        "pair": 0.3913,
+        "fpr": 0.2692,
+        "span_p": 0.1957,
+        "span_r": 0.3333,
+        "config": {
+          "mode_cut": 0.3,
+          "gate": 0.4,
+          "threshold": 0.4,
+          "max_spans": 1,
+          "local_threshold": 0.4,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 0.9802,
+          "seconds": 198.0
+        },
+        {
+          "epoch": 1,
+          "loss": 0.4284,
+          "seconds": 184.2
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2984,
+          "seconds": 178.8
+        }
+      ]
+    },
+    "real_plus_v19": {
+      "pairs": 2208,
+      "examples": 9837,
+      "val_auc": 0.6543,
+      "within_pair": 0.7503,
+      "val": {
+        "span": 0.2162,
+        "token": 0.5535,
+        "pair": 0.4267,
+        "fpr": 0.125,
+        "span_p": 0.1702,
+        "span_r": 0.2963,
+        "config": {
+          "mode_cut": 0.3,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 3,
+          "local_threshold": 0.4,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 0.8684,
+          "seconds": 208.8
+        },
+        {
+          "epoch": 1,
+          "loss": 0.4167,
+          "seconds": 208.7
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2879,
+          "seconds": 207.0
+        }
+      ]
+    }
+  },
+  "oof_after_arms": {
+    "folds": [
       {
-        "step": 0,
-        "loss": 5.4228,
-        "seconds": 1.319,
-        "start": 2.0958,
-        "end": 2.5961,
-        "risk": 0.731
+        "span": 0.292,
+        "token": 0.5066,
+        "pair": 0.404,
+        "fpr": 0.2239,
+        "span_p": 0.2703,
+        "span_r": 0.3175,
+        "fold": 0,
+        "pairs": 183
       },
       {
-        "step": 1,
-        "loss": 6.7628,
-        "seconds": 1.09,
-        "start": 2.8545,
-        "end": 3.2388,
-        "risk": 0.6695
+        "span": 0.2924,
+        "token": 0.5092,
+        "pair": 0.3906,
+        "fpr": 0.313,
+        "span_p": 0.2809,
+        "span_r": 0.3049,
+        "fold": 1,
+        "pairs": 182
       },
       {
-        "step": 2,
-        "loss": 5.8353,
-        "seconds": 1.153,
-        "start": 2.112,
-        "end": 3.0112,
-        "risk": 0.7121
-      },
-      {
-        "step": 3,
-        "loss": 6.5826,
-        "seconds": 1.099,
-        "start": 2.8683,
-        "end": 3.0191,
-        "risk": 0.6952
-      },
-      {
-        "step": 4,
-        "loss": 5.6232,
-        "seconds": 0.98,
-        "start": 2.5682,
-        "end": 2.3767,
-        "risk": 0.6782
-      },
-      {
-        "step": 5,
-        "loss": 6.3687,
-        "seconds": 0.944,
-        "start": 2.9853,
-        "end": 2.5894,
-        "risk": 0.794
-      },
-      {
-        "step": 6,
-        "loss": 5.9756,
-        "seconds": 0.999,
-        "start": 2.5415,
-        "end": 2.7785,
-        "risk": 0.6557
-      },
-      {
-        "step": 7,
-        "loss": 7.3743,
-        "seconds": 0.911,
-        "start": 3.0695,
-        "end": 3.6286,
-        "risk": 0.6762
+        "span": 0.3771,
+        "token": 0.5907,
+        "pair": 0.4925,
+        "fpr": 0.2243,
+        "span_p": 0.3882,
+        "span_r": 0.3667,
+        "fold": 2,
+        "pairs": 184
       }
     ],
-    "median_step_seconds": 1.09,
-    "steps_per_epoch": 11784,
-    "estimated_epoch_seconds_cpu": 12848.2,
-    "estimated_epoch_minutes_cpu": 214.14,
-    "estimated_full_training_minutes_cpu": 642.4,
-    "note": "замер на CPU (2 ядра, batch 8, max_len 256); на GPU-машине время шага будет меньше — скрипт запускается тем же флагом --device cuda --amp"
+    "mean": {
+      "span": 0.3205,
+      "token": 0.5355,
+      "pair": 0.429,
+      "fpr": 0.2537
+    },
+    "baseline_span": 0.2437,
+    "required": 0.2637,
+    "pass": true
   },
-  "verdict": "blocked_no_gpu: обучение на GPU невозможно в этой песочнице, пайплайн проверен smoke-прогоном на CPU"
+  "sweep": {
+    "base_e8": {
+      "config": {
+        "name": "base_e8",
+        "epochs": 8,
+        "batch": 32,
+        "lr": 5e-05,
+        "max_easy": 2,
+        "doc": 64,
+        "len": 128
+      },
+      "val_auc": 0.7108,
+      "span": 0.3478,
+      "pair": 0.5128,
+      "fpr": 0.1154,
+      "seconds": 311.7
+    },
+    "easy4_e8": {
+      "config": {
+        "name": "easy4_e8",
+        "epochs": 8,
+        "batch": 32,
+        "lr": 5e-05,
+        "max_easy": 4,
+        "doc": 64,
+        "len": 128
+      },
+      "val_auc": 0.6721,
+      "span": 0.2364,
+      "pair": 0.3881,
+      "fpr": 0.0769,
+      "seconds": 432.0
+    },
+    "long_doc96": {
+      "config": {
+        "name": "long_doc96",
+        "epochs": 6,
+        "batch": 32,
+        "lr": 5e-05,
+        "max_easy": 2,
+        "doc": 96,
+        "len": 192
+      },
+      "val_auc": 0.7266,
+      "span": 0.3486,
+      "pair": 0.5067,
+      "fpr": 0.0962,
+      "seconds": 414.4
+    },
+    "lr3_e10": {
+      "config": {
+        "name": "lr3_e10",
+        "epochs": 10,
+        "batch": 32,
+        "lr": 3e-05,
+        "max_easy": 2,
+        "doc": 64,
+        "len": 128
+      },
+      "val_auc": 0.6906,
+      "span": 0.3364,
+      "pair": 0.4932,
+      "fpr": 0.0865,
+      "seconds": 373.1
+    },
+    "lr3_e14": {
+      "config": {
+        "name": "lr3_e14",
+        "epochs": 14,
+        "batch": 32,
+        "lr": 3e-05,
+        "max_easy": 2,
+        "doc": 64,
+        "len": 128
+      },
+      "val_auc": 0.7263,
+      "span": 0.32,
+      "pair": 0.4878,
+      "fpr": 0.1538,
+      "seconds": 502.7
+    }
+  },
+  "overfitting_check_25_epochs": {
+    "val_auc": 0.5811,
+    "val_span": 0.2832,
+    "final_train_loss": 0.0456,
+    "conclusion": "25 эпох на 549 парах переобучают: train loss 0.046, val AUC падает с 0.73 до 0.58 — нужен early stopping"
+  },
+  "best_config": {
+    "config": {
+      "epochs": 6,
+      "batch": 32,
+      "lr": 5e-05,
+      "doc_tokens": 96,
+      "max_len": 192
+    },
+    "val_auc": 0.6756,
+    "val_ce_only": {
+      "span": 0.3273,
+      "token": 0.6117,
+      "pair": 0.48,
+      "fpr": 0.1058,
+      "span_p": 0.3214,
+      "span_r": 0.3333,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.3,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "oof": {
+      "folds": [
+        {
+          "span": 0.3942,
+          "token": 0.4567,
+          "pair": 0.5143,
+          "fpr": 0.2164,
+          "span_p": 0.3649,
+          "span_r": 0.4286,
+          "fold": 0,
+          "pairs": 183
+        },
+        {
+          "span": 0.4024,
+          "token": 0.5266,
+          "pair": 0.5075,
+          "fpr": 0.287,
+          "span_p": 0.3908,
+          "span_r": 0.4146,
+          "fold": 1,
+          "pairs": 182
+        },
+        {
+          "span": 0.4343,
+          "token": 0.5632,
+          "pair": 0.5468,
+          "fpr": 0.2243,
+          "span_p": 0.4471,
+          "span_r": 0.4222,
+          "fold": 2,
+          "pairs": 184
+        }
+      ],
+      "mean": {
+        "span": 0.4103,
+        "token": 0.5155,
+        "pair": 0.5229,
+        "fpr": 0.2426
+      },
+      "baseline_span": 0.2437,
+      "required": 0.2637,
+      "pass": true
+    }
+  },
+  "decode_variants": {
+    "checkpoint_3ep_doc64_len128": {
+      "checkpoint": "artifacts/ce_model_cpu_v21.pt",
+      "val_auc": 0.6887,
+      "ce_only": {
+        "span": 0.3486,
+        "token": 0.6235,
+        "pair": 0.5,
+        "fpr": 0.1058,
+        "span_p": 0.3455,
+        "span_r": 0.3519,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "blend_best": {
+        "weight_ce": 0.4,
+        "auc": 0.7424,
+        "span": 0.3704,
+        "token": 0.6338,
+        "pair": 0.5195,
+        "fpr": 0.1058,
+        "span_p": 0.3704,
+        "span_r": 0.3704,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "ce_pair_gate_max": {
+        "span": 0.3818,
+        "token": 0.6365,
+        "pair": 0.5455,
+        "fpr": 0.0962,
+        "span_p": 0.375,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "ce_pair_gate_top3": {
+        "span": 0.3717,
+        "token": 0.6258,
+        "pair": 0.525,
+        "fpr": 0.125,
+        "span_p": 0.3559,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.3,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      }
+    },
+    "checkpoint_6ep_doc96_len192": {
+      "checkpoint": "artifacts/ce_model_cpu_best_v21.pt",
+      "val_auc": 0.6756,
+      "ce_only": {
+        "span": 0.3273,
+        "token": 0.6117,
+        "pair": 0.48,
+        "fpr": 0.1058,
+        "span_p": 0.3214,
+        "span_r": 0.3333,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.3,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "blend_best": {
+        "weight_ce": 0.0,
+        "auc": 0.7425,
+        "span": 0.3621,
+        "token": 0.6247,
+        "pair": 0.5122,
+        "fpr": 0.1442,
+        "span_p": 0.3387,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "ce_pair_gate_max": {
+        "span": 0.359,
+        "token": 0.6194,
+        "pair": 0.506,
+        "fpr": 0.1538,
+        "span_p": 0.3333,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.2,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      }
+    }
+  },
+  "export": {
+    "fp32_mb": 111.09,
+    "int8_mb": 27.93,
+    "compression_ratio": 3.98,
+    "opset": 17,
+    "parity": {
+      "risk_logit": {
+        "max_abs_diff": 0.00767,
+        "mean_abs_diff": 0.00767,
+        "corr": null
+      },
+      "start_logits": {
+        "max_abs_diff": 0.36498,
+        "mean_abs_diff": 0.07438,
+        "corr": 1.0
+      },
+      "end_logits": {
+        "max_abs_diff": 0.38707,
+        "mean_abs_diff": 0.08125,
+        "corr": 1.0
+      }
+    },
+    "heads_trained": true
+  },
+  "speed": {
+    "full_candidates": {
+      "1k": {
+        "total": 0.0373,
+        "fits": false
+      },
+      "50k": {
+        "total": 0.2658,
+        "fits": true
+      },
+      "2M": {
+        "total": 10.8811,
+        "fits": true
+      }
+    },
+    "cascade_top_k": {
+      "1k_top1": {
+        "total": 0.0128,
+        "fits": true
+      },
+      "1k_top3": {
+        "total": 0.0198,
+        "fits": true
+      },
+      "1k_top5": {
+        "total": 0.0268,
+        "fits": true
+      },
+      "50k_top1": {
+        "total": 0.2273,
+        "fits": true
+      },
+      "50k_top3": {
+        "total": 0.2343,
+        "fits": true
+      },
+      "50k_top5": {
+        "total": 0.2413,
+        "fits": true
+      },
+      "2M_top1": {
+        "total": 10.7706,
+        "fits": true
+      },
+      "2M_top3": {
+        "total": 10.7776,
+        "fits": true
+      },
+      "2M_top5": {
+        "total": 10.7846,
+        "fits": true
+      }
+    },
+    "latency_per_forward": [
+      {
+        "seq_len": 128,
+        "batch": 1,
+        "median_seconds": 0.0035,
+        "min_seconds": 0.0035
+      },
+      {
+        "seq_len": 192,
+        "batch": 1,
+        "median_seconds": 0.006,
+        "min_seconds": 0.0059
+      },
+      {
+        "seq_len": 256,
+        "batch": 1,
+        "median_seconds": 0.0094,
+        "min_seconds": 0.009
+      },
+      {
+        "seq_len": 384,
+        "batch": 1,
+        "median_seconds": 0.0171,
+        "min_seconds": 0.017
+      }
+    ]
+  }
 }

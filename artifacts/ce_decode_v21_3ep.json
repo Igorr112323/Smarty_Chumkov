@@ -1,0 +1,299 @@
+{
+  "rule": "v21: применение cross-encoder к метрикам договора. Пороги калибруются на val в бюджете FPR <= 0.40, held-out не читается",
+  "checkpoint": "artifacts/ce_model_cpu_v21.pt",
+  "val": {
+    "candidates": 1374,
+    "positives": 98,
+    "ce_auc": 0.6887,
+    "v11_auc": 0.7425
+  },
+  "variants": {
+    "ce_only": {
+      "span": 0.3486,
+      "token": 0.6235,
+      "pair": 0.5,
+      "fpr": 0.1058,
+      "span_p": 0.3455,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "ce_pair_gate_max_v11_cand": {
+      "span": 0.3818,
+      "token": 0.6365,
+      "pair": 0.5455,
+      "fpr": 0.0962,
+      "span_p": 0.375,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "ce_pair_gate_top3_v11_cand": {
+      "span": 0.3717,
+      "token": 0.6258,
+      "pair": 0.525,
+      "fpr": 0.125,
+      "span_p": 0.3559,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.3,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "blend_grid": [
+      {
+        "weight_ce": 0.0,
+        "auc": 0.7425,
+        "span": 0.3621,
+        "token": 0.6247,
+        "pair": 0.5122,
+        "fpr": 0.1442,
+        "span_p": 0.3387,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.1,
+        "auc": 0.7452,
+        "span": 0.3652,
+        "token": 0.6097,
+        "pair": 0.5122,
+        "fpr": 0.1442,
+        "span_p": 0.3443,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.2,
+        "auc": 0.7461,
+        "span": 0.3684,
+        "token": 0.6121,
+        "pair": 0.5185,
+        "fpr": 0.1346,
+        "span_p": 0.35,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.3,
+        "auc": 0.7451,
+        "span": 0.3604,
+        "token": 0.6238,
+        "pair": 0.5063,
+        "fpr": 0.125,
+        "span_p": 0.3509,
+        "span_r": 0.3704,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 2,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.4,
+        "auc": 0.7424,
+        "span": 0.3704,
+        "token": 0.6338,
+        "pair": 0.5195,
+        "fpr": 0.1058,
+        "span_p": 0.3704,
+        "span_r": 0.3704,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.5,
+        "auc": 0.7374,
+        "span": 0.3519,
+        "token": 0.6303,
+        "pair": 0.5,
+        "fpr": 0.1058,
+        "span_p": 0.3519,
+        "span_r": 0.3519,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.6,
+        "auc": 0.7301,
+        "span": 0.3519,
+        "token": 0.6282,
+        "pair": 0.5,
+        "fpr": 0.1058,
+        "span_p": 0.3519,
+        "span_r": 0.3519,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.7,
+        "auc": 0.7208,
+        "span": 0.3551,
+        "token": 0.6327,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.3585,
+        "span_r": 0.3519,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.8,
+        "auc": 0.7107,
+        "span": 0.3619,
+        "token": 0.6399,
+        "pair": 0.5205,
+        "fpr": 0.0769,
+        "span_p": 0.3725,
+        "span_r": 0.3519,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 0.9,
+        "auc": 0.6998,
+        "span": 0.3654,
+        "token": 0.6419,
+        "pair": 0.5205,
+        "fpr": 0.0769,
+        "span_p": 0.38,
+        "span_r": 0.3519,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      {
+        "weight_ce": 1.0,
+        "auc": 0.6887,
+        "span": 0.3495,
+        "token": 0.631,
+        "pair": 0.5,
+        "fpr": 0.0769,
+        "span_p": 0.3673,
+        "span_r": 0.3333,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      }
+    ],
+    "blend_best": {
+      "weight_ce": 0.4,
+      "auc": 0.7424,
+      "span": 0.3704,
+      "token": 0.6338,
+      "pair": 0.5195,
+      "fpr": 0.1058,
+      "span_p": 0.3704,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    }
+  },
+  "guard_partial": {
+    "best_val_span": 0.3818,
+    "need": 0.5,
+    "pass": false
+  },
+  "verdict": "span_not_reached"
+}

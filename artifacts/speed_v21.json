@@ -12,40 +12,40 @@
     {
       "seq_len": 128,
       "batch": 1,
-      "median_seconds": 0.0046,
-      "min_seconds": 0.0046
+      "median_seconds": 0.0035,
+      "min_seconds": 0.0035
     },
     {
       "seq_len": 192,
       "batch": 1,
-      "median_seconds": 0.0082,
-      "min_seconds": 0.0081
+      "median_seconds": 0.006,
+      "min_seconds": 0.0059
     },
     {
       "seq_len": 256,
       "batch": 1,
-      "median_seconds": 0.0121,
-      "min_seconds": 0.0118
+      "median_seconds": 0.0094,
+      "min_seconds": 0.009
     },
     {
       "seq_len": 384,
       "batch": 1,
-      "median_seconds": 0.0233,
-      "min_seconds": 0.0202
+      "median_seconds": 0.0171,
+      "min_seconds": 0.017
     }
   ],
   "latency_batch8": [
     {
       "seq_len": 192,
       "batch": 8,
-      "median_seconds": 0.0488,
-      "min_seconds": 0.0477
+      "median_seconds": 0.0439,
+      "min_seconds": 0.0431
     },
     {
       "seq_len": 384,
       "batch": 8,
-      "median_seconds": 0.1582,
-      "min_seconds": 0.1518
+      "median_seconds": 0.147,
+      "min_seconds": 0.1436
     }
   ],
   "candidates": {
@@ -66,103 +66,103 @@
     }
   },
   "runtime_without_ce": {
-    "1k": 0.0092,
-    "50k": 0.2315,
-    "2M": 11.733
+    "1k": 0.0093,
+    "50k": 0.2238,
+    "2M": 10.7671
   },
   "cascade_top_k": {
     "1k_top1": {
-      "total_seconds": 0.0138,
+      "total_seconds": 0.0128,
       "limit_seconds": 0.03,
       "fits": true,
-      "headroom_x": 2.17
+      "headroom_x": 2.34
     },
     "1k_top3": {
-      "total_seconds": 0.023,
+      "total_seconds": 0.0198,
       "limit_seconds": 0.03,
       "fits": true,
-      "headroom_x": 1.3
+      "headroom_x": 1.52
     },
     "1k_top5": {
-      "total_seconds": 0.0322,
+      "total_seconds": 0.0268,
       "limit_seconds": 0.03,
-      "fits": false,
-      "headroom_x": 0.93
+      "fits": true,
+      "headroom_x": 1.12
     },
     "50k_top1": {
-      "total_seconds": 0.2361,
+      "total_seconds": 0.2273,
       "limit_seconds": 1.0,
       "fits": true,
-      "headroom_x": 4.24
+      "headroom_x": 4.4
     },
     "50k_top3": {
-      "total_seconds": 0.2453,
+      "total_seconds": 0.2343,
       "limit_seconds": 1.0,
       "fits": true,
-      "headroom_x": 4.08
+      "headroom_x": 4.27
     },
     "50k_top5": {
-      "total_seconds": 0.2545,
+      "total_seconds": 0.2413,
       "limit_seconds": 1.0,
       "fits": true,
-      "headroom_x": 3.93
+      "headroom_x": 4.14
     },
     "2M_top1": {
-      "total_seconds": 11.7376,
+      "total_seconds": 10.7706,
       "limit_seconds": 60.0,
       "fits": true,
-      "headroom_x": 5.11
+      "headroom_x": 5.57
     },
     "2M_top3": {
-      "total_seconds": 11.7468,
+      "total_seconds": 10.7776,
       "limit_seconds": 60.0,
       "fits": true,
-      "headroom_x": 5.11
+      "headroom_x": 5.57
     },
     "2M_top5": {
-      "total_seconds": 11.756,
+      "total_seconds": 10.7846,
       "limit_seconds": 60.0,
       "fits": true,
-      "headroom_x": 5.1
+      "headroom_x": 5.56
     }
   },
   "stress_long_answer_50k": {
     "answer_chars": 50000,
     "candidates": 1240,
-    "ce_seconds": 15.0,
+    "ce_seconds": 11.66,
     "limit_seconds": 1.0,
     "fits": false
   },
   "totals": {
     "1k": {
-      "runtime_seconds": 0.0092,
+      "runtime_seconds": 0.0093,
       "ce_candidates": 8,
       "ce_seq_len": 128,
-      "ce_seconds": 0.0368,
-      "total_seconds": 0.046,
+      "ce_seconds": 0.028,
+      "total_seconds": 0.0373,
       "limit_seconds": 0.03,
       "fits": false,
-      "headroom_x": 0.65
+      "headroom_x": 0.8
     },
     "50k": {
-      "runtime_seconds": 0.2315,
+      "runtime_seconds": 0.2238,
       "ce_candidates": 12,
       "ce_seq_len": 128,
-      "ce_seconds": 0.0552,
-      "total_seconds": 0.2867,
+      "ce_seconds": 0.042,
+      "total_seconds": 0.2658,
       "limit_seconds": 1.0,
       "fits": true,
-      "headroom_x": 3.49
+      "headroom_x": 3.76
     },
     "2M": {
-      "runtime_seconds": 11.733,
+      "runtime_seconds": 10.7671,
       "ce_candidates": 19,
       "ce_seq_len": 192,
-      "ce_seconds": 0.1558,
-      "total_seconds": 11.8888,
+      "ce_seconds": 0.114,
+      "total_seconds": 10.8811,
       "limit_seconds": 60.0,
       "fits": true,
-      "headroom_x": 5.05
+      "headroom_x": 5.51
     }
   },
   "verdict": {

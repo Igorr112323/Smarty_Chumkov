@@ -1,0 +1,162 @@
+{
+  "rule": "v21 CPU-прогон: cross-encoder rubert-tiny2 (29.2M) на 2 ядрах; окно 128 токенов (документ-окно 64 по лексическому перекрытию); в батче 50/50 позитив/негатив; loss = CE(start) + CE(end) + BCE(risk); пороги декадера калибруются на val в бюджете FPR <= 0.40; held-out не читается",
+  "device": {
+    "torch": "2.2.2+cu121",
+    "cuda": false,
+    "threads": 2,
+    "note": "GPU нет — обучение на CPU (2 ядра), это offline-процесс"
+  },
+  "window": {
+    "max_len": 192,
+    "doc_tokens": 96,
+    "max_easy_negatives_per_pair": 2,
+    "layout": "[CLS] doc_window [SEP] candidate [SEP]"
+  },
+  "training": {
+    "epochs": 6,
+    "batch": 32,
+    "lr": 5e-05
+  },
+  "val_data": {
+    "candidates": 1374,
+    "positives": 98
+  },
+  "arms": {
+    "real": {
+      "pairs": 549,
+      "examples": 1632,
+      "positives": 454,
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 2.5322,
+          "seconds": 59.4
+        },
+        {
+          "epoch": 1,
+          "loss": 0.5898,
+          "seconds": 59.5
+        },
+        {
+          "epoch": 2,
+          "loss": 0.4618,
+          "seconds": 58.5
+        },
+        {
+          "epoch": 3,
+          "loss": 0.353,
+          "seconds": 59.3
+        },
+        {
+          "epoch": 4,
+          "loss": 0.2611,
+          "seconds": 56.7
+        },
+        {
+          "epoch": 5,
+          "loss": 0.2104,
+          "seconds": 56.6
+        }
+      ],
+      "val_auc": 0.6756,
+      "val": {
+        "span": 0.3273,
+        "token": 0.6117,
+        "pair": 0.48,
+        "fpr": 0.1058,
+        "span_p": 0.3214,
+        "span_r": 0.3333,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.3,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "within_pair": 0.7714
+    }
+  },
+  "checkpoint": {
+    "path": "artifacts/ce_model_cpu_best_v21.pt",
+    "bytes": 116802861,
+    "arm": "real"
+  },
+  "best_arm": "real",
+  "best_span": 0.3273,
+  "oof": {
+    "folds": [
+      {
+        "span": 0.3942,
+        "token": 0.4567,
+        "pair": 0.5143,
+        "fpr": 0.2164,
+        "span_p": 0.3649,
+        "span_r": 0.4286,
+        "fold": 0,
+        "pairs": 183
+      },
+      {
+        "span": 0.4024,
+        "token": 0.5266,
+        "pair": 0.5075,
+        "fpr": 0.287,
+        "span_p": 0.3908,
+        "span_r": 0.4146,
+        "fold": 1,
+        "pairs": 182
+      },
+      {
+        "span": 0.4343,
+        "token": 0.5632,
+        "pair": 0.5468,
+        "fpr": 0.2243,
+        "span_p": 0.4471,
+        "span_r": 0.4222,
+        "fold": 2,
+        "pairs": 184
+      }
+    ],
+    "mean": {
+      "span": 0.4103,
+      "token": 0.5155,
+      "pair": 0.5229,
+      "fpr": 0.2426
+    },
+    "baseline_span": 0.2437,
+    "required": 0.2637,
+    "pass": true
+  },
+  "guard": {
+    "span": {
+      "value": 0.3273,
+      "need": 0.5,
+      "pass": false
+    },
+    "token": {
+      "value": 0.6117,
+      "need": 0.5,
+      "pass": true
+    },
+    "pair": {
+      "value": 0.48,
+      "need": 0.5,
+      "pass": false
+    },
+    "fpr": {
+      "value": 0.1058,
+      "need": 0.4,
+      "pass": true
+    },
+    "oof": {
+      "value": 0.4103,
+      "need": 0.2637,
+      "pass": true
+    },
+    "pass_all": false
+  },
+  "verdict": "reject_by_guard",
+  "total_seconds": 552.0
+}

@@ -1,349 +1,162 @@
 {
-  "rule": "шаг 5 v21: guard по метрикам договора для cross-encoder. Метрики val/OOF НЕ подменяются: без GPU обученного чекпойнта нет, поэтому вместо чисел — честный блокер и измеренные компоненты цепочки",
-  "status": "blocked_no_gpu",
-  "device": {
-    "gpu_present": false,
-    "torch_cuda_available": false,
-    "gpu_memory_ok": false,
-    "can_train_cross_encoder": false,
-    "blocker": "в песочнице нет GPU: nvidia-smi отсутствует, /dev/nvidia* нет, torch.cuda.is_available() = False → обучение cross-encoder на GPU невозможно"
+  "rule": "v21 guard: метрики договора для обученного cross-encoder. Пороги декадера калибруются на val в бюджете FPR <= 0.40, OOF — 3 фолда по документам на реальных парах, held-out не читается",
+  "device": "CPU (2 ядра): GPU в песочнице нет, обучение offline — это допустимо",
+  "model": {
+    "checkpoint": "artifacts/ce_model_cpu_v21.pt",
+    "encoder": "rubert-tiny2 + start/end/risk",
+    "val_auc_ce_risk": 0.6887,
+    "val_auc_v11_risk": 0.7425
   },
-  "guard": {
-    "span": {
-      "value": null,
-      "need": 0.5,
-      "pass": false
-    },
-    "token": {
-      "value": null,
-      "need": 0.5,
-      "pass": false
-    },
-    "pair": {
-      "value": null,
-      "need": 0.5,
-      "pass": false
-    },
-    "fpr": {
-      "value": null,
-      "need": 0.4,
-      "pass": false
-    },
-    "oof": {
-      "value": null,
-      "need": 0.2637,
-      "pass": false
-    },
-    "pass_all": false,
-    "reason": "нечего измерять: чекпойнт cross-encoder не обучен (в песочнице нет GPU)"
-  },
-  "reference_v20": {
-    "val": {
-      "span": 0.367,
-      "token": 0.6453,
-      "pair": 0.5195,
-      "fpr": 0.1058
-    },
-    "val_auc_v11": 0.7425,
-    "oof_span_with_v19": 0.2295,
-    "oof_baseline_w0": 0.2224,
-    "oof_required": 0.2637
-  },
-  "prepared": {
-    "data": {
-      "pairs": 5848,
-      "candidates": 94267,
-      "positives": 11253,
-      "hard_negatives": 5026,
-      "excluded_v19_pairs_leaking_into_heldout": 7,
-      "doc_overlap_with_val": {},
-      "tokens": {
-        "document": {
-          "n": 300,
-          "mean": 153.0,
-          "p50": 139,
-          "p90": 224,
-          "max": 379
-        },
-        "answer": {
-          "n": 300,
-          "mean": 36.0,
-          "p50": 27,
-          "p90": 67,
-          "max": 192
-        },
-        "candidate": {
-          "n": 692,
-          "mean": 24.2,
-          "p50": 19,
-          "p90": 43,
-          "max": 192
-        }
-      }
-    },
-    "architecture": {
-      "encoder": "cointegrated/rubert-tiny2",
-      "parameters": {
-        "total": 29194707,
-        "trainable": 29194707,
-        "fp32_mb": 111.37,
-        "int8_mb": 27.84
-      },
-      "heads": [
-        "start",
-        "end",
-        "risk"
-      ],
-      "max_len": 256,
-      "doc_tokens": 128
-    },
-    "cpu_smoke_training": {
-      "steps": 8,
-      "losses": [
-        {
-          "step": 0,
-          "loss": 5.4228,
-          "seconds": 1.319,
-          "start": 2.0958,
-          "end": 2.5961,
-          "risk": 0.731
-        },
-        {
-          "step": 1,
-          "loss": 6.7628,
-          "seconds": 1.09,
-          "start": 2.8545,
-          "end": 3.2388,
-          "risk": 0.6695
-        },
-        {
-          "step": 2,
-          "loss": 5.8353,
-          "seconds": 1.153,
-          "start": 2.112,
-          "end": 3.0112,
-          "risk": 0.7121
-        },
-        {
-          "step": 3,
-          "loss": 6.5826,
-          "seconds": 1.099,
-          "start": 2.8683,
-          "end": 3.0191,
-          "risk": 0.6952
-        },
-        {
-          "step": 4,
-          "loss": 5.6232,
-          "seconds": 0.98,
-          "start": 2.5682,
-          "end": 2.3767,
-          "risk": 0.6782
-        },
-        {
-          "step": 5,
-          "loss": 6.3687,
-          "seconds": 0.944,
-          "start": 2.9853,
-          "end": 2.5894,
-          "risk": 0.794
-        },
-        {
-          "step": 6,
-          "loss": 5.9756,
-          "seconds": 0.999,
-          "start": 2.5415,
-          "end": 2.7785,
-          "risk": 0.6557
-        },
-        {
-          "step": 7,
-          "loss": 7.3743,
-          "seconds": 0.911,
-          "start": 3.0695,
-          "end": 3.6286,
-          "risk": 0.6762
-        }
-      ],
-      "median_step_seconds": 1.09,
-      "steps_per_epoch": 11784,
-      "estimated_epoch_seconds_cpu": 12848.2,
-      "estimated_epoch_minutes_cpu": 214.14,
-      "estimated_full_training_minutes_cpu": 642.4,
-      "note": "замер на CPU (2 ядра, batch 8, max_len 256); на GPU-машине время шага будет меньше — скрипт запускается тем же флагом --device cuda --amp"
-    },
-    "export": {
-      "onnx_fp32_mb": 111.09,
-      "onnx_int8_mb": 27.93,
-      "compression_ratio": 3.98,
-      "opset": 17,
-      "parity": {
-        "risk_logit": {
-          "max_abs_diff": 0.0552,
-          "mean_abs_diff": 0.0552,
-          "corr": null
-        },
-        "start_logits": {
-          "max_abs_diff": 0.0855,
-          "mean_abs_diff": 0.02741,
-          "corr": 1.0
-        },
-        "end_logits": {
-          "max_abs_diff": 0.18382,
-          "mean_abs_diff": 0.03262,
-          "corr": 1.0
-        }
-      }
-    },
-    "cpu_speed": {
-      "latency_per_forward": [
-        {
-          "seq_len": 128,
-          "batch": 1,
-          "median_seconds": 0.0046,
-          "min_seconds": 0.0046
-        },
-        {
-          "seq_len": 192,
-          "batch": 1,
-          "median_seconds": 0.0082,
-          "min_seconds": 0.0081
-        },
-        {
-          "seq_len": 256,
-          "batch": 1,
-          "median_seconds": 0.0121,
-          "min_seconds": 0.0118
-        },
-        {
-          "seq_len": 384,
-          "batch": 1,
-          "median_seconds": 0.0233,
-          "min_seconds": 0.0202
-        }
-      ],
-      "cascade_top_k": {
-        "1k_top1": {
-          "total_seconds": 0.0138,
-          "limit_seconds": 0.03,
-          "fits": true,
-          "headroom_x": 2.17
-        },
-        "1k_top3": {
-          "total_seconds": 0.023,
-          "limit_seconds": 0.03,
-          "fits": true,
-          "headroom_x": 1.3
-        },
-        "1k_top5": {
-          "total_seconds": 0.0322,
-          "limit_seconds": 0.03,
-          "fits": false,
-          "headroom_x": 0.93
-        },
-        "50k_top1": {
-          "total_seconds": 0.2361,
-          "limit_seconds": 1.0,
-          "fits": true,
-          "headroom_x": 4.24
-        },
-        "50k_top3": {
-          "total_seconds": 0.2453,
-          "limit_seconds": 1.0,
-          "fits": true,
-          "headroom_x": 4.08
-        },
-        "50k_top5": {
-          "total_seconds": 0.2545,
-          "limit_seconds": 1.0,
-          "fits": true,
-          "headroom_x": 3.93
-        },
-        "2M_top1": {
-          "total_seconds": 11.7376,
-          "limit_seconds": 60.0,
-          "fits": true,
-          "headroom_x": 5.11
-        },
-        "2M_top3": {
-          "total_seconds": 11.7468,
-          "limit_seconds": 60.0,
-          "fits": true,
-          "headroom_x": 5.11
-        },
-        "2M_top5": {
-          "total_seconds": 11.756,
-          "limit_seconds": 60.0,
-          "fits": true,
-          "headroom_x": 5.1
-        }
-      },
-      "full_candidate": {
-        "1k": {
-          "runtime_seconds": 0.0092,
-          "ce_candidates": 8,
-          "ce_seq_len": 128,
-          "ce_seconds": 0.0368,
-          "total_seconds": 0.046,
-          "limit_seconds": 0.03,
-          "fits": false,
-          "headroom_x": 0.65
-        },
-        "50k": {
-          "runtime_seconds": 0.2315,
-          "ce_candidates": 12,
-          "ce_seq_len": 128,
-          "ce_seconds": 0.0552,
-          "total_seconds": 0.2867,
-          "limit_seconds": 1.0,
-          "fits": true,
-          "headroom_x": 3.49
-        },
-        "2M": {
-          "runtime_seconds": 11.733,
-          "ce_candidates": 19,
-          "ce_seq_len": 192,
-          "ce_seconds": 0.1558,
-          "total_seconds": 11.8888,
-          "limit_seconds": 60.0,
-          "fits": true,
-          "headroom_x": 5.05
-        }
-      },
-      "stress_long_answer_50k": {
-        "answer_chars": 50000,
-        "candidates": 1240,
-        "ce_seconds": 15.0,
-        "limit_seconds": 1.0,
-        "fits": false
-      }
-    }
-  },
-  "pipeline_smoke": {
-    "what": "ce_eval_v21.py на необученном чекпойнте: проверка, что оценка val (AUC + декадер v11 + калибровка порогов) работает end-to-end",
-    "val_auc": 0.452,
-    "val_contract": {
-      "span": 0.2393,
-      "token": 0.4509,
-      "pair": 0.3636,
-      "fpr": 0.1635
-    },
+  "val": {
+    "best_variant": "ce_pair_gate_max (CE задаёт pair-гейт, v11 ранжирует кандидатов)",
+    "span": 0.3818,
+    "token": 0.6365,
+    "pair": 0.5455,
+    "fpr": 0.0962,
+    "span_p": 0.375,
+    "span_r": 0.3889,
     "config": {
       "mode_cut": 0.6,
-      "gate": 0.5,
-      "threshold": 0.2,
+      "gate": 0.4,
+      "threshold": 0.6,
       "max_spans": 1,
       "local_threshold": 0.5,
       "local_max_spans": 3,
       "nms_iou": 0.1
-    },
-    "note": "числа получены на случайных головах (энкодер предобучен, головы нет) — это проверка пайплайна, а не качество модели; в guard не идут"
+    }
   },
-  "what_must_happen_on_gpu": [
-    "python tools/ce_train_v21.py --device cuda --epochs 3 --batch 32 --amp  (ожидаемо 5–15 мин/эпоху)",
-    "python tools/ce_eval_v21.py --device cuda --oof 3 --epochs 1  → val Span/Token/Pair/FPR + OOF",
-    "python tools/ce_export_v21.py --checkpoint artifacts/ce_model_v21.pt  → ONNX + int8",
-    "python tools/ce_speed_v21.py  → 1k/50k/2M (каскад top-k обязателен: полный перебор кандидатов не влезает в 0.03 с на 1k)"
-  ],
-  "verdict": "reject_by_blocker_no_gpu"
+  "val_alternatives": {
+    "ce_only": {
+      "span": 0.3486,
+      "token": 0.6235,
+      "pair": 0.5,
+      "fpr": 0.1058,
+      "span_p": 0.3455,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "blend_v11_w0.4": {
+      "weight_ce": 0.4,
+      "auc": 0.7424,
+      "span": 0.3704,
+      "token": 0.6338,
+      "pair": 0.5195,
+      "fpr": 0.1058,
+      "span_p": 0.3704,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "ce_pair_gate_top3": {
+      "span": 0.3717,
+      "token": 0.6258,
+      "pair": 0.525,
+      "fpr": 0.125,
+      "span_p": 0.3559,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.3,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "v11_baseline_in_harness": {
+      "span": 0.3621,
+      "token": 0.6247,
+      "pair": 0.5122,
+      "fpr": 0.1442
+    }
+  },
+  "oof": {
+    "folds": [
+      {
+        "span": 0.292,
+        "token": 0.5066,
+        "pair": 0.404,
+        "fpr": 0.2239,
+        "span_p": 0.2703,
+        "span_r": 0.3175,
+        "fold": 0,
+        "pairs": 183
+      },
+      {
+        "span": 0.2924,
+        "token": 0.5092,
+        "pair": 0.3906,
+        "fpr": 0.313,
+        "span_p": 0.2809,
+        "span_r": 0.3049,
+        "fold": 1,
+        "pairs": 182
+      },
+      {
+        "span": 0.3771,
+        "token": 0.5907,
+        "pair": 0.4925,
+        "fpr": 0.2243,
+        "span_p": 0.3882,
+        "span_r": 0.3667,
+        "fold": 2,
+        "pairs": 184
+      }
+    ],
+    "mean": {
+      "span": 0.3205,
+      "token": 0.5355,
+      "pair": 0.429,
+      "fpr": 0.2537
+    },
+    "baseline_span": 0.2437,
+    "required": 0.2637,
+    "pass": true
+  },
+  "guard": {
+    "span": {
+      "value": 0.3818,
+      "need": 0.5,
+      "pass": false
+    },
+    "token": {
+      "value": 0.6365,
+      "need": 0.5,
+      "pass": true
+    },
+    "pair": {
+      "value": 0.5455,
+      "need": 0.5,
+      "pass": true
+    },
+    "fpr": {
+      "value": 0.0962,
+      "need": 0.4,
+      "pass": true
+    },
+    "oof": {
+      "value": 0.3205,
+      "need": 0.2637,
+      "pass": true
+    },
+    "pass_all": false
+  },
+  "conclusion": "cross-encoder обучен на CPU и дал лучший честный результат за все циклы, но Span не закрыт: 0.3818 против 0.50. OOF по документам впервые пройден (0.3205–0.4103 против baseline 0.2437). Упираемся не в перенос, а в ранг-потолок 37-признакового кандидатного пула: даже при идеальном ранжировании потолок Span = 0.6165 (v16), а AUC CE 0.69–0.73 даёт ~0.38.",
+  "verdict": "reject_by_span"
 }

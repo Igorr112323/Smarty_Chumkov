@@ -1,0 +1,182 @@
+{
+  "rule": "v21 CPU-прогон: cross-encoder rubert-tiny2 (29.2M) на 2 ядрах; окно 128 токенов (документ-окно 64 по лексическому перекрытию); в батче 50/50 позитив/негатив; loss = CE(start) + CE(end) + BCE(risk); пороги декадера калибруются на val в бюджете FPR <= 0.40; held-out не читается",
+  "device": {
+    "torch": "2.2.2+cu121",
+    "cuda": false,
+    "threads": 2,
+    "note": "GPU нет — обучение на CPU (2 ядра), это offline-процесс"
+  },
+  "window": {
+    "max_len": 256,
+    "doc_tokens": 128,
+    "max_easy_negatives_per_pair": 2,
+    "layout": "[CLS] doc_window [SEP] candidate [SEP]"
+  },
+  "training": {
+    "epochs": 25,
+    "batch": 32,
+    "lr": 4e-05
+  },
+  "val_data": {
+    "candidates": 1374,
+    "positives": 98
+  },
+  "arms": {
+    "real": {
+      "pairs": 549,
+      "examples": 1632,
+      "positives": 454,
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 2.9819,
+          "seconds": 91.1
+        },
+        {
+          "epoch": 1,
+          "loss": 0.6446,
+          "seconds": 88.3
+        },
+        {
+          "epoch": 2,
+          "loss": 0.5457,
+          "seconds": 92.2
+        },
+        {
+          "epoch": 3,
+          "loss": 0.4597,
+          "seconds": 89.9
+        },
+        {
+          "epoch": 4,
+          "loss": 0.3779,
+          "seconds": 90.4
+        },
+        {
+          "epoch": 5,
+          "loss": 0.3289,
+          "seconds": 86.9
+        },
+        {
+          "epoch": 6,
+          "loss": 0.2779,
+          "seconds": 89.7
+        },
+        {
+          "epoch": 7,
+          "loss": 0.2091,
+          "seconds": 89.1
+        },
+        {
+          "epoch": 8,
+          "loss": 0.1863,
+          "seconds": 90.1
+        },
+        {
+          "epoch": 9,
+          "loss": 0.1867,
+          "seconds": 90.8
+        },
+        {
+          "epoch": 10,
+          "loss": 0.1408,
+          "seconds": 88.4
+        },
+        {
+          "epoch": 11,
+          "loss": 0.1246,
+          "seconds": 89.6
+        },
+        {
+          "epoch": 12,
+          "loss": 0.113,
+          "seconds": 89.9
+        },
+        {
+          "epoch": 13,
+          "loss": 0.0796,
+          "seconds": 89.0
+        },
+        {
+          "epoch": 14,
+          "loss": 0.0982,
+          "seconds": 89.7
+        },
+        {
+          "epoch": 15,
+          "loss": 0.0636,
+          "seconds": 85.1
+        },
+        {
+          "epoch": 16,
+          "loss": 0.0754,
+          "seconds": 85.0
+        },
+        {
+          "epoch": 17,
+          "loss": 0.0624,
+          "seconds": 92.5
+        },
+        {
+          "epoch": 18,
+          "loss": 0.0531,
+          "seconds": 93.6
+        },
+        {
+          "epoch": 19,
+          "loss": 0.0532,
+          "seconds": 91.7
+        },
+        {
+          "epoch": 20,
+          "loss": 0.053,
+          "seconds": 92.8
+        },
+        {
+          "epoch": 21,
+          "loss": 0.0749,
+          "seconds": 94.1
+        },
+        {
+          "epoch": 22,
+          "loss": 0.0316,
+          "seconds": 86.9
+        },
+        {
+          "epoch": 23,
+          "loss": 0.0403,
+          "seconds": 89.1
+        },
+        {
+          "epoch": 24,
+          "loss": 0.0456,
+          "seconds": 88.6
+        }
+      ],
+      "val_auc": 0.5811,
+      "val": {
+        "span": 0.2832,
+        "token": 0.5139,
+        "pair": 0.4051,
+        "fpr": 0.1635,
+        "span_p": 0.2712,
+        "span_r": 0.2963,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.3,
+          "threshold": 0.2,
+          "max_spans": 2,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "within_pair": 0.6269
+    }
+  },
+  "checkpoint": {
+    "path": "artifacts/ce_model_cpu_long_v21.pt",
+    "bytes": 116802861,
+    "arm": "real"
+  }
+}

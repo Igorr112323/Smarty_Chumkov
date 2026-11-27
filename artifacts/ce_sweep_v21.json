@@ -1,0 +1,386 @@
+{
+  "rule": "sweep на реальных парах (+опционально v19/synth), выбор по val AUC и Span (пороги в бюджете FPR <= 0.40); held-out не читается",
+  "train_pairs": 549,
+  "runs": {
+    "base_e8": {
+      "config": {
+        "name": "base_e8",
+        "epochs": 8,
+        "batch": 32,
+        "lr": 5e-05,
+        "max_easy": 2,
+        "doc": 64,
+        "len": 128
+      },
+      "examples": 1632,
+      "seconds": 311.7,
+      "val_auc": 0.7108,
+      "val": {
+        "span": 0.3478,
+        "token": 0.6063,
+        "pair": 0.5128,
+        "fpr": 0.1154,
+        "span_p": 0.3279,
+        "span_r": 0.3704,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.4,
+          "max_spans": 2,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 2.4748
+        },
+        {
+          "epoch": 1,
+          "loss": 0.6092
+        },
+        {
+          "epoch": 2,
+          "loss": 0.5051
+        },
+        {
+          "epoch": 3,
+          "loss": 0.3873
+        },
+        {
+          "epoch": 4,
+          "loss": 0.309
+        },
+        {
+          "epoch": 5,
+          "loss": 0.2555
+        },
+        {
+          "epoch": 6,
+          "loss": 0.1973
+        },
+        {
+          "epoch": 7,
+          "loss": 0.1607
+        }
+      ]
+    },
+    "easy4_e8": {
+      "config": {
+        "name": "easy4_e8",
+        "epochs": 8,
+        "batch": 32,
+        "lr": 5e-05,
+        "max_easy": 4,
+        "doc": 64,
+        "len": 128
+      },
+      "examples": 2313,
+      "seconds": 432.0,
+      "val_auc": 0.6721,
+      "val": {
+        "span": 0.2364,
+        "token": 0.4955,
+        "pair": 0.3881,
+        "fpr": 0.0769,
+        "span_p": 0.2321,
+        "span_r": 0.2407,
+        "config": {
+          "mode_cut": 0.5,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 2,
+          "local_threshold": 0.4,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 1.6888
+        },
+        {
+          "epoch": 1,
+          "loss": 0.5215
+        },
+        {
+          "epoch": 2,
+          "loss": 0.3434
+        },
+        {
+          "epoch": 3,
+          "loss": 0.256
+        },
+        {
+          "epoch": 4,
+          "loss": 0.1939
+        },
+        {
+          "epoch": 5,
+          "loss": 0.169
+        },
+        {
+          "epoch": 6,
+          "loss": 0.1681
+        },
+        {
+          "epoch": 7,
+          "loss": 0.1291
+        }
+      ]
+    },
+    "long_doc96": {
+      "config": {
+        "name": "long_doc96",
+        "epochs": 6,
+        "batch": 32,
+        "lr": 5e-05,
+        "max_easy": 2,
+        "doc": 96,
+        "len": 192
+      },
+      "examples": 1632,
+      "seconds": 414.4,
+      "val_auc": 0.7266,
+      "val": {
+        "span": 0.3486,
+        "token": 0.6352,
+        "pair": 0.5067,
+        "fpr": 0.0962,
+        "span_p": 0.3455,
+        "span_r": 0.3519,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.5,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 2.2606
+        },
+        {
+          "epoch": 1,
+          "loss": 0.6169
+        },
+        {
+          "epoch": 2,
+          "loss": 0.4946
+        },
+        {
+          "epoch": 3,
+          "loss": 0.3684
+        },
+        {
+          "epoch": 4,
+          "loss": 0.2755
+        },
+        {
+          "epoch": 5,
+          "loss": 0.2326
+        }
+      ]
+    },
+    "lr3_e10": {
+      "config": {
+        "name": "lr3_e10",
+        "epochs": 10,
+        "batch": 32,
+        "lr": 3e-05,
+        "max_easy": 2,
+        "doc": 64,
+        "len": 128
+      },
+      "examples": 1632,
+      "seconds": 373.1,
+      "val_auc": 0.6906,
+      "val": {
+        "span": 0.3364,
+        "token": 0.5984,
+        "pair": 0.4932,
+        "fpr": 0.0865,
+        "span_p": 0.3396,
+        "span_r": 0.3333,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.3,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 2.9063
+        },
+        {
+          "epoch": 1,
+          "loss": 0.6663
+        },
+        {
+          "epoch": 2,
+          "loss": 0.5684
+        },
+        {
+          "epoch": 3,
+          "loss": 0.4798
+        },
+        {
+          "epoch": 4,
+          "loss": 0.3934
+        },
+        {
+          "epoch": 5,
+          "loss": 0.3196
+        },
+        {
+          "epoch": 6,
+          "loss": 0.2721
+        },
+        {
+          "epoch": 7,
+          "loss": 0.2237
+        },
+        {
+          "epoch": 8,
+          "loss": 0.1873
+        },
+        {
+          "epoch": 9,
+          "loss": 0.1752
+        }
+      ]
+    },
+    "lr3_e14": {
+      "config": {
+        "name": "lr3_e14",
+        "epochs": 14,
+        "batch": 32,
+        "lr": 3e-05,
+        "max_easy": 2,
+        "doc": 64,
+        "len": 128
+      },
+      "examples": 1632,
+      "seconds": 502.7,
+      "val_auc": 0.7263,
+      "val": {
+        "span": 0.32,
+        "token": 0.5828,
+        "pair": 0.4878,
+        "fpr": 0.1538,
+        "span_p": 0.2817,
+        "span_r": 0.3704,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 2,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 3.3766
+        },
+        {
+          "epoch": 1,
+          "loss": 0.7431
+        },
+        {
+          "epoch": 2,
+          "loss": 0.5884
+        },
+        {
+          "epoch": 3,
+          "loss": 0.4989
+        },
+        {
+          "epoch": 4,
+          "loss": 0.4098
+        },
+        {
+          "epoch": 5,
+          "loss": 0.3438
+        },
+        {
+          "epoch": 6,
+          "loss": 0.2949
+        },
+        {
+          "epoch": 7,
+          "loss": 0.2601
+        },
+        {
+          "epoch": 8,
+          "loss": 0.2255
+        },
+        {
+          "epoch": 9,
+          "loss": 0.1811
+        },
+        {
+          "epoch": 10,
+          "loss": 0.1476
+        },
+        {
+          "epoch": 11,
+          "loss": 0.1446
+        },
+        {
+          "epoch": 12,
+          "loss": 0.1151
+        },
+        {
+          "epoch": 13,
+          "loss": 0.1049
+        }
+      ]
+    }
+  },
+  "best": {
+    "name": "long_doc96",
+    "val_auc": 0.7266,
+    "val": {
+      "span": 0.3486,
+      "token": 0.6352,
+      "pair": 0.5067,
+      "fpr": 0.0962,
+      "span_p": 0.3455,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.5,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "checkpoint": "artifacts/ce_model_cpu_best_v21.pt",
+    "config": {
+      "name": "long_doc96",
+      "epochs": 6,
+      "batch": 32,
+      "lr": 5e-05,
+      "max_easy": 2,
+      "doc": 96,
+      "len": 192
+    }
+  }
+}
