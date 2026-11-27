@@ -1,0 +1,54 @@
+{
+  "step": "шаг 0 v20: датасет v19 скачан, проверен по SHA-256, зафиксирован в git до обучения",
+  "source": {
+    "url": "https://github.com/Igorr112323/Smarty_Chumkov/raw/main/ru_clause_gen_v19.zip",
+    "how": "прямой HTTPS-редирект на raw.githubusercontent недоступен из песочницы (TLS EOF), поэтому файл взят из git-клона ветки main: git clone --filter=blob:none --branch main && git checkout main -- ru_clause_gen_v19.zip",
+    "zip_bytes": 1728174,
+    "zip_sha256": "9e5848fed9b53ecde59d9069043cefd1adb08b27faebf1f25255fb4bd8b43f4c",
+    "zip_sha256_expected": "9e5848fed9b53ecde59d9069043cefd1adb08b27faebf1f25255fb4bd8b43f4c",
+    "zip_sha256_match": true
+  },
+  "commit": "a090ee002c762b56b541dea6c92127dfec632137",
+  "branch": "arena/963b6d7a-smarty-chumkov",
+  "files": [
+    {
+      "path": "artifacts/ru_clause_gen_v19.jsonl",
+      "bytes": 7346092,
+      "sha256": "f3144bd1999210bfc4b6c9c4d2e2485a4574717d0c65d78e8fad3be359d9ac1c",
+      "tracked": true
+    },
+    {
+      "path": "artifacts/ru_clause_gen_v19.json",
+      "bytes": 9353,
+      "sha256": "ba754369aa2ed9e54c153c90f467a48c48e41a2caf6142d43f413c0672126ae6",
+      "tracked": true
+    },
+    {
+      "path": "tools/gen_ru_clause_v19.py",
+      "bytes": 79303,
+      "sha256": "af1c386cd9554da84c59a8eb3663c66aed11dbef728137b1ac7cdcea8f78ddec",
+      "tracked": true
+    },
+    {
+      "path": "tests/test_ru_clause_gen_v19.py",
+      "bytes": 5874,
+      "sha256": "66569fac9d7994fff030eda7b9c72a05c6f048dbc903b1b7d290ab2559ad066d",
+      "tracked": true
+    }
+  ],
+  "dataset": {
+    "pairs": 1659,
+    "spans": 1354,
+    "lines": 1659,
+    "doc_overlap": 0,
+    "gates": "13/13",
+    "oracle_ceiling": {
+      "top1": 0.9548,
+      "multi": 1.0
+    }
+  },
+  "tests": {
+    "file": "tests/test_ru_clause_gen_v19.py",
+    "result": "5 passed"
+  }
+}

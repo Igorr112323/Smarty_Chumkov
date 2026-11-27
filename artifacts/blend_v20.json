@@ -1,0 +1,1180 @@
+{
+  "rule": "смесь штатного риска v11 с ранжировщиком через квантильное выравнивание шкал; пороги декадера калибруются на val в бюджете FPR ≤ 0.40; held-out не читается",
+  "reference_v11_reproduced": {
+    "span": 0.3621,
+    "token": 0.6247,
+    "pair": 0.5122,
+    "fpr": 0.1442,
+    "span_p": 0.3387,
+    "span_r": 0.3889,
+    "config": {
+      "mode_cut": 0.6,
+      "gate": 0.4,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "local_threshold": 0.5,
+      "local_max_spans": 3,
+      "nms_iou": 0.1
+    }
+  },
+  "reference_v11_expected": {
+    "span": 0.3621,
+    "token": 0.6247,
+    "pair": 0.5122,
+    "fpr": 0.1442
+  },
+  "weights_grid": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "variants": {
+    "control_37": {
+      "variant": "control_37",
+      "kind": "hgb",
+      "grid": [
+        {
+          "weight_model": 0.0,
+          "auc": 0.7425,
+          "span": 0.3621,
+          "token": 0.6247,
+          "pair": 0.5122,
+          "fpr": 0.1442,
+          "span_p": 0.3387,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.1,
+          "auc": 0.7409,
+          "span": 0.3509,
+          "token": 0.6288,
+          "pair": 0.5,
+          "fpr": 0.1346,
+          "span_p": 0.3333,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.2,
+          "auc": 0.7382,
+          "span": 0.3486,
+          "token": 0.6337,
+          "pair": 0.4935,
+          "fpr": 0.1154,
+          "span_p": 0.3455,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.2,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.3,
+          "auc": 0.7335,
+          "span": 0.2951,
+          "token": 0.5587,
+          "pair": 0.4235,
+          "fpr": 0.2019,
+          "span_p": 0.2647,
+          "span_r": 0.3333,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.5,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.4,
+          "auc": 0.7259,
+          "span": 0.2759,
+          "token": 0.5689,
+          "pair": 0.4819,
+          "fpr": 0.1635,
+          "span_p": 0.2198,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.5,
+            "threshold": 0.4,
+            "max_spans": 2,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.5,
+          "auc": 0.7142,
+          "span": 0.271,
+          "token": 0.5689,
+          "pair": 0.5,
+          "fpr": 0.1635,
+          "span_p": 0.2079,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.5,
+            "threshold": 0.3,
+            "max_spans": 2,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.6,
+          "auc": 0.6972,
+          "span": 0.2735,
+          "token": 0.4933,
+          "pair": 0.4444,
+          "fpr": 0.0962,
+          "span_p": 0.254,
+          "span_r": 0.2963,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.5,
+            "threshold": 0.6,
+            "max_spans": 2,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.7,
+          "auc": 0.6804,
+          "span": 0.2484,
+          "token": 0.5429,
+          "pair": 0.4819,
+          "fpr": 0.1635,
+          "span_p": 0.1869,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.5,
+            "threshold": 0.2,
+            "max_spans": 2,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.8,
+          "auc": 0.6618,
+          "span": 0.236,
+          "token": 0.5421,
+          "pair": 0.4634,
+          "fpr": 0.1635,
+          "span_p": 0.1776,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.5,
+            "threshold": 0.2,
+            "max_spans": 2,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.9,
+          "auc": 0.6436,
+          "span": 0.2353,
+          "token": 0.4674,
+          "pair": 0.3564,
+          "fpr": 0.3558,
+          "span_p": 0.1818,
+          "span_r": 0.3333,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 1.0,
+          "auc": 0.6261,
+          "span": 0.2368,
+          "token": 0.4733,
+          "pair": 0.36,
+          "fpr": 0.3462,
+          "span_p": 0.1837,
+          "span_r": 0.3333,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        }
+      ],
+      "best": {
+        "weight_model": 0.0,
+        "auc": 0.7425,
+        "span": 0.3621,
+        "token": 0.6247,
+        "pair": 0.5122,
+        "fpr": 0.1442,
+        "span_p": 0.3387,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      }
+    },
+    "v19_plus_real": {
+      "variant": "v19_plus_real",
+      "kind": "hgb",
+      "grid": [
+        {
+          "weight_model": 0.0,
+          "auc": 0.7425,
+          "span": 0.3621,
+          "token": 0.6247,
+          "pair": 0.5122,
+          "fpr": 0.1442,
+          "span_p": 0.3387,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.1,
+          "auc": 0.7409,
+          "span": 0.3571,
+          "token": 0.6384,
+          "pair": 0.5063,
+          "fpr": 0.125,
+          "span_p": 0.3448,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.2,
+          "auc": 0.7368,
+          "span": 0.3636,
+          "token": 0.648,
+          "pair": 0.5063,
+          "fpr": 0.125,
+          "span_p": 0.3571,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.3,
+          "auc": 0.7322,
+          "span": 0.3115,
+          "token": 0.5808,
+          "pair": 0.4419,
+          "fpr": 0.2019,
+          "span_p": 0.2794,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.5,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.4,
+          "auc": 0.7251,
+          "span": 0.2857,
+          "token": 0.54,
+          "pair": 0.4419,
+          "fpr": 0.2019,
+          "span_p": 0.2405,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.5,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.5,
+          "auc": 0.7144,
+          "span": 0.2957,
+          "token": 0.5364,
+          "pair": 0.4304,
+          "fpr": 0.1538,
+          "span_p": 0.2787,
+          "span_r": 0.3148,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.5,
+            "threshold": 0.4,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.6,
+          "auc": 0.7006,
+          "span": 0.2703,
+          "token": 0.5245,
+          "pair": 0.4082,
+          "fpr": 0.3077,
+          "span_p": 0.2128,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.4,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.7,
+          "auc": 0.685,
+          "span": 0.2564,
+          "token": 0.509,
+          "pair": 0.381,
+          "fpr": 0.375,
+          "span_p": 0.1961,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.8,
+          "auc": 0.6684,
+          "span": 0.2452,
+          "token": 0.5076,
+          "pair": 0.3689,
+          "fpr": 0.3654,
+          "span_p": 0.1881,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.9,
+          "auc": 0.6513,
+          "span": 0.2353,
+          "token": 0.4829,
+          "pair": 0.3564,
+          "fpr": 0.3558,
+          "span_p": 0.1818,
+          "span_r": 0.3333,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 1.0,
+          "auc": 0.6349,
+          "span": 0.2384,
+          "token": 0.4725,
+          "pair": 0.3636,
+          "fpr": 0.3365,
+          "span_p": 0.1856,
+          "span_r": 0.3333,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        }
+      ],
+      "best": {
+        "weight_model": 0.2,
+        "auc": 0.7368,
+        "span": 0.3636,
+        "token": 0.648,
+        "pair": 0.5063,
+        "fpr": 0.125,
+        "span_p": 0.3571,
+        "span_r": 0.3704,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      }
+    },
+    "v19_plus_real_hardneg": {
+      "variant": "v19_plus_real_hardneg",
+      "kind": "hgb",
+      "grid": [
+        {
+          "weight_model": 0.0,
+          "auc": 0.7425,
+          "span": 0.3621,
+          "token": 0.6247,
+          "pair": 0.5122,
+          "fpr": 0.1442,
+          "span_p": 0.3387,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.1,
+          "auc": 0.7416,
+          "span": 0.3571,
+          "token": 0.6337,
+          "pair": 0.5063,
+          "fpr": 0.125,
+          "span_p": 0.3448,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.2,
+          "auc": 0.7387,
+          "span": 0.3486,
+          "token": 0.639,
+          "pair": 0.4935,
+          "fpr": 0.1154,
+          "span_p": 0.3455,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.3,
+          "auc": 0.7338,
+          "span": 0.3443,
+          "token": 0.5837,
+          "pair": 0.4773,
+          "fpr": 0.2019,
+          "span_p": 0.3088,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.5,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.4,
+          "auc": 0.7281,
+          "span": 0.2763,
+          "token": 0.5242,
+          "pair": 0.4158,
+          "fpr": 0.3269,
+          "span_p": 0.2143,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.4,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.5,
+          "auc": 0.718,
+          "span": 0.2568,
+          "token": 0.525,
+          "pair": 0.3958,
+          "fpr": 0.2981,
+          "span_p": 0.2021,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.4,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.6,
+          "auc": 0.7042,
+          "span": 0.274,
+          "token": 0.5342,
+          "pair": 0.4167,
+          "fpr": 0.2885,
+          "span_p": 0.2174,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.4,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.7,
+          "auc": 0.6884,
+          "span": 0.2378,
+          "token": 0.4927,
+          "pair": 0.3736,
+          "fpr": 0.2692,
+          "span_p": 0.191,
+          "span_r": 0.3148,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.4,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.8,
+          "auc": 0.6723,
+          "span": 0.2452,
+          "token": 0.4939,
+          "pair": 0.3689,
+          "fpr": 0.3654,
+          "span_p": 0.1881,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.9,
+          "auc": 0.6553,
+          "span": 0.2667,
+          "token": 0.4453,
+          "pair": 0.3711,
+          "fpr": 0.3173,
+          "span_p": 0.2222,
+          "span_r": 0.3333,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 1.0,
+          "auc": 0.6392,
+          "span": 0.2245,
+          "token": 0.3786,
+          "pair": 0.3188,
+          "fpr": 0.1154,
+          "span_p": 0.25,
+          "span_r": 0.2037,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.5,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        }
+      ],
+      "best": {
+        "weight_model": 0.0,
+        "auc": 0.7425,
+        "span": 0.3621,
+        "token": 0.6247,
+        "pair": 0.5122,
+        "fpr": 0.1442,
+        "span_p": 0.3387,
+        "span_r": 0.3889,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      }
+    },
+    "full_pairwise": {
+      "variant": "full_pairwise",
+      "kind": "pairwise",
+      "grid": [
+        {
+          "weight_model": 0.0,
+          "auc": 0.7425,
+          "span": 0.3621,
+          "token": 0.6247,
+          "pair": 0.5122,
+          "fpr": 0.1442,
+          "span_p": 0.3387,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.1,
+          "auc": 0.7388,
+          "span": 0.3571,
+          "token": 0.6337,
+          "pair": 0.5063,
+          "fpr": 0.125,
+          "span_p": 0.3448,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.2,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.2,
+          "auc": 0.7331,
+          "span": 0.367,
+          "token": 0.6453,
+          "pair": 0.5195,
+          "fpr": 0.1058,
+          "span_p": 0.3636,
+          "span_r": 0.3704,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.2,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.3,
+          "auc": 0.727,
+          "span": 0.3462,
+          "token": 0.6242,
+          "pair": 0.4865,
+          "fpr": 0.0962,
+          "span_p": 0.36,
+          "span_r": 0.3333,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.2,
+            "threshold": 0.6,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.4,
+          "auc": 0.7199,
+          "span": 0.359,
+          "token": 0.6252,
+          "pair": 0.5,
+          "fpr": 0.1635,
+          "span_p": 0.3333,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.5,
+            "threshold": 0.2,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.5,
+          "auc": 0.7101,
+          "span": 0.3333,
+          "token": 0.5864,
+          "pair": 0.4615,
+          "fpr": 0.2308,
+          "span_p": 0.2917,
+          "span_r": 0.3889,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.2,
+            "threshold": 0.4,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.6,
+          "auc": 0.6975,
+          "span": 0.3333,
+          "token": 0.5825,
+          "pair": 0.475,
+          "fpr": 0.1442,
+          "span_p": 0.3167,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.5,
+            "threshold": 0.4,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.7,
+          "auc": 0.6842,
+          "span": 0.3333,
+          "token": 0.5635,
+          "pair": 0.4536,
+          "fpr": 0.2788,
+          "span_p": 0.2821,
+          "span_r": 0.4074,
+          "config": {
+            "mode_cut": 0.6,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.5,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.8,
+          "auc": 0.6698,
+          "span": 0.3143,
+          "token": 0.5688,
+          "pair": 0.4731,
+          "fpr": 0.2404,
+          "span_p": 0.2558,
+          "span_r": 0.4074,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 0.9,
+          "auc": 0.6553,
+          "span": 0.2754,
+          "token": 0.5314,
+          "pair": 0.4318,
+          "fpr": 0.2212,
+          "span_p": 0.2262,
+          "span_r": 0.3519,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        },
+        {
+          "weight_model": 1.0,
+          "auc": 0.6414,
+          "span": 0.2647,
+          "token": 0.4879,
+          "pair": 0.4091,
+          "fpr": 0.2308,
+          "span_p": 0.2195,
+          "span_r": 0.3333,
+          "config": {
+            "mode_cut": 0.3,
+            "gate": 0.4,
+            "threshold": 0.3,
+            "max_spans": 1,
+            "local_threshold": 0.4,
+            "local_max_spans": 3,
+            "nms_iou": 0.1
+          }
+        }
+      ],
+      "best": {
+        "weight_model": 0.2,
+        "auc": 0.7331,
+        "span": 0.367,
+        "token": 0.6453,
+        "pair": 0.5195,
+        "fpr": 0.1058,
+        "span_p": 0.3636,
+        "span_r": 0.3704,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.2,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      }
+    }
+  },
+  "best": {
+    "variant": "full_pairwise",
+    "weight_model": 0.2,
+    "auc": 0.7331,
+    "span": 0.367,
+    "token": 0.6453,
+    "pair": 0.5195,
+    "fpr": 0.1058,
+    "span_p": 0.3636,
+    "span_r": 0.3704,
+    "config": {
+      "mode_cut": 0.6,
+      "gate": 0.2,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "local_threshold": 0.5,
+      "local_max_spans": 3,
+      "nms_iou": 0.1
+    }
+  },
+  "oof": {
+    "config": {
+      "mode_cut": 0.6,
+      "gate": 0.2,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "local_threshold": 0.5,
+      "local_max_spans": 3,
+      "nms_iou": 0.1
+    },
+    "weight_model": 0.2,
+    "without_v19": {
+      "variant": "without_v19",
+      "parts": [
+        "real",
+        "synth",
+        "pseudo"
+      ],
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.2,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      },
+      "weight_model": 0.2,
+      "folds": [
+        {
+          "span": 0.2188,
+          "token": 0.4468,
+          "pair": 0.3182,
+          "fpr": 0.1866,
+          "span_p": 0.2154,
+          "span_r": 0.2222,
+          "fold": 0,
+          "pairs": 183
+        },
+        {
+          "span": 0.2532,
+          "token": 0.5157,
+          "pair": 0.3419,
+          "fpr": 0.2609,
+          "span_p": 0.2632,
+          "span_r": 0.2439,
+          "fold": 1,
+          "pairs": 182
+        },
+        {
+          "span": 0.185,
+          "token": 0.4174,
+          "pair": 0.2602,
+          "fpr": 0.2804,
+          "span_p": 0.1928,
+          "span_r": 0.1778,
+          "fold": 2,
+          "pairs": 184
+        }
+      ],
+      "mean": {
+        "span": 0.219,
+        "token": 0.46,
+        "pair": 0.3068,
+        "fpr": 0.2426
+      }
+    },
+    "with_v19": {
+      "variant": "with_v19_full_pairwise",
+      "parts": [
+        "real",
+        "synth",
+        "pseudo",
+        "v19"
+      ],
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.2,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      },
+      "weight_model": 0.2,
+      "folds": [
+        {
+          "span": 0.229,
+          "token": 0.447,
+          "pair": 0.3261,
+          "fpr": 0.209,
+          "span_p": 0.2206,
+          "span_r": 0.2381,
+          "fold": 0,
+          "pairs": 183
+        },
+        {
+          "span": 0.2675,
+          "token": 0.5232,
+          "pair": 0.359,
+          "fpr": 0.2522,
+          "span_p": 0.28,
+          "span_r": 0.2561,
+          "fold": 1,
+          "pairs": 182
+        },
+        {
+          "span": 0.1921,
+          "token": 0.4288,
+          "pair": 0.2677,
+          "fpr": 0.3084,
+          "span_p": 0.1954,
+          "span_r": 0.1889,
+          "fold": 2,
+          "pairs": 184
+        }
+      ],
+      "mean": {
+        "span": 0.2295,
+        "token": 0.4663,
+        "pair": 0.3176,
+        "fpr": 0.2565
+      }
+    },
+    "delta_span": 0.0105,
+    "baseline_oof_span_v14": 0.2437,
+    "pass": false,
+    "reference_weight0": {
+      "variant": "reference_w0",
+      "parts": [
+        "real"
+      ],
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      },
+      "weight_model": 0.0,
+      "folds": [
+        {
+          "span": 0.2014,
+          "token": 0.4707,
+          "pair": 0.2947,
+          "fpr": 0.2388,
+          "span_p": 0.1842,
+          "span_r": 0.2222,
+          "fold": 0,
+          "pairs": 183
+        },
+        {
+          "span": 0.2604,
+          "token": 0.4951,
+          "pair": 0.3465,
+          "fpr": 0.3304,
+          "span_p": 0.2529,
+          "span_r": 0.2683,
+          "fold": 1,
+          "pairs": 182
+        },
+        {
+          "span": 0.2054,
+          "token": 0.4744,
+          "pair": 0.2901,
+          "fpr": 0.3271,
+          "span_p": 0.2,
+          "span_r": 0.2111,
+          "fold": 2,
+          "pairs": 184
+        }
+      ],
+      "mean": {
+        "span": 0.2224,
+        "token": 0.4801,
+        "pair": 0.3104,
+        "fpr": 0.2988
+      }
+    },
+    "delta_vs_w0": 0.0071
+  }
+}
