@@ -1,0 +1,110 @@
+{
+  "rule": "шаг 3 v21: обучение cross-encoder (span start/end + risk). Loss = BCE(start) + BCE(end) + BCE(risk). Held-out не читается",
+  "device": {
+    "requested": "auto",
+    "used": "cpu",
+    "cuda_available": false,
+    "gpu": [],
+    "torch": "2.2.2+cu121",
+    "cuda_version": "12.1"
+  },
+  "architecture": {
+    "encoder": "cointegrated/rubert-tiny2",
+    "parameters": {
+      "total": 29194707,
+      "trainable": 29194707,
+      "fp32_mb": 111.37,
+      "int8_mb": 27.84
+    },
+    "heads": [
+      "start",
+      "end",
+      "risk"
+    ],
+    "max_len": 256,
+    "doc_tokens": 128
+  },
+  "data": {
+    "pairs": 5848,
+    "candidates": 94267,
+    "positives": 11253,
+    "batch": 8,
+    "steps_per_epoch": 11784
+  },
+  "smoke": {
+    "steps": 8,
+    "losses": [
+      {
+        "step": 0,
+        "loss": 5.4228,
+        "seconds": 1.319,
+        "start": 2.0958,
+        "end": 2.5961,
+        "risk": 0.731
+      },
+      {
+        "step": 1,
+        "loss": 6.7628,
+        "seconds": 1.09,
+        "start": 2.8545,
+        "end": 3.2388,
+        "risk": 0.6695
+      },
+      {
+        "step": 2,
+        "loss": 5.8353,
+        "seconds": 1.153,
+        "start": 2.112,
+        "end": 3.0112,
+        "risk": 0.7121
+      },
+      {
+        "step": 3,
+        "loss": 6.5826,
+        "seconds": 1.099,
+        "start": 2.8683,
+        "end": 3.0191,
+        "risk": 0.6952
+      },
+      {
+        "step": 4,
+        "loss": 5.6232,
+        "seconds": 0.98,
+        "start": 2.5682,
+        "end": 2.3767,
+        "risk": 0.6782
+      },
+      {
+        "step": 5,
+        "loss": 6.3687,
+        "seconds": 0.944,
+        "start": 2.9853,
+        "end": 2.5894,
+        "risk": 0.794
+      },
+      {
+        "step": 6,
+        "loss": 5.9756,
+        "seconds": 0.999,
+        "start": 2.5415,
+        "end": 2.7785,
+        "risk": 0.6557
+      },
+      {
+        "step": 7,
+        "loss": 7.3743,
+        "seconds": 0.911,
+        "start": 3.0695,
+        "end": 3.6286,
+        "risk": 0.6762
+      }
+    ],
+    "median_step_seconds": 1.09,
+    "steps_per_epoch": 11784,
+    "estimated_epoch_seconds_cpu": 12848.2,
+    "estimated_epoch_minutes_cpu": 214.14,
+    "estimated_full_training_minutes_cpu": 642.4,
+    "note": "замер на CPU (2 ядра, batch 8, max_len 256); на GPU-машине время шага будет меньше — скрипт запускается тем же флагом --device cuda --amp"
+  },
+  "verdict": "blocked_no_gpu: обучение на GPU невозможно в этой песочнице, пайплайн проверен smoke-прогоном на CPU"
+}

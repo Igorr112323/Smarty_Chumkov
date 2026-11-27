@@ -1,0 +1,61 @@
+{
+  "rule": "шаг 4 v21: экспорт cross-encoder в ONNX (opset >= 14) и int8-квантование; продукт использует только ONNX + onnxruntime, torch в рантайм не попадает",
+  "model": {
+    "architecture": "CrossEncoderSpan (rubert-tiny2 + start/end/risk)",
+    "parameters": {
+      "total": 29194707,
+      "trainable": 29194707,
+      "fp32_mb": 111.37,
+      "int8_mb": 27.84
+    },
+    "checkpoint_loaded": null,
+    "heads_trained": false,
+    "note": "GPU отсутствует → головы не обучены; экспорт проверяет цепочку, не качество"
+  },
+  "onnx": {
+    "path": "artifacts/ce_model_v21.onnx",
+    "bytes": 116483760,
+    "sha256": "8f94871da802ba9717c0ecc6701d550fb4f1a1aea85e93e1081ddea0fa6e6d94",
+    "opset": 17,
+    "export_seconds": 1.62,
+    "input_names": [
+      "input_ids",
+      "attention_mask",
+      "token_type_ids"
+    ],
+    "dynamic_axes": [
+      "batch",
+      "sequence"
+    ]
+  },
+  "int8": {
+    "path": "artifacts/ce_model_v21_int8.onnx",
+    "bytes": 29285804,
+    "sha256": "2f482352c3250ec610bf20eee5bd7f9b569cfabcc9405a12e346be3e3148e323",
+    "weight_type": "QInt8 (dynamic)",
+    "quantize_seconds": 2.04,
+    "compression_ratio": 3.98
+  },
+  "parity_fp32_vs_int8": {
+    "risk_logit": {
+      "max_abs_diff": 0.0552,
+      "mean_abs_diff": 0.0552,
+      "corr": null
+    },
+    "start_logits": {
+      "max_abs_diff": 0.0855,
+      "mean_abs_diff": 0.02741,
+      "corr": 1.0
+    },
+    "end_logits": {
+      "max_abs_diff": 0.18382,
+      "mean_abs_diff": 0.03262,
+      "corr": 1.0
+    }
+  },
+  "sizes_total_mb": {
+    "onnx_fp32": 111.09,
+    "onnx_int8": 27.93
+  },
+  "verdict": "экспорт и int8-квантование работают, но модель НЕ обучена (нет GPU) — цепочка готова, качество не заявляется"
+}

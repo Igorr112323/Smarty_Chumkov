@@ -1,0 +1,161 @@
+{
+  "rule": "шаг 1–2 v21: данные для cross-encoder. Внешние наборы обязаны иметь doc_overlap = 0 с val и held-out; synth_v11/pseudo_v11 — собственная аугментация train, их документы совпадают с train по построению и на val/held-out не пересекаются",
+  "encoder": {
+    "model": "cointegrated/rubert-tiny2",
+    "weights": {
+      "path": "models/rubert-tiny2/pytorch_model.bin",
+      "bytes": 117546024,
+      "sha256": "137fa2b1d944dae19c74456dfe8fac2f780d9acf34e037f5d1e37acba1157768",
+      "manifest_sha256": "137fa2b1d944dae19c74456dfe8fac2f780d9acf34e037f5d1e37acba1157768",
+      "sha256_match": true,
+      "source": "pytorch_model.bin",
+      "chunks": 2
+    },
+    "arch": "3 слоя, hidden 312, vocab 83 828, max_position 2048"
+  },
+  "sources": {
+    "real": {
+      "pairs": 549,
+      "unique_documents": 539,
+      "candidates": 5687,
+      "positives": 454,
+      "hard_negatives": 272,
+      "clean_pairs": 356,
+      "styles": {
+        "whole": 133,
+        "clean": 356,
+        "clause": 58,
+        "short": 2
+      },
+      "doc_overlap_with_val": 0,
+      "doc_overlap_with_heldout": 539,
+      "doc_overlap_with_heldout_test": 0,
+      "doc_overlap_with_heldout_extra_mfava": 0,
+      "doc_overlap_with_mfava_train": 0
+    },
+    "v19": {
+      "pairs": 1652,
+      "unique_documents": 1652,
+      "candidates": 23746,
+      "positives": 3028,
+      "hard_negatives": 2336,
+      "clean_pairs": 421,
+      "styles": {
+        "clause": 581,
+        "clean": 421,
+        "whole": 506,
+        "short": 144
+      },
+      "doc_overlap_with_val": 0,
+      "doc_overlap_with_heldout": 0,
+      "doc_overlap_with_heldout_test": 0,
+      "doc_overlap_with_heldout_extra_mfava": 0,
+      "doc_overlap_with_mfava_train": 0
+    },
+    "synth_v11": {
+      "pairs": 3563,
+      "unique_documents": 203,
+      "candidates": 63265,
+      "positives": 7644,
+      "hard_negatives": 2367,
+      "clean_pairs": 2830,
+      "styles": {
+        "clause": 2702,
+        "short": 861
+      },
+      "doc_overlap_with_val": 0,
+      "doc_overlap_with_heldout": 203,
+      "doc_overlap_with_heldout_test": 0,
+      "doc_overlap_with_heldout_extra_mfava": 0,
+      "doc_overlap_with_mfava_train": 0
+    },
+    "pseudo_v11": {
+      "pairs": 84,
+      "unique_documents": 84,
+      "candidates": 1569,
+      "positives": 127,
+      "hard_negatives": 51,
+      "clean_pairs": 0,
+      "styles": {
+        "short": 50,
+        "clause": 34
+      },
+      "doc_overlap_with_val": 0,
+      "doc_overlap_with_heldout": 84,
+      "doc_overlap_with_heldout_test": 0,
+      "doc_overlap_with_heldout_extra_mfava": 0,
+      "doc_overlap_with_mfava_train": 0
+    }
+  },
+  "totals": {
+    "pairs": 5848,
+    "candidates": 94267,
+    "positives": 11253,
+    "hard_negatives": 5026,
+    "doc_overlap_val_nonzero": {},
+    "excluded_v19_pairs": 7,
+    "doc_overlap_heldout_nonzero": {
+      "real": 539,
+      "synth_v11": 203,
+      "pseudo_v11": 84
+    }
+  },
+  "tokens": {
+    "document": {
+      "n": 300,
+      "mean": 153.0,
+      "p50": 139,
+      "p90": 224,
+      "max": 379
+    },
+    "answer": {
+      "n": 300,
+      "mean": 36.0,
+      "p50": 27,
+      "p90": 67,
+      "max": 192
+    },
+    "candidate": {
+      "n": 692,
+      "mean": 24.2,
+      "p50": 19,
+      "p90": 43,
+      "max": 192
+    }
+  },
+  "window_plan": {
+    "max_len": 384,
+    "layout": "[CLS] document_prefix [SEP] candidate_tokens [SEP]",
+    "document_prefix_tokens": 200,
+    "overlap_tokens": 0,
+    "note": "документ режется на префикс фиксированной длины (кэш на документ), кандидат целиком; start/end предсказываются по токенам кандидата"
+  },
+  "audit_leak_v19_heldout": {
+    "excluded_pairs": [
+      "ruclv19_000064",
+      "ruclv19_000279",
+      "ruclv19_000315",
+      "ruclv19_000544",
+      "ruclv19_000786",
+      "ruclv19_000810",
+      "ruclv19_001358"
+    ],
+    "count": 7,
+    "detail": "7 пар v19 с base_corpus = mfava_ru имеют документ, побайтово равный документу из gold1200_v3 (mFAVA, split extra/train_extra). Проверка doc_overlap в отчёте v19 сравнивала с mfava_train_v3 (267 пар), а не с полным mFAVA-набором, поэтому пересечение не было видно. Из обучения cross-encoder эти 7 пар исключены.",
+    "impact": "mFAVA — внутренний набор (не блокер), но пересечение с held-out фиксируется честно"
+  },
+  "audit_document_reuse_in_own_data": {
+    "note": "документы повторяются между парами исходного корпуса RusHallu/mFAVA (549 train пар на 674 уникальных документа в train+val и 301 held-out пара на общий пул документов), поэтому OOF считается строго по документам (v17–v20), а не по парам",
+    "train_docs_overlapping_heldout": 539
+  },
+  "examples_file": {
+    "path": "artifacts/ce_examples_v21.jsonl",
+    "bytes": 62691298,
+    "sha256": "d15665a85cf434d9b2c22f05eecd39cebcca23c27bed165226e06e44e8947366"
+  },
+  "missing_sources": {
+    "DFKonGH/ru_hallucination_detector": "в песочнице нет локальной копии (tools/external потерян вместе с песочницей); в v16–v17 перенос признан отрицательным",
+    "RAGTruth (en)": "нет локальной копии; в v14 проекция ухудшала метрики — не добавляем"
+  },
+  "verdict": "данные готовы к обучению cross-encoder"
+}

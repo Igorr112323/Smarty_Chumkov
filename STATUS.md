@@ -845,3 +845,35 @@ GPU cross-encoder (real + v19), см. `artifacts/final_report_117812_v20.md`.
 Окружение: песочница выдана заново — `.venv` пересоздан (+`torch==2.2.2`, `transformers==4.44.2`),
 легаси-промежуток `artifacts/gold.jsonl` восстановлен из `gold1200.jsonl` (1000 сырых пар RusHallu),
 `calib_mixture.jsonl` перегенерирован детерминированно. На метрики не влияет.
+
+## Цикл 21 (подготовка GPU-обучения cross-encoder — блокер: GPU нет)
+
+Шаг 0: `nvidia-smi` отсутствует, `/dev/nvidia*` нет, `torch.cuda.is_available() = False`,
+`device_count() = 0`, CPU 2 ядра, RAM 3.85 ГБ (< 8 ГБ) → `can_train_cross_encoder: false`
+(`artifacts/gpu_check_v21.json`). Метрики cross-encoder не подменяются — их нет.
+
+Подготовлено и измерено:
+- данные (`ce_data_v21.json`): real 549 + v19 1652 + synth 3563 + pseudo 84 = **5 848 пар,
+  94 267 кандидатов, 11 253 позитивов, 5 026 hard negatives** (IoU 0.3–0.7), doc_overlap с val = 0.
+  **Найден лик:** 7 пар v19 (`base_corpus = mfava_ru`) имеют документ, побайтово равный документу
+  `gold1200_v3` (mFAVA extra/train_extra); проверка v19 сравнивала только с `mfava_train_v3`.
+  Эти 7 пар исключены из обучения.
+- архитектура (`ce_model_v21.py`): rubert-tiny2 (реальные веса из чанков §4.2, SHA `137fa2b1…`
+  совпал) + головы start/end/risk, 29.19M параметров, окно `[CLS] doc(200) [SEP] candidate [SEP]`.
+- обучение (`ce_train_v21.py`, GPU-готов: AMP, grad-accum, баланс позитивов, чекпойнт):
+  CPU-smoke 8 шагов × batch 8 → **1.09 с/шаг**, 11 784 шагов/эпоху → 214 мин/эпоху на CPU
+  (на GPU оценка 5–15 мин/эпоху). Loss всех трёх голов конечен и падает.
+- экспорт (`ce_export_v21.py`): ONNX opset 17, fp32 111.09 МБ, **int8 27.93 МБ (3.98×)**,
+  паритет start/end corr 1.0; SHA fp32/int8 зафиксированы (экспорт не бит-детерминирован).
+- скорость (`speed_v21.py`, int8, 2 потока): форвард 128/192/256/384 = 4.6/8.2/12.1/23.3 мс.
+  Полный перебор кандидатов: 1k 0.046 с ❌ (лимит 0.03), 50k 0.287 с ✅, 2M 11.89 с ✅.
+  **Каскад top-k: 1k top-3 = 0.0230 с ✅**, 50k top-5 0.2545 ✅, 2M top-5 11.76 ✅.
+  Стресс (ответ 50k знаков, 1240 кандидатов) — 15 с > 1 с ❌ → CE применим только к коротким ответам.
+- `ce_eval_v21.py` проверен end-to-end на необученном чекпойнте (val AUC 0.452, Span 0.2393) —
+  цепочка оценки работает, в guard эти числа не идут.
+
+Guard: val Span/Token/Pair/FPR и OOF **не измерены** (нет обученной модели) → `reject_by_blocker_no_gpu`.
+Инженерия не сломана: пакет 523 986 B (SHA `6bbc5044…` не изменился), **147 passed**, CLI/HTTP/web без
+изменений, рантайм `spanver/` без torch/onnx. `artifacts/gold.jsonl` теперь закоммичен
+(детерминированная проекция `gold1200.jsonl`, 1000 сырых пар) — тесты проходят в чистом клоне.
+Отчёт: `artifacts/final_report_117812_v21.md`.

@@ -1,0 +1,59 @@
+{
+  "rule": "шаг 5 v21: метрики договора для cross-encoder (val + OOF по документам), пороги калибруются на val в бюджете FPR <= 0.40, held-out не читается",
+  "device": "cpu",
+  "cuda_available": false,
+  "checkpoint": {
+    "path": "artifacts/ce_model_v21_smoke.pt",
+    "exists": true,
+    "bytes": 116802474
+  },
+  "val": {
+    "candidates": 1374,
+    "seconds": 43.0,
+    "auc": 0.452,
+    "contract": {
+      "span": 0.2393,
+      "token": 0.4509,
+      "pair": 0.3636,
+      "fpr": 0.1635
+    },
+    "config": {
+      "mode_cut": 0.6,
+      "gate": 0.5,
+      "threshold": 0.2,
+      "max_spans": 1,
+      "local_threshold": 0.5,
+      "local_max_spans": 3,
+      "nms_iou": 0.1
+    }
+  },
+  "guard": {
+    "span": {
+      "value": 0.2393,
+      "need": 0.5,
+      "pass": false
+    },
+    "token": {
+      "value": 0.4509,
+      "need": 0.5,
+      "pass": false
+    },
+    "pair": {
+      "value": 0.3636,
+      "need": 0.5,
+      "pass": false
+    },
+    "fpr": {
+      "value": 0.1635,
+      "need": 0.4,
+      "pass": true
+    },
+    "oof": {
+      "value": null,
+      "need": 0.2637,
+      "pass": false
+    },
+    "pass_all": false
+  },
+  "verdict": "reject_by_guard"
+}

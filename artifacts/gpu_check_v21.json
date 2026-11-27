@@ -1,0 +1,75 @@
+{
+  "rule": "шаг 0 v21: проверка GPU перед обучением cross-encoder",
+  "platform": {
+    "python": "3.11.2",
+    "machine": "x86_64",
+    "system": "Linux"
+  },
+  "hardware": {
+    "cpu": {
+      "cores": 2,
+      "model": "Intel(R) Xeon(R) Processor @ 2.60GHz"
+    },
+    "memory": {
+      "mem_total_gb": 3.85,
+      "mem_available_gb": 3.26
+    },
+    "disk_free_gb": 10.33
+  },
+  "checks": {
+    "nvidia_smi": {
+      "command": "nvidia-smi",
+      "returncode": 127,
+      "stdout": "",
+      "stderr": "/bin/sh: 1: nvidia-smi: not found"
+    },
+    "nvidia_smi_query": {
+      "command": "nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader",
+      "returncode": 127,
+      "stdout": "",
+      "stderr": "/bin/sh: 1: nvidia-smi: not found"
+    },
+    "device_nodes": [],
+    "lspci_gpu": {
+      "command": "lspci | grep -iE 'vga|3d|nvidia'",
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: 1: lspci: not found"
+    }
+  },
+  "torch": {
+    "installed": true,
+    "version": "2.2.2+cu121",
+    "cuda_available": false,
+    "cuda_version": "12.1",
+    "device_count": 0,
+    "devices": [],
+    "gpu_memory_gb": [],
+    "threads": 1
+  },
+  "libraries": {
+    "numpy": "1.26.4",
+    "transformers": "4.44.2",
+    "onnx": "1.16.2",
+    "onnxruntime": "1.32.0",
+    "sklearn": "1.9.1"
+  },
+  "requirements": {
+    "min_gpu_memory_gb": 8.0,
+    "cuda_needed": true,
+    "torch_cuda_needed": true
+  },
+  "verdict": {
+    "gpu_present": false,
+    "torch_cuda_available": false,
+    "gpu_memory_ok": false,
+    "can_train_cross_encoder": false,
+    "blocker": "в песочнице нет GPU: nvidia-smi отсутствует, /dev/nvidia* нет, torch.cuda.is_available() = False → обучение cross-encoder на GPU невозможно"
+  },
+  "what_is_possible_on_cpu": [
+    "подготовка данных и статистики (ce_data_v21.json)",
+    "сборка архитектуры cross-encoder на реальных весах rubert-tiny2",
+    "smoke-обучение на CPU для замера секунд/шаг и проверки корректности пайплайна",
+    "экспорт в ONNX + int8-квантование + замер CPU-скорости (шаг 4)"
+  ]
+}
