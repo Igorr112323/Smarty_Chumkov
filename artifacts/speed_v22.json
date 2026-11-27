@@ -1,0 +1,244 @@
+{
+  "rule": "v22 шаг 3: экспорт CE (rubert-base) в ONNX + int8 и CPU-бюджеты продукта: 0.03 с на 1k знаков, 1 с на 50k, 60 с на 2M. Считаются и полный перебор кандидатов, и каскад top-1/3/5",
+  "encoder_dir": "models/rubert-base-cased",
+  "threads": 2,
+  "model": {
+    "checkpoint": "artifacts/ce_model_v22.pt",
+    "checkpoint_bytes": 711505773,
+    "parameters": 177855747,
+    "fp32_mb": 678.47
+  },
+  "export": {
+    "onnx_bytes": 709328760,
+    "onnx_sha256": "eaae79407d30ff032e9f3ad9e21053c611f6a6d592c69c45c2d6a9947af15af5",
+    "int8_bytes": 178101618,
+    "int8_sha256": "55173ffde18f95846585786328d06c52d5a86ae5309243882cde156cbb0b8a35",
+    "compression_ratio": 3.98,
+    "opset": 17,
+    "seconds": 9.8
+  },
+  "parity": {
+    "risk_logit": {
+      "int8_vs_torch_max_abs": 0.19323,
+      "fp32_vs_torch_max_abs": 0.0,
+      "corr_int8_vs_torch": -1.0
+    },
+    "start_logits": {
+      "int8_vs_torch_max_abs": 0.50847,
+      "fp32_vs_torch_max_abs": 0.0,
+      "corr_int8_vs_torch": 0.6025
+    },
+    "end_logits": {
+      "int8_vs_torch_max_abs": 0.48688,
+      "fp32_vs_torch_max_abs": 0.0,
+      "corr_int8_vs_torch": 0.8628
+    }
+  },
+  "latency_int8": [
+    {
+      "seq_len": 128,
+      "batch": 1,
+      "per_forward_seconds": 0.02044,
+      "median_seconds": 0.02044,
+      "threads": 2
+    },
+    {
+      "seq_len": 192,
+      "batch": 1,
+      "per_forward_seconds": 0.03021,
+      "median_seconds": 0.03021,
+      "threads": 2
+    },
+    {
+      "seq_len": 256,
+      "batch": 1,
+      "per_forward_seconds": 0.04138,
+      "median_seconds": 0.04138,
+      "threads": 2
+    },
+    {
+      "seq_len": 384,
+      "batch": 1,
+      "per_forward_seconds": 0.071,
+      "median_seconds": 0.071,
+      "threads": 2
+    }
+  ],
+  "totals_runner": {
+    "1k": {
+      "runtime_seconds": 0.0093,
+      "ce_candidates": 8,
+      "ce_seconds": 0.2417,
+      "total_seconds": 0.251,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.12
+    },
+    "50k": {
+      "runtime_seconds": 0.238,
+      "ce_candidates": 12,
+      "ce_seconds": 0.3625,
+      "total_seconds": 0.6005,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 1.67
+    },
+    "2M": {
+      "runtime_seconds": 10.77,
+      "ce_candidates": 19,
+      "ce_seconds": 0.574,
+      "total_seconds": 11.344,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 5.29
+    }
+  },
+  "cascade_runner": {
+    "1k_top1": {
+      "total_seconds": 0.0395,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.76
+    },
+    "1k_top3": {
+      "total_seconds": 0.0999,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.3
+    },
+    "1k_top5": {
+      "total_seconds": 0.1604,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.19
+    },
+    "50k_top1": {
+      "total_seconds": 0.2682,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 3.73
+    },
+    "50k_top3": {
+      "total_seconds": 0.3286,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 3.04
+    },
+    "50k_top5": {
+      "total_seconds": 0.3891,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 2.57
+    },
+    "2M_top1": {
+      "total_seconds": 10.8002,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 5.56
+    },
+    "2M_top3": {
+      "total_seconds": 10.8606,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 5.52
+    },
+    "2M_top5": {
+      "total_seconds": 10.921,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 5.49
+    }
+  },
+  "totals_2core_estimate": {
+    "1k": {
+      "runtime_seconds": 0.0177,
+      "ce_candidates": 8,
+      "ce_seconds": 0.4592,
+      "total_seconds": 0.4769,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.06
+    },
+    "50k": {
+      "runtime_seconds": 0.4522,
+      "ce_candidates": 12,
+      "ce_seconds": 0.6888,
+      "total_seconds": 1.141,
+      "limit_seconds": 1.0,
+      "fits": false,
+      "headroom_x": 0.88
+    },
+    "2M": {
+      "runtime_seconds": 20.463,
+      "ce_candidates": 19,
+      "ce_seconds": 1.0906,
+      "total_seconds": 21.5536,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 2.78
+    }
+  },
+  "cascade_2core_estimate": {
+    "1k_top1": {
+      "total_seconds": 0.0751,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.4
+    },
+    "1k_top3": {
+      "total_seconds": 0.1899,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.16
+    },
+    "1k_top5": {
+      "total_seconds": 0.3047,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.1
+    },
+    "50k_top1": {
+      "total_seconds": 0.5096,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 1.96
+    },
+    "50k_top3": {
+      "total_seconds": 0.6244,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 1.6
+    },
+    "50k_top5": {
+      "total_seconds": 0.7392,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 1.35
+    },
+    "2M_top1": {
+      "total_seconds": 20.5204,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 2.92
+    },
+    "2M_top3": {
+      "total_seconds": 20.6352,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 2.91
+    },
+    "2M_top5": {
+      "total_seconds": 20.75,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 2.89
+    }
+  },
+  "two_core_factor": 1.9,
+  "verdict": {
+    "per_forward_seconds_seq": 0.03021,
+    "cascade_all_points_fit_runner": false,
+    "cascade_all_points_fit_2core_estimate": false,
+    "note": "каскад top-5: на раннере не влезает, в пересчёте на 2 ядра не влезает"
+  }
+}

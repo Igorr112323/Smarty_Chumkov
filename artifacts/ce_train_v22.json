@@ -1,0 +1,122 @@
+{
+  "rule": "v22: тот же cross-encoder и та же методика, что в v21, но энкодер — rubert-base-cased (178M параметров). Обучение идёт на раннере GitHub Actions (весов в песочнице нет), метрики — только val и OOF по документам; held-out не читается",
+  "device": {
+    "torch": "2.2.2+cpu",
+    "cuda": false,
+    "threads": 4,
+    "note": "GPU нет — обучение на CPU (2 ядра), это offline-процесс"
+  },
+  "window": {
+    "max_len": 192,
+    "doc_tokens": 96,
+    "max_easy_negatives_per_pair": 2,
+    "layout": "[CLS] doc_window [SEP] candidate [SEP]"
+  },
+  "training": {
+    "epochs": 1,
+    "batch": 8,
+    "lr": 3e-05
+  },
+  "val_data": {
+    "candidates": 1374,
+    "positives": 98
+  },
+  "arms": {
+    "real": {
+      "pairs": 60,
+      "examples": 180,
+      "positives": 48,
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 3.018,
+          "seconds": 116.7
+        }
+      ],
+      "val_auc": 0.6348,
+      "val": {
+        "span": 0.2742,
+        "token": 0.5729,
+        "pair": 0.425,
+        "fpr": 0.1635,
+        "span_p": 0.2429,
+        "span_r": 0.3148,
+        "config": {
+          "mode_cut": 0.5,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 1,
+          "local_threshold": 0.4,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "within_pair": 0.6214
+    }
+  },
+  "checkpoint": {
+    "path": "artifacts/ce_model_v22.pt",
+    "bytes": 711505773,
+    "arm": "real"
+  },
+  "best_arm": "real",
+  "best_span": 0.2742,
+  "guard": {
+    "span": {
+      "value": 0.2742,
+      "need": 0.5,
+      "pass": false
+    },
+    "token": {
+      "value": 0.5729,
+      "need": 0.5,
+      "pass": true
+    },
+    "pair": {
+      "value": 0.425,
+      "need": 0.5,
+      "pass": false
+    },
+    "fpr": {
+      "value": 0.1635,
+      "need": 0.4,
+      "pass": true
+    },
+    "oof": {
+      "value": null,
+      "need": 0.2637,
+      "pass": false
+    },
+    "pass_all": false
+  },
+  "verdict": "reject_by_guard",
+  "total_seconds": 374.2,
+  "version": "v22",
+  "encoder": {
+    "dir": "models/rubert-base-cased",
+    "manifest": {
+      "repository": "DeepPavlov/rubert-base-cased",
+      "source": "https://huggingface.co/DeepPavlov/rubert-base-cased/resolve/main/pytorch_model.bin",
+      "size": 714355318,
+      "expected_size": 714355318,
+      "size_tolerance": 0.01,
+      "sha256": "e5691c9cb13c98d396ae2e584f4d01a098fc9416a882425ece4359b807730890",
+      "channel": "GitHub Actions runner (в песочнице исполнителя HF недоступен)"
+    },
+    "parameters": {
+      "checkpoint_bytes": 711505773,
+      "state_dict_parameters": 177855747,
+      "fp32_mb": 678.47
+    }
+  },
+  "run_mode": {
+    "mode": "smoke",
+    "epochs": 1,
+    "oof": 0,
+    "limit": 60,
+    "encoder": "DeepPavlov/rubert-base-cased",
+    "runner": "GitHub Actions 1000011637",
+    "cpu_count": 4
+  },
+  "wall_seconds_v22": 374.4
+}
