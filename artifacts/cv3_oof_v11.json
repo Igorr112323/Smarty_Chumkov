@@ -1,0 +1,139 @@
+{
+  "protocol": "3-fold OOF by document SHA; stacker lambdarank; val не в обучении",
+  "pool": {
+    "gold_train": 193,
+    "mfava": 148,
+    "synth": 3563
+  },
+  "folds": {
+    "0": {
+      "train_pairs": 2427,
+      "eval_pairs": 1477,
+      "train_rows": 27207,
+      "oof": {
+        "span": 0.6563,
+        "token": 0.685,
+        "pair": 0.7451,
+        "fpr": 0.0,
+        "span_p": 0.7657,
+        "span_r": 0.5742
+      },
+      "val": {
+        "span": 0.1091,
+        "token": 0.3,
+        "pair": 0.1875,
+        "fpr": 0.1154,
+        "span_p": 0.1071,
+        "span_r": 0.1111
+      },
+      "model_sha256": "eaee44c80ab687f38fe9cc36bcebb7f99548c8ef148b6aa032fc7f207c168c57"
+    },
+    "1": {
+      "train_pairs": 2537,
+      "eval_pairs": 1367,
+      "train_rows": 29673,
+      "oof": {
+        "span": 0.7196,
+        "token": 0.74,
+        "pair": 0.7854,
+        "fpr": 0.0,
+        "span_p": 0.8796,
+        "span_r": 0.6089
+      },
+      "val": {
+        "span": 0.0885,
+        "token": 0.2892,
+        "pair": 0.1587,
+        "fpr": 0.1154,
+        "span_p": 0.0847,
+        "span_r": 0.0926
+      },
+      "model_sha256": "926d2bdd7b3bf6987f06b5f4f80f02c20839efa12046f0eb102bfb7670383405"
+    },
+    "2": {
+      "train_pairs": 2844,
+      "eval_pairs": 1060,
+      "train_rows": 32082,
+      "oof": {
+        "span": 0.6888,
+        "token": 0.7193,
+        "pair": 0.7816,
+        "fpr": 0.0,
+        "span_p": 0.7798,
+        "span_r": 0.6169
+      },
+      "val": {
+        "span": 0.1111,
+        "token": 0.3187,
+        "pair": 0.1875,
+        "fpr": 0.1154,
+        "span_p": 0.1111,
+        "span_r": 0.1111
+      },
+      "model_sha256": "b155d060f02d5891d1503cf804edeb87c6c4615b05d1bf3a0cfd876ba9798807"
+    }
+  },
+  "oof_predictions": {},
+  "by_source": {
+    "real_gold_train": {
+      "span": 0.32,
+      "token": 0.6859,
+      "pair": 0.4683,
+      "fpr": 0.0,
+      "span_p": 0.4286,
+      "span_r": 0.2553
+    },
+    "real_mfava": {
+      "span": 0.5536,
+      "token": 0.6097,
+      "pair": 0.9275,
+      "fpr": 0.0,
+      "span_p": 0.6388,
+      "span_r": 0.4885
+    },
+    "real_all": {
+      "span": 0.4714,
+      "token": 0.6507,
+      "pair": 0.7083,
+      "fpr": 0.0,
+      "span_p": 0.5718,
+      "span_r": 0.401
+    },
+    "synth": {
+      "span": 0.7241,
+      "token": 0.739,
+      "pair": 0.775,
+      "fpr": 0.0,
+      "span_p": 0.8464,
+      "span_r": 0.6326
+    },
+    "all": {
+      "span": 0.6871,
+      "token": 0.714,
+      "pair": 0.7694,
+      "fpr": 0.0,
+      "span_p": 0.8075,
+      "span_r": 0.598
+    }
+  },
+  "oof": {
+    "span": 0.6871,
+    "token": 0.714,
+    "pair": 0.7694,
+    "fpr": 0.0,
+    "span_p": 0.8075,
+    "span_r": 0.598
+  },
+  "val_mean": {
+    "span": 0.1029,
+    "token": 0.3026,
+    "pair": 0.1779,
+    "fpr": 0.1154
+  },
+  "guard": {
+    "oof_all": true,
+    "oof_real": false,
+    "val_mean": false,
+    "both_real_and_val": false
+  }
+}
