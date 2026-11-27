@@ -1,0 +1,45 @@
+{
+  "rule": "number/entity mutation и clause swap внутри train-ответа; одна ошибка на ответ; границы точные",
+  "seed": 11,
+  "target": 4000,
+  "quota_per_parent": {
+    "number": 2,
+    "entity": 6,
+    "swap": 20
+  },
+  "sources": {
+    "gold_v3.jsonl": "cba82c37407733533f019b216981b26229bd9bbad8fdc7c989e58dcd013b3e8b",
+    "gold1200_v3.jsonl": "910398513413d8a2896fdc8e1d13b716220ce0199a81c29cd39472e87951a9e5"
+  },
+  "outputs": {
+    "rushallu_synth_v11.jsonl": "64b4633ccf8be219cc4c36ce7d25463d0711c293aad140fb76550e9b916a3840"
+  },
+  "counts": {
+    "pairs": 3563,
+    "by_mutation": {
+      "entity": 348,
+      "swap": 3170,
+      "number": 45
+    },
+    "failures": {
+      "number": 1275,
+      "entity": 3459,
+      "swap": 9
+    },
+    "parents_used": 203
+  },
+  "stats": {
+    "answer_chars_mean": 493.6,
+    "answer_chars_p50": 445,
+    "span_chars_mean": 70.2,
+    "span_chars_p50": 62,
+    "span_share_mean": 0.1422,
+    "spans_per_answer": 1.0
+  },
+  "doc_overlap": {
+    "synth_vs_val": 0,
+    "synth_vs_held1200": 0
+  },
+  "license": "derived from Dataset/1_rushallu_rag_gold (repo license cc) — только train-документы",
+  "old_versions_kept": true
+}

@@ -1,0 +1,121 @@
+{
+  "rule": "whole-answer train пары -> минимальный по document support clause (v11_lab.support_features)",
+  "separation_filter": "min_support < 0.75 * median_support",
+  "sources": {
+    "gold_v3.jsonl": "cba82c37407733533f019b216981b26229bd9bbad8fdc7c989e58dcd013b3e8b",
+    "gold1200_v3.jsonl": "910398513413d8a2896fdc8e1d13b716220ce0199a81c29cd39472e87951a9e5"
+  },
+  "outputs": {
+    "clause_pseudo_v11.jsonl": "edba48e1825fc8ddf26c0134a85f531958fcd503f37912372971f03cbba80030"
+  },
+  "counts": {
+    "train_pairs_scanned": 549,
+    "pseudo_pairs": 84,
+    "skipped": 465,
+    "skip_reasons": {
+      "no_separation": 29,
+      "no_whole_or_too_short": 436
+    }
+  },
+  "stats": {
+    "answer_chars_mean": 523.9,
+    "answer_chars_p50": 490.5,
+    "span_chars_mean": 45.8,
+    "span_chars_p50": 35.0,
+    "span_share_of_answer_mean": 0.1318
+  },
+  "doc_overlap": {
+    "pseudo_vs_val": 0,
+    "pseudo_vs_held1200": 0,
+    "pseudo_vs_mfava_train": 0
+  },
+  "old_versions_kept": true,
+  "skipped_examples": [
+    {
+      "pair_id": "sber000002",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000003",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000004",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000014",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000018",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000019",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000021",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000027",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "skipped": true,
+      "reason": "no_separation",
+      "median": 0.39,
+      "worst": 0.32,
+      "pair_id": "sber000030"
+    },
+    {
+      "skipped": true,
+      "reason": "no_separation",
+      "median": 0.0,
+      "worst": 0.0,
+      "pair_id": "sber000032"
+    },
+    {
+      "pair_id": "sber000033",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000034",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000038",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000046",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000047",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000051",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000056",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000061",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000062",
+      "reason": "no_whole_or_too_short"
+    },
+    {
+      "pair_id": "sber000068",
+      "reason": "no_whole_or_too_short"
+    }
+  ]
+}
