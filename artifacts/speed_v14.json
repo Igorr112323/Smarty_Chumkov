@@ -1,0 +1,77 @@
+{
+  "rule": "замеры на этой машине (CPU, 1 поток), без кэширования между вызовами; договор: 0.03 с/1k знаков, 50k ≤ 1 с, 2M ≤ 60 с",
+  "runtime": "spanver (чистый Python, без torch/sklearn)",
+  "lexical": {
+    "rows": [
+      {
+        "chars": 1129,
+        "label": "1k",
+        "seconds": 0.0115,
+        "ms_per_1000_chars": 10.174,
+        "spans": 0,
+        "ai_share": 0.5447
+      },
+      {
+        "chars": 50129,
+        "label": "50k",
+        "seconds": 0.1967,
+        "ms_per_1000_chars": 3.924,
+        "spans": 1,
+        "ai_share": 0.5447
+      },
+      {
+        "chars": 2000129,
+        "label": "2M",
+        "seconds": 8.8141,
+        "ms_per_1000_chars": 4.407,
+        "spans": 1,
+        "ai_share": 0.5447
+      }
+    ],
+    "targets": {
+      "per_1000_chars": 0.03,
+      "50k": 1.0,
+      "2M": 60.0
+    },
+    "checks": {
+      "per_1000_chars_le_0.03": true,
+      "50k_le_1s": true,
+      "2M_le_60s": true
+    },
+    "meets_all": true
+  },
+  "model_inference": {
+    "status": "ok",
+    "rows": 600,
+    "candidates_per_second": {
+      "list_of_dicts": 2208,
+      "flat_int16_float32": 2177,
+      "quantized_thresholds_1_256": 2028
+    },
+    "us_per_candidate": {
+      "list_of_dicts": 452.97,
+      "flat_int16_float32": 459.34,
+      "quantized_thresholds_1_256": 493.1
+    },
+    "speedup_flat_vs_dict": 0.99,
+    "max_abs_delta_quantized_vs_float": 0.03529390001479937,
+    "max_abs_delta_flat_vs_float": 5.551115123125783e-17,
+    "flat_bytes": 166672,
+    "json_bytes": 310898,
+    "note": "int8/int4/ONNX применимы только к весам трансформера; весов нет — квантуем то, что реально исполняется в пакете (деревья)"
+  },
+  "weights_mode": {
+    "model_dir": "models/rubert-tiny2",
+    "files": [
+      "config.json",
+      "special_tokens_map.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "vocab.txt"
+    ],
+    "weight_files": [],
+    "torch_cuda": false,
+    "load_attempt": "невозможно: в каталоге только config.json и токенизатор (2,8 MB), файла весов нет; huggingface.co недоступен (разрешены github/codeload/api.github/npm/pypi), зеркал с pytorch_model.bin на GitHub не найдено",
+    "quantization": "int8/int4/ONNX-квантование не выполнимо: нет весов, квантовать нечего"
+  }
+}

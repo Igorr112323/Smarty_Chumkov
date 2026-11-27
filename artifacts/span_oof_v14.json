@@ -1622,5 +1622,175 @@
     "best_variant": "real",
     "oof_held_span": 0.2437,
     "decision": "reject: ни один вариант не приблизился к guard (span 0.50 / pair 0.50), лучший val span 0.3030 < baseline 0.3363"
+  },
+  "contract_ablation": {
+    "rule": "именование по договору: без данных / +synthetic / +русские; режим — дообучение только local_hgb при неизменных mode-гейте, adjuster и порогах v11",
+    "rows": {
+      "без данных (веса v11 как есть)": {
+        "val": {
+          "span": 0.3363,
+          "token": 0.6191,
+          "pair": 0.4872,
+          "fpr": 0.125,
+          "mfava_span": 0.6895
+        },
+        "source": "artifacts/ranker_weights_v3.json"
+      },
+      "+synthetic (3563 пары v11)": {
+        "val": {
+          "span": 0.283,
+          "token": 0.5359,
+          "pair": 0.4054,
+          "fpr": 0.125,
+          "span_p": 0.2885,
+          "span_r": 0.2778
+        },
+        "mfava_span": 0.3492
+      },
+      "+русские (RAGTruth-проекция 958 пар, en)": {
+        "val": {
+          "span": 0.3,
+          "token": 0.5208,
+          "pair": 0.4054,
+          "fpr": 0.125,
+          "span_p": 0.3261,
+          "span_r": 0.2778
+        },
+        "mfava_span": 0.2548
+      },
+      "real + synth + pseudo (без чужих языков)": {
+        "val": {
+          "span": 0.2941,
+          "token": 0.5116,
+          "pair": 0.4054,
+          "fpr": 0.125,
+          "span_p": 0.3125,
+          "span_r": 0.2778
+        },
+        "mfava_span": 0.3141
+      }
+    },
+    "oof_3fold_by_documents": {
+      "variant": "real",
+      "folds": [
+        {
+          "fold": 0,
+          "held_pairs": 190,
+          "train_rows": 6058,
+          "export_delta": 1.1102230246251565e-16,
+          "held": {
+            "span": 0.2375,
+            "token": 0.4454,
+            "pair": 0.3193,
+            "fpr": 0.2623,
+            "span_p": 0.25,
+            "span_r": 0.2262
+          },
+          "held_baseline_select_spans": {
+            "span": 0.1556,
+            "token": 0.4879,
+            "pair": 0.2393,
+            "fpr": 0.2869,
+            "span_p": 0.1458,
+            "span_r": 0.1667
+          },
+          "val_with_fold_model": {
+            "span": 0.3265,
+            "token": 0.5306,
+            "pair": 0.4324,
+            "fpr": 0.1154,
+            "span_p": 0.3636,
+            "span_r": 0.2963
+          }
+        },
+        {
+          "fold": 1,
+          "held_pairs": 167,
+          "train_rows": 5881,
+          "export_delta": 1.1102230246251565e-16,
+          "held": {
+            "span": 0.2614,
+            "token": 0.4936,
+            "pair": 0.3704,
+            "fpr": 0.2752,
+            "span_p": 0.2532,
+            "span_r": 0.2703
+          },
+          "held_baseline_select_spans": {
+            "span": 0.239,
+            "token": 0.4938,
+            "pair": 0.3519,
+            "fpr": 0.2844,
+            "span_p": 0.2235,
+            "span_r": 0.2568
+          },
+          "val_with_fold_model": {
+            "span": 0.3,
+            "token": 0.5314,
+            "pair": 0.411,
+            "fpr": 0.1154,
+            "span_p": 0.3261,
+            "span_r": 0.2778
+          }
+        },
+        {
+          "fold": 2,
+          "held_pairs": 192,
+          "train_rows": 5976,
+          "export_delta": 5.551115123125783e-17,
+          "held": {
+            "span": 0.2323,
+            "token": 0.4027,
+            "pair": 0.2951,
+            "fpr": 0.296,
+            "span_p": 0.2308,
+            "span_r": 0.2338
+          },
+          "held_baseline_select_spans": {
+            "span": 0.2125,
+            "token": 0.4029,
+            "pair": 0.2787,
+            "fpr": 0.304,
+            "span_p": 0.2048,
+            "span_r": 0.2208
+          },
+          "val_with_fold_model": {
+            "span": 0.3232,
+            "token": 0.5272,
+            "pair": 0.4324,
+            "fpr": 0.1154,
+            "span_p": 0.3556,
+            "span_r": 0.2963
+          }
+        }
+      ],
+      "mean_held_span": 0.2437,
+      "mean_held_token": 0.4472,
+      "mean_held_pair": 0.3283,
+      "mean_held_fpr": 0.2778,
+      "mean_val_span": 0.3166,
+      "mean_val_mfava": 0.6483
+    },
+    "guard": {
+      "span": 0.5,
+      "token": 0.5,
+      "pair": 0.5,
+      "fpr_max": 0.4,
+      "mfava_span": 0.65
+    }
+  },
+  "speed_reference": {
+    "artifact": "artifacts/speed_v14.json",
+    "lexical": {
+      "per_1000_chars_le_0.03": true,
+      "50k_le_1s": true,
+      "2M_le_60s": true
+    },
+    "model_inference": {
+      "list_of_dicts": 2208,
+      "flat_int16_float32": 2177,
+      "quantized_thresholds_1_256": 2028
+    },
+    "weights_mode": "невозможно: в каталоге только config.json и токенизатор (2,8 MB), файла весов нет; huggingface.co недоступен (разрешены "
   }
 }
