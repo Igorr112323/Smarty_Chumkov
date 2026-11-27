@@ -1,0 +1,60 @@
+{
+  "rule": "замеры на этой машине (CPU, 1 поток), без кэширования между вызовами; договор: 0.03 с/1k знаков, 50k ≤ 1 с, 2M ≤ 60 с",
+  "runtime": "spanver (чистый Python, без torch/sklearn)",
+  "lexical": {
+    "rows": [
+      {
+        "chars": 1129,
+        "label": "1k",
+        "seconds": 0.013,
+        "ms_per_1000_chars": 11.486,
+        "spans": 0,
+        "ai_share": 0.5447
+      },
+      {
+        "chars": 50129,
+        "label": "50k",
+        "seconds": 0.2169,
+        "ms_per_1000_chars": 4.327,
+        "spans": 1,
+        "ai_share": 0.5447
+      },
+      {
+        "chars": 2000129,
+        "label": "2M",
+        "seconds": 11.3621,
+        "ms_per_1000_chars": 5.681,
+        "spans": 1,
+        "ai_share": 0.5447
+      }
+    ],
+    "targets": {
+      "per_1000_chars": 0.03,
+      "50k": 1.0,
+      "2M": 60.0
+    },
+    "checks": {
+      "per_1000_chars_le_0.03": true,
+      "50k_le_1s": true,
+      "2M_le_60s": true
+    },
+    "meets_all": true
+  },
+  "model_inference": {
+    "status": "нет кэша признаков или модели"
+  },
+  "weights_mode": {
+    "model_dir": "models/rubert-tiny2",
+    "files": [
+      "config.json",
+      "special_tokens_map.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "vocab.txt"
+    ],
+    "weight_files": [],
+    "torch_cuda": false,
+    "load_attempt": "невозможно: в каталоге только config.json и токенизатор (2,8 MB), файла весов нет; huggingface.co недоступен (разрешены github/codeload/api.github/npm/pypi), зеркал с pytorch_model.bin на GitHub не найдено",
+    "quantization": "int8/int4/ONNX-квантование не выполнимо: нет весов, квантовать нечего"
+  }
+}
