@@ -1,0 +1,294 @@
+{
+  "rule": "перенос только логики без весов (склейка прогонов, union-merge, sentence-snap, char-overlap метрика, best_threshold); веса и пороги v11 не менялись; held не читается",
+  "ported": {
+    "LettuceDetect": [
+      "runs_to_spans",
+      "chunk_max",
+      "char_overlap_f1"
+    ],
+    "faithful_eval": [
+      "merge_overlapping_spans",
+      "build_char_mask"
+    ],
+    "HALO": [
+      "split_sentences",
+      "best_threshold"
+    ]
+  },
+  "new_vs_ours": {
+    "union_merge": "новое: у нас NMS отбрасывает перекрывающийся спан, у них — объединение",
+    "sentence_snap": "новое: расширение клаузы до предложения по покрытию",
+    "runs/chunk": "неприменимо: нет токен-флагов и нескольких чанков",
+    "metrics": "у них char-overlap / sentence-level; наш контракт — IoU ≥ 0.5, не меняем",
+    "threshold": "эквивалентно: grid по val vs best_threshold(max F1)"
+  },
+  "baseline": {
+    "span": 0.3363,
+    "token": 0.6191,
+    "pair": 0.4872,
+    "fpr": 0.125,
+    "mfava_span": 0.6895
+  },
+  "guard": {
+    "span_min": 0.3663,
+    "token_min": 0.5,
+    "fpr_max": 0.4,
+    "mfava_span_min": 0.65
+  },
+  "results": {
+    "baseline": {
+      "val": {
+        "span": 0.3363,
+        "token": 0.6191,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.322,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "char_overlap": {
+        "precision": 0.5763,
+        "recall": 0.7491,
+        "f1": 0.6514
+      },
+      "guard_pass": false
+    },
+    "merge0": {
+      "val": {
+        "span": 0.3363,
+        "token": 0.6191,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.322,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6852,
+        "token": 0.7067,
+        "pair": 0.9158,
+        "fpr": 0.0,
+        "span_p": 0.7096,
+        "span_r": 0.6624
+      },
+      "guard_pass": false
+    },
+    "merge2": {
+      "val": {
+        "span": 0.3551,
+        "token": 0.6191,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.3585,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.5634,
+        "token": 0.7067,
+        "pair": 0.8702,
+        "fpr": 0.0,
+        "span_p": 0.6655,
+        "span_r": 0.4885
+      },
+      "char_overlap": {
+        "precision": 0.5766,
+        "recall": 0.75,
+        "f1": 0.6519
+      },
+      "guard_pass": false
+    },
+    "merge2_sent": {
+      "val": {
+        "span": 0.3393,
+        "token": 0.6191,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.3276,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6913,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.7139,
+        "span_r": 0.6701
+      },
+      "guard_pass": false
+    },
+    "merge2_sent_snap60": {
+      "val": {
+        "span": 0.3393,
+        "token": 0.6202,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.3276,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.672,
+        "token": 0.7135,
+        "pair": 0.9118,
+        "fpr": 0.0,
+        "span_p": 0.7051,
+        "span_r": 0.6419
+      },
+      "guard_pass": false
+    },
+    "merge_cap120": {
+      "val": {
+        "span": 0.3363,
+        "token": 0.6191,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.322,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "guard_pass": false
+    },
+    "merge_cap200": {
+      "val": {
+        "span": 0.3393,
+        "token": 0.6191,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.3276,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6639,
+        "token": 0.7067,
+        "pair": 0.9037,
+        "fpr": 0.0,
+        "span_p": 0.7126,
+        "span_r": 0.6215
+      },
+      "guard_pass": false
+    },
+    "merge_cap300": {
+      "val": {
+        "span": 0.3333,
+        "token": 0.6191,
+        "pair": 0.4675,
+        "fpr": 0.125,
+        "span_p": 0.3333,
+        "span_r": 0.3333
+      },
+      "mfava": {
+        "span": 0.5951,
+        "token": 0.7067,
+        "pair": 0.883,
+        "fpr": 0.0,
+        "span_p": 0.6879,
+        "span_r": 0.5243
+      },
+      "guard_pass": false
+    },
+    "snap60": {
+      "val": {
+        "span": 0.3393,
+        "token": 0.6202,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.3276,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6702,
+        "token": 0.7135,
+        "pair": 0.9118,
+        "fpr": 0.0,
+        "span_p": 0.7011,
+        "span_r": 0.6419
+      },
+      "guard_pass": false
+    },
+    "snap80": {
+      "val": {
+        "span": 0.3363,
+        "token": 0.6191,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.322,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6825,
+        "token": 0.707,
+        "pair": 0.9158,
+        "fpr": 0.0,
+        "span_p": 0.7068,
+        "span_r": 0.6598
+      },
+      "char_overlap": {
+        "precision": 0.5758,
+        "recall": 0.7493,
+        "f1": 0.6512
+      },
+      "guard_pass": false
+    },
+    "merge2_snap60": {
+      "val": {
+        "span": 0.3551,
+        "token": 0.6202,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.3585,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.5575,
+        "token": 0.7129,
+        "pair": 0.8659,
+        "fpr": 0.0,
+        "span_p": 0.6585,
+        "span_r": 0.4834
+      },
+      "guard_pass": false
+    },
+    "merge2_snap80": {
+      "val": {
+        "span": 0.3551,
+        "token": 0.6191,
+        "pair": 0.4872,
+        "fpr": 0.125,
+        "span_p": 0.3585,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.5605,
+        "token": 0.707,
+        "pair": 0.8702,
+        "fpr": 0.0,
+        "span_p": 0.662,
+        "span_r": 0.4859
+      },
+      "guard_pass": false
+    },
+    "threshold_compare": {
+      "halo_best_threshold": {
+        "cut": 0.5737,
+        "f1": 0.5067
+      },
+      "our_risk_threshold": 0.6,
+      "candidates": 59,
+      "note": "best_threshold на уже выбранных кандидатах val: подтверждает, что наш порог не хуже выбранного по max F1 (правило выбора то же)"
+    }
+  },
+  "best": null,
+  "verdict": "reject"
+}

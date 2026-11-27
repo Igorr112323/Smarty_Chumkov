@@ -671,3 +671,27 @@ inference-признаках (`val_pair_auc` 0,8129, экспорт деревь
 конфликт «pair ↑ / mFAVA ↓» исчез (mFAVA 0,6963 на val, 0,6904 на OOF).
 Span-цикл не запускался, Success не заявляется. Тесты: 142 passed.
 Отчёт: `artifacts/final_report_117812_v12.md`, OOF: `artifacts/pair_oof_v12.json`.
+
+## Цикл 13 (2026-11-25): аудит GitHub-репозиториев по span-детекции
+
+Склонированы и измерены LettuceDetect (MIT, `dcce161`), HALO (лицензии нет, `c4cbe13`),
+faithful_eval (MIT, `14598ac`). Все — torch/transformers (+FAISS у HALO, +OpenAI API у
+faithful_eval), весов в репозиториях нет, русского языка нет ни у одной модели
+(у faithful_eval есть uk/be, но ru нет). Минимальные веса: bge-small 66 MB fp16
+(107× лимита пакета), EuroBERT/mmBERT 220 MB (358×), qwen-2b ≈ 4 GB.
+Их «Span 0.5–0.64» меряется перекрытием символов и (у HALO) на уровне предложений.
+
+| вариант декода | val span | val token | val pair | FPR | mFAVA span |
+|---|---|---|---|---|---|
+| v11 baseline | 0,3363 | 0,6191 | 0,4872 | 0,125 | 0,6895 |
+| + union-merge (зазор ≤ 2) | 0,3551 | 0,6191 | 0,4872 | 0,125 | 0,5634 |
+| + merge внутри предложения | 0,3393 | 0,6191 | 0,4872 | 0,125 | 0,6913 |
+| + sentence-snap 0,6 | 0,3393 | 0,6202 | 0,4872 | 0,125 | 0,6702 |
+
+Портировано в stdlib: склейка прогонов токенов, chunk-max, union-merge, sentence-snap,
+char-overlap метрика, `best_threshold`. Новых полезных примитивов для нашей задачи —
+только union-merge; guard (+0,03 Span, mFAVA ≥ 0,65) не пройден (0 из 12 вариантов) →
+**reject**, OOF и дистилляция не запускались (предусловие). Ключевое наблюдение: наши
+же предсказания по их конвенции дают Span F1 **0,6514** против 0,3363 при IoU ≥ 0,5 —
+их цифры не сравнimы с нашими. Тесты: 142 passed, `spanver/` не менялся.
+Отчёт: `artifacts/final_report_117812_v13.md`, аудит: `artifacts/github_audit_v13.json`.
