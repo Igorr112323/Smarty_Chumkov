@@ -1,0 +1,382 @@
+{
+  "version": "ru_clause_gen_v19",
+  "generated_at_utc": "2026-11-27T15:02:37Z",
+  "seed": 42,
+  "programmatic_only": true,
+  "manual_annotation": false,
+  "flip_augmentation_used": false,
+  "generator_script": "tools/gen_ru_clause_v19.py",
+  "generator_script_sha256": "af1c386cd9554da84c59a8eb3663c66aed11dbef728137b1ac7cdcea8f78ddec",
+  "dataset_path": "artifacts/ru_clause_gen_v19.jsonl",
+  "dataset_bytes": 7346092,
+  "dataset_sha256": "f3144bd1999210bfc4b6c9c4d2e2485a4574717d0c65d78e8fad3be359d9ac1c",
+  "doc_overlap": 0,
+  "doc_overlap_details": {
+    "doc_overlap": 0,
+    "by_doc_id": 0,
+    "by_full_doc_sha256": 0,
+    "by_subdoc_sha256": 0,
+    "by_prefix_100": 0,
+    "by_word_8gram": 0,
+    "by_inserted_clause": 0,
+    "rushallu_gold_docs_checked": 1000,
+    "rushallu_unlabeled_docs_checked": 1626
+  },
+  "qc": {
+    "spans_total": 1354,
+    "spans_located": 1354,
+    "coverage": 1.0,
+    "out_of_bounds": 0,
+    "span_text_mismatch": 0,
+    "overlaps": 0,
+    "nested": 0,
+    "control_pairs": 0,
+    "ok": true
+  },
+  "integrity": {
+    "unique_documents": 1659,
+    "duplicate_documents": 0,
+    "unique_answers": 1659,
+    "duplicate_answers": 0,
+    "unique_donor_spans": 1354,
+    "duplicate_donor_spans": 0,
+    "cross_corpus_violations": 0,
+    "high_overlap_spans": 0,
+    "missing_required_span_fields": 0
+  },
+  "sources": {
+    "local_corpora_used": [
+      "mfava_ru",
+      "ragtruth_ru",
+      "rufacts",
+      "ruscifact",
+      "sberquad"
+    ],
+    "absent_local_corpora": [
+      "DFKonGH/ru_hallucination_detector",
+      "Vikhr"
+    ],
+    "rushallu_rag_excluded": [
+      "Dataset/1_rushallu_rag_gold/sberquad-rag.csv",
+      "Dataset/1_rushallu_rag_gold/ruscibench-rag.csv",
+      "Dataset/2_rushallu_rag_pairs/sberquad-train-rag.parquet"
+    ],
+    "corpus_audit": {
+      "ragtruth_ru": {
+        "present": true,
+        "raw_rows": 1500,
+        "rejected_overlap": 0,
+        "clean_bases": 514,
+        "donor_docs": 911
+      },
+      "rufacts": {
+        "present": true,
+        "raw_rows": 6236,
+        "rejected_overlap": 1,
+        "clean_bases": 502,
+        "donor_docs": 5252
+      },
+      "mfava_ru": {
+        "present": true,
+        "raw_rows": 267,
+        "rejected_overlap": 1,
+        "clean_bases": 26,
+        "donor_docs": 258
+      },
+      "ruscifact": {
+        "present": true,
+        "raw_rows": 1128,
+        "rejected_overlap": 20,
+        "clean_bases_multi": 1,
+        "clean_bases_single": 669,
+        "donor_docs": 1098
+      },
+      "sberquad": {
+        "present": true,
+        "raw_unique_contexts": 9067,
+        "rejected_overlap": 38,
+        "donor_docs": 8832
+      }
+    },
+    "donor_pool_sizes": {
+      "short": {
+        "mfava_ru": 14,
+        "ragtruth_ru": 144,
+        "rufacts": 112,
+        "ruscifact": 10,
+        "sberquad": 160
+      },
+      "clause": {
+        "mfava_ru": 1537,
+        "ragtruth_ru": 5980,
+        "rufacts": 2925,
+        "ruscifact": 2325,
+        "sberquad": 16198
+      },
+      "whole": {
+        "mfava_ru": 1420,
+        "ragtruth_ru": 5223,
+        "rufacts": 1792,
+        "ruscifact": 2363,
+        "sberquad": 14747
+      }
+    },
+    "base_corpus_pair_counts": {
+      "mfava_ru": 26,
+      "ragtruth_ru": 496,
+      "rufacts": 498,
+      "ruscifact": 639
+    },
+    "donor_corpus_span_counts": {
+      "mfava_ru": 212,
+      "ragtruth_ru": 54,
+      "rufacts": 60,
+      "ruscifact": 108,
+      "sberquad": 920
+    },
+    "cross_corpus_span_matrix": {
+      "ruscifact <- sberquad": 317,
+      "ragtruth_ru <- sberquad": 313,
+      "rufacts <- sberquad": 273,
+      "ruscifact <- mfava_ru": 93,
+      "rufacts <- mfava_ru": 69,
+      "ragtruth_ru <- rufacts": 55,
+      "rufacts <- ruscifact": 53,
+      "rufacts <- ragtruth_ru": 52,
+      "ragtruth_ru <- mfava_ru": 50,
+      "ragtruth_ru <- ruscifact": 50,
+      "mfava_ru <- sberquad": 17,
+      "mfava_ru <- rufacts": 5,
+      "mfava_ru <- ruscifact": 5,
+      "mfava_ru <- ragtruth_ru": 2
+    },
+    "generation_mode_counts": {
+      "clause_insert_1": 467,
+      "clause_insert_2": 117,
+      "clean_negative": 422,
+      "short_clause_insert_1": 146,
+      "whole_clause_cross_corpus": 507
+    },
+    "rejected_during_generation": {
+      "weak_negative_support": 21,
+      "whole_subsent_overlap": 32
+    }
+  },
+  "stats": {
+    "n_pairs": 1659,
+    "n_positive_pairs": 1237,
+    "n_negative_pairs": 422,
+    "positive_ratio": 0.7456,
+    "n_spans": 1354,
+    "spans_per_positive_pair": {
+      "1": 1120,
+      "2": 117
+    },
+    "style_distribution": {
+      "whole": {
+        "count": 507,
+        "share": 0.3744
+      },
+      "clause": {
+        "count": 701,
+        "share": 0.5177
+      },
+      "short": {
+        "count": 146,
+        "share": 0.1078
+      }
+    },
+    "contract_type_distribution": {
+      "contradiction": 0,
+      "entity": 132,
+      "number": 458,
+      "omission": 0,
+      "scope": 71,
+      "temporal": 60,
+      "unsupported_addition": 633
+    },
+    "position_distribution": {
+      "end": 265,
+      "middle": 292,
+      "start": 290,
+      "whole": 507
+    },
+    "span_length_chars": {
+      "mean": 159.78,
+      "median": 154.0,
+      "p25": 109.0,
+      "p75": 213.0,
+      "min": 20,
+      "max": 435
+    },
+    "span_relative_length": {
+      "mean": 0.5263,
+      "median": 0.3396
+    },
+    "answer_length_chars": {
+      "pos_mean": 394.54,
+      "pos_median": 359,
+      "neg_mean": 239.32,
+      "neg_median": 167.0,
+      "pos_sents_mean": 3.24,
+      "pos_sents_median": 3
+    },
+    "oracle_ceiling": {
+      "candidate_ceiling": {
+        "gold_spans": 1354,
+        "oracle_covered": 1354,
+        "oracle_recall": 1.0,
+        "pairs_with_gold": 1237,
+        "pairs_coverable": 1237
+      },
+      "oracle_candidate_top1": {
+        "span_f1": 0.9548,
+        "span_precision": 1.0,
+        "span_recall": 0.9136,
+        "token_f1": 0.951
+      },
+      "oracle_candidate_multi": {
+        "span_f1": 1.0,
+        "span_precision": 1.0,
+        "span_recall": 1.0,
+        "token_f1": 0.995
+      },
+      "oracle_sentence_multi": {
+        "span_f1": 0.9959,
+        "span_precision": 1.0,
+        "span_recall": 0.9919,
+        "token_f1": 0.9415
+      },
+      "oracle_token_snap_expand": {
+        "span_f1": 1.0,
+        "span_precision": 1.0,
+        "span_recall": 1.0,
+        "token_f1": 1.0
+      }
+    },
+    "zero_shot_lexical_verify": {
+      "span_f1": 0.3767,
+      "span_precision": 0.3745,
+      "span_recall": 0.3789,
+      "token_f1": 0.5414,
+      "pair_f1": 0.5316,
+      "fpr": 0.4265,
+      "type_accuracy": 0.9688
+    }
+  },
+  "reference_rushallu_rag_gold": {
+    "n_pairs": 1000,
+    "n_positive_pairs": 333,
+    "n_negative_pairs": 667,
+    "positive_ratio": 0.333,
+    "n_spans": 423,
+    "spans_per_positive_pair": {
+      "1": 258,
+      "2": 65,
+      "3": 6,
+      "4": 3,
+      "5": 1
+    },
+    "style_distribution": {
+      "whole": {
+        "count": 201,
+        "share": 0.4752
+      },
+      "clause": {
+        "count": 171,
+        "share": 0.4043
+      },
+      "short": {
+        "count": 51,
+        "share": 0.1206
+      }
+    },
+    "contract_type_distribution": {
+      "contradiction": 45,
+      "entity": 32,
+      "number": 125,
+      "omission": 15,
+      "scope": 22,
+      "temporal": 14,
+      "unsupported_addition": 170
+    },
+    "position_distribution": {},
+    "span_length_chars": {
+      "mean": 243.33,
+      "median": 145,
+      "p25": 73.0,
+      "p75": 331.0,
+      "min": 5,
+      "max": 1363
+    },
+    "span_relative_length": {
+      "mean": 0.6048,
+      "median": 0.5925
+    },
+    "answer_length_chars": {
+      "pos_mean": 414.48,
+      "pos_median": 370,
+      "neg_mean": 231.38,
+      "neg_median": 142,
+      "pos_sents_mean": 3.66,
+      "pos_sents_median": 3
+    },
+    "oracle_ceiling": {
+      "candidate_ceiling": {
+        "gold_spans": 423,
+        "oracle_covered": 379,
+        "oracle_recall": 0.896,
+        "pairs_with_gold": 333,
+        "pairs_coverable": 302
+      },
+      "oracle_candidate_top1": {
+        "span_f1": 0.8331,
+        "span_precision": 1.0,
+        "span_recall": 0.7139,
+        "token_f1": 0.9414
+      },
+      "oracle_candidate_multi": {
+        "span_f1": 0.9451,
+        "span_precision": 1.0,
+        "span_recall": 0.896,
+        "token_f1": 0.9854
+      },
+      "oracle_sentence_multi": {
+        "span_f1": 0.7373,
+        "span_precision": 1.0,
+        "span_recall": 0.5839,
+        "token_f1": 0.53
+      },
+      "oracle_token_snap_expand": {
+        "span_f1": 0.8256,
+        "span_precision": 0.902,
+        "span_recall": 0.7612,
+        "token_f1": 0.9853
+      }
+    },
+    "zero_shot_lexical_verify": {
+      "span_f1": 0.2954,
+      "span_precision": 0.2823,
+      "span_recall": 0.3097,
+      "token_f1": 0.4808,
+      "pair_f1": 0.3685,
+      "fpr": 0.3703,
+      "type_accuracy": 0.7252
+    }
+  },
+  "gates": {
+    "qc_ok": true,
+    "zero_control_chars": true,
+    "doc_overlap_zero": true,
+    "cross_corpus_strict": true,
+    "zero_duplicate_docs": true,
+    "zero_duplicate_donors": true,
+    "zero_high_overlap_spans": true,
+    "zero_missing_span_fields": true,
+    "oracle_cand_top1_f1_ge_0_60": true,
+    "oracle_cand_multi_f1_ge_0_60": true,
+    "oracle_sent_multi_f1_ge_0_60": true,
+    "oracle_snap_f1_ge_0_60": true,
+    "all_passed": true
+  }
+}

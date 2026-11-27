@@ -1,0 +1,383 @@
+{
+  "rule": "ablation по множествам обучения: cross-domain AUC (наш val), in-domain AUC (v19, 2 фолда по документам), Group-CV по документам v19, OOF по документам на реальных парах",
+  "reference_v11": {
+    "span": 0.3621,
+    "token": 0.6247,
+    "pair": 0.5122,
+    "fpr": 0.1442,
+    "auc": 0.7425
+  },
+  "variants": {
+    "control_37": {
+      "train_parts": [
+        "real",
+        "synth",
+        "pseudo"
+      ],
+      "hard_negatives": false,
+      "kind": "hgb",
+      "val_auc": 0.6261,
+      "within_pair_acc": 0.5651,
+      "in_domain_v19_auc": 0.9831,
+      "auc_on_v19": 0.8405,
+      "trained_on_v19": false,
+      "blend_with_v11": {
+        "auc": 0.7425,
+        "base_auc_v11": 0.7425,
+        "model_auc": 0.6261,
+        "weight_model": 0.05,
+        "within_pair_acc": 0.7368,
+        "val": {
+          "span": 0.3077,
+          "token": 0.6011,
+          "pair": 0.4444,
+          "fpr": 0.1635,
+          "span_p": 0.2857,
+          "span_r": 0.3333
+        },
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "val": {
+        "span": 0.224,
+        "token": 0.4648,
+        "pair": 0.3733,
+        "fpr": 0.1442,
+        "span_p": 0.1972,
+        "span_r": 0.2593
+      },
+      "config": {
+        "mode_cut": 0.3,
+        "gate": 0.5,
+        "threshold": 0.3,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "v19_only": {
+      "train_parts": [
+        "v19"
+      ],
+      "hard_negatives": false,
+      "kind": "hgb",
+      "val_auc": 0.6173,
+      "within_pair_acc": 0.5733,
+      "in_domain_v19_auc": 0.9831,
+      "auc_on_v19": 0.9942,
+      "trained_on_v19": true,
+      "blend_with_v11": {
+        "auc": 0.7425,
+        "base_auc_v11": 0.7425,
+        "model_auc": 0.6173,
+        "weight_model": 0.0,
+        "within_pair_acc": 0.7395,
+        "val": {
+          "span": 0.3248,
+          "token": 0.6073,
+          "pair": 0.4634,
+          "fpr": 0.1635,
+          "span_p": 0.3016,
+          "span_r": 0.3519
+        },
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "val": {
+        "span": 0.2545,
+        "token": 0.4727,
+        "pair": 0.4,
+        "fpr": 0.0962,
+        "span_p": 0.25,
+        "span_r": 0.2593
+      },
+      "config": {
+        "mode_cut": 0.3,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "v19_plus_real": {
+      "train_parts": [
+        "real",
+        "synth",
+        "pseudo",
+        "v19"
+      ],
+      "hard_negatives": false,
+      "kind": "hgb",
+      "val_auc": 0.6349,
+      "within_pair_acc": 0.5746,
+      "in_domain_v19_auc": 0.9831,
+      "auc_on_v19": 0.9831,
+      "trained_on_v19": true,
+      "blend_with_v11": {
+        "auc": 0.7425,
+        "base_auc_v11": 0.7425,
+        "model_auc": 0.6349,
+        "weight_model": 0.0,
+        "within_pair_acc": 0.7395,
+        "val": {
+          "span": 0.3248,
+          "token": 0.6073,
+          "pair": 0.4634,
+          "fpr": 0.1635,
+          "span_p": 0.3016,
+          "span_r": 0.3519
+        },
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "val": {
+        "span": 0.25,
+        "token": 0.3917,
+        "pair": 0.3492,
+        "fpr": 0.0577,
+        "span_p": 0.3235,
+        "span_r": 0.2037
+      },
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "v19_plus_real_hardneg": {
+      "train_parts": [
+        "real",
+        "synth",
+        "pseudo",
+        "v19"
+      ],
+      "hard_negatives": true,
+      "kind": "hgb",
+      "val_auc": 0.6392,
+      "within_pair_acc": 0.5896,
+      "in_domain_v19_auc": 0.9831,
+      "auc_on_v19": 0.9824,
+      "trained_on_v19": true,
+      "blend_with_v11": {
+        "auc": 0.7429,
+        "base_auc_v11": 0.7425,
+        "model_auc": 0.6392,
+        "weight_model": 0.05,
+        "within_pair_acc": 0.7381,
+        "val": {
+          "span": 0.3248,
+          "token": 0.6204,
+          "pair": 0.4634,
+          "fpr": 0.1635,
+          "span_p": 0.3016,
+          "span_r": 0.3519
+        },
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "val": {
+        "span": 0.2254,
+        "token": 0.4763,
+        "pair": 0.4211,
+        "fpr": 0.1346,
+        "span_p": 0.1818,
+        "span_r": 0.2963
+      },
+      "config": {
+        "mode_cut": 0.3,
+        "gate": 0.5,
+        "threshold": 0.2,
+        "max_spans": 3,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "full_pairwise": {
+      "train_parts": [
+        "real",
+        "synth",
+        "pseudo",
+        "v19"
+      ],
+      "hard_negatives": true,
+      "kind": "pairwise",
+      "val_auc": 0.6414,
+      "within_pair_acc": 0.6336,
+      "in_domain_v19_auc": 0.9831,
+      "auc_on_v19": 0.9136,
+      "trained_on_v19": true,
+      "blend_with_v11": {
+        "auc": 0.7425,
+        "base_auc_v11": 0.7425,
+        "model_auc": 0.6414,
+        "weight_model": 0.0,
+        "within_pair_acc": 0.7395,
+        "val": {
+          "span": 0.3248,
+          "token": 0.6073,
+          "pair": 0.4634,
+          "fpr": 0.1635,
+          "span_p": 0.3016,
+          "span_r": 0.3519
+        },
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.5,
+          "threshold": 0.2,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "val": {
+        "span": 0.2443,
+        "token": 0.5016,
+        "pair": 0.4051,
+        "fpr": 0.1635,
+        "span_p": 0.2078,
+        "span_r": 0.2963
+      },
+      "config": {
+        "mode_cut": 0.3,
+        "gate": 0.5,
+        "threshold": 0.2,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    }
+  },
+  "group_cv_v19": {
+    "folds": [
+      {
+        "fold": 0,
+        "rows": 7971,
+        "positives": 1014,
+        "auc": 0.981
+      },
+      {
+        "fold": 1,
+        "rows": 8051,
+        "positives": 1012,
+        "auc": 0.9853
+      },
+      {
+        "fold": 2,
+        "rows": 7816,
+        "positives": 1016,
+        "auc": 0.9864
+      }
+    ],
+    "mean_auc": 0.9842
+  },
+  "oof_real": {
+    "folds": [
+      {
+        "span": 0.1064,
+        "token": 0.3372,
+        "pair": 0.1639,
+        "fpr": 0.0522,
+        "span_p": 0.1613,
+        "span_r": 0.0794,
+        "fold": 0,
+        "pairs": 183
+      },
+      {
+        "span": 0.0536,
+        "token": 0.2135,
+        "pair": 0.0811,
+        "fpr": 0.0348,
+        "span_p": 0.1,
+        "span_r": 0.0366,
+        "fold": 1,
+        "pairs": 182
+      },
+      {
+        "span": 0.0317,
+        "token": 0.1846,
+        "pair": 0.046,
+        "fpr": 0.0748,
+        "span_p": 0.0556,
+        "span_r": 0.0222,
+        "fold": 2,
+        "pairs": 184
+      }
+    ],
+    "mean": {
+      "span": 0.0639,
+      "token": 0.2451,
+      "pair": 0.097,
+      "fpr": 0.0539
+    },
+    "baseline_oof_span_v14": 0.2437,
+    "pass": false
+  },
+  "best_variant": "v19_plus_real__blend_v11",
+  "guard": {
+    "span": {
+      "value": 0.3248,
+      "need": 0.5,
+      "pass": false
+    },
+    "token": {
+      "value": 0.6073,
+      "need": 0.5,
+      "pass": true
+    },
+    "pair": {
+      "value": 0.4634,
+      "need": 0.5,
+      "pass": false
+    },
+    "fpr": {
+      "value": 0.1635,
+      "need": 0.4,
+      "pass": true
+    },
+    "oof": {
+      "value": 0.0639,
+      "need": 0.2637,
+      "pass": false
+    },
+    "pass_all": false
+  },
+  "verdict": "reject_by_span"
+}
