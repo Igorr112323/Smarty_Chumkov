@@ -1,0 +1,2616 @@
+{
+  "rule": "listwise lambdarank на train-only данных; пороги по val+mFAVA; held не читается",
+  "features": "boundary",
+  "columns": [
+    15,
+    16,
+    17,
+    18
+  ],
+  "trees": 300,
+  "with_pseudo": false,
+  "with_whole": true,
+  "leaves": 15,
+  "lr": 0.05,
+  "train": {
+    "pairs": 3904,
+    "rows": 44736,
+    "positives": 4189,
+    "by_source": {
+      "gold_train": 193,
+      "pseudo": 0,
+      "synth": 3563,
+      "mfava": 148
+    }
+  },
+  "export": {
+    "max_abs_delta": 0.0,
+    "sha256": "c5b9c7059267448592494728d096563d1e3dc4e0cde1d640fb01e62ab56b65bc"
+  },
+  "baseline": {
+    "combined": {
+      "span": 0.2233,
+      "token": 0.4547,
+      "pair": 0.5108,
+      "fpr": 0.125,
+      "span_p": 0.3717,
+      "span_r": 0.1596
+    },
+    "val": {
+      "span": 0.3168,
+      "token": 0.5689,
+      "pair": 0.4267,
+      "fpr": 0.125,
+      "span_p": 0.3404,
+      "span_r": 0.2963
+    },
+    "mfava": {
+      "span": 0.2056,
+      "token": 0.4202,
+      "pair": 0.5419,
+      "fpr": 0.0,
+      "span_p": 0.3819,
+      "span_r": 0.1407
+    }
+  },
+  "best": {
+    "threshold": 0.0,
+    "max_spans": 3,
+    "gate": 0.5,
+    "combined": {
+      "span": 0.069,
+      "token": 0.1866,
+      "pair": 0.2846,
+      "fpr": 0.1635,
+      "span_p": 0.0602,
+      "span_r": 0.0809
+    },
+    "val": {
+      "span": 0.0962,
+      "token": 0.376,
+      "pair": 0.274,
+      "fpr": 0.1635,
+      "span_p": 0.0649,
+      "span_r": 0.1852
+    },
+    "mfava": {
+      "span": 0.0623,
+      "token": 0.1242,
+      "pair": 0.289,
+      "fpr": 0.0,
+      "span_p": 0.0586,
+      "span_r": 0.0665
+    }
+  },
+  "top": [
+    {
+      "threshold": 0.0,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.069,
+        "token": 0.1866,
+        "pair": 0.2846,
+        "fpr": 0.1635,
+        "span_p": 0.0602,
+        "span_r": 0.0809
+      },
+      "val": {
+        "span": 0.0962,
+        "token": 0.376,
+        "pair": 0.274,
+        "fpr": 0.1635,
+        "span_p": 0.0649,
+        "span_r": 0.1852
+      },
+      "mfava": {
+        "span": 0.0623,
+        "token": 0.1242,
+        "pair": 0.289,
+        "fpr": 0.0,
+        "span_p": 0.0586,
+        "span_r": 0.0665
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.065,
+        "token": 0.1867,
+        "pair": 0.245,
+        "fpr": 0.6827,
+        "span_p": 0.0525,
+        "span_r": 0.0854
+      },
+      "val": {
+        "span": 0.0719,
+        "token": 0.3219,
+        "pair": 0.186,
+        "fpr": 0.6827,
+        "span_p": 0.0429,
+        "span_r": 0.2222
+      },
+      "mfava": {
+        "span": 0.0623,
+        "token": 0.1242,
+        "pair": 0.289,
+        "fpr": 0.0,
+        "span_p": 0.0586,
+        "span_r": 0.0665
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0649,
+        "token": 0.1779,
+        "pair": 0.2689,
+        "fpr": 0.1154,
+        "span_p": 0.0577,
+        "span_r": 0.0742
+      },
+      "val": {
+        "span": 0.0769,
+        "token": 0.3587,
+        "pair": 0.2154,
+        "fpr": 0.1154,
+        "span_p": 0.0547,
+        "span_r": 0.1296
+      },
+      "mfava": {
+        "span": 0.0623,
+        "token": 0.1242,
+        "pair": 0.289,
+        "fpr": 0.0,
+        "span_p": 0.0586,
+        "span_r": 0.0665
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0449,
+        "token": 0.1269,
+        "pair": 0.1652,
+        "fpr": 0.1635,
+        "span_p": 0.0473,
+        "span_r": 0.0427
+      },
+      "val": {
+        "span": 0.0875,
+        "token": 0.2998,
+        "pair": 0.2,
+        "fpr": 0.1635,
+        "span_p": 0.066,
+        "span_r": 0.1296
+      },
+      "mfava": {
+        "span": 0.0349,
+        "token": 0.0706,
+        "pair": 0.15,
+        "fpr": 0.0,
+        "span_p": 0.0405,
+        "span_r": 0.0307
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0444,
+        "token": 0.1287,
+        "pair": 0.1469,
+        "fpr": 0.6827,
+        "span_p": 0.0419,
+        "span_r": 0.0472
+      },
+      "val": {
+        "span": 0.0695,
+        "token": 0.2579,
+        "pair": 0.1429,
+        "fpr": 0.6827,
+        "span_p": 0.0439,
+        "span_r": 0.1667
+      },
+      "mfava": {
+        "span": 0.0349,
+        "token": 0.0706,
+        "pair": 0.15,
+        "fpr": 0.0,
+        "span_p": 0.0405,
+        "span_r": 0.0307
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0387,
+        "token": 0.1159,
+        "pair": 0.1441,
+        "fpr": 0.1154,
+        "span_p": 0.0419,
+        "span_r": 0.036
+      },
+      "val": {
+        "span": 0.0571,
+        "token": 0.269,
+        "pair": 0.129,
+        "fpr": 0.1154,
+        "span_p": 0.0465,
+        "span_r": 0.0741
+      },
+      "mfava": {
+        "span": 0.0349,
+        "token": 0.0706,
+        "pair": 0.15,
+        "fpr": 0.0,
+        "span_p": 0.0405,
+        "span_r": 0.0307
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0311,
+        "token": 0.0845,
+        "pair": 0.0797,
+        "fpr": 0.6827,
+        "span_p": 0.042,
+        "span_r": 0.0247
+      },
+      "val": {
+        "span": 0.0476,
+        "token": 0.1796,
+        "pair": 0.0661,
+        "fpr": 0.6827,
+        "span_p": 0.0351,
+        "span_r": 0.0741
+      },
+      "mfava": {
+        "span": 0.026,
+        "token": 0.0462,
+        "pair": 0.0903,
+        "fpr": 0.0,
+        "span_p": 0.0473,
+        "span_r": 0.0179
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.031,
+        "token": 0.0809,
+        "pair": 0.0905,
+        "fpr": 0.1635,
+        "span_p": 0.0498,
+        "span_r": 0.0225
+      },
+      "val": {
+        "span": 0.0561,
+        "token": 0.194,
+        "pair": 0.0909,
+        "fpr": 0.1635,
+        "span_p": 0.0566,
+        "span_r": 0.0556
+      },
+      "mfava": {
+        "span": 0.026,
+        "token": 0.0462,
+        "pair": 0.0903,
+        "fpr": 0.0,
+        "span_p": 0.0473,
+        "span_r": 0.0179
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0252,
+        "token": 0.0734,
+        "pair": 0.0748,
+        "fpr": 0.1154,
+        "span_p": 0.0419,
+        "span_r": 0.018
+      },
+      "val": {
+        "span": 0.0206,
+        "token": 0.1667,
+        "pair": 0.0339,
+        "fpr": 0.1154,
+        "span_p": 0.0233,
+        "span_r": 0.0185
+      },
+      "mfava": {
+        "span": 0.026,
+        "token": 0.0462,
+        "pair": 0.0903,
+        "fpr": 0.0,
+        "span_p": 0.0473,
+        "span_r": 0.0179
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    }
+  ],
+  "passing": [],
+  "configs": [
+    {
+      "threshold": 0.0,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.069,
+        "token": 0.1866,
+        "pair": 0.2846,
+        "fpr": 0.1635,
+        "span_p": 0.0602,
+        "span_r": 0.0809
+      },
+      "val": {
+        "span": 0.0962,
+        "token": 0.376,
+        "pair": 0.274,
+        "fpr": 0.1635,
+        "span_p": 0.0649,
+        "span_r": 0.1852
+      },
+      "mfava": {
+        "span": 0.0623,
+        "token": 0.1242,
+        "pair": 0.289,
+        "fpr": 0.0,
+        "span_p": 0.0586,
+        "span_r": 0.0665
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.065,
+        "token": 0.1867,
+        "pair": 0.245,
+        "fpr": 0.6827,
+        "span_p": 0.0525,
+        "span_r": 0.0854
+      },
+      "val": {
+        "span": 0.0719,
+        "token": 0.3219,
+        "pair": 0.186,
+        "fpr": 0.6827,
+        "span_p": 0.0429,
+        "span_r": 0.2222
+      },
+      "mfava": {
+        "span": 0.0623,
+        "token": 0.1242,
+        "pair": 0.289,
+        "fpr": 0.0,
+        "span_p": 0.0586,
+        "span_r": 0.0665
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0649,
+        "token": 0.1779,
+        "pair": 0.2689,
+        "fpr": 0.1154,
+        "span_p": 0.0577,
+        "span_r": 0.0742
+      },
+      "val": {
+        "span": 0.0769,
+        "token": 0.3587,
+        "pair": 0.2154,
+        "fpr": 0.1154,
+        "span_p": 0.0547,
+        "span_r": 0.1296
+      },
+      "mfava": {
+        "span": 0.0623,
+        "token": 0.1242,
+        "pair": 0.289,
+        "fpr": 0.0,
+        "span_p": 0.0586,
+        "span_r": 0.0665
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0449,
+        "token": 0.1269,
+        "pair": 0.1652,
+        "fpr": 0.1635,
+        "span_p": 0.0473,
+        "span_r": 0.0427
+      },
+      "val": {
+        "span": 0.0875,
+        "token": 0.2998,
+        "pair": 0.2,
+        "fpr": 0.1635,
+        "span_p": 0.066,
+        "span_r": 0.1296
+      },
+      "mfava": {
+        "span": 0.0349,
+        "token": 0.0706,
+        "pair": 0.15,
+        "fpr": 0.0,
+        "span_p": 0.0405,
+        "span_r": 0.0307
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0444,
+        "token": 0.1287,
+        "pair": 0.1469,
+        "fpr": 0.6827,
+        "span_p": 0.0419,
+        "span_r": 0.0472
+      },
+      "val": {
+        "span": 0.0695,
+        "token": 0.2579,
+        "pair": 0.1429,
+        "fpr": 0.6827,
+        "span_p": 0.0439,
+        "span_r": 0.1667
+      },
+      "mfava": {
+        "span": 0.0349,
+        "token": 0.0706,
+        "pair": 0.15,
+        "fpr": 0.0,
+        "span_p": 0.0405,
+        "span_r": 0.0307
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0387,
+        "token": 0.1159,
+        "pair": 0.1441,
+        "fpr": 0.1154,
+        "span_p": 0.0419,
+        "span_r": 0.036
+      },
+      "val": {
+        "span": 0.0571,
+        "token": 0.269,
+        "pair": 0.129,
+        "fpr": 0.1154,
+        "span_p": 0.0465,
+        "span_r": 0.0741
+      },
+      "mfava": {
+        "span": 0.0349,
+        "token": 0.0706,
+        "pair": 0.15,
+        "fpr": 0.0,
+        "span_p": 0.0405,
+        "span_r": 0.0307
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0311,
+        "token": 0.0845,
+        "pair": 0.0797,
+        "fpr": 0.6827,
+        "span_p": 0.042,
+        "span_r": 0.0247
+      },
+      "val": {
+        "span": 0.0476,
+        "token": 0.1796,
+        "pair": 0.0661,
+        "fpr": 0.6827,
+        "span_p": 0.0351,
+        "span_r": 0.0741
+      },
+      "mfava": {
+        "span": 0.026,
+        "token": 0.0462,
+        "pair": 0.0903,
+        "fpr": 0.0,
+        "span_p": 0.0473,
+        "span_r": 0.0179
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.031,
+        "token": 0.0809,
+        "pair": 0.0905,
+        "fpr": 0.1635,
+        "span_p": 0.0498,
+        "span_r": 0.0225
+      },
+      "val": {
+        "span": 0.0561,
+        "token": 0.194,
+        "pair": 0.0909,
+        "fpr": 0.1635,
+        "span_p": 0.0566,
+        "span_r": 0.0556
+      },
+      "mfava": {
+        "span": 0.026,
+        "token": 0.0462,
+        "pair": 0.0903,
+        "fpr": 0.0,
+        "span_p": 0.0473,
+        "span_r": 0.0179
+      }
+    },
+    {
+      "threshold": 0.0,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0252,
+        "token": 0.0734,
+        "pair": 0.0748,
+        "fpr": 0.1154,
+        "span_p": 0.0419,
+        "span_r": 0.018
+      },
+      "val": {
+        "span": 0.0206,
+        "token": 0.1667,
+        "pair": 0.0339,
+        "fpr": 0.1154,
+        "span_p": 0.0233,
+        "span_r": 0.0185
+      },
+      "mfava": {
+        "span": 0.026,
+        "token": 0.0462,
+        "pair": 0.0903,
+        "fpr": 0.0,
+        "span_p": 0.0473,
+        "span_r": 0.0179
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.0,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 1.5,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.0,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 2.5,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 3.0,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 1,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 1,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 1,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 2,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 2,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 2,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 3,
+      "gate": 0.3,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 3,
+      "gate": 0.5,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    },
+    {
+      "threshold": 4.0,
+      "max_spans": 3,
+      "gate": 0.6,
+      "combined": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "val": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      },
+      "mfava": {
+        "span": 0.0,
+        "token": 0.0,
+        "pair": 0.0,
+        "fpr": 0.0,
+        "span_p": 0.0,
+        "span_r": 0.0
+      }
+    }
+  ],
+  "elapsed_sec": 25.6,
+  "model_file": "artifacts/listwise_boundary_model_v11.json",
+  "model_sha256": "fcd9361c235d32d660329cea334c15dd26d02f2f94b9b3365e64dafb685980b3"
+}
