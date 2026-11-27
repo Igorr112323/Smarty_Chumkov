@@ -212,7 +212,11 @@ def main():
     parser.add_argument("--epochs", type=int, default=EPOCHS)
     parser.add_argument("--batch", type=int, default=BATCH)
     parser.add_argument("--lr", type=float, default=LR)
+    parser.add_argument("--no-dev-eval", action="store_true")
+    parser.add_argument("--out", default="artifacts/neural_pointer_v9")
     args = parser.parse_args()
+    global OUT
+    OUT = ROOT / args.out
     OUT.mkdir(parents=True, exist_ok=True)
     torch.manual_seed(SEED)
     np.random.seed(SEED)
@@ -260,8 +264,9 @@ def main():
             losses.append(float(loss))
         print("epoch", epoch, "loss", round(float(np.mean(losses)), 4),
               "sec", round(time.time() - started, 1), flush=True)
-        scored = score_pairs(model, dev, device)
-        for threshold in (0.35, 0.45, 0.55, 0.65, 0.75):
+        if not args.no_dev_eval:
+            scored = score_pairs(model, dev, device)
+        for threshold in (() if args.no_dev_eval else (0.35, 0.45, 0.55, 0.65, 0.75)):
             for max_spans in (1, 2, 3):
                 def predictor(pair):
                     return decode(pair, scored, threshold, max_spans, 0.10)
@@ -281,22 +286,37 @@ def main():
                         "head": model.head.state_dict(),
                         "hidden": int(base.config.hidden_size),
                     }, str(OUT / "best/head.pt"))
-        print("best", best["row"] if best["row"] else None, flush=True)
+        if args.no_dev_eval:
+            target_dir = OUT / "last"
+            model.base.save_pretrained(str(target_dir))
+            TOKENIZER.save_pretrained(str(target_dir))
+            torch.save({"head": model.head.state_dict(), "hidden": int(base.config.hidden_size)},
+                       str(target_dir / "head.pt"))
+            print("checkpoint", target_dir, "epoch", epoch, flush=True)
+        print("best", best.get("row"), flush=True)
 
     report = {
         "architecture": "rubert-tiny2 + evidence-conditioned start/end pointer (CLS of candidate x CLS of evidence)",
         "rule": "RAGTruth_ru (phrase spans) + v3 RusHallu train + mFAVA train; val/mFAVA dev only; held не читается",
         "rag_pairs": len(rag[:args.rag_limit]), "train_pairs": len(train), "mfava_pairs": len(mfava),
+        "no_dev_eval": args.no_dev_eval,
         "rows": len(rows), "positive_rows": positive, "pos_weight": weight,
         "epochs": args.epochs, "lr": args.lr, "batch": args.batch, "max_len": MAX_LEN,
         "best": best.get("row"), "history": history,
         "checkpoint": str(OUT / "best"),
-        "weights_sha256": hashlib.sha256((OUT / "best/pytorch_model.bin").read_bytes()).hexdigest()
-        if (OUT / "best/pytorch_model.bin").exists() else None,
-        "head_sha256": hashlib.sha256((OUT / "best/head.pt").read_bytes()).hexdigest()
-        if (OUT / "best/head.pt").exists() else None,
+        "weights_sha256": hashlib.sha256((OUT / "last/model.safetensors").read_bytes()).hexdigest()
+        if (OUT / "last/model.safetensors").exists() else (hashlib.sha256((OUT / "best/pytorch_model.bin").read_bytes()).hexdigest()
+        if (OUT / "best/pytorch_model.bin").exists() else None),
+        "head_sha256": hashlib.sha256((OUT / "last/head.pt").read_bytes()).hexdigest()
+        if (OUT / "last/head.pt").exists() else (hashlib.sha256((OUT / "best/head.pt").read_bytes()).hexdigest()
+        if (OUT / "best/head.pt").exists() else None),
     }
-    target = ROOT / "artifacts/neural_pointer_v9/report.json"
+    if args.no_dev_eval and not (OUT / "best/head.pt").exists():
+        model.base.save_pretrained(str(OUT / "best"))
+        TOKENIZER.save_pretrained(str(OUT / "best"))
+        torch.save({"head": model.head.state_dict(), "hidden": int(base.config.hidden_size)},
+                   str(OUT / "best/head.pt"))
+    target = OUT / ("report_full.json" if args.no_dev_eval else "report.json")
     target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("report", target, flush=True)
 

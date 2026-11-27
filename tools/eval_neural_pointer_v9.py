@@ -20,11 +20,11 @@ from train_neural_pointer_v9 import Pointer, doc_chunks, evidence_for, cell
 CKPT = ROOT / "artifacts/neural_pointer_v9/best"
 
 
-def load_model(device):
-    tokenizer = AutoTokenizer.from_pretrained(str(CKPT), local_files_only=True)
-    base = AutoModel.from_pretrained(str(CKPT), local_files_only=True)
+def load_model(device, ckpt):
+    tokenizer = AutoTokenizer.from_pretrained(str(ckpt), local_files_only=True)
+    base = AutoModel.from_pretrained(str(ckpt), local_files_only=True)
     model = Pointer(base).to(device)
-    state = torch.load(str(CKPT / "head.pt"), map_location=device)
+    state = torch.load(str(ckpt / "head.pt"), map_location=device)
     model.head.load_state_dict(state["head"])
     model.eval()
     return tokenizer, model
@@ -91,10 +91,12 @@ def decode(pair, scored, threshold, max_spans, nms_iou):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default="artifacts/neural_pointer_v9/eval_full_dev.json")
+    parser.add_argument("--ckpt", default=str(CKPT))
     args = parser.parse_args()
+    ckpt = Path(args.ckpt)
     torch.set_num_threads(2)
     device = torch.device("cpu")
-    tokenizer, model = load_model(device)
+    tokenizer, model = load_model(device, ckpt)
     val = load_split(str(ROOT / "artifacts/gold_v3.jsonl"), "val")
     mfava = read_jsonl(str(ROOT / "artifacts/mfava_train_v3.jsonl"))
     dev = val + mfava
@@ -112,7 +114,7 @@ def main():
                and row["dev"]["pair"] >= 0.5 and row["dev"]["fpr"] <= 0.4]
     report = {
         "rule": "full candidates_v4; val+mFAVA dev only; held-out не читается",
-        "ckpt_sha256": hashlib.sha256((CKPT / "model.safetensors").read_bytes()).hexdigest(),
+        "ckpt_sha256": hashlib.sha256((ckpt / "model.safetensors").read_bytes()).hexdigest(),
         "best": rows[:10], "passing": passing[:10], "configs": rows,
     }
     target = ROOT / args.output
