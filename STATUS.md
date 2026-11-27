@@ -737,3 +737,26 @@ Guard (span 0,50 / pair 0,50, OOF ≥ baseline+0,02) не пройден ни о
 
 Договор по метрикам: Token 0,6191 ✅, FPR 0,125 ✅, mFAVA 0,6895 ✅, но Span 0,3363 ❌ и
 Pair 0,4872 ❌ — guard не пройден, рантайм не менялся.
+
+## Цикл 15 (весовой режим: веса добыты, LM-признаки, guard)
+
+Веса добыты: `cointegrated/rubert-tiny2` (312/3/12, vocab 83 828) найден в GitHub как int8-ONNX
+(`pyramidheadshark/rubert-turbo-payments`, 29 385 865 B, SHA `f04067da…534420`), деквантован
+(`w = (q − zp)·scale`) в fp32 `state_dict`, сверен с onnxruntime: ключи совпали, `max|Δlogits|`
+0,0656. Второй источник (`Gregory-mcbit/avitomodel`, safetensors float32) отклонён — vocab
+29 564. HF/hf-mirror/ModelScope/raw/archive остаются закрытыми (TLS EOF), PyPI 404.
+
+LM-признаки: 5 на токен ответа (энтропия внимания, доля внимания на документ, пик внимания,
+косинус к среднему документу и к ближайшему токену документа), `mean`+`max` по кандидату →
+10 колонок к 37 штатным, 116 487 кандидатов по 6 группам (`artifacts/lm_features_v15.json`).
+
+Guard: лучший вариант `v15_47_pairnorm_real` — val Span 0,2549 / Token 0,4976 / Pair 0,3250 /
+FPR 0,2019 / mFAVA 0,0271, OOF Span 0,0820 (real) и 0,1179 (смесь) против baseline 0,2437 →
+**reject**: признаки дают +0,0074 AUC на смеси и +0,0002…+0,021 OOF, но декодер и данные —
+узкое место, held-out не читался, рантайм не менялся.
+
+Скорость (§4.1): torch fp32 — 1k 0,0149 с ✅ / 50k 1,9935 с ❌ / 2M 85,28 с ❌; int8-ONNX
+(с добавленными выходами Softmax/LayerNorm) — 0,0070 / 0,9204 / 31,4942 с → **все лимиты ✅**.
+Отчёт: `artifacts/final_report_117812_v15.md`, метрики: `artifacts/span_oof_v15.json`,
+источники: `artifacts/weights_v15.json`, скорость: `artifacts/speed_v15.json`.
+Тесты: 142 passed (добавлен `pytest.ini` с `testpaths=tests`, чтобы `tools/external` не собирался).

@@ -1,0 +1,86 @@
+{
+  "rule": "договор §4.1: LM-инференс 1k ≤ 0.03 с, 50k ≤ 1 с, 2M ≤ 60 с; возм.: ONNX int8 / rubert-tiny вместо base / чанк-батч",
+  "hardware": "CPU x86-64 без GPU, RAM < 8 ГБ в песочнице",
+  "window_tokens": 510,
+  "batch": 8,
+  "limits": {
+    "1k": 0.03,
+    "50k": 1.0,
+    "2M": 60.0
+  },
+  "runners": {
+    "torch_fp32": {
+      "1k": {
+        "chars": 1000,
+        "tokens": 185,
+        "windows": 1,
+        "seconds": 0.0149,
+        "seconds_per_1k_chars": 0.0149,
+        "tokenize_seconds": 0.001,
+        "limit_seconds": 0.03,
+        "pass": true
+      },
+      "50k": {
+        "chars": 50000,
+        "tokens": 9704,
+        "windows": 20,
+        "seconds": 1.9935,
+        "seconds_per_1k_chars": 0.0399,
+        "tokenize_seconds": 0.018,
+        "limit_seconds": 1.0,
+        "pass": false
+      },
+      "2M": {
+        "chars": 2000000,
+        "tokens": 391774,
+        "windows": 769,
+        "seconds": 85.2813,
+        "seconds_per_1k_chars": 0.0426,
+        "tokenize_seconds": 1.341,
+        "limit_seconds": 60.0,
+        "pass": false
+      },
+      "pass_all": false
+    },
+    "onnx_int8": {
+      "1k": {
+        "chars": 1000,
+        "tokens": 185,
+        "windows": 1,
+        "seconds": 0.007,
+        "seconds_per_1k_chars": 0.007,
+        "tokenize_seconds": 0.001,
+        "limit_seconds": 0.03,
+        "pass": true
+      },
+      "50k": {
+        "chars": 50000,
+        "tokens": 9704,
+        "windows": 20,
+        "seconds": 0.9204,
+        "seconds_per_1k_chars": 0.0184,
+        "tokenize_seconds": 0.02,
+        "limit_seconds": 1.0,
+        "pass": true
+      },
+      "2M": {
+        "chars": 2000000,
+        "tokens": 391774,
+        "windows": 769,
+        "seconds": 31.4942,
+        "seconds_per_1k_chars": 0.0157,
+        "tokenize_seconds": 1.354,
+        "limit_seconds": 60.0,
+        "pass": true
+      },
+      "pass_all": true
+    }
+  },
+  "best": {
+    "runner": "onnx_int8",
+    "2M_seconds": 31.4942,
+    "2M_limit": 60.0,
+    "pass_all": true
+  },
+  "verdict": "speed ok"
+}

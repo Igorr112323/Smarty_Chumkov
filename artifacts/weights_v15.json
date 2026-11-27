@@ -1,0 +1,139 @@
+{
+  "rule": "веса добываются только из разрешённых сетевых хостов; всё скачанное хэшируется SHA-256; веса лежат локально в models/ и в пакет не входят",
+  "hosts": {
+    "huggingface.co": {
+      "url": "https://huggingface.co/api/models/cointegrated/rubert-tiny2",
+      "status": "fail",
+      "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
+    },
+    "hf-mirror.com": {
+      "url": "https://hf-mirror.com/api/models/cointegrated/rubert-tiny2",
+      "status": "fail",
+      "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
+    },
+    "modelscope.cn": {
+      "url": "https://modelscope.cn/api/v1/models/AI-ModelScope/rubert-base-cased",
+      "status": "fail",
+      "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
+    },
+    "raw.githubusercontent.com": {
+      "url": "https://raw.githubusercontent.com/google-research/bert/master/README.md",
+      "status": "fail",
+      "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
+    },
+    "archive.org": {
+      "url": "https://archive.org/advancedsearch.php?q=rubert&output=json",
+      "status": "fail",
+      "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
+    },
+    "pypi.org": {
+      "url": "https://pypi.org/pypi/rubert-tiny2/json",
+      "status": "fail",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    "registry.npmjs.org": {
+      "url": "https://registry.npmjs.org/@xenova/transformers",
+      "status": 200,
+      "bytes_read": 256
+    }
+  },
+  "sources": {},
+  "found": {
+    "onnx_int8": {
+      "repo": "https://github.com/pyramidheadshark/rubert-turbo-payments",
+      "path": "models/onnx_model/model_quantized.onnx",
+      "bytes": 29385865,
+      "sha256": "f04067dad13a977e2bea7feb395411e7ebc69d835a1c2db1b69502176b534420",
+      "architecture": "BERT (rubert-tiny2: 312 hidden, 3 layers, 12 heads, vocab 83828)",
+      "license": "не указана в репозитории (используется локально, в пакет не входит)"
+    },
+    "tokenizer": {
+      "source": "tools/external/rubert-turbo-payments/models/onnx_model/tokenizer.json",
+      "sha256": "2475c0f7e72668b4cd5ae8a758acf4cbe66a18759b8eebaf4e00e82133a38a26",
+      "local_models_tokenizer_sha256": "45cc9f974145661db6bc020795839d1dc371adc19a9c78b910393209b4fe5efc",
+      "same_vocab_size": true,
+      "note": "vocab_size 83 828 совпадает с models/rubert-tiny2; веса модели не совпадали"
+    },
+    "second_source_avitomodel": {
+      "repo": "https://github.com/Gregory-mcbit/avitomodel",
+      "path": "spacer_model/checkpoint-113/model.safetensors",
+      "bytes": 46754816,
+      "sha256": "e04f7a83653a3fd29b004842ed495bc448a05e8fa8eb791da03ca00d577f9268",
+      "architecture": "rubert-tiny v1 (312/3/12), float32, TokenClassification, vocab 29 564, max_pos 512",
+      "used": false,
+      "reason": "токенизатор несовместим с models/rubert-tiny2 (83 828); оставлен как второй источник/сверка архитектуры"
+    }
+  },
+  "github_search": [
+    {
+      "repo": "pyramidheadshark/rubert-turbo-payments",
+      "weights": true,
+      "what": "ONNX int8 rubert-tiny2 + токенизатор",
+      "used": true
+    },
+    {
+      "repo": "Gregory-mcbit/avitomodel",
+      "weights": true,
+      "what": "safetensors rubert-tiny v1",
+      "used": false
+    },
+    {
+      "repo": "RaikNef/ru-nlp-transformer-classifier",
+      "weights": false,
+      "what": "только код инференса",
+      "used": false
+    },
+    {
+      "repo": "tlidzhiev/inference-optimization",
+      "weights": false,
+      "what": "скрипты квантизации, весов нет",
+      "used": false
+    },
+    {
+      "repo": "danisxde/ru-sentiment-classification",
+      "weights": false,
+      "what": "веса не закоммичены (LFS/внешние)",
+      "used": false
+    },
+    {
+      "repo": "Djacon/russian-emotion-detection",
+      "weights": false,
+      "what": "веса не закоммичены",
+      "used": false
+    },
+    {
+      "repo": "artempokusaev/rubert-api",
+      "weights": false,
+      "what": "веса не закоммичены",
+      "used": false
+    }
+  ],
+  "dequant": {
+    "method": "w = (int8 − zero_point) × scale, транспонирование (in,out) → (out,in)",
+    "tensors": 57,
+    "params": 29196585,
+    "bytes_fp32": 116786340,
+    "target": "models/rubert-tiny2-deq",
+    "weights_sha256": "46ed15623bf250d6e05e89e2b8350f4b34107d1b9ed7b674077c5014e87acebb"
+  },
+  "verify": {
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "max_abs_delta": 0.06561128050088882,
+    "tokens": 38,
+    "logits_hf": [
+      0.4016,
+      -0.5577,
+      3.3377,
+      0.253,
+      0.1272
+    ],
+    "logits_onnx": [
+      0.3965,
+      -0.5688,
+      3.3356,
+      0.2855,
+      0.0615
+    ]
+  }
+}

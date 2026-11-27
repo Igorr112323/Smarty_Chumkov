@@ -1,0 +1,1998 @@
+{
+  "rule": "GBDT (HistGradientBoosting, экспорт деревьев в JSON) на 37 признаках v11 + 10 LM-признаках rubert-tiny2; LM не дообучается; порог калибруется на val; held-out не читается",
+  "baseline": {
+    "val": {
+      "span": 0.3363,
+      "token": 0.6191,
+      "pair": 0.4872,
+      "fpr": 0.125
+    },
+    "mfava_span": 0.6895,
+    "oof_span": 0.2437
+  },
+  "guard": {
+    "span": 0.4,
+    "token": 0.5,
+    "pair": 0.45,
+    "fpr_max": 0.4,
+    "mfava_span": 0.65,
+    "oof_span": 0.2437
+  },
+  "model": {
+    "trees": 160,
+    "leaves": 15,
+    "lr": 0.08,
+    "pos_weight": 1.0
+  },
+  "data": {
+    "real": {
+      "candidates": 5687,
+      "positives": 454
+    },
+    "synth": {
+      "candidates": 63265,
+      "positives": 7644
+    },
+    "pseudo": {
+      "candidates": 1569,
+      "positives": 127
+    },
+    "ragtruth": {
+      "candidates": 28910,
+      "positives": 2775
+    },
+    "val": {
+      "candidates": 1374,
+      "positives": 98
+    },
+    "mfava": {
+      "candidates": 5682,
+      "positives": 975
+    }
+  },
+  "ablations": {
+    "control_37": {
+      "features": "37",
+      "parts": [
+        "real",
+        "synth",
+        "pseudo",
+        "ragtruth"
+      ],
+      "train_rows": 99431,
+      "train_positives": 11000,
+      "fit_seconds": 7.5,
+      "val_best_single_split": {
+        "config": {
+          "threshold": 0.3,
+          "max_spans": 1
+        },
+        "span": 0.1455,
+        "token": 0.1876,
+        "pair": 0.1928,
+        "fpr": 0.2788,
+        "span_p": 0.1429,
+        "span_r": 0.1481
+      },
+      "val_at_combined_config": {
+        "span": 0.1455,
+        "token": 0.1876,
+        "pair": 0.1928,
+        "fpr": 0.2788,
+        "span_p": 0.1429,
+        "span_r": 0.1481
+      },
+      "combined_config": {
+        "threshold": 0.3,
+        "max_spans": 3
+      },
+      "val_span_at_combined_config": 0.2102,
+      "all_configs": [
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 1
+          },
+          "span": 0.1455,
+          "token": 0.1876,
+          "pair": 0.1928,
+          "fpr": 0.2788,
+          "span_p": 0.1429,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 2
+          },
+          "span": 0.1304,
+          "token": 0.2576,
+          "pair": 0.2143,
+          "fpr": 0.2788,
+          "span_p": 0.1071,
+          "span_r": 0.1667
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 3
+          },
+          "span": 0.1333,
+          "token": 0.2787,
+          "pair": 0.2353,
+          "fpr": 0.2788,
+          "span_p": 0.1042,
+          "span_r": 0.1852
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 1
+          },
+          "span": 0.14,
+          "token": 0.156,
+          "pair": 0.1818,
+          "fpr": 0.2308,
+          "span_p": 0.1522,
+          "span_r": 0.1296
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 2
+          },
+          "span": 0.1239,
+          "token": 0.1747,
+          "pair": 0.1818,
+          "fpr": 0.2308,
+          "span_p": 0.1186,
+          "span_r": 0.1296
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 3
+          },
+          "span": 0.1176,
+          "token": 0.1925,
+          "pair": 0.1818,
+          "fpr": 0.2308,
+          "span_p": 0.1077,
+          "span_r": 0.1296
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 1
+          },
+          "span": 0.1333,
+          "token": 0.1297,
+          "pair": 0.1739,
+          "fpr": 0.1635,
+          "span_p": 0.1667,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 2
+          },
+          "span": 0.1188,
+          "token": 0.1542,
+          "pair": 0.1739,
+          "fpr": 0.1635,
+          "span_p": 0.1277,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 3
+          },
+          "span": 0.1154,
+          "token": 0.164,
+          "pair": 0.1739,
+          "fpr": 0.1635,
+          "span_p": 0.12,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 1
+          },
+          "span": 0.0976,
+          "token": 0.111,
+          "pair": 0.125,
+          "fpr": 0.1346,
+          "span_p": 0.1429,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 2
+          },
+          "span": 0.0879,
+          "token": 0.1385,
+          "pair": 0.125,
+          "fpr": 0.1346,
+          "span_p": 0.1081,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 3
+          },
+          "span": 0.087,
+          "token": 0.1503,
+          "pair": 0.125,
+          "fpr": 0.1346,
+          "span_p": 0.1053,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 1
+          },
+          "span": 0.0988,
+          "token": 0.1119,
+          "pair": 0.125,
+          "fpr": 0.1346,
+          "span_p": 0.1481,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 2
+          },
+          "span": 0.0899,
+          "token": 0.1284,
+          "pair": 0.125,
+          "fpr": 0.1346,
+          "span_p": 0.1143,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 3
+          },
+          "span": 0.0889,
+          "token": 0.1405,
+          "pair": 0.125,
+          "fpr": 0.1346,
+          "span_p": 0.1111,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 1
+          },
+          "span": 0.08,
+          "token": 0.0644,
+          "pair": 0.1,
+          "fpr": 0.1058,
+          "span_p": 0.1429,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 2
+          },
+          "span": 0.075,
+          "token": 0.0866,
+          "pair": 0.1,
+          "fpr": 0.1058,
+          "span_p": 0.1154,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 3
+          },
+          "span": 0.075,
+          "token": 0.0866,
+          "pair": 0.1,
+          "fpr": 0.1058,
+          "span_p": 0.1154,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 1
+          },
+          "span": 0.0833,
+          "token": 0.0596,
+          "pair": 0.1017,
+          "fpr": 0.0962,
+          "span_p": 0.1667,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 2
+          },
+          "span": 0.0811,
+          "token": 0.0731,
+          "pair": 0.1017,
+          "fpr": 0.0962,
+          "span_p": 0.15,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 3
+          },
+          "span": 0.0811,
+          "token": 0.0731,
+          "pair": 0.1017,
+          "fpr": 0.0962,
+          "span_p": 0.15,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 1
+          },
+          "span": 0.058,
+          "token": 0.031,
+          "pair": 0.0702,
+          "fpr": 0.0865,
+          "span_p": 0.1333,
+          "span_r": 0.037
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 2
+          },
+          "span": 0.0563,
+          "token": 0.0452,
+          "pair": 0.0702,
+          "fpr": 0.0865,
+          "span_p": 0.1176,
+          "span_r": 0.037
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 3
+          },
+          "span": 0.0563,
+          "token": 0.0452,
+          "pair": 0.0702,
+          "fpr": 0.0865,
+          "span_p": 0.1176,
+          "span_r": 0.037
+        }
+      ],
+      "mfava": {
+        "span": 0.1699,
+        "token": 0.2169,
+        "pair": 0.4583,
+        "fpr": 0.0,
+        "span_p": 0.3465,
+        "span_r": 0.1125
+      },
+      "nodes": 4640,
+      "guard_pass_without_oof": false
+    },
+    "v15_47": {
+      "features": "47",
+      "parts": [
+        "real",
+        "synth",
+        "pseudo",
+        "ragtruth"
+      ],
+      "train_rows": 99431,
+      "train_positives": 11000,
+      "fit_seconds": 10.6,
+      "val_best_single_split": {
+        "config": {
+          "threshold": 0.5,
+          "max_spans": 3
+        },
+        "span": 0.098,
+        "token": 0.1338,
+        "pair": 0.1429,
+        "fpr": 0.1827,
+        "span_p": 0.1042,
+        "span_r": 0.0926
+      },
+      "val_at_combined_config": {
+        "span": 0.098,
+        "token": 0.1338,
+        "pair": 0.1429,
+        "fpr": 0.1827,
+        "span_p": 0.1042,
+        "span_r": 0.0926
+      },
+      "combined_config": {
+        "threshold": 0.3,
+        "max_spans": 3
+      },
+      "val_span_at_combined_config": 0.1682,
+      "all_configs": [
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 1
+          },
+          "span": 0.0909,
+          "token": 0.2032,
+          "pair": 0.1266,
+          "fpr": 0.2692,
+          "span_p": 0.0893,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 2
+          },
+          "span": 0.0882,
+          "token": 0.2685,
+          "pair": 0.15,
+          "fpr": 0.2692,
+          "span_p": 0.0732,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 3
+          },
+          "span": 0.0959,
+          "token": 0.3047,
+          "pair": 0.1728,
+          "fpr": 0.2692,
+          "span_p": 0.0761,
+          "span_r": 0.1296
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 1
+          },
+          "span": 0.0792,
+          "token": 0.1858,
+          "pair": 0.1111,
+          "fpr": 0.2115,
+          "span_p": 0.0851,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 2
+          },
+          "span": 0.0702,
+          "token": 0.2366,
+          "pair": 0.1111,
+          "fpr": 0.2115,
+          "span_p": 0.0667,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 3
+          },
+          "span": 0.0855,
+          "token": 0.2462,
+          "pair": 0.137,
+          "fpr": 0.2115,
+          "span_p": 0.0794,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 1
+          },
+          "span": 0.087,
+          "token": 0.1131,
+          "pair": 0.1159,
+          "fpr": 0.1827,
+          "span_p": 0.1053,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 2
+          },
+          "span": 0.0792,
+          "token": 0.1195,
+          "pair": 0.1159,
+          "fpr": 0.1827,
+          "span_p": 0.0851,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 3
+          },
+          "span": 0.098,
+          "token": 0.1338,
+          "pair": 0.1429,
+          "fpr": 0.1827,
+          "span_p": 0.1042,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 1
+          },
+          "span": 0.0674,
+          "token": 0.11,
+          "pair": 0.0896,
+          "fpr": 0.1731,
+          "span_p": 0.0857,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 2
+          },
+          "span": 0.0619,
+          "token": 0.118,
+          "pair": 0.0896,
+          "fpr": 0.1731,
+          "span_p": 0.0698,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 3
+          },
+          "span": 0.0816,
+          "token": 0.1326,
+          "pair": 0.1176,
+          "fpr": 0.1731,
+          "span_p": 0.0909,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 1
+          },
+          "span": 0.0706,
+          "token": 0.0987,
+          "pair": 0.0909,
+          "fpr": 0.1635,
+          "span_p": 0.0968,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 2
+          },
+          "span": 0.0667,
+          "token": 0.109,
+          "pair": 0.0909,
+          "fpr": 0.1635,
+          "span_p": 0.0833,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 3
+          },
+          "span": 0.0667,
+          "token": 0.109,
+          "pair": 0.0909,
+          "fpr": 0.1635,
+          "span_p": 0.0833,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 1
+          },
+          "span": 0.025,
+          "token": 0.0634,
+          "pair": 0.0323,
+          "fpr": 0.1442,
+          "span_p": 0.0385,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 2
+          },
+          "span": 0.0238,
+          "token": 0.0755,
+          "pair": 0.0323,
+          "fpr": 0.1442,
+          "span_p": 0.0333,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 3
+          },
+          "span": 0.0238,
+          "token": 0.0755,
+          "pair": 0.0323,
+          "fpr": 0.1442,
+          "span_p": 0.0333,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 1
+          },
+          "span": 0.027,
+          "token": 0.0653,
+          "pair": 0.0333,
+          "fpr": 0.125,
+          "span_p": 0.05,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 2
+          },
+          "span": 0.026,
+          "token": 0.0781,
+          "pair": 0.0333,
+          "fpr": 0.125,
+          "span_p": 0.0435,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 3
+          },
+          "span": 0.026,
+          "token": 0.0781,
+          "pair": 0.0333,
+          "fpr": 0.125,
+          "span_p": 0.0435,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 1
+          },
+          "span": 0.0299,
+          "token": 0.0174,
+          "pair": 0.0345,
+          "fpr": 0.1058,
+          "span_p": 0.0769,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 2
+          },
+          "span": 0.029,
+          "token": 0.0319,
+          "pair": 0.0345,
+          "fpr": 0.1058,
+          "span_p": 0.0667,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 3
+          },
+          "span": 0.029,
+          "token": 0.0319,
+          "pair": 0.0345,
+          "fpr": 0.1058,
+          "span_p": 0.0667,
+          "span_r": 0.0185
+        }
+      ],
+      "mfava": {
+        "span": 0.1317,
+        "token": 0.1963,
+        "pair": 0.269,
+        "fpr": 0.0,
+        "span_p": 0.3368,
+        "span_r": 0.0818
+      },
+      "nodes": 4640,
+      "guard_pass_without_oof": false
+    },
+    "v15_47_pairnorm": {
+      "features": "47n",
+      "parts": [
+        "real",
+        "synth",
+        "pseudo",
+        "ragtruth"
+      ],
+      "train_rows": 99431,
+      "train_positives": 11000,
+      "fit_seconds": 10.2,
+      "val_best_single_split": {
+        "config": {
+          "threshold": 0.5,
+          "max_spans": 1
+        },
+        "span": 0.1538,
+        "token": 0.1884,
+        "pair": 0.2051,
+        "fpr": 0.2308,
+        "span_p": 0.16,
+        "span_r": 0.1481
+      },
+      "val_at_combined_config": {
+        "span": 0.1538,
+        "token": 0.1884,
+        "pair": 0.2051,
+        "fpr": 0.2308,
+        "span_p": 0.16,
+        "span_r": 0.1481
+      },
+      "combined_config": {
+        "threshold": 0.3,
+        "max_spans": 3
+      },
+      "val_span_at_combined_config": 0.2084,
+      "all_configs": [
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 1
+          },
+          "span": 0.1379,
+          "token": 0.2302,
+          "pair": 0.1882,
+          "fpr": 0.2981,
+          "span_p": 0.129,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 2
+          },
+          "span": 0.1203,
+          "token": 0.2879,
+          "pair": 0.1882,
+          "fpr": 0.2981,
+          "span_p": 0.1013,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 3
+          },
+          "span": 0.1176,
+          "token": 0.2964,
+          "pair": 0.1882,
+          "fpr": 0.2981,
+          "span_p": 0.0976,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 1
+          },
+          "span": 0.1441,
+          "token": 0.2119,
+          "pair": 0.1975,
+          "fpr": 0.2596,
+          "span_p": 0.1404,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 2
+          },
+          "span": 0.1322,
+          "token": 0.248,
+          "pair": 0.1975,
+          "fpr": 0.2596,
+          "span_p": 0.1194,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 3
+          },
+          "span": 0.1301,
+          "token": 0.2502,
+          "pair": 0.1975,
+          "fpr": 0.2596,
+          "span_p": 0.1159,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 1
+          },
+          "span": 0.1538,
+          "token": 0.1884,
+          "pair": 0.2051,
+          "fpr": 0.2308,
+          "span_p": 0.16,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 2
+          },
+          "span": 0.1455,
+          "token": 0.2069,
+          "pair": 0.2051,
+          "fpr": 0.2308,
+          "span_p": 0.1429,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 3
+          },
+          "span": 0.1455,
+          "token": 0.2069,
+          "pair": 0.2051,
+          "fpr": 0.2308,
+          "span_p": 0.1429,
+          "span_r": 0.1481
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 1
+          },
+          "span": 0.1224,
+          "token": 0.1755,
+          "pair": 0.1667,
+          "fpr": 0.1923,
+          "span_p": 0.1364,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 2
+          },
+          "span": 0.1154,
+          "token": 0.195,
+          "pair": 0.1667,
+          "fpr": 0.1923,
+          "span_p": 0.12,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 3
+          },
+          "span": 0.1154,
+          "token": 0.195,
+          "pair": 0.1667,
+          "fpr": 0.1923,
+          "span_p": 0.12,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 1
+          },
+          "span": 0.1099,
+          "token": 0.1468,
+          "pair": 0.1493,
+          "fpr": 0.1538,
+          "span_p": 0.1351,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 2
+          },
+          "span": 0.1042,
+          "token": 0.1651,
+          "pair": 0.1493,
+          "fpr": 0.1538,
+          "span_p": 0.119,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 3
+          },
+          "span": 0.1042,
+          "token": 0.1651,
+          "pair": 0.1493,
+          "fpr": 0.1538,
+          "span_p": 0.119,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 1
+          },
+          "span": 0.0952,
+          "token": 0.1173,
+          "pair": 0.127,
+          "fpr": 0.125,
+          "span_p": 0.1333,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 2
+          },
+          "span": 0.092,
+          "token": 0.1282,
+          "pair": 0.127,
+          "fpr": 0.125,
+          "span_p": 0.1212,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 3
+          },
+          "span": 0.092,
+          "token": 0.1282,
+          "pair": 0.127,
+          "fpr": 0.125,
+          "span_p": 0.1212,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 1
+          },
+          "span": 0.0988,
+          "token": 0.1112,
+          "pair": 0.129,
+          "fpr": 0.1154,
+          "span_p": 0.1481,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 2
+          },
+          "span": 0.0976,
+          "token": 0.1241,
+          "pair": 0.129,
+          "fpr": 0.1154,
+          "span_p": 0.1429,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 3
+          },
+          "span": 0.0976,
+          "token": 0.1241,
+          "pair": 0.129,
+          "fpr": 0.1154,
+          "span_p": 0.1429,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 1
+          },
+          "span": 0.0811,
+          "token": 0.0551,
+          "pair": 0.1034,
+          "fpr": 0.0865,
+          "span_p": 0.15,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 2
+          },
+          "span": 0.08,
+          "token": 0.0689,
+          "pair": 0.1034,
+          "fpr": 0.0865,
+          "span_p": 0.1429,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 3
+          },
+          "span": 0.08,
+          "token": 0.0689,
+          "pair": 0.1034,
+          "fpr": 0.0865,
+          "span_p": 0.1429,
+          "span_r": 0.0556
+        }
+      ],
+      "mfava": {
+        "span": 0.1506,
+        "token": 0.1938,
+        "pair": 0.3913,
+        "fpr": 0.0,
+        "span_p": 0.4138,
+        "span_r": 0.0921
+      },
+      "nodes": 4640,
+      "guard_pass_without_oof": false
+    },
+    "v15_47_pairnorm_real": {
+      "features": "47n",
+      "parts": [
+        "real"
+      ],
+      "train_rows": 5687,
+      "train_positives": 454,
+      "fit_seconds": 1.5,
+      "val_best_single_split": {
+        "config": {
+          "threshold": 0.3,
+          "max_spans": 2
+        },
+        "span": 0.2549,
+        "token": 0.4976,
+        "pair": 0.325,
+        "fpr": 0.2019,
+        "span_p": 0.2708,
+        "span_r": 0.2407
+      },
+      "val_at_combined_config": {
+        "span": 0.2549,
+        "token": 0.4976,
+        "pair": 0.325,
+        "fpr": 0.2019,
+        "span_p": 0.2708,
+        "span_r": 0.2407
+      },
+      "combined_config": {
+        "threshold": 0.3,
+        "max_spans": 2
+      },
+      "val_span_at_combined_config": 0.141,
+      "all_configs": [
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 1
+          },
+          "span": 0.24,
+          "token": 0.4669,
+          "pair": 0.3038,
+          "fpr": 0.2019,
+          "span_p": 0.2609,
+          "span_r": 0.2222
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 2
+          },
+          "span": 0.2549,
+          "token": 0.4976,
+          "pair": 0.325,
+          "fpr": 0.2019,
+          "span_p": 0.2708,
+          "span_r": 0.2407
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 3
+          },
+          "span": 0.2549,
+          "token": 0.4976,
+          "pair": 0.325,
+          "fpr": 0.2019,
+          "span_p": 0.2708,
+          "span_r": 0.2407
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 1
+          },
+          "span": 0.2247,
+          "token": 0.4698,
+          "pair": 0.2857,
+          "fpr": 0.1346,
+          "span_p": 0.2857,
+          "span_r": 0.1852
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 2
+          },
+          "span": 0.2444,
+          "token": 0.4902,
+          "pair": 0.3099,
+          "fpr": 0.1346,
+          "span_p": 0.3056,
+          "span_r": 0.2037
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 3
+          },
+          "span": 0.2444,
+          "token": 0.4902,
+          "pair": 0.3099,
+          "fpr": 0.1346,
+          "span_p": 0.3056,
+          "span_r": 0.2037
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 1
+          },
+          "span": 0.169,
+          "token": 0.3601,
+          "pair": 0.2143,
+          "fpr": 0.0385,
+          "span_p": 0.3529,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 2
+          },
+          "span": 0.169,
+          "token": 0.3601,
+          "pair": 0.2143,
+          "fpr": 0.0385,
+          "span_p": 0.3529,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 3
+          },
+          "span": 0.169,
+          "token": 0.3601,
+          "pair": 0.2143,
+          "fpr": 0.0385,
+          "span_p": 0.3529,
+          "span_r": 0.1111
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 1
+          },
+          "span": 0.1231,
+          "token": 0.2361,
+          "pair": 0.1569,
+          "fpr": 0.0096,
+          "span_p": 0.3636,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 2
+          },
+          "span": 0.1231,
+          "token": 0.2361,
+          "pair": 0.1569,
+          "fpr": 0.0096,
+          "span_p": 0.3636,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 3
+          },
+          "span": 0.1231,
+          "token": 0.2361,
+          "pair": 0.1569,
+          "fpr": 0.0096,
+          "span_p": 0.3636,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 1
+          },
+          "span": 0.129,
+          "token": 0.2125,
+          "pair": 0.1569,
+          "fpr": 0.0096,
+          "span_p": 0.5,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 2
+          },
+          "span": 0.129,
+          "token": 0.2125,
+          "pair": 0.1569,
+          "fpr": 0.0096,
+          "span_p": 0.5,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 3
+          },
+          "span": 0.129,
+          "token": 0.2125,
+          "pair": 0.1569,
+          "fpr": 0.0096,
+          "span_p": 0.5,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 1
+          },
+          "span": 0.1,
+          "token": 0.2026,
+          "pair": 0.1224,
+          "fpr": 0.0,
+          "span_p": 0.5,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 2
+          },
+          "span": 0.1,
+          "token": 0.2026,
+          "pair": 0.1224,
+          "fpr": 0.0,
+          "span_p": 0.5,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 3
+          },
+          "span": 0.1,
+          "token": 0.2026,
+          "pair": 0.1224,
+          "fpr": 0.0,
+          "span_p": 0.5,
+          "span_r": 0.0556
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 1
+          },
+          "span": 0.0351,
+          "token": 0.0716,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 0.3333,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 2
+          },
+          "span": 0.0351,
+          "token": 0.0716,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 0.3333,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 3
+          },
+          "span": 0.0351,
+          "token": 0.0716,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 0.3333,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 1
+          },
+          "span": 0.0364,
+          "token": 0.045,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 1.0,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 2
+          },
+          "span": 0.0364,
+          "token": 0.045,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 1.0,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 3
+          },
+          "span": 0.0364,
+          "token": 0.045,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 1.0,
+          "span_r": 0.0185
+        }
+      ],
+      "mfava": {
+        "span": 0.0271,
+        "token": 0.4797,
+        "pair": 0.0903,
+        "fpr": 0.0,
+        "span_p": 0.056,
+        "span_r": 0.0179
+      },
+      "nodes": 4640,
+      "guard_pass_without_oof": false,
+      "guard_pass": false
+    },
+    "v15_lm_only": {
+      "features": "lm",
+      "parts": [
+        "real",
+        "synth",
+        "pseudo",
+        "ragtruth"
+      ],
+      "train_rows": 99431,
+      "train_positives": 11000,
+      "fit_seconds": 3.2,
+      "val_best_single_split": {
+        "config": {
+          "threshold": 0.55,
+          "max_spans": 1
+        },
+        "span": 0.1013,
+        "token": 0.0916,
+        "pair": 0.1333,
+        "fpr": 0.0962,
+        "span_p": 0.16,
+        "span_r": 0.0741
+      },
+      "val_at_combined_config": {
+        "span": 0.1013,
+        "token": 0.0916,
+        "pair": 0.1333,
+        "fpr": 0.0962,
+        "span_p": 0.16,
+        "span_r": 0.0741
+      },
+      "combined_config": {
+        "threshold": 0.3,
+        "max_spans": 3
+      },
+      "val_span_at_combined_config": 0.1024,
+      "all_configs": [
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 1
+          },
+          "span": 0.0855,
+          "token": 0.1467,
+          "pair": 0.1176,
+          "fpr": 0.3269,
+          "span_p": 0.0794,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 2
+          },
+          "span": 0.0775,
+          "token": 0.1687,
+          "pair": 0.1176,
+          "fpr": 0.3269,
+          "span_p": 0.0667,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.3,
+            "max_spans": 3
+          },
+          "span": 0.0746,
+          "token": 0.1792,
+          "pair": 0.1176,
+          "fpr": 0.3269,
+          "span_p": 0.0625,
+          "span_r": 0.0926
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 1
+          },
+          "span": 0.0842,
+          "token": 0.127,
+          "pair": 0.1194,
+          "fpr": 0.1635,
+          "span_p": 0.0976,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 2
+          },
+          "span": 0.0777,
+          "token": 0.1412,
+          "pair": 0.1194,
+          "fpr": 0.1635,
+          "span_p": 0.0816,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.4,
+            "max_spans": 3
+          },
+          "span": 0.0748,
+          "token": 0.1495,
+          "pair": 0.1194,
+          "fpr": 0.1635,
+          "span_p": 0.0755,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 1
+          },
+          "span": 0.0964,
+          "token": 0.0902,
+          "pair": 0.129,
+          "fpr": 0.1154,
+          "span_p": 0.1379,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 2
+          },
+          "span": 0.0909,
+          "token": 0.0987,
+          "pair": 0.129,
+          "fpr": 0.1154,
+          "span_p": 0.1176,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.5,
+            "max_spans": 3
+          },
+          "span": 0.0889,
+          "token": 0.1058,
+          "pair": 0.129,
+          "fpr": 0.1154,
+          "span_p": 0.1111,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 1
+          },
+          "span": 0.1013,
+          "token": 0.0916,
+          "pair": 0.1333,
+          "fpr": 0.0962,
+          "span_p": 0.16,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 2
+          },
+          "span": 0.0964,
+          "token": 0.1009,
+          "pair": 0.1333,
+          "fpr": 0.0962,
+          "span_p": 0.1379,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.55,
+            "max_spans": 3
+          },
+          "span": 0.0964,
+          "token": 0.1009,
+          "pair": 0.1333,
+          "fpr": 0.0962,
+          "span_p": 0.1379,
+          "span_r": 0.0741
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 1
+          },
+          "span": 0.0571,
+          "token": 0.0618,
+          "pair": 0.0755,
+          "fpr": 0.0481,
+          "span_p": 0.125,
+          "span_r": 0.037
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 2
+          },
+          "span": 0.0548,
+          "token": 0.072,
+          "pair": 0.0755,
+          "fpr": 0.0481,
+          "span_p": 0.1053,
+          "span_r": 0.037
+        },
+        {
+          "config": {
+            "threshold": 0.6,
+            "max_spans": 3
+          },
+          "span": 0.0548,
+          "token": 0.072,
+          "pair": 0.0755,
+          "fpr": 0.0481,
+          "span_p": 0.1053,
+          "span_r": 0.037
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 1
+          },
+          "span": 0.0606,
+          "token": 0.0626,
+          "pair": 0.08,
+          "fpr": 0.0192,
+          "span_p": 0.1667,
+          "span_r": 0.037
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 2
+          },
+          "span": 0.0588,
+          "token": 0.0734,
+          "pair": 0.08,
+          "fpr": 0.0192,
+          "span_p": 0.1429,
+          "span_r": 0.037
+        },
+        {
+          "config": {
+            "threshold": 0.65,
+            "max_spans": 3
+          },
+          "span": 0.0588,
+          "token": 0.0734,
+          "pair": 0.08,
+          "fpr": 0.0192,
+          "span_p": 0.1429,
+          "span_r": 0.037
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 1
+          },
+          "span": 0.0345,
+          "token": 0.0206,
+          "pair": 0.0408,
+          "fpr": 0.0192,
+          "span_p": 0.25,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 2
+          },
+          "span": 0.0345,
+          "token": 0.0206,
+          "pair": 0.0408,
+          "fpr": 0.0192,
+          "span_p": 0.25,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.7,
+            "max_spans": 3
+          },
+          "span": 0.0345,
+          "token": 0.0206,
+          "pair": 0.0408,
+          "fpr": 0.0192,
+          "span_p": 0.25,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 1
+          },
+          "span": 0.0357,
+          "token": 0.0208,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 0.5,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 2
+          },
+          "span": 0.0357,
+          "token": 0.0208,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 0.5,
+          "span_r": 0.0185
+        },
+        {
+          "config": {
+            "threshold": 0.75,
+            "max_spans": 3
+          },
+          "span": 0.0357,
+          "token": 0.0208,
+          "pair": 0.0426,
+          "fpr": 0.0,
+          "span_p": 0.5,
+          "span_r": 0.0185
+        }
+      ],
+      "mfava": {
+        "span": 0.0309,
+        "token": 0.077,
+        "pair": 0.0903,
+        "fpr": 0.0,
+        "span_p": 0.1129,
+        "span_r": 0.0179
+      },
+      "nodes": 4640,
+      "guard_pass_without_oof": false
+    }
+  },
+  "oof": {
+    "rule": "3 фолда по парам, конфиг берётся из val; отдельно реальные русские пары (с ними сравнивается OOF v14 = 0.2437) и полная обучающая смесь",
+    "baseline_mean_span": 0.2437,
+    "sets": {
+      "real": {
+        "parts": [
+          "real"
+        ],
+        "variants": {
+          "control_37": {
+            "features": "37",
+            "folds": [
+              {
+                "span": 0.0704,
+                "token": 0.1636,
+                "pair": 0.0935,
+                "fpr": 0.2832,
+                "span_p": 0.0781,
+                "span_r": 0.0641,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 1
+                },
+                "rows": 3574,
+                "positives": 147
+              },
+              {
+                "span": 0.0301,
+                "token": 0.0906,
+                "pair": 0.04,
+                "fpr": 0.2609,
+                "span_p": 0.0417,
+                "span_r": 0.0235,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 1
+                },
+                "rows": 3849,
+                "positives": 164
+              },
+              {
+                "span": 0.1449,
+                "token": 0.2098,
+                "pair": 0.1905,
+                "fpr": 0.3125,
+                "span_p": 0.1515,
+                "span_r": 0.1389,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 1
+                },
+                "rows": 3951,
+                "positives": 143
+              }
+            ],
+            "mean": {
+              "span": 0.0818,
+              "token": 0.1547,
+              "pair": 0.108,
+              "fpr": 0.2855
+            },
+            "delta_vs_baseline": -0.1619,
+            "pass": false
+          },
+          "v15_47_pairnorm_real": {
+            "features": "47n",
+            "folds": [
+              {
+                "span": 0.0613,
+                "token": 0.1944,
+                "pair": 0.0935,
+                "fpr": 0.2832,
+                "span_p": 0.0588,
+                "span_r": 0.0641,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 2
+                },
+                "rows": 3574,
+                "positives": 147
+              },
+              {
+                "span": 0.053,
+                "token": 0.1254,
+                "pair": 0.0784,
+                "fpr": 0.2609,
+                "span_p": 0.0606,
+                "span_r": 0.0471,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 2
+                },
+                "rows": 3849,
+                "positives": 164
+              },
+              {
+                "span": 0.1317,
+                "token": 0.2548,
+                "pair": 0.1905,
+                "fpr": 0.3125,
+                "span_p": 0.1158,
+                "span_r": 0.1528,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 2
+                },
+                "rows": 3951,
+                "positives": 143
+              }
+            ],
+            "mean": {
+              "span": 0.082,
+              "token": 0.1915,
+              "pair": 0.1208,
+              "fpr": 0.2855
+            },
+            "delta_vs_baseline": -0.1617,
+            "pass": false
+          }
+        }
+      },
+      "mixture": {
+        "parts": [
+          "real",
+          "synth",
+          "pseudo",
+          "ragtruth"
+        ],
+        "variants": {
+          "control_37": {
+            "features": "37",
+            "folds": [
+              {
+                "span": 0.1007,
+                "token": 0.17,
+                "pair": 0.163,
+                "fpr": 0.3171,
+                "span_p": 0.1283,
+                "span_r": 0.0829,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 1
+                },
+                "rows": 65368,
+                "positives": 3653
+              },
+              {
+                "span": 0.0966,
+                "token": 0.1533,
+                "pair": 0.1516,
+                "fpr": 0.3628,
+                "span_p": 0.1232,
+                "span_r": 0.0794,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 1
+                },
+                "rows": 66556,
+                "positives": 3651
+              },
+              {
+                "span": 0.0927,
+                "token": 0.1482,
+                "pair": 0.1473,
+                "fpr": 0.3083,
+                "span_p": 0.1194,
+                "span_r": 0.0758,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 1
+                },
+                "rows": 66938,
+                "positives": 3696
+              }
+            ],
+            "mean": {
+              "span": 0.0967,
+              "token": 0.1572,
+              "pair": 0.154,
+              "fpr": 0.3294
+            },
+            "delta_vs_baseline": -0.147,
+            "pass": false
+          },
+          "v15_47_pairnorm_real": {
+            "features": "47n",
+            "folds": [
+              {
+                "span": 0.1248,
+                "token": 0.2033,
+                "pair": 0.2354,
+                "fpr": 0.3171,
+                "span_p": 0.1251,
+                "span_r": 0.1246,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 2
+                },
+                "rows": 65368,
+                "positives": 3653
+              },
+              {
+                "span": 0.1194,
+                "token": 0.1891,
+                "pair": 0.2157,
+                "fpr": 0.3628,
+                "span_p": 0.1206,
+                "span_r": 0.1182,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 2
+                },
+                "rows": 66556,
+                "positives": 3651
+              },
+              {
+                "span": 0.1096,
+                "token": 0.1773,
+                "pair": 0.2023,
+                "fpr": 0.3083,
+                "span_p": 0.1119,
+                "span_r": 0.1073,
+                "config": {
+                  "threshold": 0.3,
+                  "max_spans": 2
+                },
+                "rows": 66938,
+                "positives": 3696
+              }
+            ],
+            "mean": {
+              "span": 0.1179,
+              "token": 0.1899,
+              "pair": 0.2178,
+              "fpr": 0.3294
+            },
+            "delta_vs_baseline": -0.1258,
+            "pass": false
+          }
+        }
+      }
+    },
+    "pass": false
+  },
+  "best": {
+    "ablation": "v15_47_pairnorm_real",
+    "config": {
+      "threshold": 0.3,
+      "max_spans": 2
+    },
+    "val": {
+      "span": 0.2549,
+      "token": 0.4976,
+      "pair": 0.325,
+      "fpr": 0.2019
+    },
+    "mfava_span": 0.0271,
+    "model_bytes": 392929
+  },
+  "verdict": "reject"
+}

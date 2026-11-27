@@ -1,0 +1,377 @@
+{
+  "rule": "предобученный энкодер rubert-tiny2 (dequant из int8 ONNX) в eval-режиме; дообучения нет; 5 признаков на токен ответа, mean/max по кандидату",
+  "weights": "models/rubert-tiny2-deq (см. artifacts/weights_v15.json)",
+  "columns": [
+    "attn_entropy_mean",
+    "attn_entropy_max",
+    "attn_doc_share_mean",
+    "attn_doc_share_max",
+    "attn_doc_peak_mean",
+    "attn_doc_peak_max",
+    "cos_doc_mean_mean",
+    "cos_doc_mean_max",
+    "cos_doc_max_mean",
+    "cos_doc_max_max"
+  ],
+  "input": {
+    "max_doc_tokens": 380,
+    "max_answer_tokens": 128,
+    "template": "[CLS] документ [SEP] ответ [SEP]"
+  },
+  "groups": {
+    "real": {
+      "pairs": 549,
+      "candidates": 5687,
+      "positives": 454,
+      "seconds": 48.8,
+      "seconds_per_1k_chars": 0.0333,
+      "feature_stats": {
+        "attn_entropy_mean": {
+          "pos_mean": 0.4532,
+          "neg_mean": 0.4372,
+          "std": 0.0641
+        },
+        "attn_entropy_max": {
+          "pos_mean": 0.461,
+          "neg_mean": 0.4417,
+          "std": 0.0782
+        },
+        "attn_doc_share_mean": {
+          "pos_mean": 0.0394,
+          "neg_mean": 0.0377,
+          "std": 0.0099
+        },
+        "attn_doc_share_max": {
+          "pos_mean": 0.5193,
+          "neg_mean": 0.5343,
+          "std": 0.0809
+        },
+        "attn_doc_peak_mean": {
+          "pos_mean": 0.6837,
+          "neg_mean": 0.6898,
+          "std": 0.0927
+        },
+        "attn_doc_peak_max": {
+          "pos_mean": 0.5528,
+          "neg_mean": 0.5052,
+          "std": 0.0754
+        },
+        "cos_doc_mean_mean": {
+          "pos_mean": 0.5818,
+          "neg_mean": 0.5245,
+          "std": 0.0934
+        },
+        "cos_doc_mean_max": {
+          "pos_mean": 0.0676,
+          "neg_mean": 0.0578,
+          "std": 0.0181
+        },
+        "cos_doc_max_mean": {
+          "pos_mean": 0.6291,
+          "neg_mean": 0.6181,
+          "std": 0.0841
+        },
+        "cos_doc_max_max": {
+          "pos_mean": 0.8623,
+          "neg_mean": 0.8272,
+          "std": 0.0813
+        }
+      }
+    },
+    "synth": {
+      "pairs": 3563,
+      "candidates": 63265,
+      "positives": 7644,
+      "seconds": 332.0,
+      "seconds_per_1k_chars": 0.0231,
+      "feature_stats": {
+        "attn_entropy_mean": {
+          "pos_mean": 0.4289,
+          "neg_mean": 0.426,
+          "std": 0.0593
+        },
+        "attn_entropy_max": {
+          "pos_mean": 0.4301,
+          "neg_mean": 0.4285,
+          "std": 0.0725
+        },
+        "attn_doc_share_mean": {
+          "pos_mean": 0.0369,
+          "neg_mean": 0.0361,
+          "std": 0.0089
+        },
+        "attn_doc_share_max": {
+          "pos_mean": 0.5152,
+          "neg_mean": 0.5388,
+          "std": 0.0832
+        },
+        "attn_doc_peak_mean": {
+          "pos_mean": 0.6073,
+          "neg_mean": 0.6846,
+          "std": 0.092
+        },
+        "attn_doc_peak_max": {
+          "pos_mean": 0.5006,
+          "neg_mean": 0.4965,
+          "std": 0.0717
+        },
+        "cos_doc_mean_mean": {
+          "pos_mean": 0.517,
+          "neg_mean": 0.5134,
+          "std": 0.0885
+        },
+        "cos_doc_mean_max": {
+          "pos_mean": 0.058,
+          "neg_mean": 0.0567,
+          "std": 0.0174
+        },
+        "cos_doc_max_mean": {
+          "pos_mean": 0.6112,
+          "neg_mean": 0.6224,
+          "std": 0.0854
+        },
+        "cos_doc_max_max": {
+          "pos_mean": 0.786,
+          "neg_mean": 0.827,
+          "std": 0.0829
+        }
+      }
+    },
+    "pseudo": {
+      "pairs": 84,
+      "candidates": 1569,
+      "positives": 127,
+      "seconds": 10.1,
+      "seconds_per_1k_chars": 0.0292,
+      "feature_stats": {
+        "attn_entropy_mean": {
+          "pos_mean": 0.4421,
+          "neg_mean": 0.4277,
+          "std": 0.0691
+        },
+        "attn_entropy_max": {
+          "pos_mean": 0.4483,
+          "neg_mean": 0.4324,
+          "std": 0.0843
+        },
+        "attn_doc_share_mean": {
+          "pos_mean": 0.0371,
+          "neg_mean": 0.0352,
+          "std": 0.009
+        },
+        "attn_doc_share_max": {
+          "pos_mean": 0.5048,
+          "neg_mean": 0.5198,
+          "std": 0.075
+        },
+        "attn_doc_peak_mean": {
+          "pos_mean": 0.6122,
+          "neg_mean": 0.6568,
+          "std": 0.0793
+        },
+        "attn_doc_peak_max": {
+          "pos_mean": 0.5045,
+          "neg_mean": 0.4955,
+          "std": 0.0778
+        },
+        "cos_doc_mean_mean": {
+          "pos_mean": 0.5228,
+          "neg_mean": 0.5149,
+          "std": 0.0965
+        },
+        "cos_doc_mean_max": {
+          "pos_mean": 0.0537,
+          "neg_mean": 0.0547,
+          "std": 0.0177
+        },
+        "cos_doc_max_mean": {
+          "pos_mean": 0.5784,
+          "neg_mean": 0.6029,
+          "std": 0.0791
+        },
+        "cos_doc_max_max": {
+          "pos_mean": 0.7541,
+          "neg_mean": 0.8108,
+          "std": 0.0896
+        }
+      }
+    },
+    "ragtruth": {
+      "pairs": 958,
+      "candidates": 28910,
+      "positives": 2775,
+      "seconds": 142.7,
+      "seconds_per_1k_chars": 0.0432,
+      "feature_stats": {
+        "attn_entropy_mean": {
+          "pos_mean": 0.4591,
+          "neg_mean": 0.4654,
+          "std": 0.0766
+        },
+        "attn_entropy_max": {
+          "pos_mean": 0.4673,
+          "neg_mean": 0.4747,
+          "std": 0.0906
+        },
+        "attn_doc_share_mean": {
+          "pos_mean": 0.0345,
+          "neg_mean": 0.0349,
+          "std": 0.0099
+        },
+        "attn_doc_share_max": {
+          "pos_mean": 0.5142,
+          "neg_mean": 0.5236,
+          "std": 0.0581
+        },
+        "attn_doc_peak_mean": {
+          "pos_mean": 0.6794,
+          "neg_mean": 0.6916,
+          "std": 0.0885
+        },
+        "attn_doc_peak_max": {
+          "pos_mean": 0.5375,
+          "neg_mean": 0.5287,
+          "std": 0.0789
+        },
+        "cos_doc_mean_mean": {
+          "pos_mean": 0.5599,
+          "neg_mean": 0.5493,
+          "std": 0.0944
+        },
+        "cos_doc_mean_max": {
+          "pos_mean": 0.0553,
+          "neg_mean": 0.0518,
+          "std": 0.019
+        },
+        "cos_doc_max_mean": {
+          "pos_mean": 0.6124,
+          "neg_mean": 0.6064,
+          "std": 0.0758
+        },
+        "cos_doc_max_max": {
+          "pos_mean": 0.8211,
+          "neg_mean": 0.8019,
+          "std": 0.1079
+        }
+      }
+    },
+    "val": {
+      "pairs": 150,
+      "candidates": 1374,
+      "positives": 98,
+      "seconds": 10.2,
+      "seconds_per_1k_chars": 0.0355,
+      "feature_stats": {
+        "attn_entropy_mean": {
+          "pos_mean": 0.4425,
+          "neg_mean": 0.4413,
+          "std": 0.0679
+        },
+        "attn_entropy_max": {
+          "pos_mean": 0.4484,
+          "neg_mean": 0.4437,
+          "std": 0.0845
+        },
+        "attn_doc_share_mean": {
+          "pos_mean": 0.0383,
+          "neg_mean": 0.0403,
+          "std": 0.0095
+        },
+        "attn_doc_share_max": {
+          "pos_mean": 0.5587,
+          "neg_mean": 0.5616,
+          "std": 0.0808
+        },
+        "attn_doc_peak_mean": {
+          "pos_mean": 0.6875,
+          "neg_mean": 0.7161,
+          "std": 0.0945
+        },
+        "attn_doc_peak_max": {
+          "pos_mean": 0.5318,
+          "neg_mean": 0.5099,
+          "std": 0.0786
+        },
+        "cos_doc_mean_mean": {
+          "pos_mean": 0.5574,
+          "neg_mean": 0.5269,
+          "std": 0.0985
+        },
+        "cos_doc_mean_max": {
+          "pos_mean": 0.0664,
+          "neg_mean": 0.0617,
+          "std": 0.0183
+        },
+        "cos_doc_max_mean": {
+          "pos_mean": 0.6583,
+          "neg_mean": 0.6496,
+          "std": 0.0823
+        },
+        "cos_doc_max_max": {
+          "pos_mean": 0.8468,
+          "neg_mean": 0.8483,
+          "std": 0.0818
+        }
+      }
+    },
+    "mfava": {
+      "pairs": 148,
+      "candidates": 5682,
+      "positives": 975,
+      "seconds": 22.6,
+      "seconds_per_1k_chars": 0.0236,
+      "feature_stats": {
+        "attn_entropy_mean": {
+          "pos_mean": 0.4425,
+          "neg_mean": 0.4391,
+          "std": 0.0761
+        },
+        "attn_entropy_max": {
+          "pos_mean": 0.4545,
+          "neg_mean": 0.4503,
+          "std": 0.092
+        },
+        "attn_doc_share_mean": {
+          "pos_mean": 0.0334,
+          "neg_mean": 0.0335,
+          "std": 0.0097
+        },
+        "attn_doc_share_max": {
+          "pos_mean": 0.5314,
+          "neg_mean": 0.5367,
+          "std": 0.0769
+        },
+        "attn_doc_peak_mean": {
+          "pos_mean": 0.6619,
+          "neg_mean": 0.6832,
+          "std": 0.0894
+        },
+        "attn_doc_peak_max": {
+          "pos_mean": 0.4977,
+          "neg_mean": 0.4926,
+          "std": 0.0757
+        },
+        "cos_doc_mean_mean": {
+          "pos_mean": 0.5218,
+          "neg_mean": 0.5166,
+          "std": 0.0937
+        },
+        "cos_doc_mean_max": {
+          "pos_mean": 0.0501,
+          "neg_mean": 0.0505,
+          "std": 0.0188
+        },
+        "cos_doc_max_mean": {
+          "pos_mean": 0.6136,
+          "neg_mean": 0.614,
+          "std": 0.0865
+        },
+        "cos_doc_max_max": {
+          "pos_mean": 0.808,
+          "neg_mean": 0.8089,
+          "std": 0.1053
+        }
+      }
+    }
+  }
+}
