@@ -8,6 +8,7 @@
 Вход: `[CLS] document_prefix [SEP] candidate_tokens [SEP]`, `token_type_ids` разделяют документ
 и кандидата. Документ режется до `doc_tokens` (кэшируется на документ), кандидат подаётся целиком.
 """
+import os
 import sys
 from pathlib import Path
 
@@ -18,7 +19,9 @@ import torch
 from torch import nn
 from transformers import BertConfig, BertModel, BertTokenizerFast
 
-MODEL_DIR = ROOT / "models/rubert-tiny2"
+# v22: энкодер настраивается (по умолчанию — прежний rubert-tiny2), чтобы тот же CE можно было
+# обучить на rubert-base-cased, не меняя архитектуру и не ломая воспроизводимость v21
+MODEL_DIR = Path(os.environ.get("CE_MODEL_DIR") or (ROOT / "models/rubert-tiny2"))
 
 
 class CrossEncoderSpan(nn.Module):
@@ -44,15 +47,16 @@ class CrossEncoderSpan(nn.Module):
         return {"risk_logit": risk_logit, "start_logits": start_logits, "end_logits": end_logits}
 
 
-def load_tokenizer():
-    return BertTokenizerFast.from_pretrained(str(MODEL_DIR))
+def load_tokenizer(model_dir=None):
+    return BertTokenizerFast.from_pretrained(str(Path(model_dir or MODEL_DIR)))
 
 
-def build_model(use_pretrained=True, seed=21):
-    """Собирает модель на реальных весах rubert-tiny2 (файл уже склеен из чанков и сверен по SHA)."""
-    config = BertConfig.from_pretrained(str(MODEL_DIR))
-    if use_pretrained and (MODEL_DIR / "pytorch_model.bin").exists():
-        encoder = BertModel.from_pretrained(str(MODEL_DIR), config=config)
+def build_model(use_pretrained=True, seed=21, model_dir=None):
+    """Собирает модель на реальных весах энкодера (по умолчанию rubert-tiny2, сверен по SHA)."""
+    model_dir = Path(model_dir or MODEL_DIR)
+    config = BertConfig.from_pretrained(str(model_dir))
+    if use_pretrained and (model_dir / "pytorch_model.bin").exists():
+        encoder = BertModel.from_pretrained(str(model_dir), config=config)
     else:
         torch.manual_seed(seed)
         encoder = BertModel(config)

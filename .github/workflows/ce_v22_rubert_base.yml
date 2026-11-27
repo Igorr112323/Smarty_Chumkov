@@ -1,0 +1,134 @@
+name: CE v22 rubert-base на раннере
+
+# V22: весов rubert-base-cased в песочнице нет (HF/hf-mirror/ModelScope недоступны, GitHub не хранит
+# файлы > 100 МБ и LFS запрещён). Раннер GitHub Actions имеет доступ к интернету, поэтому веса
+# скачиваются здесь, обучение cross-encoder идёт тут же, а в ветку коммитятся ТОЛЬКО артефакты
+# (JSON). Веса не коммитятся: 714 355 318 B одним файлом в git не помещаются.
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ce_v22_rubert_base.yml"
+      - "tools/ce_train_cpu_v22.py"
+      - "tools/ce_export_v22.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ce-v22
+  cancel-in-progress: false
+
+env:
+  MODE: smoke          # smoke | full
+  EPOCHS: "1"
+  OOF: "0"
+  LIMIT: "60"
+  ENCODER: DeepPavlov/rubert-base-cased
+  CE_THREADS: "4"
+
+jobs:
+  ce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Зависимости
+        run: |
+          python -m pip install --upgrade pip
+          pip install "numpy<2" "torch==2.2.2" --index-url https://download.pytorch.org/whl/cpu
+          pip install "transformers==4.44.2" "onnx==1.16.2" "onnxruntime==1.19.2" "scikit-learn" "huggingface_hub"
+
+      - name: Скачивание весов rubert-base-cased
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, shutil
+          from pathlib import Path
+          from huggingface_hub import hf_hub_download
+
+          repo = os.environ["ENCODER"]
+          target = Path("models/rubert-base-cased")
+          target.mkdir(parents=True, exist_ok=True)
+          aux = Path("weights/rubert-base-cased/curadoria")
+          for name in ("config.json", "tokenizer_config.json", "special_tokens_map.json", "vocab.txt"):
+              shutil.copyfile(aux / name, target / name)
+          cached = Path(hf_hub_download(repo_id=repo, filename="pytorch_model.bin"))
+          size = cached.stat().st_size
+          digest = hashlib.sha256()
+          with cached.open("rb") as handle:
+              for chunk in iter(lambda: handle.read(4 * 1024 * 1024), b""):
+                  digest.update(chunk)
+          shutil.copyfile(cached, target / "pytorch_model.bin")
+          manifest = {
+              "repository": repo,
+              "source": f"https://huggingface.co/{repo}/resolve/main/pytorch_model.bin",
+              "size": size,
+              "expected_size": 714355318,
+              "size_tolerance": 0.01,
+              "sha256": digest.hexdigest(),
+              "channel": "GitHub Actions runner (в песочнице исполнителя HF недоступен)",
+          }
+          assert abs(size - 714355318) <= 714355318 * 0.01, f"неверный размер: {size}"
+          (target / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(manifest, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Параметры прогона
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          mode = os.environ["MODE"]
+          run = {
+              "mode": mode,
+              "epochs": int(os.environ["EPOCHS"]),
+              "oof": int(os.environ["OOF"]),
+              "limit": int(os.environ["LIMIT"]),
+              "encoder": os.environ["ENCODER"],
+              "runner": os.environ.get("RUNNER_NAME", ""),
+              "cpu_count": os.cpu_count(),
+          }
+          if mode == "full":
+              run.update({"epochs": 6, "oof": 3, "limit": 0})
+          Path("artifacts").mkdir(exist_ok=True)
+          Path("artifacts/ce_run_v22.json").write_text(json.dumps(run, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(run)
+          PY
+
+      - name: Обучение cross-encoder (rubert-base)
+        run: |
+          python tools/ce_train_cpu_v22.py \
+            --encoder models/rubert-base-cased \
+            --arms real \
+            --epochs "$(python -c "import json;print(json.load(open('artifacts/ce_run_v22.json'))['epochs'])")" \
+            --oof "$(python -c "import json;print(json.load(open('artifacts/ce_run_v22.json'))['oof'])")" \
+            --limit "$(python -c "import json;print(json.load(open('artifacts/ce_run_v22.json'))['limit'])")" \
+            --batch 8 \
+            --lr 3e-5 \
+            --doc-tokens 96 \
+            --max-len 192 \
+            --max-easy 2 \
+            --report artifacts/ce_train_v22.json \
+            --checkpoint artifacts/ce_model_v22.pt
+
+      - name: Экспорт ONNX + int8 и скорость
+        run: |
+          python tools/ce_export_v22.py --checkpoint artifacts/ce_model_v22.pt --report artifacts/speed_v22.json || true
+
+      - name: Коммит артефактов
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f artifacts/ce_train_v22.json artifacts/speed_v22.json artifacts/ce_run_v22.json 2>/dev/null || true
+          git add -f artifacts/ce_train_v22.json artifacts/ce_run_v22.json
+          git diff --cached --quiet || git commit -m "v22: прогон cross-encoder rubert-base на раннере (${MODE}) [skip ci]"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+          git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -258,9 +258,22 @@ V19_HELDOUT_LEAK = {
 }
 
 
+def freeze_lower_layers(model, count):
+    """Заморозка нижних слоёв энкодера (0 = полное дообучение, как в v21)."""
+    if count <= 0:
+        return
+    layers = getattr(model.encoder, "encoder", None)
+    layers = getattr(layers, "layer", None) or []
+    for layer in layers[:count]:
+        for parameter in layer.parameters():
+            parameter.requires_grad = False
+    print(f"заморожено нижних слоёв: {min(count, len(layers))} из {len(layers)}", flush=True)
+
+
 def train_arm(name, pairs, tokenizer, args, checkpoint=None):
     tensors, meta = pack(pairs, tokenizer, args.doc_tokens, args.max_len, args.max_easy)
-    model = build_model()
+    model = build_model(model_dir=args.encoder or None)
+    freeze_lower_layers(model, args.freeze_layers)
     if checkpoint and Path(checkpoint).exists():
         model.load_state_dict(torch.load(checkpoint, map_location="cpu")["state_dict"])
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=0.01)
@@ -288,11 +301,15 @@ def main(argv=None):
     parser.add_argument("--arms", default="real,v19,real_plus_v19")
     parser.add_argument("--oof", type=int, default=0)
     parser.add_argument("--oof-epochs", type=int, default=1)
+    parser.add_argument("--encoder", default=os.environ.get("CE_MODEL_DIR", ""),
+                        help="каталог с весами энкодера (v22: rubert-base-cased), по умолчанию rubert-tiny2")
+    parser.add_argument("--freeze-layers", type=int, default=0,
+                        help="заморозить нижние N слоёв энкодера (экономия памяти/времени на CPU)")
     args = parser.parse_args(argv)
 
     started_all = time.time()
     torch.set_num_threads(int(os.environ.get("CE_THREADS", "2")))
-    tokenizer = load_tokenizer()
+    tokenizer = load_tokenizer(args.encoder or None)
     train_pairs, val_pairs, mfava = L.load_all()
     v19_all = read_jsonl(ROOT / "artifacts/ru_clause_gen_v19.jsonl")
     # 7 пар v19 (base_corpus = mfava_ru) побайтово совпадают с документами held-out (см. ce_data_v21.json,
@@ -301,6 +318,10 @@ def main(argv=None):
     print(f"v19: {len(v19)} из {len(v19_all)} пар (исключено {len(v19_all) - len(v19)} с ликом в held-out)",
           flush=True)
     synth = read_jsonl(ROOT / "artifacts/rushallu_synth_v11.jsonl") if args.include_synth else []
+
+    if args.limit and args.limit > 0:  # v22: дешёвый smoke-прогон на подмножестве пар
+        train_pairs = train_pairs[:args.limit]
+        print(f"ограничение выбора: {args.limit} пар на арм", flush=True)
 
     arms_data = {
         "real": train_pairs,
@@ -387,7 +408,8 @@ def main(argv=None):
             held = [pair for pair in train_pairs if fold_of[L.doc_key(pair)] == fold]
             train_fold = [pair for pair in train_pairs if fold_of[L.doc_key(pair)] != fold]
             extra = [pair for pair in v19] if "v19" in best_arm else []
-            model = build_model()
+            model = build_model(model_dir=args.encoder or None)
+            freeze_lower_layers(model, args.freeze_layers)
             model.load_state_dict(torch.load(ROOT / args.checkpoint, map_location="cpu")["state_dict"])
             optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr / 2, weight_decay=0.01)
             fold_tensors, _ = pack(train_fold + extra, tokenizer, args.doc_tokens, args.max_len,

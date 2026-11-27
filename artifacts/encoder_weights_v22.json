@@ -1,0 +1,226 @@
+{
+  "rule": "v22 шаг 1: ищем веса русского энкодера >= 110M параметров. Разрешён только GitHub; HF/hf-mirror/ModelScope из песочницы недоступны, LFS не используется",
+  "target": {
+    "repository": "DeepPavlov/rubert-base-cased",
+    "file": "pytorch_model.bin",
+    "expected_size": 714355318,
+    "parameters": 177858818,
+    "url": "https://huggingface.co/DeepPavlov/rubert-base-cased/resolve/main/pytorch_model.bin"
+  },
+  "local": {
+    "entries": {
+      "weights": [
+        {
+          "path": "weights/rubert-base-cased/curadoria/config.json",
+          "bytes": 739
+        },
+        {
+          "path": "weights/rubert-base-cased/curadoria/special_tokens_map.json",
+          "bytes": 112
+        },
+        {
+          "path": "weights/rubert-base-cased/curadoria/tokenizer_config.json",
+          "bytes": 88
+        },
+        {
+          "path": "weights/rubert-base-cased/curadoria/vocab.txt",
+          "bytes": 1649718
+        },
+        {
+          "path": "weights/rubert-base-cased/curadoria/╨Ч╨Р╨Ы╨Ш╨в╨м_╨Т_╨а╨Х╨Я╨Ю╨Ч╨Ш╨в╨Ю╨а╨Ш╨Щ.md",
+          "bytes": 1041
+        },
+        {
+          "path": "weights/rubert-tiny2/manifest.json",
+          "bytes": 677
+        },
+        {
+          "path": "weights/rubert-tiny2/part-000.bin",
+          "bytes": 83886080
+        },
+        {
+          "path": "weights/rubert-tiny2/part-001.bin",
+          "bytes": 33659944
+        }
+      ],
+      "models": [
+        {
+          "path": "models/local_encoder.pt",
+          "bytes": 1920837
+        },
+        {
+          "path": "models/local_encoder.sha256",
+          "bytes": 65
+        },
+        {
+          "path": "models/rubert-tiny2/config.json",
+          "bytes": 693
+        },
+        {
+          "path": "models/rubert-tiny2/pytorch_model.bin",
+          "bytes": 117546024
+        },
+        {
+          "path": "models/rubert-tiny2/special_tokens_map.json",
+          "bytes": 112
+        },
+        {
+          "path": "models/rubert-tiny2/tokenizer.json",
+          "bytes": 1741842
+        },
+        {
+          "path": "models/rubert-tiny2/tokenizer_config.json",
+          "bytes": 401
+        },
+        {
+          "path": "models/rubert-tiny2/vocab.txt",
+          "bytes": 1080667
+        }
+      ]
+    },
+    "rubert_base_weights_present_in_sandbox": false,
+    "rubert_base_weight_files": []
+  },
+  "probes_from_sandbox": [
+    {
+      "url": "https://huggingface.co/DeepPavlov/rubert-base-cased/resolve/main/pytorch_model.bin",
+      "status": null,
+      "accessible": false,
+      "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+      "seconds": 0.05
+    },
+    {
+      "url": "https://hf-mirror.com/DeepPavlov/rubert-base-cased/resolve/main/pytorch_model.bin",
+      "status": null,
+      "accessible": false,
+      "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+      "seconds": 0.04
+    },
+    {
+      "url": "https://modelscope.cn/api/v1/models",
+      "status": null,
+      "accessible": false,
+      "error": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+      "seconds": 0.2
+    }
+  ],
+  "github_hunt": [
+    {
+      "channel": "github-search",
+      "query": "repositories:rubert-base",
+      "endpoint": "search/repositories?q=rubert-base+in:name&per_page=20",
+      "ok": true,
+      "total_count": "2",
+      "response": null
+    },
+    {
+      "channel": "github-search",
+      "query": "repositories:rubert",
+      "endpoint": "search/repositories?q=rubert+in:name&per_page=20",
+      "ok": true,
+      "total_count": "249",
+      "response": null
+    },
+    {
+      "channel": "github-search",
+      "query": "repositories:russian-bert",
+      "endpoint": "search/repositories?q=bert+russian+in:name&per_page=20",
+      "ok": true,
+      "total_count": "12",
+      "response": null
+    },
+    {
+      "channel": "github-search",
+      "query": "code:pytorch_model.bin+rubert",
+      "endpoint": "search/code?q=filename:pytorch_model.bin+rubert&per_page=20",
+      "ok": true,
+      "total_count": "0",
+      "response": null
+    },
+    {
+      "channel": "github-search",
+      "query": "code:model.safetensors+rubert",
+      "endpoint": "search/code?q=filename:model.safetensors+rubert&per_page=20",
+      "ok": true,
+      "total_count": "0",
+      "response": null
+    },
+    {
+      "channel": "github-search",
+      "query": "code:pytorch_model.bin (контроль)",
+      "endpoint": "search/code?q=filename:pytorch_model.bin&per_page=1",
+      "ok": true,
+      "total_count": "4080",
+      "response": null
+    },
+    {
+      "channel": "github-api-repo",
+      "url": "https://api.github.com/repos/Igorr112323/Smarty_Chumkov",
+      "ok": false,
+      "response": "unexpected token \"'\""
+    },
+    {
+      "channel": "github-api-repo",
+      "url": "https://api.github.com/repos/deeppavlov/rubert-base-cased-pytorch",
+      "ok": false,
+      "response": "gh: Not Found (HTTP 404)"
+    },
+    {
+      "channel": "github-api-repo",
+      "url": "https://api.github.com/repos/DeepPavlov/rubert-base-cased",
+      "ok": false,
+      "response": "gh: Not Found (HTTP 404)"
+    },
+    {
+      "channel": "github-api-repo",
+      "url": "https://api.github.com/repos/blinoff/rubert-base-cased",
+      "ok": false,
+      "response": "gh: Not Found (HTTP 404)"
+    },
+    {
+      "channel": "github-releases",
+      "url": "https://api.github.com/repos/Igorr112323/Smarty_Chumkov/releases",
+      "ok": true,
+      "assets": ""
+    },
+    {
+      "channel": "github-releases",
+      "url": "https://api.github.com/repos/Koziev/chatbot/releases",
+      "ok": true,
+      "assets": "0.0.2.20-alpha\tchatbot.tar.gz\t1788617523"
+    },
+    {
+      "channel": "github-releases",
+      "url": "https://api.github.com/repos/sviperm/neuro-comma/releases",
+      "ok": true,
+      "assets": "repunct-quant\trepunct-model-new.zip\t1121343992\nrepunct\trepunct-model.zip\t1387574402"
+    }
+  ],
+  "actions_channel": {
+    "channel": "GitHub Actions runner",
+    "why": "в песочнице интернета к HF нет, а раннер GitHub Actions имеет полный доступ; веса rubert-base-cased (714 355 318 B) одним файлом в git не помещаются (лимит GitHub 100 МБ на файл), LFS запрещён → скачивание и обучение идут на раннере, в ветку коммитятся только JSON-артефакты",
+    "known_prior_use": {
+      "file": "scripts/download_rubert_base.py (ветка arena/5afadcb0-smarty-chumkov)",
+      "repository": "DeepPavlov/rubert-base-cased",
+      "expected_size": 714355318,
+      "note": "в том цикле веса скачивались на раннере и не коммитились"
+    },
+    "runs_ok": true,
+    "runs": "[{\"conclusion\":\"success\",\"headBranch\":\"arena/963b6d7a-smarty-chumkov\",\"name\":\"ci\"},{\"conclusion\":\"success\",\"headBranch\":\"arena/963b6d7a-smarty-chumkov\",\"name\":\"evaluate\"},{\"conclusion\":\"success\",\"headBranch\":\"arena/963b6d7a-smarty-chumkov\",\"name\":\"evaluate\"}]",
+    "workflows_ok": true,
+    "workflows_count": 34
+  },
+  "found": {
+    "weights_in_sandbox": false,
+    "weights_in_github_git": false,
+    "weights_via_actions_runner": true,
+    "weights": {
+      "repository": "DeepPavlov/rubert-base-cased",
+      "expected_size": 714355318,
+      "sha256": null,
+      "sha256_note": "SHA-256 фиксируется в JSON, который коммитит workflow из скачанного на раннере файла (см. artifacts/ce_train_v22.json → encoder.manifest)"
+    }
+  },
+  "verdict": "весов в песочнице нет и в git их положить нельзя (файл 714 МБ > лимита 100 МБ, LFS запрещён) → единственный доступный канал — GitHub Actions: скачивание весов и обучение cross-encoder на раннере, в ветку — только артефакты",
+  "generated_at": "2026-11-27T21:29:53Z"
+}
