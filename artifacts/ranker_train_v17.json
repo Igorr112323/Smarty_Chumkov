@@ -1,0 +1,210 @@
+{
+  "rule": "ранжировщик кандидатов внутри пары: 37 лексических + 14 span-level кросс-внимание + 10 per-token LM; декодер v11 (mode-гейт, pair-гейт, local_hgb) сохранён; пороги калибруются на val в бюджете FPR ≤ 0.40; held-out не читается",
+  "features": {
+    "lexical": 37,
+    "span_cross_attention": 14,
+    "per_token_lm_v15": 10
+  },
+  "data": {
+    "sber": {
+      "pairs": 6000,
+      "candidates": 29795,
+      "positives": 10133
+    },
+    "real": {
+      "pairs": 549,
+      "candidates": 5687,
+      "positives": 454
+    },
+    "synth": {
+      "pairs": 3563,
+      "candidates": 63265,
+      "positives": 7644
+    },
+    "pseudo": {
+      "pairs": 84,
+      "candidates": 1569,
+      "positives": 127
+    },
+    "val": {
+      "pairs": 150,
+      "candidates": 1374,
+      "positives": 98
+    },
+    "mfava": {
+      "pairs": 148,
+      "candidates": 5682,
+      "positives": 975
+    }
+  },
+  "hard_negatives": {
+    "definition": "кандидат с IoU 0.3–0.7 к gold внутри пары",
+    "weight": 2.0
+  },
+  "variants": {
+    "control_37": {
+      "auc": 0.6033,
+      "within_pair_acc": 0.5665,
+      "val": {
+        "span": 0.2342,
+        "token": 0.4034,
+        "pair": 0.3514,
+        "fpr": 0.1442,
+        "span_p": 0.2281,
+        "span_r": 0.2407
+      },
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.3,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      },
+      "train_rows": 100316,
+      "train_positives": 18358,
+      "fit_seconds": 198.6
+    },
+    "hgb_51": {
+      "auc": 0.6155,
+      "within_pair_acc": 0.6045,
+      "val": {
+        "span": 0.2308,
+        "token": 0.3846,
+        "pair": 0.338,
+        "fpr": 0.125,
+        "span_p": 0.24,
+        "span_r": 0.2222
+      },
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.5,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      },
+      "train_rows": 100316,
+      "train_positives": 18358,
+      "fit_seconds": 221.3
+    },
+    "hgb_61": {
+      "auc": 0.6451,
+      "within_pair_acc": 0.6106,
+      "val": {
+        "span": 0.2474,
+        "token": 0.3911,
+        "pair": 0.3529,
+        "fpr": 0.0962,
+        "span_p": 0.2791,
+        "span_r": 0.2222
+      },
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      },
+      "train_rows": 100316,
+      "train_positives": 18358,
+      "fit_seconds": 230.6
+    },
+    "pairwise_logit": {
+      "auc": 0.6921,
+      "within_pair_acc": 0.6777,
+      "val": {
+        "span": 0.1837,
+        "token": 0.4322,
+        "pair": 0.3103,
+        "fpr": 0.0288,
+        "span_p": 0.2045,
+        "span_r": 0.1667
+      },
+      "config": {
+        "mode_cut": 0.3,
+        "gate": 0.2,
+        "threshold": 0.2,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      },
+      "train_rows": 160810,
+      "fit_seconds": 0.8
+    },
+    "pairwise_hgb_51": {
+      "auc": 0.4716,
+      "within_pair_acc": 0.4566,
+      "val": {
+        "span": 0.2523,
+        "token": 0.4721,
+        "pair": 0.4058,
+        "fpr": 0.0865,
+        "span_p": 0.2456,
+        "span_r": 0.2593
+      },
+      "config": {
+        "mode_cut": 0.3,
+        "gate": 0.5,
+        "threshold": 0.3,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      },
+      "train_rows": 160810,
+      "fit_seconds": 122.3
+    }
+  },
+  "group_cv_sber": {
+    "folds": [
+      {
+        "fold": 0,
+        "rows": 10109,
+        "positives": 3403,
+        "auc": 0.981
+      },
+      {
+        "fold": 1,
+        "rows": 10010,
+        "positives": 3387,
+        "auc": 0.9806
+      },
+      {
+        "fold": 2,
+        "rows": 9676,
+        "positives": 3343,
+        "auc": 0.9825
+      }
+    ],
+    "mean_auc": 0.9814
+  },
+  "best": {
+    "variant": "pairwise_hgb_51",
+    "auc": 0.4716,
+    "within_pair_acc": 0.4566,
+    "val": {
+      "span": 0.2523,
+      "token": 0.4721,
+      "pair": 0.4058,
+      "fpr": 0.0865,
+      "span_p": 0.2456,
+      "span_r": 0.2593
+    },
+    "config": {
+      "mode_cut": 0.3,
+      "gate": 0.5,
+      "threshold": 0.3,
+      "max_spans": 1,
+      "local_threshold": 0.4,
+      "local_max_spans": 3,
+      "nms_iou": 0.1
+    }
+  },
+  "verdict": "reject_by_span"
+}

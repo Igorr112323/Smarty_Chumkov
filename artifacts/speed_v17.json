@@ -1,0 +1,42 @@
+{
+  "rule": "полный путь span-level признаков: int8-ONNX forward (с выходами Softmax/LayerNorm) + агрегация 14 признаков; лимиты §4.1",
+  "batch": 8,
+  "window_doc_tokens": 256,
+  "runs": {
+    "1k": {
+      "chars": 1000,
+      "windows": 1,
+      "attempts": 2,
+      "aggregation": "минимум из 2 прогонов после прогрева",
+      "candidates": 3,
+      "seconds": 0.0143,
+      "seconds_per_1k_chars": 0.0143,
+      "limit": 0.03,
+      "pass": true
+    },
+    "50k": {
+      "chars": 50000,
+      "windows": 38,
+      "attempts": 2,
+      "aggregation": "минимум из 2 прогонов после прогрева",
+      "candidates": 296,
+      "seconds": 1.006,
+      "seconds_per_1k_chars": 0.0201,
+      "limit": 1.0,
+      "pass": false
+    },
+    "2M": {
+      "chars": 2000000,
+      "windows": 1531,
+      "attempts": 2,
+      "aggregation": "минимум из 2 прогонов после прогрева",
+      "candidates": 11494,
+      "seconds": 44.7375,
+      "seconds_per_1k_chars": 0.0224,
+      "limit": 60.0,
+      "pass": true
+    }
+  },
+  "pass_all": false,
+  "verdict": "blocker"
+}

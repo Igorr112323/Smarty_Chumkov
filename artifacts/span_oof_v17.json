@@ -1,0 +1,303 @@
+{
+  "rule": "ранжировщик внутри пары: 37 лексических + 14 span-level кросс-внимание + 10 per-token LM; декодер v11 сохранён; пороги калибруются на val в бюджете FPR ≤ 0.40",
+  "reference": {
+    "v11_risk_auc_val": 0.7425,
+    "v11_calibrated_val": {
+      "span": 0.3621,
+      "token": 0.6247,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3387,
+      "span_r": 0.3889
+    },
+    "oracle_within_pair_span_f1": 0.6165,
+    "candidate_reachability": {
+      "what": "есть ли у каждого gold-спана кандидат с IoU ≥ 0.5 (val)",
+      "gold_spans": 54,
+      "reachable": 54,
+      "reachable_share": 1.0,
+      "rank1": 20,
+      "rank_le2": 26,
+      "rank_le3": 30,
+      "rank_le5": 37,
+      "ranks": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        4,
+        4,
+        5,
+        5,
+        5,
+        5,
+        5,
+        6,
+        6,
+        7,
+        7,
+        7,
+        7,
+        9,
+        9,
+        9,
+        10,
+        11,
+        12,
+        12,
+        12,
+        14,
+        15,
+        19
+      ]
+    }
+  },
+  "variants": {
+    "control_37": {
+      "auc": 0.6033,
+      "within_pair_acc": 0.5665,
+      "val": {
+        "span": 0.2342,
+        "token": 0.4034,
+        "pair": 0.3514,
+        "fpr": 0.1442,
+        "span_p": 0.2281,
+        "span_r": 0.2407
+      },
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.3,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "hgb_51": {
+      "auc": 0.6155,
+      "within_pair_acc": 0.6045,
+      "val": {
+        "span": 0.2308,
+        "token": 0.3846,
+        "pair": 0.338,
+        "fpr": 0.125,
+        "span_p": 0.24,
+        "span_r": 0.2222
+      },
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.5,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "hgb_61": {
+      "auc": 0.6451,
+      "within_pair_acc": 0.6106,
+      "val": {
+        "span": 0.2474,
+        "token": 0.3911,
+        "pair": 0.3529,
+        "fpr": 0.0962,
+        "span_p": 0.2791,
+        "span_r": 0.2222
+      },
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "pairwise_logit": {
+      "auc": 0.6921,
+      "within_pair_acc": 0.6777,
+      "val": {
+        "span": 0.1837,
+        "token": 0.4322,
+        "pair": 0.3103,
+        "fpr": 0.0288,
+        "span_p": 0.2045,
+        "span_r": 0.1667
+      },
+      "config": {
+        "mode_cut": 0.3,
+        "gate": 0.2,
+        "threshold": 0.2,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "pairwise_hgb_51": {
+      "auc": 0.4716,
+      "within_pair_acc": 0.4566,
+      "val": {
+        "span": 0.2523,
+        "token": 0.4721,
+        "pair": 0.4058,
+        "fpr": 0.0865,
+        "span_p": 0.2456,
+        "span_r": 0.2593
+      },
+      "config": {
+        "mode_cut": 0.3,
+        "gate": 0.5,
+        "threshold": 0.3,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    }
+  },
+  "widest": {
+    "task_target_auc": 0.88,
+    "best_auc": 0.6921,
+    "delta_to_target": 0.1879
+  },
+  "group_cv_sber": {
+    "folds": [
+      {
+        "fold": 0,
+        "rows": 10109,
+        "positives": 3403,
+        "auc": 0.981
+      },
+      {
+        "fold": 1,
+        "rows": 10010,
+        "positives": 3387,
+        "auc": 0.9806
+      },
+      {
+        "fold": 2,
+        "rows": 9676,
+        "positives": 3343,
+        "auc": 0.9825
+      }
+    ],
+    "mean_auc": 0.9814
+  },
+  "oof_hgb_61": {
+    "rule": "3 фолда по документам, hgb_61 (37+14+10), конфиг из val",
+    "folds": [
+      {
+        "span": 0.0625,
+        "token": 0.3391,
+        "pair": 0.1034,
+        "fpr": 0.0448,
+        "span_p": 0.0909,
+        "span_r": 0.0476,
+        "fold": 0,
+        "pairs": 183
+      },
+      {
+        "span": 0.0351,
+        "token": 0.2135,
+        "pair": 0.0548,
+        "fpr": 0.0348,
+        "span_p": 0.0625,
+        "span_r": 0.0244,
+        "fold": 1,
+        "pairs": 182
+      },
+      {
+        "span": 0.0301,
+        "token": 0.1812,
+        "pair": 0.0455,
+        "fpr": 0.0841,
+        "span_p": 0.0465,
+        "span_r": 0.0222,
+        "fold": 2,
+        "pairs": 184
+      }
+    ],
+    "mean": {
+      "span": 0.0426,
+      "token": 0.2446,
+      "pair": 0.0679,
+      "fpr": 0.0546
+    },
+    "baseline_oof_span_v14": 0.2437,
+    "pass": false
+  },
+  "speed": {
+    "1k": {
+      "chars": 1000,
+      "windows": 1,
+      "attempts": 2,
+      "aggregation": "минимум из 2 прогонов после прогрева",
+      "candidates": 3,
+      "seconds": 0.0143,
+      "seconds_per_1k_chars": 0.0143,
+      "limit": 0.03,
+      "pass": true
+    },
+    "50k": {
+      "chars": 50000,
+      "windows": 38,
+      "attempts": 2,
+      "aggregation": "минимум из 2 прогонов после прогрева",
+      "candidates": 296,
+      "seconds": 1.006,
+      "seconds_per_1k_chars": 0.0201,
+      "limit": 1.0,
+      "pass": false
+    },
+    "2M": {
+      "chars": 2000000,
+      "windows": 1531,
+      "attempts": 2,
+      "aggregation": "минимум из 2 прогонов после прогрева",
+      "candidates": 11494,
+      "seconds": 44.7375,
+      "seconds_per_1k_chars": 0.0224,
+      "limit": 60.0,
+      "pass": true
+    }
+  },
+  "guard": {
+    "val_span_min": 0.5,
+    "val_token_min": 0.5,
+    "val_pair_min": 0.5,
+    "val_fpr_max": 0.4,
+    "oof_delta": 0.02
+  },
+  "verdict": "reject",
+  "why": "ни один вариант не превысил AUC 0.7425 штатного риска v11 (лучший 0.6921 у pairwise-логита, у HGB 0.6451); на новых данных Group-CV даёт AUC 0.981 — модель выучивает синтетические правки, но перенос на реальные клаузовые галлюцинации отрицательный (val AUC падает, OOF Span 0.0426)"
+}
