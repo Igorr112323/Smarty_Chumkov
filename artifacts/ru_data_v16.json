@@ -1,0 +1,62 @@
+{
+  "rule": "новые русские данные ищутся только на GitHub (HF/LFS недоступны), doc_overlap с нашим Dataset обязан быть 0",
+  "sources": [
+    {
+      "repo": "https://github.com/DFKonGH/ru_hallucination_detector",
+      "path": "data/ds_v0.parquet",
+      "license": "не указана в репозитории (SberChallenge/SberQuAD-производные, только для локального обучения)",
+      "bytes": 30461228,
+      "sha256": "965ac3effe96084e495151d251f23df4a77e486e3ebe4f0d50388db6f4c15916",
+      "rows": 50364,
+      "documents": 9078,
+      "aug_types": {
+        "_negation_flip": 21619,
+        "_entity_swap": 18355,
+        "clean": 7781,
+        "_num_flip": 2609
+      },
+      "format": "parquet"
+    },
+    {
+      "repo": "https://github.com/sber-summer-practice/hybrid-rag-hallucination-verification",
+      "path": "data/optimized_rag_marking.xlsx",
+      "license": "не указана",
+      "bytes": 88588,
+      "used": false,
+      "reason": "88 KB ручной разметки ответов LLM без span-аннотаций — слишком мало и не в нашем формате"
+    }
+  ],
+  "conversion": {
+    "document_text": "context",
+    "model_output": "evidence_aug",
+    "gold": "предложение evidence_aug, затронутое правкой (char-diff evidence → evidence_aug); clean — без спанов",
+    "style": "unsupported_addition, границы предложения (как C1_min_containing_clause)"
+  },
+  "stats": {
+    "clean": 7406,
+    "flip": 41989,
+    "skipped_empty": 23,
+    "skipped_short": 946,
+    "pairs": 49395,
+    "with_spans": 41981,
+    "documents": 9074,
+    "mean_answer_len": 146.6,
+    "mean_doc_len": 754.6
+  },
+  "doc_overlap": {
+    "checked_against": [
+      "artifacts/gold_v3.jsonl",
+      "artifacts/mfava_train_v3.jsonl",
+      "artifacts/gold1200_v3.jsonl"
+    ],
+    "our_documents": 1094,
+    "their_documents": 9074,
+    "overlap": 0,
+    "pass": true
+  },
+  "file": {
+    "path": "artifacts/sber_flip_v16.jsonl",
+    "bytes": 97525914,
+    "sha256": "947f7bdc8f1d3756c4693e398810ff8e591da66c618b76babee39419ddddd444"
+  }
+}

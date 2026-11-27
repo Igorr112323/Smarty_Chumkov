@@ -1,0 +1,223 @@
+{
+  "rule": "веса только с GitHub (clone --depth 1 / release asset); HF, hf-mirror, ModelScope и Git-LFS в песочнице недоступны; всё хэшируется SHA-256; веса лежат локально вне пакета и вне git",
+  "target": {
+    "wanted": "rubert-base-cased (~530 МБ, 768/12)",
+    "fallback": "rubert-tiny2 (~29 МБ) + ONNX int8",
+    "got": "fallback"
+  },
+  "local": [
+    {
+      "repo": "https://github.com/pyramidheadshark/rubert-turbo-payments",
+      "path": "models/onnx_model/model_quantized.onnx",
+      "format": "ONNX QOperator int8/uint8 (BERT rubert-tiny2)",
+      "architecture": "312 hidden / 3 слоя / 12 голов / vocab 83 828 / max_pos 2048",
+      "dequant": "models/rubert-tiny2-deq/pytorch_model.bin (fp32, 116 786 340 B)",
+      "role": "основной источник признаков внимания (и быстрый int8-инференс)",
+      "clone": "git clone --depth 1",
+      "bytes": 29385865,
+      "sha256": "f04067dad13a977e2bea7feb395411e7ebc69d835a1c2db1b69502176b534420",
+      "present": true
+    },
+    {
+      "repo": "https://github.com/Gregory-mcbit/avitomodel",
+      "path": "spacer_model/checkpoint-113/model.safetensors",
+      "format": "safetensors float32 (rubert-tiny v1)",
+      "architecture": "312 / 3 / 12 / vocab 29 564",
+      "role": "не используется: токенизатор несовместим с нашим (83 828)",
+      "clone": "git clone --depth 1",
+      "bytes": 46754816,
+      "sha256": "e04f7a83653a3fd29b004842ed495bc448a05e8fa8eb791da03ca00d577f9268",
+      "present": true
+    },
+    {
+      "repo": "https://github.com/dinis-a/android-ru-stylometry",
+      "path": "ru_detector/model.onnx",
+      "format": "ONNX (fine-tuned русский детектор стиля)",
+      "architecture": "не подтверждена (чужой классификатор, нет смысла для признаков)",
+      "role": "найден поиском, не скачивался",
+      "clone": null,
+      "present": false
+    }
+  ],
+  "search": {
+    "repositories": [
+      {
+        "query": "rubert-base",
+        "code": 0,
+        "seconds": 0.7,
+        "stdout": "alex-hse-repository/datafusion-labelcraft-rubert-baseline\t5\t173\nAwfuj/TextClassifier\t0\t12\nJuliaSkr/Actant-Detection-\t0\t442\nwhoisida/Find_my_book\t0\t44230\nfreeman7717/ABSA\t0\t142\nsofjasol/Morph_Bert\t0\t18\nGlinkaVadim/-Sentiment-analysis-of-citizens-communications-using-the-ruBert-base-language-model\t0\t294\nesolshevskaya/KURSOVAYA\t0\t355",
+        "stderr": ""
+      },
+      {
+        "query": "rubert russian",
+        "code": 0,
+        "seconds": 0.6,
+        "stdout": "vlarine/ruberta\t30\t664\ngleb-skobinsky/RuCo-BERT\t5\t10149\ngleb-skobinsky/RuBERT-ABSA\t2\t6501\nDjacon/russian-emotion-detection\t3\t22573\nscharfff/electrolabbot\t4\t159\nk1y0miiii/ru-ai-text-detector\t7\t854\nTryDotAtwo/ruBERT-ruLaw\t3\t68\nlainconn/ruBERT-SC\t1\t1084",
+        "stderr": ""
+      },
+      {
+        "query": "rubert-tiny2",
+        "code": 0,
+        "seconds": 0.6,
+        "stdout": "Slava727272/rubert-tiny2\t0\t0\nDjacon/russian-emotion-detection\t3\t22573\n6jack6/rubert_tiny_analysis\t0\t1004\nIlyat9/RosEltorg\t0\t877\nstud0000005929/pi_rubert-tiny2\t0\t19\npolubil/rubert-tiny2-onnx\t0\t0\nlamerous/AlignedHearts-TrainBot\t2\t25\nzalinaabregova/ABSA-using-Rubert-tiny2\t0\t109",
+        "stderr": ""
+      },
+      {
+        "query": "rubert-large",
+        "code": 0,
+        "seconds": 0.5,
+        "stdout": "JuliaSkr/Actant-Detection-\t0\t442\nOlaEla/nlp-pipeline-huggingface\t0\t2463\ndariaffs/lf-prediction\t0\t23\nTryDotAtwo/ruBERT-ruLaw\t3\t68",
+        "stderr": ""
+      },
+      {
+        "query": "russian bert onnx",
+        "code": 0,
+        "seconds": 0.4,
+        "stdout": "WiMean/news-classifier-rubert\t0\t2767\ndinis-a/android-ru-stylometry\t0\t40231",
+        "stderr": ""
+      },
+      {
+        "query": "ruroberta",
+        "code": 0,
+        "seconds": 0.6,
+        "stdout": "Rahul-nlp/NN_task\t0\t180\nMuwwciWay/ruRoBERTa_model-\t0\t111\nYngBigBoy/M-tex-ruRoberta-large_adapter\t0\t429\nArtemMusienko/ROBERTA-large-classification\t1\t425\nDmPanf/NLP_RuRoBERTa_TgBot_AIOGram3_Yes-No_Question_Answering_Bot\t0\t15\nJuliaSkr/Actant-Detection-\t0\t442\nsavocheek/sentiment-analysis-ru\t0\t1547",
+        "stderr": ""
+      },
+      {
+        "query": "sbert russian",
+        "code": 0,
+        "seconds": 0.5,
+        "stdout": "ositlar/classifacator_sbert\t0\t9\nabuketov555-hash/nlp-147k-rus-dep-anx-neu-pos\t0\t149522\nshokovapolina/linguistic-markers-depression-anxiety\t0\t48710",
+        "stderr": ""
+      },
+      {
+        "query": "rubert-base-cased",
+        "code": 0,
+        "seconds": 0.6,
+        "stdout": "sofjasol/Morph_Bert\t0\t18\nluckyboyroman/rubert_fastapi\t0\t18\nponchikhacker/NLP-ML\t0\t281\nTryDotAtwo/ruBERT-ruLaw\t3\t68\nconstantinerosljakov-cyber/Medical-triage-ru\t0\t3410\nsabinakadyrovva-cmyk/kadyrova_13_3\t0\t3",
+        "stderr": ""
+      },
+      {
+        "query": "russian hallucination",
+        "code": 0,
+        "seconds": 0.7,
+        "stdout": "anotherfucker/RU-Story2Hallucination\t0\t15673\nDFKonGH/ru_hallucination_detector\t0\t22712\nomar-A-hassan/ACE-Hallucinations\t0\t73\nvertexvisionart/llm-hallucination-detector\t0\t64\nsber-summer-practice/hybrid-rag-hallucination-verification\t0\t152\nulyanovmmm/LLM-hallucinations-and-knowledge-graphs\t0\t3337\nalibektasten/task-a-document-extractor\t0\t47\niceflux/neiro_sotrudnik_44fz_rag_agent\t1\t604",
+        "stderr": ""
+      }
+    ],
+    "code": [
+      {
+        "query": "rubert-base filename:pytorch_model.bin",
+        "code": 0,
+        "seconds": 0.3,
+        "stdout": "0",
+        "stderr": ""
+      },
+      {
+        "query": "rubert filename:model.safetensors",
+        "code": 0,
+        "seconds": 0.3,
+        "stdout": "0",
+        "stderr": ""
+      },
+      {
+        "query": "ModernBERT russian filename:model.safetensors",
+        "code": 0,
+        "seconds": 0.2,
+        "stdout": "0",
+        "stderr": ""
+      },
+      {
+        "query": "rubert-tiny2 filename:pytorch_model.bin",
+        "code": 0,
+        "seconds": 0.2,
+        "stdout": "0",
+        "stderr": ""
+      }
+    ],
+    "trees": [
+      {
+        "repo": "gleb-skobinsky/RuCo-BERT",
+        "code": 1,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "Djacon/russian-emotion-detection",
+        "code": 1,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "vlarine/ruberta",
+        "code": 1,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "TryDotAtwo/ruBERT-ruLaw",
+        "code": 1,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "6jack6/rubert_tiny_analysis",
+        "code": 1,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "Ilyat9/RosEltorg",
+        "code": 1,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "WiMean/news-classifier-rubert",
+        "code": 1,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "OlaEla/nlp-pipeline-huggingface",
+        "code": 1,
+        "seconds": 0.3,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "abuketov555-hash/nlp-147k-rus-dep-anx-neu-pos",
+        "code": 1,
+        "seconds": 0.4,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      },
+      {
+        "repo": "shokovapolina/linguistic-markers-depression-anxiety",
+        "code": 1,
+        "seconds": 0.6,
+        "stdout": "",
+        "stderr": "invalid escape sequence \"\\.\" in string literal"
+      }
+    ]
+  },
+  "dequantized": {
+    "path": "models/rubert-tiny2-deq/pytorch_model.bin",
+    "bytes": 116804338,
+    "sha256": "46ed15623bf250d6e05e89e2b8350f4b34107d1b9ed7b674077c5014e87acebb",
+    "params": 29196585,
+    "format": "torch fp32 state_dict"
+  },
+  "conclusion": {
+    "why_not_base": "в доступных GitHub-репозиториях rubert-base нет: code search по filename:pytorch_model.bin / model.safetensors даёт 0 (GitHub не индексирует бинарники), в деревьях кандидатов файлов весов > 1 МБ нет, кроме чужих fine-tuned ONNX без энкодера в чистом виде",
+    "what_used": "int8-ONNX rubert-tiny2 (29 385 865 B) → dequant fp32 → transformers",
+    "verified": "ключи state_dict совпали с BertForSequenceClassification, max|Δlogits| против onnxruntime = 0.0656 (артефакт квантования)"
+  }
+}

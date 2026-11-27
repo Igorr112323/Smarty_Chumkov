@@ -1,0 +1,311 @@
+{
+  "rule": "калибровка только порогов существующего v11-декодера (mode-гейт, pair-гейт и local_hgb сохранены), бюджет FPR ≤ 0.40, выбор по val",
+  "baseline_v11": {
+    "span": 0.3363,
+    "token": 0.6191,
+    "pair": 0.4872,
+    "fpr": 0.125
+  },
+  "configs_tested": 2880,
+  "best_span": {
+    "span": 0.3621,
+    "token": 0.6247,
+    "pair": 0.5122,
+    "fpr": 0.1442,
+    "span_p": 0.3387,
+    "span_r": 0.3889,
+    "config": {
+      "mode_cut": 0.6,
+      "gate": 0.4,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "local_threshold": 0.5,
+      "local_max_spans": 3,
+      "nms_iou": 0.1
+    }
+  },
+  "best_pair": {
+    "span": 0.2914,
+    "token": 0.6144,
+    "pair": 0.5176,
+    "fpr": 0.1635,
+    "span_p": 0.2268,
+    "span_r": 0.4074,
+    "config": {
+      "mode_cut": 0.6,
+      "gate": 0.5,
+      "threshold": 0.2,
+      "max_spans": 3,
+      "local_threshold": 0.5,
+      "local_max_spans": 3,
+      "nms_iou": 0.1
+    }
+  },
+  "top": [
+    {
+      "span": 0.3621,
+      "token": 0.6247,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3387,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.3621,
+      "token": 0.6247,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3387,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.3621,
+      "token": 0.6247,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3387,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.3621,
+      "token": 0.6247,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3387,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 5,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.359,
+      "token": 0.6215,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3333,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.359,
+      "token": 0.6215,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3333,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.359,
+      "token": 0.6215,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3333,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.3,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.359,
+      "token": 0.6215,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3333,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.359,
+      "token": 0.6215,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3333,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.3,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.359,
+      "token": 0.6215,
+      "pair": 0.5122,
+      "fpr": 0.1442,
+      "span_p": 0.3333,
+      "span_r": 0.3889,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.4,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    }
+  ],
+  "top_fpr": [
+    {
+      "span": 0.3423,
+      "token": 0.6158,
+      "pair": 0.4872,
+      "fpr": 0.125,
+      "span_p": 0.3333,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.3423,
+      "token": 0.6158,
+      "pair": 0.4872,
+      "fpr": 0.125,
+      "span_p": 0.3333,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.3423,
+      "token": 0.6158,
+      "pair": 0.4872,
+      "fpr": 0.125,
+      "span_p": 0.3333,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.3423,
+      "token": 0.6158,
+      "pair": 0.4872,
+      "fpr": 0.125,
+      "span_p": 0.3333,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 5,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    {
+      "span": 0.3393,
+      "token": 0.6125,
+      "pair": 0.4872,
+      "fpr": 0.125,
+      "span_p": 0.3276,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    }
+  ],
+  "mfava_at_best_span": {
+    "span": 0.6694,
+    "token": 0.669,
+    "pair": 0.9118,
+    "fpr": 0.0,
+    "span_p": 0.7325,
+    "span_r": 0.6164
+  }
+}

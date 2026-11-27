@@ -760,3 +760,24 @@ FPR 0,2019 / mFAVA 0,0271, OOF Span 0,0820 (real) и 0,1179 (смесь) про�
 Отчёт: `artifacts/final_report_117812_v15.md`, метрики: `artifacts/span_oof_v15.json`,
 источники: `artifacts/weights_v15.json`, скорость: `artifacts/speed_v15.json`.
 Тесты: 142 passed (добавлен `pytest.ini` с `testpaths=tests`, чтобы `tools/external` не собирался).
+
+## Цикл 16 (GitHub: веса + новые русские данные, калибровка в бюджете FPR)
+
+Веса: GitHub даёт только `rubert-tiny2` (int8-ONNX 29 385 865 B, SHA `f04067da…534420`,
+dequant → fp32 `46ed1562…acebb`); `rubert-base` (~530 МБ) в доступных репозиториях отсутствует
+(журнал поиска в `artifacts/weights_v16.json`).
+
+Данные: `DFKonGH/ru_hallucination_detector` (`data/ds_v0.parquet`, 30 461 228 B, 50 364 строки,
+9 074 документа) → 49 395 пар в нашем формате, 41 981 со спанами, **doc_overlap = 0** с
+`gold_v3`/`mfava_train_v3`/`gold1200_v3` (`artifacts/ru_data_v16.json`).
+
+Калибровка в бюджете FPR ≤ 0.40 (2 160 конфигураций, декодер v11 сохранён): val Span 0,3621 /
+Token 0,6247 / Pair 0,5122 / FPR 0,1442; mFAVA 0,6694 (не метрика). 3-fold OOF по документам:
+Span 0,2247 — ниже baseline 0,2437. Переобученные скоры кандидата хуже: plain-37 на новых
+данных 0,3226, относительный 0,2832. Потолок: у 54/54 gold-спанов есть кандидат с IoU = 1,0,
+при идеальном ранжировании внутри пары Span 0,6165 → блокер в ранжировании (AUC 0,7425), не в
+кандидатах и не в порогах. Вердикт: **reject по Span** (Pair/Token/FPR закрыты).
+
+Скорость с весами: int8-ONNX 1k 0,0070 с / 50k 0,9920 с / 2M 30,2318 с — все лимиты ✅
+(torch fp32 не проходит: 1,9935 с и 85,2813 с). Пакет 523 986 B, SHA `6bbc5044…d73a`
+(не изменился), 142 теста passed. Отчёт: `artifacts/final_report_117812_v16.md`.
