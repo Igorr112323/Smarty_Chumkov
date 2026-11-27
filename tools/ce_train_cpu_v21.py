@@ -270,6 +270,47 @@ def freeze_lower_layers(model, count):
     print(f"заморожено нижних слоёв: {min(count, len(layers))} из {len(layers)}", flush=True)
 
 
+def train_arm_epochs(name, pairs, tokenizer, args, val_pairs, tables_val, val_tensors,
+                     val_meta, val_labels):
+    """v22: обучение с проверкой val после каждой эпохи — выбирается лучшая по Span эпоха.
+
+    На 549 парах переобучение наступает быстро (v21: 25 эпох → val AUC 0.58), поэтому для
+    rubert-base фиксировать «последнюю» эпоху нельзя: чекпойнт с лучшим val Span и есть результат.
+    """
+    import copy
+
+    tensors, meta = pack(pairs, tokenizer, args.doc_tokens, args.max_len, args.max_easy)
+    model = build_model(model_dir=args.encoder or None)
+    freeze_lower_layers(model, args.freeze_layers)
+    optimizer = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],
+                                  lr=args.lr, weight_decay=0.01)
+    history, best_state, best_span, best_cell = [], None, -1.0, None
+    for epoch in range(args.epochs):
+        started = time.time()
+        loss = run_epoch(model, tensors, optimizer, args.batch)
+        val_scores = scores(model, val_tensors)
+        auc = float(roc_auc_score(val_labels, val_scores))
+        apply_to_tables(tables_val, val_meta, val_scores)
+        cell = contract(val_pairs, tables_val)
+        row = {"epoch": epoch, "loss": loss, "seconds": round(time.time() - started, 1),
+               "val_auc": round(auc, 4), "val_span": (cell or {}).get("span"),
+               "val_pair": (cell or {}).get("pair")}
+        history.append(row)
+        print(f"  {name} epoch {epoch}: loss {loss} за {row['seconds']} c, val AUC {row['val_auc']}, "
+              f"val Span {row['val_span']}, Pair {row['val_pair']}", flush=True)
+        if cell and cell["span"] > best_span:
+            best_span, best_cell = cell["span"], cell
+            best_state = copy.deepcopy(model.state_dict())
+            torch.save({"state_dict": best_state, "arm": name, "args": vars(args),
+                        "epoch": epoch, "val": cell}, ROOT / args.checkpoint)
+    if best_state is not None:
+        model.load_state_dict(best_state)
+    for row in history:
+        row["selected"] = bool(row["val_span"] == best_span)
+    print(f"  {name}: выбрана эпоха с val Span {best_span}", flush=True)
+    return model, tensors, meta, history
+
+
 def train_arm(name, pairs, tokenizer, args, checkpoint=None):
     tensors, meta = pack(pairs, tokenizer, args.doc_tokens, args.max_len, args.max_easy)
     model = build_model(model_dir=args.encoder or None)
@@ -303,6 +344,8 @@ def main(argv=None):
     parser.add_argument("--oof-epochs", type=int, default=1)
     parser.add_argument("--encoder", default=os.environ.get("CE_MODEL_DIR", ""),
                         help="каталог с весами энкодера (v22: rubert-base-cased), по умолчанию rubert-tiny2")
+    parser.add_argument("--eval-each-epoch", action="store_true",
+                        help="v22: проверять val после каждой эпохи и сохранять лучшую по Span эпоху")
     parser.add_argument("--freeze-layers", type=int, default=0,
                         help="заморозить нижние N слоёв энкодера (экономия памяти/времени на CPU)")
     args = parser.parse_args(argv)
@@ -357,7 +400,12 @@ def main(argv=None):
             continue
         pairs = arms_data[arm]
         print(f"арм {arm}: {len(pairs)} пар", flush=True)
-        model, tensors, meta, history = train_arm(arm, pairs, tokenizer, args)
+        if args.eval_each_epoch:
+            model, tensors, meta, history = train_arm_epochs(arm, pairs, tokenizer, args,
+                                                            val_pairs, tables_val, val_tensors,
+                                                            val_meta, val_labels)
+        else:
+            model, tensors, meta, history = train_arm(arm, pairs, tokenizer, args)
         val_scores = scores(model, val_tensors)
         auc = float(roc_auc_score(val_labels, val_scores))
         apply_to_tables(tables_val, val_meta, val_scores)

@@ -20,10 +20,10 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  MODE: smoke          # smoke | full
-  EPOCHS: "1"
-  OOF: "0"
-  LIMIT: "60"
+  MODE: full           # smoke | full
+  EPOCHS: "6"
+  OOF: "3"
+  LIMIT: "0"
   ENCODER: DeepPavlov/rubert-base-cased
   CE_THREADS: "4"
 
@@ -111,11 +111,13 @@ jobs:
             --epochs "$(python -c "import json;print(json.load(open('artifacts/ce_run_v22.json'))['epochs'])")" \
             --oof "$(python -c "import json;print(json.load(open('artifacts/ce_run_v22.json'))['oof'])")" \
             --limit "$(python -c "import json;print(json.load(open('artifacts/ce_run_v22.json'))['limit'])")" \
-            --batch 8 \
+            --batch 16 \
             --lr 3e-5 \
             --doc-tokens 96 \
             --max-len 192 \
             --max-easy 2 \
+            --eval-each-epoch \
+            --freeze-layers 0 \
             --report artifacts/ce_train_v22.json \
             --checkpoint artifacts/ce_model_v22.pt
 
