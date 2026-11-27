@@ -1,0 +1,1853 @@
+{
+  "decoder": "v11 hybrid (mode gate + boundary adjuster на global-пути)",
+  "cut": 0.5,
+  "pair_confusion": {
+    "tp": 19,
+    "fp": 13,
+    "fn": 27,
+    "tn": 91,
+    "negatives": 104,
+    "positives": 46
+  },
+  "pair_precision": 0.5938,
+  "pair_recall": 0.413,
+  "pair_f1": 0.4872,
+  "fpr": 0.125,
+  "span": {
+    "span": 0.3363,
+    "token": 0.6191,
+    "pair": 0.4872,
+    "fpr": 0.125,
+    "span_p": 0.322,
+    "span_r": 0.3519
+  },
+  "verdict": "FN больше FP",
+  "fn_count": 27,
+  "fp_count": 13,
+  "tp_count": 19,
+  "summary": {
+    "tp": {
+      "gate": {
+        "mean": 0.7776,
+        "p50": 0.7358,
+        "min": 0.5548,
+        "max": 0.9872
+      },
+      "base_top1": {
+        "mean": 0.7854,
+        "p50": 0.7959,
+        "min": 0.6351,
+        "max": 0.8837
+      },
+      "base_top2": {
+        "mean": 0.6671,
+        "p50": 0.6798,
+        "min": 0.3751,
+        "max": 0.8403
+      },
+      "base_gap": {
+        "mean": 0.1183,
+        "p50": 0.054,
+        "min": 0.01,
+        "max": 0.4369
+      },
+      "base_top5_mean": {
+        "mean": 0.6176,
+        "p50": 0.6234,
+        "min": 0.441,
+        "max": 0.7629
+      },
+      "n_cand": {
+        "mean": 19.4737,
+        "p50": 17.0,
+        "min": 3,
+        "max": 56
+      },
+      "n_above_03": {
+        "mean": 10.5263,
+        "p50": 7.0,
+        "min": 3,
+        "max": 24
+      },
+      "n_above_05": {
+        "mean": 4.5789,
+        "p50": 5.0,
+        "min": 1,
+        "max": 9
+      },
+      "n_above_06": {
+        "mean": 2.6842,
+        "p50": 2.0,
+        "min": 1,
+        "max": 6
+      },
+      "local_top1": {
+        "mean": 0.757,
+        "p50": 0.8185,
+        "min": 0.2818,
+        "max": 0.9719
+      },
+      "mode_probability": {
+        "mean": 0.3657,
+        "p50": 0.2142,
+        "min": 0.0586,
+        "max": 0.9468
+      },
+      "answer_len": {
+        "mean": 565.5789,
+        "p50": 532.0,
+        "min": 211,
+        "max": 1147
+      },
+      "n_sentences": {
+        "mean": 4.7368,
+        "p50": 4.0,
+        "min": 1,
+        "max": 11
+      },
+      "n_clauses": {
+        "mean": 8.6842,
+        "p50": 8.0,
+        "min": 2,
+        "max": 22
+      },
+      "answer_cov": {
+        "mean": 0.441,
+        "p50": 0.4545,
+        "min": 0.2273,
+        "max": 0.8235
+      },
+      "answer_cos": {
+        "mean": 0.3955,
+        "p50": 0.3769,
+        "min": 0.2175,
+        "max": 0.7237
+      },
+      "digit_share": {
+        "mean": 0.0068,
+        "p50": 0.0,
+        "min": 0.0,
+        "max": 0.0394
+      },
+      "capital_share": {
+        "mean": 0.0749,
+        "p50": 0.0577,
+        "min": 0.0141,
+        "max": 0.2333
+      }
+    },
+    "fn": {
+      "gate": {
+        "mean": 0.6,
+        "p50": 0.5962,
+        "min": 0.2075,
+        "max": 0.9678
+      },
+      "base_top1": {
+        "mean": 0.6389,
+        "p50": 0.7003,
+        "min": 0.0984,
+        "max": 0.9031
+      },
+      "base_top2": {
+        "mean": 0.4781,
+        "p50": 0.5551,
+        "min": 0.0,
+        "max": 0.8578
+      },
+      "base_gap": {
+        "mean": 0.1608,
+        "p50": 0.1269,
+        "min": 0.0037,
+        "max": 0.4803
+      },
+      "base_top5_mean": {
+        "mean": 0.4748,
+        "p50": 0.4803,
+        "min": 0.0984,
+        "max": 0.8042
+      },
+      "n_cand": {
+        "mean": 13.4074,
+        "p50": 10.0,
+        "min": 1,
+        "max": 40
+      },
+      "n_above_03": {
+        "mean": 5.7778,
+        "p50": 4.0,
+        "min": 0,
+        "max": 20
+      },
+      "n_above_05": {
+        "mean": 2.6667,
+        "p50": 2.0,
+        "min": 0,
+        "max": 10
+      },
+      "n_above_06": {
+        "mean": 1.7037,
+        "p50": 1.0,
+        "min": 0,
+        "max": 5
+      },
+      "local_top1": {
+        "mean": 0.7053,
+        "p50": 0.812,
+        "min": 0.1506,
+        "max": 0.9706
+      },
+      "mode_probability": {
+        "mean": 0.2221,
+        "p50": 0.1096,
+        "min": 0.0203,
+        "max": 0.8673
+      },
+      "answer_len": {
+        "mean": 362.2593,
+        "p50": 349.0,
+        "min": 48,
+        "max": 835
+      },
+      "n_sentences": {
+        "mean": 3.7037,
+        "p50": 3.0,
+        "min": 1,
+        "max": 13
+      },
+      "n_clauses": {
+        "mean": 6.5926,
+        "p50": 5.0,
+        "min": 1,
+        "max": 19
+      },
+      "answer_cov": {
+        "mean": 0.5726,
+        "p50": 0.5278,
+        "min": 0.1039,
+        "max": 0.9706
+      },
+      "answer_cos": {
+        "mean": 0.5129,
+        "p50": 0.5129,
+        "min": 0.165,
+        "max": 0.8717
+      },
+      "digit_share": {
+        "mean": 0.0057,
+        "p50": 0.0,
+        "min": 0.0,
+        "max": 0.0563
+      },
+      "capital_share": {
+        "mean": 0.1191,
+        "p50": 0.069,
+        "min": 0.0169,
+        "max": 0.4286
+      }
+    },
+    "fp": {
+      "gate": {
+        "mean": 0.6856,
+        "p50": 0.6665,
+        "min": 0.5216,
+        "max": 0.8892
+      },
+      "base_top1": {
+        "mean": 0.7623,
+        "p50": 0.7684,
+        "min": 0.6512,
+        "max": 0.9065
+      },
+      "base_top2": {
+        "mean": 0.6502,
+        "p50": 0.6446,
+        "min": 0.3674,
+        "max": 0.8506
+      },
+      "base_gap": {
+        "mean": 0.1121,
+        "p50": 0.1007,
+        "min": 0.0005,
+        "max": 0.2837
+      },
+      "base_top5_mean": {
+        "mean": 0.5722,
+        "p50": 0.5819,
+        "min": 0.4433,
+        "max": 0.7097
+      },
+      "n_cand": {
+        "mean": 11.4615,
+        "p50": 8.0,
+        "min": 3,
+        "max": 35
+      },
+      "n_above_03": {
+        "mean": 6.6154,
+        "p50": 5.0,
+        "min": 3,
+        "max": 16
+      },
+      "n_above_05": {
+        "mean": 3.4615,
+        "p50": 3.0,
+        "min": 1,
+        "max": 8
+      },
+      "n_above_06": {
+        "mean": 2.1538,
+        "p50": 2.0,
+        "min": 1,
+        "max": 4
+      },
+      "local_top1": {
+        "mean": 0.8041,
+        "p50": 0.8577,
+        "min": 0.2302,
+        "max": 0.9823
+      },
+      "mode_probability": {
+        "mean": 0.2038,
+        "p50": 0.1162,
+        "min": 0.0377,
+        "max": 0.6121
+      },
+      "answer_len": {
+        "mean": 320.3846,
+        "p50": 220.0,
+        "min": 116,
+        "max": 692
+      },
+      "n_sentences": {
+        "mean": 2.3077,
+        "p50": 2.0,
+        "min": 1,
+        "max": 9
+      },
+      "n_clauses": {
+        "mean": 5.3846,
+        "p50": 4.0,
+        "min": 2,
+        "max": 16
+      },
+      "answer_cov": {
+        "mean": 0.3727,
+        "p50": 0.2941,
+        "min": 0.1667,
+        "max": 0.75
+      },
+      "answer_cos": {
+        "mean": 0.3364,
+        "p50": 0.3411,
+        "min": 0.1732,
+        "max": 0.5601
+      },
+      "digit_share": {
+        "mean": 0.0008,
+        "p50": 0.0,
+        "min": 0.0,
+        "max": 0.0058
+      },
+      "capital_share": {
+        "mean": 0.0838,
+        "p50": 0.0704,
+        "min": 0.0222,
+        "max": 0.2
+      }
+    }
+  },
+  "decoders": {
+    "tp": {
+      "global": 14,
+      "local": 5
+    },
+    "fn": {
+      "global": 24,
+      "local": 3
+    },
+    "fp": {
+      "global": 12,
+      "local": 1
+    }
+  },
+  "fn": [
+    {
+      "gate": 0.9242,
+      "base_top1": 0.849,
+      "base_top2": 0.722,
+      "base_gap": 0.1269,
+      "base_top5_mean": 0.6989,
+      "base_mean": 0.4282,
+      "n_cand": 23,
+      "n_above_03": 15,
+      "n_above_05": 10,
+      "n_above_06": 5,
+      "local_top1": 0.812,
+      "local_top2_mean": 0.7998,
+      "mode_probability": 0.6482,
+      "answer_len": 711,
+      "n_sentences": 6,
+      "n_clauses": 11,
+      "answer_cov": 0.1216,
+      "answer_cos": 0.4073,
+      "digit_share": 0.0028,
+      "capital_share": 0.092,
+      "numbers_missing": 1.0,
+      "pair_id": "sber000008",
+      "gold_spans": 1,
+      "predicted_spans": 4,
+      "decoder": "local",
+      "predicted": [
+        [
+          276,
+          413
+        ],
+        [
+          415,
+          567
+        ],
+        [
+          177,
+          274
+        ],
+        [
+          598,
+          710
+        ]
+      ],
+      "gold": [
+        [
+          0,
+          710
+        ]
+      ]
+    },
+    {
+      "gate": 0.9678,
+      "base_top1": 0.9031,
+      "base_top2": 0.8578,
+      "base_gap": 0.0453,
+      "base_top5_mean": 0.7257,
+      "base_mean": 0.3393,
+      "n_cand": 40,
+      "n_above_03": 20,
+      "n_above_05": 6,
+      "n_above_06": 4,
+      "local_top1": 0.8348,
+      "local_top2_mean": 0.8071,
+      "mode_probability": 0.8673,
+      "answer_len": 835,
+      "n_sentences": 7,
+      "n_clauses": 19,
+      "answer_cov": 0.1039,
+      "answer_cos": 0.3271,
+      "digit_share": 0.0024,
+      "capital_share": 0.0562,
+      "numbers_missing": 1.0,
+      "pair_id": "sber000024",
+      "gold_spans": 1,
+      "predicted_spans": 3,
+      "decoder": "local",
+      "predicted": [
+        [
+          202,
+          373
+        ],
+        [
+          485,
+          834
+        ],
+        [
+          385,
+          479
+        ]
+      ],
+      "gold": [
+        [
+          0,
+          834
+        ]
+      ]
+    },
+    {
+      "gate": 0.4624,
+      "base_top1": 0.6281,
+      "base_top2": 0.3234,
+      "base_gap": 0.3047,
+      "base_top5_mean": 0.3187,
+      "base_mean": 0.2302,
+      "n_cand": 8,
+      "n_above_03": 3,
+      "n_above_05": 1,
+      "n_above_06": 1,
+      "local_top1": 0.4355,
+      "local_top2_mean": 0.4322,
+      "mode_probability": 0.0451,
+      "answer_len": 262,
+      "n_sentences": 2,
+      "n_clauses": 4,
+      "answer_cov": 0.9062,
+      "answer_cos": 0.7423,
+      "digit_share": 0.0,
+      "capital_share": 0.0588,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000122",
+      "gold_spans": 2,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          66,
+          115
+        ],
+        [
+          117,
+          261
+        ]
+      ]
+    },
+    {
+      "gate": 0.4722,
+      "base_top1": 0.6724,
+      "base_top2": 0.3896,
+      "base_gap": 0.2828,
+      "base_top5_mean": 0.3991,
+      "base_mean": 0.174,
+      "n_cand": 18,
+      "n_above_03": 3,
+      "n_above_05": 1,
+      "n_above_06": 1,
+      "local_top1": 0.5984,
+      "local_top2_mean": 0.5483,
+      "mode_probability": 0.1096,
+      "answer_len": 376,
+      "n_sentences": 3,
+      "n_clauses": 8,
+      "answer_cov": 0.7674,
+      "answer_cos": 0.5007,
+      "digit_share": 0.0,
+      "capital_share": 0.0625,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000176",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          194,
+          276
+        ]
+      ]
+    },
+    {
+      "gate": 0.8692,
+      "base_top1": 0.7899,
+      "base_top2": 0.7077,
+      "base_gap": 0.0822,
+      "base_top5_mean": 0.6642,
+      "base_mean": 0.3681,
+      "n_cand": 22,
+      "n_above_03": 14,
+      "n_above_05": 6,
+      "n_above_06": 4,
+      "local_top1": 0.9044,
+      "local_top2_mean": 0.844,
+      "mode_probability": 0.5238,
+      "answer_len": 487,
+      "n_sentences": 6,
+      "n_clauses": 10,
+      "answer_cov": 0.32,
+      "answer_cos": 0.3269,
+      "digit_share": 0.0041,
+      "capital_share": 0.069,
+      "numbers_missing": 1.0,
+      "pair_id": "sber000191",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          486
+        ]
+      ],
+      "gold": [
+        [
+          402,
+          486
+        ]
+      ]
+    },
+    {
+      "gate": 0.7545,
+      "base_top1": 0.8994,
+      "base_top2": 0.8072,
+      "base_gap": 0.0922,
+      "base_top5_mean": 0.7316,
+      "base_mean": 0.4463,
+      "n_cand": 14,
+      "n_above_03": 10,
+      "n_above_05": 6,
+      "n_above_06": 3,
+      "local_top1": 0.807,
+      "local_top2_mean": 0.7967,
+      "mode_probability": 0.2811,
+      "answer_len": 558,
+      "n_sentences": 5,
+      "n_clauses": 8,
+      "answer_cov": 0.381,
+      "answer_cos": 0.4585,
+      "digit_share": 0.0072,
+      "capital_share": 0.1304,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000211",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          557
+        ]
+      ],
+      "gold": [
+        [
+          326,
+          557
+        ]
+      ]
+    },
+    {
+      "gate": 0.5782,
+      "base_top1": 0.5571,
+      "base_top2": 0.4834,
+      "base_gap": 0.0737,
+      "base_top5_mean": 0.4268,
+      "base_mean": 0.2446,
+      "n_cand": 14,
+      "n_above_03": 4,
+      "n_above_05": 1,
+      "n_above_06": 0,
+      "local_top1": 0.9019,
+      "local_top2_mean": 0.8893,
+      "mode_probability": 0.1233,
+      "answer_len": 208,
+      "n_sentences": 2,
+      "n_clauses": 7,
+      "answer_cov": 0.5652,
+      "answer_cos": 0.4537,
+      "digit_share": 0.0,
+      "capital_share": 0.0714,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000376",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          171,
+          207
+        ]
+      ]
+    },
+    {
+      "gate": 0.4186,
+      "base_top1": 0.5407,
+      "base_top2": 0.3199,
+      "base_gap": 0.2208,
+      "base_top5_mean": 0.3179,
+      "base_mean": 0.1913,
+      "n_cand": 10,
+      "n_above_03": 2,
+      "n_above_05": 1,
+      "n_above_06": 0,
+      "local_top1": 0.1506,
+      "local_top2_mean": 0.1481,
+      "mode_probability": 0.049,
+      "answer_len": 487,
+      "n_sentences": 3,
+      "n_clauses": 5,
+      "answer_cov": 0.94,
+      "answer_cos": 0.6593,
+      "digit_share": 0.0,
+      "capital_share": 0.0517,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000385",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          233,
+          379
+        ]
+      ]
+    },
+    {
+      "gate": 0.8617,
+      "base_top1": 0.7054,
+      "base_top2": 0.6671,
+      "base_gap": 0.0382,
+      "base_top5_mean": 0.6357,
+      "base_mean": 0.2525,
+      "n_cand": 29,
+      "n_above_03": 6,
+      "n_above_05": 6,
+      "n_above_06": 3,
+      "local_top1": 0.8281,
+      "local_top2_mean": 0.7382,
+      "mode_probability": 0.6899,
+      "answer_len": 385,
+      "n_sentences": 4,
+      "n_clauses": 17,
+      "answer_cov": 0.4419,
+      "answer_cos": 0.6132,
+      "digit_share": 0.0,
+      "capital_share": 0.1458,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000413",
+      "gold_spans": 1,
+      "predicted_spans": 2,
+      "decoder": "local",
+      "predicted": [
+        [
+          181,
+          301
+        ],
+        [
+          303,
+          384
+        ]
+      ],
+      "gold": [
+        [
+          0,
+          110
+        ]
+      ]
+    },
+    {
+      "gate": 0.7277,
+      "base_top1": 0.8537,
+      "base_top2": 0.8497,
+      "base_gap": 0.004,
+      "base_top5_mean": 0.8042,
+      "base_mean": 0.3409,
+      "n_cand": 18,
+      "n_above_03": 7,
+      "n_above_05": 5,
+      "n_above_06": 5,
+      "local_top1": 0.9158,
+      "local_top2_mean": 0.907,
+      "mode_probability": 0.3422,
+      "answer_len": 341,
+      "n_sentences": 2,
+      "n_clauses": 8,
+      "answer_cov": 0.4054,
+      "answer_cos": 0.5129,
+      "digit_share": 0.0,
+      "capital_share": 0.05,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000446",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          245
+        ]
+      ],
+      "gold": [
+        [
+          165,
+          235
+        ]
+      ]
+    },
+    {
+      "gate": 0.3201,
+      "base_top1": 0.4037,
+      "base_top2": 0.2023,
+      "base_gap": 0.2014,
+      "base_top5_mean": 0.2087,
+      "base_mean": 0.1634,
+      "n_cand": 7,
+      "n_above_03": 1,
+      "n_above_05": 0,
+      "n_above_06": 0,
+      "local_top1": 0.233,
+      "local_top2_mean": 0.1389,
+      "mode_probability": 0.0292,
+      "answer_len": 352,
+      "n_sentences": 1,
+      "n_clauses": 3,
+      "answer_cov": 0.9706,
+      "answer_cos": 0.8717,
+      "digit_share": 0.0,
+      "capital_share": 0.0244,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000456",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          0,
+          351
+        ]
+      ]
+    },
+    {
+      "gate": 0.2075,
+      "base_top1": 0.0984,
+      "base_top2": 0.0,
+      "base_gap": 0.0984,
+      "base_top5_mean": 0.0984,
+      "base_mean": 0.0984,
+      "n_cand": 1,
+      "n_above_03": 0,
+      "n_above_05": 0,
+      "n_above_06": 0,
+      "local_top1": 0.8206,
+      "local_top2_mean": 0.8206,
+      "mode_probability": 0.0227,
+      "answer_len": 48,
+      "n_sentences": 1,
+      "n_clauses": 1,
+      "answer_cov": 0.8333,
+      "answer_cos": 0.5883,
+      "digit_share": 0.0,
+      "capital_share": 0.4286,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000506",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          0,
+          47
+        ]
+      ]
+    },
+    {
+      "gate": 0.6006,
+      "base_top1": 0.72,
+      "base_top2": 0.6792,
+      "base_gap": 0.0408,
+      "base_top5_mean": 0.5545,
+      "base_mean": 0.4762,
+      "n_cand": 6,
+      "n_above_03": 5,
+      "n_above_05": 3,
+      "n_above_06": 3,
+      "local_top1": 0.9706,
+      "local_top2_mean": 0.7747,
+      "mode_probability": 0.0833,
+      "answer_len": 316,
+      "n_sentences": 2,
+      "n_clauses": 3,
+      "answer_cov": 0.4571,
+      "answer_cos": 0.5362,
+      "digit_share": 0.0,
+      "capital_share": 0.0526,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000514",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          315
+        ]
+      ],
+      "gold": [
+        [
+          209,
+          315
+        ]
+      ]
+    },
+    {
+      "gate": 0.3851,
+      "base_top1": 0.4672,
+      "base_top2": 0.2296,
+      "base_gap": 0.2375,
+      "base_top5_mean": 0.2295,
+      "base_mean": 0.1674,
+      "n_cand": 8,
+      "n_above_03": 1,
+      "n_above_05": 0,
+      "n_above_06": 0,
+      "local_top1": 0.5864,
+      "local_top2_mean": 0.5811,
+      "mode_probability": 0.0386,
+      "answer_len": 225,
+      "n_sentences": 4,
+      "n_clauses": 4,
+      "answer_cov": 0.75,
+      "answer_cos": 0.733,
+      "digit_share": 0.0,
+      "capital_share": 0.0769,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000553",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          0,
+          224
+        ]
+      ]
+    },
+    {
+      "gate": 0.4076,
+      "base_top1": 0.4803,
+      "base_top2": 0.0,
+      "base_gap": 0.4803,
+      "base_top5_mean": 0.4803,
+      "base_mean": 0.4803,
+      "n_cand": 1,
+      "n_above_03": 1,
+      "n_above_05": 0,
+      "n_above_06": 0,
+      "local_top1": 0.7733,
+      "local_top2_mean": 0.7733,
+      "mode_probability": 0.0203,
+      "answer_len": 113,
+      "n_sentences": 1,
+      "n_clauses": 1,
+      "answer_cov": 0.4167,
+      "answer_cos": 0.3651,
+      "digit_share": 0.0,
+      "capital_share": 0.0833,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000579",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          0,
+          112
+        ]
+      ]
+    },
+    {
+      "gate": 0.275,
+      "base_top1": 0.2278,
+      "base_top2": 0.0,
+      "base_gap": 0.2278,
+      "base_top5_mean": 0.2278,
+      "base_mean": 0.2278,
+      "n_cand": 1,
+      "n_above_03": 0,
+      "n_above_05": 0,
+      "n_above_06": 0,
+      "local_top1": 0.4472,
+      "local_top2_mean": 0.4472,
+      "mode_probability": 0.0226,
+      "answer_len": 117,
+      "n_sentences": 1,
+      "n_clauses": 1,
+      "answer_cov": 0.7333,
+      "answer_cos": 0.4363,
+      "digit_share": 0.0,
+      "capital_share": 0.1667,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000598",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          0,
+          116
+        ]
+      ]
+    },
+    {
+      "gate": 0.2925,
+      "base_top1": 0.2643,
+      "base_top2": 0.0,
+      "base_gap": 0.2643,
+      "base_top5_mean": 0.2643,
+      "base_mean": 0.2643,
+      "n_cand": 1,
+      "n_above_03": 0,
+      "n_above_05": 0,
+      "n_above_06": 0,
+      "local_top1": 0.4949,
+      "local_top2_mean": 0.4949,
+      "mode_probability": 0.0215,
+      "answer_len": 71,
+      "n_sentences": 1,
+      "n_clauses": 1,
+      "answer_cov": 0.9,
+      "answer_cos": 0.5379,
+      "digit_share": 0.0563,
+      "capital_share": 0.4,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000626",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          0,
+          70
+        ]
+      ]
+    },
+    {
+      "gate": 0.77,
+      "base_top1": 0.7148,
+      "base_top2": 0.622,
+      "base_gap": 0.0928,
+      "base_top5_mean": 0.5356,
+      "base_mean": 0.3208,
+      "n_cand": 18,
+      "n_above_03": 10,
+      "n_above_05": 3,
+      "n_above_06": 2,
+      "local_top1": 0.8753,
+      "local_top2_mean": 0.8467,
+      "mode_probability": 0.314,
+      "answer_len": 436,
+      "n_sentences": 9,
+      "n_clauses": 8,
+      "answer_cov": 0.375,
+      "answer_cos": 0.551,
+      "digit_share": 0.0275,
+      "capital_share": 0.4211,
+      "numbers_missing": 0.6667,
+      "pair_id": "sber000637",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          435
+        ]
+      ],
+      "gold": [
+        [
+          0,
+          149
+        ]
+      ]
+    },
+    {
+      "gate": 0.8814,
+      "base_top1": 0.8245,
+      "base_top2": 0.6027,
+      "base_gap": 0.2219,
+      "base_top5_mean": 0.6186,
+      "base_mean": 0.3513,
+      "n_cand": 22,
+      "n_above_03": 10,
+      "n_above_05": 4,
+      "n_above_06": 3,
+      "local_top1": 0.8848,
+      "local_top2_mean": 0.8678,
+      "mode_probability": 0.3582,
+      "answer_len": 478,
+      "n_sentences": 6,
+      "n_clauses": 11,
+      "answer_cov": 0.34,
+      "answer_cos": 0.4191,
+      "digit_share": 0.0,
+      "capital_share": 0.0169,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000051",
+      "gold_spans": 2,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          477
+        ]
+      ],
+      "gold": [
+        [
+          66,
+          113
+        ],
+        [
+          429,
+          477
+        ]
+      ]
+    },
+    {
+      "gate": 0.5215,
+      "base_top1": 0.6126,
+      "base_top2": 0.5616,
+      "base_gap": 0.051,
+      "base_top5_mean": 0.3974,
+      "base_mean": 0.3974,
+      "n_cand": 5,
+      "n_above_03": 3,
+      "n_above_05": 2,
+      "n_above_06": 1,
+      "local_top1": 0.8433,
+      "local_top2_mean": 0.7627,
+      "mode_probability": 0.0856,
+      "answer_len": 82,
+      "n_sentences": 2,
+      "n_clauses": 2,
+      "answer_cov": 0.8462,
+      "answer_cos": 0.3467,
+      "digit_share": 0.0488,
+      "capital_share": 0.3077,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000058",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          81
+        ]
+      ],
+      "gold": [
+        [
+          0,
+          38
+        ]
+      ]
+    },
+    {
+      "gate": 0.5574,
+      "base_top1": 0.7003,
+      "base_top2": 0.5551,
+      "base_gap": 0.1452,
+      "base_top5_mean": 0.4563,
+      "base_mean": 0.3998,
+      "n_cand": 6,
+      "n_above_03": 4,
+      "n_above_05": 3,
+      "n_above_06": 1,
+      "local_top1": 0.689,
+      "local_top2_mean": 0.6414,
+      "mode_probability": 0.0531,
+      "answer_len": 349,
+      "n_sentences": 2,
+      "n_clauses": 3,
+      "answer_cov": 0.6471,
+      "answer_cos": 0.7084,
+      "digit_share": 0.0,
+      "capital_share": 0.1176,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000085",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          348
+        ]
+      ],
+      "gold": [
+        [
+          0,
+          103
+        ]
+      ]
+    },
+    {
+      "gate": 0.8564,
+      "base_top1": 0.7833,
+      "base_top2": 0.6112,
+      "base_gap": 0.1721,
+      "base_top5_mean": 0.5428,
+      "base_mean": 0.2322,
+      "n_cand": 32,
+      "n_above_03": 8,
+      "n_above_05": 3,
+      "n_above_06": 2,
+      "local_top1": 0.7439,
+      "local_top2_mean": 0.599,
+      "mode_probability": 0.5493,
+      "answer_len": 764,
+      "n_sentences": 13,
+      "n_clauses": 16,
+      "answer_cov": 0.5,
+      "answer_cos": 0.3102,
+      "digit_share": 0.0026,
+      "capital_share": 0.0353,
+      "numbers_missing": 1.0,
+      "pair_id": "rusci000108",
+      "gold_spans": 2,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          763
+        ]
+      ],
+      "gold": [
+        [
+          0,
+          119
+        ],
+        [
+          701,
+          763
+        ]
+      ]
+    },
+    {
+      "gate": 0.7266,
+      "base_top1": 0.6894,
+      "base_top2": 0.6857,
+      "base_gap": 0.0037,
+      "base_top5_mean": 0.5975,
+      "base_mean": 0.4702,
+      "n_cand": 10,
+      "n_above_03": 8,
+      "n_above_05": 4,
+      "n_above_06": 3,
+      "local_top1": 0.814,
+      "local_top2_mean": 0.7221,
+      "mode_probability": 0.1691,
+      "answer_len": 336,
+      "n_sentences": 2,
+      "n_clauses": 4,
+      "answer_cov": 0.5278,
+      "answer_cos": 0.5786,
+      "digit_share": 0.0,
+      "capital_share": 0.0476,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000134",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          205
+        ]
+      ],
+      "gold": [
+        [
+          141,
+          185
+        ]
+      ]
+    },
+    {
+      "gate": 0.5962,
+      "base_top1": 0.5253,
+      "base_top2": 0.5024,
+      "base_gap": 0.0229,
+      "base_top5_mean": 0.4968,
+      "base_mean": 0.371,
+      "n_cand": 13,
+      "n_above_03": 10,
+      "n_above_05": 2,
+      "n_above_06": 0,
+      "local_top1": 0.8901,
+      "local_top2_mean": 0.8113,
+      "mode_probability": 0.1786,
+      "answer_len": 600,
+      "n_sentences": 3,
+      "n_clauses": 6,
+      "answer_cov": 0.4815,
+      "answer_cos": 0.5745,
+      "digit_share": 0.0033,
+      "capital_share": 0.0597,
+      "numbers_missing": 1.0,
+      "pair_id": "rusci000175",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          0,
+          599
+        ]
+      ]
+    },
+    {
+      "gate": 0.6688,
+      "base_top1": 0.8265,
+      "base_top2": 0.7578,
+      "base_gap": 0.0686,
+      "base_top5_mean": 0.6351,
+      "base_mean": 0.4201,
+      "n_cand": 10,
+      "n_above_03": 6,
+      "n_above_05": 3,
+      "n_above_06": 3,
+      "local_top1": 0.8843,
+      "local_top2_mean": 0.5836,
+      "mode_probability": 0.1985,
+      "answer_len": 400,
+      "n_sentences": 3,
+      "n_clauses": 5,
+      "answer_cov": 0.5349,
+      "answer_cos": 0.345,
+      "digit_share": 0.0,
+      "capital_share": 0.0588,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000176",
+      "gold_spans": 1,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          129,
+          399
+        ]
+      ],
+      "gold": [
+        [
+          58,
+          127
+        ]
+      ]
+    },
+    {
+      "gate": 0.4915,
+      "base_top1": 0.723,
+      "base_top2": 0.437,
+      "base_gap": 0.286,
+      "base_top5_mean": 0.3989,
+      "base_mean": 0.2408,
+      "n_cand": 10,
+      "n_above_03": 3,
+      "n_above_05": 1,
+      "n_above_06": 1,
+      "local_top1": 0.4182,
+      "local_top2_mean": 0.3835,
+      "mode_probability": 0.0843,
+      "answer_len": 244,
+      "n_sentences": 1,
+      "n_clauses": 5,
+      "answer_cov": 0.8621,
+      "answer_cos": 0.7799,
+      "digit_share": 0.0,
+      "capital_share": 0.0345,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000221",
+      "gold_spans": 1,
+      "predicted_spans": 0,
+      "decoder": "global",
+      "predicted": [],
+      "gold": [
+        [
+          0,
+          243
+        ]
+      ]
+    },
+    {
+      "gate": 0.6058,
+      "base_top1": 0.7905,
+      "base_top2": 0.3338,
+      "base_gap": 0.4568,
+      "base_top5_mean": 0.3548,
+      "base_mean": 0.199,
+      "n_cand": 15,
+      "n_above_03": 2,
+      "n_above_05": 1,
+      "n_above_06": 1,
+      "local_top1": 0.4846,
+      "local_top2_mean": 0.4609,
+      "mode_probability": 0.089,
+      "answer_len": 200,
+      "n_sentences": 8,
+      "n_clauses": 7,
+      "answer_cov": 0.3333,
+      "answer_cos": 0.165,
+      "digit_share": 0.0,
+      "capital_share": 0.0952,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000284",
+      "gold_spans": 2,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          199
+        ]
+      ],
+      "gold": [
+        [
+          179,
+          192
+        ],
+        [
+          179,
+          199
+        ]
+      ]
+    }
+  ],
+  "fp": [
+    {
+      "gate": 0.6818,
+      "base_top1": 0.7684,
+      "base_top2": 0.7678,
+      "base_gap": 0.0005,
+      "base_top5_mean": 0.621,
+      "base_mean": 0.5622,
+      "n_cand": 6,
+      "n_above_03": 5,
+      "n_above_05": 4,
+      "n_above_06": 2,
+      "local_top1": 0.9733,
+      "local_top2_mean": 0.9478,
+      "mode_probability": 0.145,
+      "answer_len": 152,
+      "n_sentences": 2,
+      "n_clauses": 3,
+      "answer_cov": 0.1667,
+      "answer_cos": 0.3062,
+      "digit_share": 0.0,
+      "capital_share": 0.1,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000006",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          151
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.5216,
+      "base_top1": 0.6512,
+      "base_top2": 0.3674,
+      "base_gap": 0.2837,
+      "base_top5_mean": 0.4611,
+      "base_mean": 0.4611,
+      "n_cand": 3,
+      "n_above_03": 3,
+      "n_above_05": 1,
+      "n_above_06": 1,
+      "local_top1": 0.928,
+      "local_top2_mean": 0.9131,
+      "mode_probability": 0.0377,
+      "answer_len": 116,
+      "n_sentences": 1,
+      "n_clauses": 2,
+      "answer_cov": 0.4,
+      "answer_cos": 0.345,
+      "digit_share": 0.0,
+      "capital_share": 0.2,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000048",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          115
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.643,
+      "base_top1": 0.8053,
+      "base_top2": 0.5684,
+      "base_gap": 0.2369,
+      "base_top5_mean": 0.5248,
+      "base_mean": 0.4132,
+      "n_cand": 8,
+      "n_above_03": 6,
+      "n_above_05": 2,
+      "n_above_06": 1,
+      "local_top1": 0.9507,
+      "local_top2_mean": 0.9418,
+      "mode_probability": 0.101,
+      "answer_len": 153,
+      "n_sentences": 1,
+      "n_clauses": 4,
+      "answer_cov": 0.2857,
+      "answer_cos": 0.2572,
+      "digit_share": 0.0,
+      "capital_share": 0.0952,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000065",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          152
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.6125,
+      "base_top1": 0.6838,
+      "base_top2": 0.6334,
+      "base_gap": 0.0504,
+      "base_top5_mean": 0.5459,
+      "base_mean": 0.399,
+      "n_cand": 8,
+      "n_above_03": 4,
+      "n_above_05": 4,
+      "n_above_06": 3,
+      "local_top1": 0.9823,
+      "local_top2_mean": 0.978,
+      "mode_probability": 0.1271,
+      "answer_len": 161,
+      "n_sentences": 1,
+      "n_clauses": 4,
+      "answer_cov": 0.1765,
+      "answer_cos": 0.3411,
+      "digit_share": 0.0,
+      "capital_share": 0.0556,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000077",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          160
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.6404,
+      "base_top1": 0.7735,
+      "base_top2": 0.6123,
+      "base_gap": 0.1612,
+      "base_top5_mean": 0.6405,
+      "base_mean": 0.6405,
+      "n_cand": 3,
+      "n_above_03": 3,
+      "n_above_05": 3,
+      "n_above_06": 2,
+      "local_top1": 0.8577,
+      "local_top2_mean": 0.8345,
+      "mode_probability": 0.0765,
+      "answer_len": 128,
+      "n_sentences": 1,
+      "n_clauses": 2,
+      "answer_cov": 0.2941,
+      "answer_cos": 0.1732,
+      "digit_share": 0.0,
+      "capital_share": 0.1667,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000083",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          127
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.6665,
+      "base_top1": 0.7453,
+      "base_top2": 0.6446,
+      "base_gap": 0.1007,
+      "base_top5_mean": 0.5819,
+      "base_mean": 0.5231,
+      "n_cand": 6,
+      "n_above_03": 5,
+      "n_above_05": 4,
+      "n_above_06": 2,
+      "local_top1": 0.9754,
+      "local_top2_mean": 0.9659,
+      "mode_probability": 0.1092,
+      "answer_len": 175,
+      "n_sentences": 1,
+      "n_clauses": 3,
+      "answer_cov": 0.1818,
+      "answer_cos": 0.2132,
+      "digit_share": 0.0,
+      "capital_share": 0.0435,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000106",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          174
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.7326,
+      "base_top1": 0.8334,
+      "base_top2": 0.8016,
+      "base_gap": 0.0318,
+      "base_top5_mean": 0.7097,
+      "base_mean": 0.6486,
+      "n_cand": 6,
+      "n_above_03": 6,
+      "n_above_05": 5,
+      "n_above_06": 4,
+      "local_top1": 0.8944,
+      "local_top2_mean": 0.8865,
+      "mode_probability": 0.1162,
+      "answer_len": 378,
+      "n_sentences": 1,
+      "n_clauses": 3,
+      "answer_cov": 0.2927,
+      "answer_cos": 0.2558,
+      "digit_share": 0.0,
+      "capital_share": 0.0222,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000422",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          377
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.8892,
+      "base_top1": 0.9065,
+      "base_top2": 0.8506,
+      "base_gap": 0.0559,
+      "base_top5_mean": 0.6042,
+      "base_mean": 0.2142,
+      "n_cand": 35,
+      "n_above_03": 8,
+      "n_above_05": 2,
+      "n_above_06": 2,
+      "local_top1": 0.7489,
+      "local_top2_mean": 0.6319,
+      "mode_probability": 0.6121,
+      "answer_len": 499,
+      "n_sentences": 2,
+      "n_clauses": 16,
+      "answer_cov": 0.2727,
+      "answer_cos": 0.3698,
+      "digit_share": 0.0,
+      "capital_share": 0.0517,
+      "numbers_missing": 0.0,
+      "pair_id": "sber000457",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "local",
+      "predicted": [
+        [
+          183,
+          498
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.5701,
+      "base_top1": 0.6554,
+      "base_top2": 0.5012,
+      "base_gap": 0.1543,
+      "base_top5_mean": 0.4433,
+      "base_mean": 0.3153,
+      "n_cand": 9,
+      "n_above_03": 4,
+      "n_above_05": 2,
+      "n_above_06": 1,
+      "local_top1": 0.8081,
+      "local_top2_mean": 0.7342,
+      "mode_probability": 0.0957,
+      "answer_len": 224,
+      "n_sentences": 2,
+      "n_clauses": 4,
+      "answer_cov": 0.75,
+      "answer_cos": 0.5601,
+      "digit_share": 0.0,
+      "capital_share": 0.08,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000076",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          223
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.5347,
+      "base_top1": 0.7313,
+      "base_top2": 0.7259,
+      "base_gap": 0.0054,
+      "base_top5_mean": 0.4513,
+      "base_mean": 0.4513,
+      "n_cand": 5,
+      "n_above_03": 3,
+      "n_above_05": 2,
+      "n_above_06": 2,
+      "local_top1": 0.2302,
+      "local_top2_mean": 0.2108,
+      "mode_probability": 0.0899,
+      "answer_len": 220,
+      "n_sentences": 2,
+      "n_clauses": 2,
+      "answer_cov": 0.6071,
+      "answer_cos": 0.449,
+      "digit_share": 0.0,
+      "capital_share": 0.069,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000177",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          219
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.8845,
+      "base_top1": 0.7245,
+      "base_top2": 0.7117,
+      "base_gap": 0.0128,
+      "base_top5_mean": 0.6745,
+      "base_mean": 0.4141,
+      "n_cand": 23,
+      "n_above_03": 16,
+      "n_above_05": 8,
+      "n_above_06": 4,
+      "local_top1": 0.6425,
+      "local_top2_mean": 0.5939,
+      "mode_probability": 0.5082,
+      "answer_len": 578,
+      "n_sentences": 3,
+      "n_clauses": 11,
+      "answer_cov": 0.2969,
+      "answer_cos": 0.2169,
+      "digit_share": 0.0052,
+      "capital_share": 0.0704,
+      "numbers_missing": 1.0,
+      "pair_id": "rusci000193",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          576
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.8289,
+      "base_top1": 0.8403,
+      "base_top2": 0.6487,
+      "base_gap": 0.1916,
+      "base_top5_mean": 0.6194,
+      "base_mean": 0.4296,
+      "n_cand": 17,
+      "n_above_03": 14,
+      "n_above_05": 5,
+      "n_above_06": 2,
+      "local_top1": 0.6433,
+      "local_top2_mean": 0.4816,
+      "mode_probability": 0.3326,
+      "answer_len": 692,
+      "n_sentences": 4,
+      "n_clauses": 8,
+      "answer_cov": 0.6857,
+      "answer_cos": 0.4657,
+      "digit_share": 0.0,
+      "capital_share": 0.0482,
+      "numbers_missing": 0.0,
+      "pair_id": "rusci000239",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          691
+        ]
+      ],
+      "gold": []
+    },
+    {
+      "gate": 0.7074,
+      "base_top1": 0.7916,
+      "base_top2": 0.6192,
+      "base_gap": 0.1724,
+      "base_top5_mean": 0.5609,
+      "base_mean": 0.2906,
+      "n_cand": 20,
+      "n_above_03": 9,
+      "n_above_05": 3,
+      "n_above_06": 2,
+      "local_top1": 0.8187,
+      "local_top2_mean": 0.8123,
+      "mode_probability": 0.2976,
+      "answer_len": 689,
+      "n_sentences": 9,
+      "n_clauses": 8,
+      "answer_cov": 0.4355,
+      "answer_cos": 0.4197,
+      "digit_share": 0.0058,
+      "capital_share": 0.087,
+      "numbers_missing": 1.0,
+      "pair_id": "rusci000249",
+      "gold_spans": 0,
+      "predicted_spans": 1,
+      "decoder": "global",
+      "predicted": [
+        [
+          0,
+          688
+        ]
+      ],
+      "gold": []
+    }
+  ]
+}

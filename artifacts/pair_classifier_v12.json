@@ -1,0 +1,475 @@
+{
+  "rule": "pair-GBDT на inference-признаках обеих голов; span-выбор отдельно (v11 hybrid без гейта)",
+  "features": [
+    "gate",
+    "mode_probability",
+    "base_top1",
+    "base_top2",
+    "base_gap",
+    "base_top5_mean",
+    "base_mean",
+    "log_n_cand",
+    "n_above_03",
+    "n_above_05",
+    "n_above_06",
+    "local_top1",
+    "local_top2_mean",
+    "local_above_05",
+    "local_above_08",
+    "log_answer_len",
+    "n_sentences",
+    "n_clauses",
+    "answer_cov",
+    "answer_cos",
+    "digit_share",
+    "capital_share",
+    "numbers_missing"
+  ],
+  "train": {
+    "pairs": 697,
+    "positives": 341
+  },
+  "export_max_abs_delta": 0.0,
+  "val_pair_auc": 0.8129,
+  "sweep": [
+    {
+      "cut": 0.1,
+      "pair": {
+        "tp": 19,
+        "fp": 12,
+        "fn": 27,
+        "precision": 0.6129,
+        "recall": 0.413,
+        "f1": 0.4935
+      },
+      "val": {
+        "span": 0.3423,
+        "token": 0.6209,
+        "pair": 0.4935,
+        "fpr": 0.1154,
+        "span_p": 0.3333,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 12,
+      "negatives": 104
+    },
+    {
+      "cut": 0.15,
+      "pair": {
+        "tp": 19,
+        "fp": 12,
+        "fn": 27,
+        "precision": 0.6129,
+        "recall": 0.413,
+        "f1": 0.4935
+      },
+      "val": {
+        "span": 0.3423,
+        "token": 0.6209,
+        "pair": 0.4935,
+        "fpr": 0.1154,
+        "span_p": 0.3333,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 12,
+      "negatives": 104
+    },
+    {
+      "cut": 0.2,
+      "pair": {
+        "tp": 19,
+        "fp": 11,
+        "fn": 27,
+        "precision": 0.6333,
+        "recall": 0.413,
+        "f1": 0.5
+      },
+      "val": {
+        "span": 0.3455,
+        "token": 0.6254,
+        "pair": 0.5,
+        "fpr": 0.1058,
+        "span_p": 0.3393,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 11,
+      "negatives": 104
+    },
+    {
+      "cut": 0.25,
+      "pair": {
+        "tp": 18,
+        "fp": 8,
+        "fn": 28,
+        "precision": 0.6923,
+        "recall": 0.3913,
+        "f1": 0.5
+      },
+      "val": {
+        "span": 0.3462,
+        "token": 0.6287,
+        "pair": 0.5,
+        "fpr": 0.0769,
+        "span_p": 0.36,
+        "span_r": 0.3333
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 8,
+      "negatives": 104
+    },
+    {
+      "cut": 0.3,
+      "pair": {
+        "tp": 16,
+        "fp": 8,
+        "fn": 30,
+        "precision": 0.6667,
+        "recall": 0.3478,
+        "f1": 0.4571
+      },
+      "val": {
+        "span": 0.3137,
+        "token": 0.6023,
+        "pair": 0.4571,
+        "fpr": 0.0769,
+        "span_p": 0.3333,
+        "span_r": 0.2963
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 8,
+      "negatives": 104
+    },
+    {
+      "cut": 0.35,
+      "pair": {
+        "tp": 16,
+        "fp": 8,
+        "fn": 30,
+        "precision": 0.6667,
+        "recall": 0.3478,
+        "f1": 0.4571
+      },
+      "val": {
+        "span": 0.3168,
+        "token": 0.6051,
+        "pair": 0.4571,
+        "fpr": 0.0769,
+        "span_p": 0.3404,
+        "span_r": 0.2963
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 8,
+      "negatives": 104
+    },
+    {
+      "cut": 0.4,
+      "pair": {
+        "tp": 15,
+        "fp": 8,
+        "fn": 31,
+        "precision": 0.6522,
+        "recall": 0.3261,
+        "f1": 0.4348
+      },
+      "val": {
+        "span": 0.303,
+        "token": 0.5814,
+        "pair": 0.4348,
+        "fpr": 0.0769,
+        "span_p": 0.3333,
+        "span_r": 0.2778
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 8,
+      "negatives": 104
+    },
+    {
+      "cut": 0.45,
+      "pair": {
+        "tp": 14,
+        "fp": 7,
+        "fn": 32,
+        "precision": 0.6667,
+        "recall": 0.3043,
+        "f1": 0.4179
+      },
+      "val": {
+        "span": 0.2947,
+        "token": 0.559,
+        "pair": 0.4179,
+        "fpr": 0.0673,
+        "span_p": 0.3415,
+        "span_r": 0.2593
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 7,
+      "negatives": 104
+    },
+    {
+      "cut": 0.5,
+      "pair": {
+        "tp": 14,
+        "fp": 7,
+        "fn": 32,
+        "precision": 0.6667,
+        "recall": 0.3043,
+        "f1": 0.4179
+      },
+      "val": {
+        "span": 0.2947,
+        "token": 0.559,
+        "pair": 0.4179,
+        "fpr": 0.0673,
+        "span_p": 0.3415,
+        "span_r": 0.2593
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 7,
+      "negatives": 104
+    },
+    {
+      "cut": 0.55,
+      "pair": {
+        "tp": 14,
+        "fp": 7,
+        "fn": 32,
+        "precision": 0.6667,
+        "recall": 0.3043,
+        "f1": 0.4179
+      },
+      "val": {
+        "span": 0.2947,
+        "token": 0.559,
+        "pair": 0.4179,
+        "fpr": 0.0673,
+        "span_p": 0.3415,
+        "span_r": 0.2593
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 7,
+      "negatives": 104
+    },
+    {
+      "cut": 0.6,
+      "pair": {
+        "tp": 13,
+        "fp": 7,
+        "fn": 33,
+        "precision": 0.65,
+        "recall": 0.2826,
+        "f1": 0.3939
+      },
+      "val": {
+        "span": 0.2796,
+        "token": 0.5399,
+        "pair": 0.3939,
+        "fpr": 0.0673,
+        "span_p": 0.3333,
+        "span_r": 0.2407
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 7,
+      "negatives": 104
+    },
+    {
+      "cut": 0.65,
+      "pair": {
+        "tp": 12,
+        "fp": 6,
+        "fn": 34,
+        "precision": 0.6667,
+        "recall": 0.2609,
+        "f1": 0.375
+      },
+      "val": {
+        "span": 0.2759,
+        "token": 0.5018,
+        "pair": 0.375,
+        "fpr": 0.0577,
+        "span_p": 0.3636,
+        "span_r": 0.2222
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 6,
+      "negatives": 104
+    },
+    {
+      "cut": 0.7,
+      "pair": {
+        "tp": 12,
+        "fp": 5,
+        "fn": 34,
+        "precision": 0.7059,
+        "recall": 0.2609,
+        "f1": 0.381
+      },
+      "val": {
+        "span": 0.2857,
+        "token": 0.5022,
+        "pair": 0.381,
+        "fpr": 0.0481,
+        "span_p": 0.4,
+        "span_r": 0.2222
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 5,
+      "negatives": 104
+    }
+  ],
+  "passing": [
+    {
+      "cut": 0.2,
+      "pair": {
+        "tp": 19,
+        "fp": 11,
+        "fn": 27,
+        "precision": 0.6333,
+        "recall": 0.413,
+        "f1": 0.5
+      },
+      "val": {
+        "span": 0.3455,
+        "token": 0.6254,
+        "pair": 0.5,
+        "fpr": 0.1058,
+        "span_p": 0.3393,
+        "span_r": 0.3519
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 11,
+      "negatives": 104
+    },
+    {
+      "cut": 0.25,
+      "pair": {
+        "tp": 18,
+        "fp": 8,
+        "fn": 28,
+        "precision": 0.6923,
+        "recall": 0.3913,
+        "f1": 0.5
+      },
+      "val": {
+        "span": 0.3462,
+        "token": 0.6287,
+        "pair": 0.5,
+        "fpr": 0.0769,
+        "span_p": 0.36,
+        "span_r": 0.3333
+      },
+      "mfava": {
+        "span": 0.6895,
+        "token": 0.7067,
+        "pair": 0.9197,
+        "fpr": 0.0,
+        "span_p": 0.71,
+        "span_r": 0.6701
+      },
+      "negatives_flagged": 8,
+      "negatives": 104
+    }
+  ],
+  "model": "artifacts/pair_classifier_model_v12.json",
+  "model_sha256": "901238c51d54e60c58a27e0464082a36acb03e69a71e37659747dcbf13f0387d"
+}

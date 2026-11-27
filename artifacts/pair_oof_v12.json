@@ -1,0 +1,641 @@
+{
+  "rule": "3-fold OOF по документам (sha256 документа % folds); pair-GBDT только на 2/3 фолдов; пороги взяты из калибровки на val и не подбирались; базовый декодер v11 общий",
+  "config": {
+    "cut": 0.25,
+    "fallback": true,
+    "fb_prob": 0.7,
+    "fb_cut": 0.75,
+    "add_clause": true,
+    "add_cut": 0.75
+  },
+  "folds": [
+    {
+      "fold": 0,
+      "held_pairs": 236,
+      "held_real": 190,
+      "held_mfava": 46,
+      "pair": {
+        "tp": 19,
+        "fp": 27,
+        "fn": 49,
+        "precision": 0.413,
+        "recall": 0.2794,
+        "f1": 0.3333
+      },
+      "real": {
+        "span": 0.2246,
+        "token": 0.4734,
+        "pair": 0.3333,
+        "fpr": 0.2213,
+        "span_p": 0.2039,
+        "span_r": 0.25
+      },
+      "mfava": {
+        "span": 0.7143,
+        "token": 0.6903,
+        "pair": 0.878,
+        "fpr": 0.0,
+        "span_p": 0.7576,
+        "span_r": 0.6757
+      },
+      "auc": 0.7074,
+      "variants": {
+        "base": {
+          "pair": {
+            "tp": 19,
+            "fp": 35,
+            "fn": 49,
+            "precision": 0.3519,
+            "recall": 0.2794,
+            "f1": 0.3115
+          },
+          "real": {
+            "span": 0.2111,
+            "token": 0.4912,
+            "pair": 0.3115,
+            "fpr": 0.2869,
+            "span_p": 0.1979,
+            "span_r": 0.2262
+          },
+          "mfava": {
+            "span": 0.7143,
+            "token": 0.6903,
+            "pair": 0.878,
+            "fpr": 0.0,
+            "span_p": 0.7576,
+            "span_r": 0.6757
+          }
+        },
+        "gate_0.25": {
+          "pair": {
+            "tp": 15,
+            "fp": 26,
+            "fn": 53,
+            "precision": 0.3659,
+            "recall": 0.2206,
+            "f1": 0.2752
+          },
+          "real": {
+            "span": 0.1818,
+            "token": 0.4694,
+            "pair": 0.2752,
+            "fpr": 0.2131,
+            "span_p": 0.1852,
+            "span_r": 0.1786
+          },
+          "mfava": {
+            "span": 0.7143,
+            "token": 0.6903,
+            "pair": 0.878,
+            "fpr": 0.0,
+            "span_p": 0.7576,
+            "span_r": 0.6757
+          }
+        },
+        "gate_0.16": {
+          "pair": {
+            "tp": 16,
+            "fp": 28,
+            "fn": 52,
+            "precision": 0.3636,
+            "recall": 0.2353,
+            "f1": 0.2857
+          },
+          "real": {
+            "span": 0.1893,
+            "token": 0.4646,
+            "pair": 0.2857,
+            "fpr": 0.2295,
+            "span_p": 0.1882,
+            "span_r": 0.1905
+          },
+          "mfava": {
+            "span": 0.7143,
+            "token": 0.6903,
+            "pair": 0.878,
+            "fpr": 0.0,
+            "span_p": 0.7576,
+            "span_r": 0.6757
+          }
+        },
+        "gate_fallback": {
+          "pair": {
+            "tp": 15,
+            "fp": 27,
+            "fn": 53,
+            "precision": 0.3571,
+            "recall": 0.2206,
+            "f1": 0.2727
+          },
+          "real": {
+            "span": 0.1796,
+            "token": 0.4734,
+            "pair": 0.2727,
+            "fpr": 0.2213,
+            "span_p": 0.1807,
+            "span_r": 0.1786
+          },
+          "mfava": {
+            "span": 0.7143,
+            "token": 0.6903,
+            "pair": 0.878,
+            "fpr": 0.0,
+            "span_p": 0.7576,
+            "span_r": 0.6757
+          }
+        },
+        "gate_fallback_clause": {
+          "pair": {
+            "tp": 19,
+            "fp": 27,
+            "fn": 49,
+            "precision": 0.413,
+            "recall": 0.2794,
+            "f1": 0.3333
+          },
+          "real": {
+            "span": 0.2246,
+            "token": 0.4734,
+            "pair": 0.3333,
+            "fpr": 0.2213,
+            "span_p": 0.2039,
+            "span_r": 0.25
+          },
+          "mfava": {
+            "span": 0.7143,
+            "token": 0.6903,
+            "pair": 0.878,
+            "fpr": 0.0,
+            "span_p": 0.7576,
+            "span_r": 0.6757
+          }
+        }
+      },
+      "base_pair": {
+        "tp": 19,
+        "fp": 35,
+        "fn": 49,
+        "precision": 0.3519,
+        "recall": 0.2794,
+        "f1": 0.3115
+      },
+      "base_real": {
+        "span": 0.2111,
+        "token": 0.4912,
+        "pair": 0.3115,
+        "fpr": 0.2869,
+        "span_p": 0.1979,
+        "span_r": 0.2262
+      },
+      "base_mfava": {
+        "span": 0.7143,
+        "token": 0.6903,
+        "pair": 0.878,
+        "fpr": 0.0,
+        "span_p": 0.7576,
+        "span_r": 0.6757
+      }
+    },
+    {
+      "fold": 1,
+      "held_pairs": 218,
+      "held_real": 167,
+      "held_mfava": 51,
+      "pair": {
+        "tp": 17,
+        "fp": 25,
+        "fn": 41,
+        "precision": 0.4048,
+        "recall": 0.2931,
+        "f1": 0.34
+      },
+      "real": {
+        "span": 0.1988,
+        "token": 0.4292,
+        "pair": 0.34,
+        "fpr": 0.2294,
+        "span_p": 0.1753,
+        "span_r": 0.2297
+      },
+      "mfava": {
+        "span": 0.7246,
+        "token": 0.7414,
+        "pair": 0.9592,
+        "fpr": 0.0,
+        "span_p": 0.6993,
+        "span_r": 0.7519
+      },
+      "auc": 0.7852,
+      "variants": {
+        "base": {
+          "pair": {
+            "tp": 20,
+            "fp": 31,
+            "fn": 38,
+            "precision": 0.3922,
+            "recall": 0.3448,
+            "f1": 0.367
+          },
+          "real": {
+            "span": 0.2516,
+            "token": 0.4999,
+            "pair": 0.367,
+            "fpr": 0.2844,
+            "span_p": 0.2353,
+            "span_r": 0.2703
+          },
+          "mfava": {
+            "span": 0.7059,
+            "token": 0.7361,
+            "pair": 0.9149,
+            "fpr": 0.0,
+            "span_p": 0.6906,
+            "span_r": 0.7218
+          }
+        },
+        "gate_0.25": {
+          "pair": {
+            "tp": 16,
+            "fp": 23,
+            "fn": 42,
+            "precision": 0.4103,
+            "recall": 0.2759,
+            "f1": 0.3299
+          },
+          "real": {
+            "span": 0.2192,
+            "token": 0.4263,
+            "pair": 0.3299,
+            "fpr": 0.211,
+            "span_p": 0.2222,
+            "span_r": 0.2162
+          },
+          "mfava": {
+            "span": 0.7059,
+            "token": 0.7361,
+            "pair": 0.9149,
+            "fpr": 0.0,
+            "span_p": 0.6906,
+            "span_r": 0.7218
+          }
+        },
+        "gate_0.16": {
+          "pair": {
+            "tp": 17,
+            "fp": 24,
+            "fn": 41,
+            "precision": 0.4146,
+            "recall": 0.2931,
+            "f1": 0.3434
+          },
+          "real": {
+            "span": 0.2282,
+            "token": 0.4426,
+            "pair": 0.3434,
+            "fpr": 0.2202,
+            "span_p": 0.2267,
+            "span_r": 0.2297
+          },
+          "mfava": {
+            "span": 0.7059,
+            "token": 0.7361,
+            "pair": 0.9149,
+            "fpr": 0.0,
+            "span_p": 0.6906,
+            "span_r": 0.7218
+          }
+        },
+        "gate_fallback": {
+          "pair": {
+            "tp": 16,
+            "fp": 25,
+            "fn": 42,
+            "precision": 0.3902,
+            "recall": 0.2759,
+            "f1": 0.3232
+          },
+          "real": {
+            "span": 0.2148,
+            "token": 0.4292,
+            "pair": 0.3232,
+            "fpr": 0.2294,
+            "span_p": 0.2133,
+            "span_r": 0.2162
+          },
+          "mfava": {
+            "span": 0.7106,
+            "token": 0.7414,
+            "pair": 0.9263,
+            "fpr": 0.0,
+            "span_p": 0.6929,
+            "span_r": 0.7293
+          }
+        },
+        "gate_fallback_clause": {
+          "pair": {
+            "tp": 17,
+            "fp": 25,
+            "fn": 41,
+            "precision": 0.4048,
+            "recall": 0.2931,
+            "f1": 0.34
+          },
+          "real": {
+            "span": 0.1988,
+            "token": 0.4292,
+            "pair": 0.34,
+            "fpr": 0.2294,
+            "span_p": 0.1753,
+            "span_r": 0.2297
+          },
+          "mfava": {
+            "span": 0.7246,
+            "token": 0.7414,
+            "pair": 0.9592,
+            "fpr": 0.0,
+            "span_p": 0.6993,
+            "span_r": 0.7519
+          }
+        }
+      },
+      "base_pair": {
+        "tp": 20,
+        "fp": 31,
+        "fn": 38,
+        "precision": 0.3922,
+        "recall": 0.3448,
+        "f1": 0.367
+      },
+      "base_real": {
+        "span": 0.2516,
+        "token": 0.4999,
+        "pair": 0.367,
+        "fpr": 0.2844,
+        "span_p": 0.2353,
+        "span_r": 0.2703
+      },
+      "base_mfava": {
+        "span": 0.7059,
+        "token": 0.7361,
+        "pair": 0.9149,
+        "fpr": 0.0,
+        "span_p": 0.6906,
+        "span_r": 0.7218
+      }
+    },
+    {
+      "fold": 2,
+      "held_pairs": 243,
+      "held_real": 192,
+      "held_mfava": 51,
+      "pair": {
+        "tp": 19,
+        "fp": 28,
+        "fn": 48,
+        "precision": 0.4043,
+        "recall": 0.2836,
+        "f1": 0.3333
+      },
+      "real": {
+        "span": 0.2331,
+        "token": 0.3539,
+        "pair": 0.3333,
+        "fpr": 0.224,
+        "span_p": 0.2209,
+        "span_r": 0.2468
+      },
+      "mfava": {
+        "span": 0.6324,
+        "token": 0.6763,
+        "pair": 0.9375,
+        "fpr": 0.0,
+        "span_p": 0.688,
+        "span_r": 0.585
+      },
+      "auc": 0.6977,
+      "variants": {
+        "base": {
+          "pair": {
+            "tp": 18,
+            "fp": 38,
+            "fn": 49,
+            "precision": 0.3214,
+            "recall": 0.2687,
+            "f1": 0.2927
+          },
+          "real": {
+            "span": 0.225,
+            "token": 0.4085,
+            "pair": 0.2927,
+            "fpr": 0.304,
+            "span_p": 0.2169,
+            "span_r": 0.2338
+          },
+          "mfava": {
+            "span": 0.6547,
+            "token": 0.6898,
+            "pair": 0.9592,
+            "fpr": 0.0,
+            "span_p": 0.6947,
+            "span_r": 0.619
+          }
+        },
+        "gate_0.25": {
+          "pair": {
+            "tp": 14,
+            "fp": 28,
+            "fn": 53,
+            "precision": 0.3333,
+            "recall": 0.209,
+            "f1": 0.2569
+          },
+          "real": {
+            "span": 0.1972,
+            "token": 0.349,
+            "pair": 0.2569,
+            "fpr": 0.224,
+            "span_p": 0.2154,
+            "span_r": 0.1818
+          },
+          "mfava": {
+            "span": 0.6324,
+            "token": 0.6763,
+            "pair": 0.9375,
+            "fpr": 0.0,
+            "span_p": 0.688,
+            "span_r": 0.585
+          }
+        },
+        "gate_0.16": {
+          "pair": {
+            "tp": 15,
+            "fp": 29,
+            "fn": 52,
+            "precision": 0.3409,
+            "recall": 0.2239,
+            "f1": 0.2703
+          },
+          "real": {
+            "span": 0.2069,
+            "token": 0.3706,
+            "pair": 0.2703,
+            "fpr": 0.232,
+            "span_p": 0.2206,
+            "span_r": 0.1948
+          },
+          "mfava": {
+            "span": 0.6547,
+            "token": 0.6898,
+            "pair": 0.9592,
+            "fpr": 0.0,
+            "span_p": 0.6947,
+            "span_r": 0.619
+          }
+        },
+        "gate_fallback": {
+          "pair": {
+            "tp": 15,
+            "fp": 28,
+            "fn": 52,
+            "precision": 0.3488,
+            "recall": 0.2239,
+            "f1": 0.2727
+          },
+          "real": {
+            "span": 0.2098,
+            "token": 0.3539,
+            "pair": 0.2727,
+            "fpr": 0.224,
+            "span_p": 0.2273,
+            "span_r": 0.1948
+          },
+          "mfava": {
+            "span": 0.6324,
+            "token": 0.6763,
+            "pair": 0.9375,
+            "fpr": 0.0,
+            "span_p": 0.688,
+            "span_r": 0.585
+          }
+        },
+        "gate_fallback_clause": {
+          "pair": {
+            "tp": 19,
+            "fp": 28,
+            "fn": 48,
+            "precision": 0.4043,
+            "recall": 0.2836,
+            "f1": 0.3333
+          },
+          "real": {
+            "span": 0.2331,
+            "token": 0.3539,
+            "pair": 0.3333,
+            "fpr": 0.224,
+            "span_p": 0.2209,
+            "span_r": 0.2468
+          },
+          "mfava": {
+            "span": 0.6324,
+            "token": 0.6763,
+            "pair": 0.9375,
+            "fpr": 0.0,
+            "span_p": 0.688,
+            "span_r": 0.585
+          }
+        }
+      },
+      "base_pair": {
+        "tp": 18,
+        "fp": 38,
+        "fn": 49,
+        "precision": 0.3214,
+        "recall": 0.2687,
+        "f1": 0.2927
+      },
+      "base_real": {
+        "span": 0.225,
+        "token": 0.4085,
+        "pair": 0.2927,
+        "fpr": 0.304,
+        "span_p": 0.2169,
+        "span_r": 0.2338
+      },
+      "base_mfava": {
+        "span": 0.6547,
+        "token": 0.6898,
+        "pair": 0.9592,
+        "fpr": 0.0,
+        "span_p": 0.6947,
+        "span_r": 0.619
+      }
+    }
+  ],
+  "mean": {
+    "pair_f1": 0.3355,
+    "pair_precision": 0.4074,
+    "pair_recall": 0.2854,
+    "span": 0.2188,
+    "token": 0.4188,
+    "fpr": 0.2249,
+    "mfava_span": 0.6904,
+    "auc": 0.7301,
+    "base_pair_f1": 0.3237,
+    "base_span": 0.2292,
+    "base_token": 0.4665,
+    "base_fpr": 0.2918,
+    "base_mfava_span": 0.6916
+  },
+  "ablation_mean": {
+    "base": {
+      "pair_f1": 0.3237,
+      "span": 0.2292,
+      "token": 0.4665,
+      "fpr": 0.2918,
+      "mfava_span": 0.6916
+    },
+    "gate_0.25": {
+      "pair_f1": 0.2873,
+      "span": 0.1994,
+      "token": 0.4149,
+      "fpr": 0.216,
+      "mfava_span": 0.6842
+    },
+    "gate_0.16": {
+      "pair_f1": 0.2998,
+      "span": 0.2081,
+      "token": 0.4259,
+      "fpr": 0.2272,
+      "mfava_span": 0.6916
+    },
+    "gate_fallback": {
+      "pair_f1": 0.2895,
+      "span": 0.2014,
+      "token": 0.4188,
+      "fpr": 0.2249,
+      "mfava_span": 0.6858
+    },
+    "gate_fallback_clause": {
+      "pair_f1": 0.3355,
+      "span": 0.2188,
+      "token": 0.4188,
+      "fpr": 0.2249,
+      "mfava_span": 0.6904
+    }
+  },
+  "min_pair_f1": 0.3333,
+  "delta_vs_base": {
+    "pair_f1": 0.0118,
+    "span": -0.0104,
+    "fpr": -0.0669,
+    "mfava_span": -0.0012
+  },
+  "constraints": {
+    "pair_f1": 0.5,
+    "span_min": 0.3163,
+    "token_min": 0.5,
+    "fpr_max": 0.4,
+    "mfava_span_min": 0.65
+  },
+  "pass": false
+}

@@ -1,0 +1,706 @@
+{
+  "rule": "лучший по pair F1 валидный конфиг val-калибровки (все констрейнты v12)",
+  "config": {
+    "cut": 0.25,
+    "fallback": true,
+    "fb_cut": 0.8,
+    "fb_prob": 0.7,
+    "add_clause": true,
+    "add_cut": 0.75
+  },
+  "val": {
+    "span": 0.3279,
+    "token": 0.6265,
+    "pair": 0.5333,
+    "fpr": 0.0865,
+    "span_p": 0.2941,
+    "span_r": 0.3704
+  },
+  "mfava": {
+    "span": 0.6963,
+    "token": 0.7087,
+    "pair": 0.9353,
+    "fpr": 0.0,
+    "span_p": 0.7131,
+    "span_r": 0.6803
+  },
+  "pair": {
+    "tp": 20,
+    "fp": 9,
+    "fn": 26,
+    "precision": 0.6897,
+    "recall": 0.4348,
+    "f1": 0.5333
+  },
+  "baseline_v11": {
+    "val": {
+      "span": 0.3363,
+      "token": 0.6191,
+      "pair": 0.4872,
+      "fpr": 0.125,
+      "span_p": 0.322,
+      "span_r": 0.3519
+    },
+    "pair": {
+      "tp": 19,
+      "fp": 13,
+      "fn": 27,
+      "precision": 0.5938,
+      "recall": 0.413,
+      "f1": 0.4872
+    }
+  },
+  "errors": {
+    "fn": [
+      {
+        "pair_id": "sber000008",
+        "probability": 0.6142,
+        "gate_v3": 0.9242,
+        "whole_only": false,
+        "base_spans": 4,
+        "local_top1": null,
+        "predicted": [
+          [
+            276,
+            413
+          ],
+          [
+            415,
+            567
+          ],
+          [
+            177,
+            274
+          ],
+          [
+            598,
+            710
+          ]
+        ],
+        "gold": [
+          [
+            0,
+            710
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000024",
+        "probability": 0.8523,
+        "gate_v3": 0.9678,
+        "whole_only": false,
+        "base_spans": 3,
+        "local_top1": null,
+        "predicted": [
+          [
+            202,
+            373
+          ],
+          [
+            485,
+            834
+          ],
+          [
+            385,
+            479
+          ]
+        ],
+        "gold": [
+          [
+            0,
+            834
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000122",
+        "probability": 0.3399,
+        "gate_v3": 0.4624,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.4355,
+        "predicted": [],
+        "gold": [
+          [
+            66,
+            115
+          ],
+          [
+            117,
+            261
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000176",
+        "probability": 0.1667,
+        "gate_v3": 0.4722,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.5984,
+        "predicted": [],
+        "gold": [
+          [
+            194,
+            276
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000191",
+        "probability": 0.9286,
+        "gate_v3": 0.8692,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.9044,
+        "predicted": [
+          [
+            0,
+            486
+          ],
+          [
+            109,
+            263
+          ]
+        ],
+        "gold": [
+          [
+            402,
+            486
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000292",
+        "probability": 0.235,
+        "gate_v3": 0.6922,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.8494,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            366
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000376",
+        "probability": 0.4104,
+        "gate_v3": 0.5782,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.9019,
+        "predicted": [],
+        "gold": [
+          [
+            171,
+            207
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000385",
+        "probability": 0.7397,
+        "gate_v3": 0.4186,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.1506,
+        "predicted": [],
+        "gold": [
+          [
+            233,
+            379
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000413",
+        "probability": 0.8741,
+        "gate_v3": 0.8617,
+        "whole_only": false,
+        "base_spans": 2,
+        "local_top1": null,
+        "predicted": [
+          [
+            181,
+            301
+          ],
+          [
+            303,
+            384
+          ]
+        ],
+        "gold": [
+          [
+            0,
+            110
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000446",
+        "probability": 0.3625,
+        "gate_v3": 0.7277,
+        "whole_only": false,
+        "base_spans": 1,
+        "local_top1": null,
+        "predicted": [
+          [
+            0,
+            245
+          ]
+        ],
+        "gold": [
+          [
+            165,
+            235
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000456",
+        "probability": 0.0961,
+        "gate_v3": 0.3201,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.233,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            351
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000506",
+        "probability": 0.0315,
+        "gate_v3": 0.2075,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": null,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            47
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000553",
+        "probability": 0.032,
+        "gate_v3": 0.3851,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.5864,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            224
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000579",
+        "probability": 0.75,
+        "gate_v3": 0.4076,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": null,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            112
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000598",
+        "probability": 0.2681,
+        "gate_v3": 0.275,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": null,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            116
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000626",
+        "probability": 0.0667,
+        "gate_v3": 0.2925,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": null,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            70
+          ]
+        ]
+      },
+      {
+        "pair_id": "sber000637",
+        "probability": 0.7839,
+        "gate_v3": 0.77,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.8753,
+        "predicted": [
+          [
+            0,
+            435
+          ],
+          [
+            152,
+            279
+          ]
+        ],
+        "gold": [
+          [
+            0,
+            149
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000051",
+        "probability": 0.9041,
+        "gate_v3": 0.8814,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.8848,
+        "predicted": [
+          [
+            0,
+            477
+          ],
+          [
+            115,
+            223
+          ]
+        ],
+        "gold": [
+          [
+            66,
+            113
+          ],
+          [
+            429,
+            477
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000058",
+        "probability": 0.0321,
+        "gate_v3": 0.5215,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.6821,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            38
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000085",
+        "probability": 0.6871,
+        "gate_v3": 0.5574,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.689,
+        "predicted": [
+          [
+            0,
+            348
+          ]
+        ],
+        "gold": [
+          [
+            0,
+            103
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000108",
+        "probability": 0.5645,
+        "gate_v3": 0.8564,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.4541,
+        "predicted": [
+          [
+            0,
+            763
+          ]
+        ],
+        "gold": [
+          [
+            0,
+            119
+          ],
+          [
+            701,
+            763
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000134",
+        "probability": 0.2391,
+        "gate_v3": 0.7266,
+        "whole_only": false,
+        "base_spans": 1,
+        "local_top1": null,
+        "predicted": [],
+        "gold": [
+          [
+            141,
+            185
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000175",
+        "probability": 0.5318,
+        "gate_v3": 0.5962,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.8901,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            599
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000176",
+        "probability": 0.2085,
+        "gate_v3": 0.6688,
+        "whole_only": false,
+        "base_spans": 1,
+        "local_top1": null,
+        "predicted": [],
+        "gold": [
+          [
+            58,
+            127
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000221",
+        "probability": 0.2047,
+        "gate_v3": 0.4915,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.4182,
+        "predicted": [],
+        "gold": [
+          [
+            0,
+            243
+          ]
+        ]
+      },
+      {
+        "pair_id": "rusci000284",
+        "probability": 0.3262,
+        "gate_v3": 0.6058,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.4846,
+        "predicted": [
+          [
+            0,
+            199
+          ]
+        ],
+        "gold": [
+          [
+            179,
+            192
+          ],
+          [
+            179,
+            199
+          ]
+        ]
+      }
+    ],
+    "fp": [
+      {
+        "pair_id": "sber000006",
+        "probability": 0.6857,
+        "gate_v3": 0.6818,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.9733,
+        "predicted": [
+          [
+            0,
+            151
+          ],
+          [
+            58,
+            151
+          ]
+        ],
+        "gold": []
+      },
+      {
+        "pair_id": "sber000065",
+        "probability": 0.603,
+        "gate_v3": 0.643,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.933,
+        "predicted": [
+          [
+            0,
+            152
+          ],
+          [
+            0,
+            78
+          ]
+        ],
+        "gold": []
+      },
+      {
+        "pair_id": "sber000077",
+        "probability": 0.4066,
+        "gate_v3": 0.6125,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.9823,
+        "predicted": [
+          [
+            0,
+            160
+          ],
+          [
+            51,
+            144
+          ]
+        ],
+        "gold": []
+      },
+      {
+        "pair_id": "sber000296",
+        "probability": 0.7291,
+        "gate_v3": 0.7428,
+        "whole_only": false,
+        "base_spans": 0,
+        "local_top1": 0.8891,
+        "predicted": [
+          [
+            320,
+            405
+          ]
+        ],
+        "gold": []
+      },
+      {
+        "pair_id": "sber000422",
+        "probability": 0.9446,
+        "gate_v3": 0.7326,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.8944,
+        "predicted": [
+          [
+            0,
+            377
+          ],
+          [
+            197,
+            377
+          ]
+        ],
+        "gold": []
+      },
+      {
+        "pair_id": "rusci000177",
+        "probability": 0.9119,
+        "gate_v3": 0.5347,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.1915,
+        "predicted": [
+          [
+            0,
+            219
+          ]
+        ],
+        "gold": []
+      },
+      {
+        "pair_id": "rusci000193",
+        "probability": 0.8469,
+        "gate_v3": 0.8845,
+        "whole_only": false,
+        "base_spans": 1,
+        "local_top1": null,
+        "predicted": [
+          [
+            0,
+            576
+          ]
+        ],
+        "gold": []
+      },
+      {
+        "pair_id": "rusci000239",
+        "probability": 0.8361,
+        "gate_v3": 0.8289,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.6433,
+        "predicted": [
+          [
+            0,
+            691
+          ]
+        ],
+        "gold": []
+      },
+      {
+        "pair_id": "rusci000249",
+        "probability": 0.8076,
+        "gate_v3": 0.7074,
+        "whole_only": true,
+        "base_spans": 1,
+        "local_top1": 0.8187,
+        "predicted": [
+          [
+            0,
+            688
+          ],
+          [
+            418,
+            561
+          ]
+        ],
+        "gold": []
+      }
+    ]
+  }
+}
