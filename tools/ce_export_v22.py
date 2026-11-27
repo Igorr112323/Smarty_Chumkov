@@ -151,10 +151,11 @@ def main(argv=None):
                         "compression_ratio": round(onnx_path.stat().st_size / int8_path.stat().st_size, 2),
                         "opset": 17, "seconds": round(time.time() - started, 1)}
 
-    # паритет fp32 ↔ int8 на реальном батче оконного размера
+    # паритет fp32 ↔ int8 на реальном батче оконного размера.
+    # batch >= 8 обязателен: на двух значениях np.corrcoef вырождается в ±1 и ничего не измеряет
     seq_len = args.seq_len
     rng = np.random.RandomState(3)
-    feeds = {"input_ids": rng.randint(1, 1000, size=(2, seq_len)).astype(np.int64)}
+    feeds = {"input_ids": rng.randint(1, 1000, size=(8, seq_len)).astype(np.int64)}
     feeds["attention_mask"] = np.ones_like(feeds["input_ids"])
     feeds["token_type_ids"] = np.zeros_like(feeds["input_ids"])
     feeds["candidate_mask"] = np.ones_like(feeds["input_ids"]).astype(bool)
