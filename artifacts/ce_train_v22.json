@@ -13,8 +13,8 @@
     "layout": "[CLS] doc_window [SEP] candidate [SEP]"
   },
   "training": {
-    "epochs": 1,
-    "batch": 8,
+    "epochs": 6,
+    "batch": 16,
     "lr": 3e-05
   },
   "val_data": {
@@ -23,74 +23,166 @@
   },
   "arms": {
     "real": {
-      "pairs": 60,
-      "examples": 180,
-      "positives": 48,
+      "pairs": 549,
+      "examples": 1632,
+      "positives": 454,
       "history": [
         {
           "epoch": 0,
-          "loss": 3.018,
-          "seconds": 116.7
+          "loss": 1.1984,
+          "seconds": 1629.8,
+          "val_auc": 0.6778,
+          "val_span": 0.3363,
+          "val_pair": 0.481,
+          "selected": false
+        },
+        {
+          "epoch": 1,
+          "loss": 0.4641,
+          "seconds": 1636.0,
+          "val_auc": 0.6706,
+          "val_span": 0.3411,
+          "val_pair": 0.4681,
+          "selected": true
+        },
+        {
+          "epoch": 2,
+          "loss": 0.3075,
+          "seconds": 1630.0,
+          "val_auc": 0.6561,
+          "val_span": 0.3393,
+          "val_pair": 0.475,
+          "selected": false
+        },
+        {
+          "epoch": 3,
+          "loss": 0.2035,
+          "seconds": 1630.3,
+          "val_auc": 0.6195,
+          "val_span": 0.2917,
+          "val_pair": 0.525,
+          "selected": false
+        },
+        {
+          "epoch": 4,
+          "loss": 0.1587,
+          "seconds": 1632.6,
+          "val_auc": 0.6198,
+          "val_span": 0.2742,
+          "val_pair": 0.4533,
+          "selected": false
+        },
+        {
+          "epoch": 5,
+          "loss": 0.1447,
+          "seconds": 1633.6,
+          "val_auc": 0.5969,
+          "val_span": 0.256,
+          "val_pair": 0.4267,
+          "selected": false
         }
       ],
-      "val_auc": 0.6348,
+      "val_auc": 0.6706,
       "val": {
-        "span": 0.2742,
-        "token": 0.5729,
-        "pair": 0.425,
-        "fpr": 0.1635,
-        "span_p": 0.2429,
-        "span_r": 0.3148,
+        "span": 0.3411,
+        "token": 0.5755,
+        "pair": 0.4681,
+        "fpr": 0.25,
+        "span_p": 0.2933,
+        "span_r": 0.4074,
         "config": {
-          "mode_cut": 0.5,
-          "gate": 0.5,
-          "threshold": 0.2,
+          "mode_cut": 0.6,
+          "gate": 0.4,
+          "threshold": 0.6,
           "max_spans": 1,
-          "local_threshold": 0.4,
+          "local_threshold": 0.5,
           "local_max_spans": 3,
           "nms_iou": 0.1
         }
       },
-      "within_pair": 0.6214
+      "within_pair": 0.6459
     }
   },
   "checkpoint": {
     "path": "artifacts/ce_model_v22.pt",
-    "bytes": 711505773,
+    "bytes": 711505837,
     "arm": "real"
   },
   "best_arm": "real",
-  "best_span": 0.2742,
+  "best_span": 0.3411,
+  "oof": {
+    "folds": [
+      {
+        "span": 0.3504,
+        "token": 0.4937,
+        "pair": 0.48,
+        "fpr": 0.2015,
+        "span_p": 0.3243,
+        "span_r": 0.381,
+        "fold": 0,
+        "pairs": 183
+      },
+      {
+        "span": 0.4333,
+        "token": 0.5581,
+        "pair": 0.5455,
+        "fpr": 0.3217,
+        "span_p": 0.398,
+        "span_r": 0.4756,
+        "fold": 1,
+        "pairs": 182
+      },
+      {
+        "span": 0.5106,
+        "token": 0.6157,
+        "pair": 0.6358,
+        "fpr": 0.243,
+        "span_p": 0.4898,
+        "span_r": 0.5333,
+        "fold": 2,
+        "pairs": 184
+      }
+    ],
+    "mean": {
+      "span": 0.4314,
+      "token": 0.5558,
+      "pair": 0.5538,
+      "fpr": 0.2554
+    },
+    "baseline_span": 0.2437,
+    "required": 0.2637,
+    "pass": true
+  },
   "guard": {
     "span": {
-      "value": 0.2742,
+      "value": 0.3411,
       "need": 0.5,
       "pass": false
     },
     "token": {
-      "value": 0.5729,
+      "value": 0.5755,
       "need": 0.5,
       "pass": true
     },
     "pair": {
-      "value": 0.425,
+      "value": 0.4681,
       "need": 0.5,
       "pass": false
     },
     "fpr": {
-      "value": 0.1635,
+      "value": 0.25,
       "need": 0.4,
       "pass": true
     },
     "oof": {
-      "value": null,
+      "value": 0.4314,
       "need": 0.2637,
-      "pass": false
+      "pass": true
     },
     "pass_all": false
   },
   "verdict": "reject_by_guard",
-  "total_seconds": 374.2,
+  "total_seconds": 14094.8,
   "version": "v22",
   "encoder": {
     "dir": "models/rubert-base-cased",
@@ -104,19 +196,19 @@
       "channel": "GitHub Actions runner (в песочнице исполнителя HF недоступен)"
     },
     "parameters": {
-      "checkpoint_bytes": 711505773,
+      "checkpoint_bytes": 711505837,
       "state_dict_parameters": 177855747,
       "fp32_mb": 678.47
     }
   },
   "run_mode": {
-    "mode": "smoke",
-    "epochs": 1,
-    "oof": 0,
-    "limit": 60,
+    "mode": "full",
+    "epochs": 6,
+    "oof": 3,
+    "limit": 0,
     "encoder": "DeepPavlov/rubert-base-cased",
-    "runner": "GitHub Actions 1000011637",
+    "runner": "GitHub Actions 1000011639",
     "cpu_count": 4
   },
-  "wall_seconds_v22": 374.4
+  "wall_seconds_v22": 14095.1
 }
