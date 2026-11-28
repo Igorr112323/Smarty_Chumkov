@@ -29,78 +29,78 @@
       "history": [
         {
           "epoch": 0,
-          "loss": 1.2019,
-          "seconds": 1624.7,
-          "val_auc": 0.6375,
-          "val_span": 0.2683,
-          "val_pair": 0.5,
+          "loss": 1.1612,
+          "seconds": 1292.4,
+          "val_auc": 0.6961,
+          "val_span": 0.3304,
+          "val_pair": 0.4691,
           "selected": false
         },
         {
           "epoch": 1,
-          "loss": 0.4277,
-          "seconds": 1629.9,
-          "val_auc": 0.662,
-          "val_span": 0.284,
-          "val_pair": 0.4423,
-          "selected": false
-        },
-        {
-          "epoch": 2,
-          "loss": 0.2688,
-          "seconds": 1627.4,
-          "val_auc": 0.6002,
-          "val_span": 0.2857,
-          "val_pair": 0.4615,
+          "loss": 0.4124,
+          "seconds": 1317.2,
+          "val_auc": 0.6668,
+          "val_span": 0.3604,
+          "val_pair": 0.5128,
           "selected": true
         },
         {
+          "epoch": 2,
+          "loss": 0.2954,
+          "seconds": 1305.1,
+          "val_auc": 0.6418,
+          "val_span": 0.354,
+          "val_pair": 0.5,
+          "selected": false
+        },
+        {
           "epoch": 3,
-          "loss": 0.2135,
-          "seconds": 1629.6,
-          "val_auc": 0.6102,
-          "val_span": 0.2649,
-          "val_pair": 0.4819,
+          "loss": 0.2238,
+          "seconds": 1310.4,
+          "val_auc": 0.6573,
+          "val_span": 0.2639,
+          "val_pair": 0.481,
           "selected": false
         },
         {
           "epoch": 4,
-          "loss": 0.1495,
-          "seconds": 1626.7,
-          "val_auc": 0.5989,
-          "val_span": 0.2449,
-          "val_pair": 0.4045,
+          "loss": 0.1922,
+          "seconds": 1330.1,
+          "val_auc": 0.6143,
+          "val_span": 0.2745,
+          "val_pair": 0.4058,
           "selected": false
         },
         {
           "epoch": 5,
-          "loss": 0.1543,
-          "seconds": 1622.7,
-          "val_auc": 0.6491,
-          "val_span": 0.2353,
-          "val_pair": 0.3784,
+          "loss": 0.1144,
+          "seconds": 1288.7,
+          "val_auc": 0.6,
+          "val_span": 0.3065,
+          "val_pair": 0.5,
           "selected": false
         }
       ],
-      "val_auc": 0.6002,
+      "val_auc": 0.6668,
       "val": {
-        "span": 0.2857,
-        "token": 0.5765,
-        "pair": 0.4615,
-        "fpr": 0.1346,
-        "span_p": 0.25,
-        "span_r": 0.3333,
+        "span": 0.3604,
+        "token": 0.6198,
+        "pair": 0.5128,
+        "fpr": 0.1154,
+        "span_p": 0.3509,
+        "span_r": 0.3704,
         "config": {
-          "mode_cut": 0.3,
+          "mode_cut": 0.6,
           "gate": 0.5,
-          "threshold": 0.3,
+          "threshold": 0.6,
           "max_spans": 1,
-          "local_threshold": 0.4,
+          "local_threshold": 0.5,
           "local_max_spans": 3,
           "nms_iou": 0.1
         }
       },
-      "within_pair": 0.5977
+      "within_pair": 0.6594
     }
   },
   "checkpoint": {
@@ -109,45 +109,45 @@
     "arm": "real"
   },
   "best_arm": "real",
-  "best_span": 0.2857,
+  "best_span": 0.3604,
   "oof": {
     "folds": [
       {
-        "span": 0.327,
-        "token": 0.5495,
-        "pair": 0.5051,
-        "fpr": 0.1866,
-        "span_p": 0.2708,
-        "span_r": 0.4127,
+        "span": 0.3504,
+        "token": 0.5003,
+        "pair": 0.466,
+        "fpr": 0.2239,
+        "span_p": 0.3243,
+        "span_r": 0.381,
         "fold": 0,
         "pairs": 183
       },
       {
-        "span": 0.3158,
-        "token": 0.5007,
-        "pair": 0.458,
-        "fpr": 0.2957,
-        "span_p": 0.2778,
-        "span_r": 0.3659,
+        "span": 0.3931,
+        "token": 0.5392,
+        "pair": 0.4928,
+        "fpr": 0.3217,
+        "span_p": 0.3736,
+        "span_r": 0.4146,
         "fold": 1,
         "pairs": 182
       },
       {
-        "span": 0.3284,
-        "token": 0.5122,
-        "pair": 0.4662,
-        "fpr": 0.2336,
-        "span_p": 0.2973,
-        "span_r": 0.3667,
+        "span": 0.4767,
+        "token": 0.6478,
+        "pair": 0.5899,
+        "fpr": 0.1963,
+        "span_p": 0.5,
+        "span_r": 0.4556,
         "fold": 2,
         "pairs": 184
       }
     ],
     "mean": {
-      "span": 0.3237,
-      "token": 0.5208,
-      "pair": 0.4764,
-      "fpr": 0.2386
+      "span": 0.4067,
+      "token": 0.5624,
+      "pair": 0.5162,
+      "fpr": 0.2473
     },
     "baseline_span": 0.2437,
     "required": 0.2637,
@@ -155,34 +155,34 @@
   },
   "guard": {
     "span": {
-      "value": 0.2857,
+      "value": 0.3604,
       "need": 0.5,
       "pass": false
     },
     "token": {
-      "value": 0.5765,
+      "value": 0.6198,
       "need": 0.5,
       "pass": true
     },
     "pair": {
-      "value": 0.4615,
+      "value": 0.5128,
       "need": 0.5,
-      "pass": false
+      "pass": true
     },
     "fpr": {
-      "value": 0.1346,
+      "value": 0.1154,
       "need": 0.4,
       "pass": true
     },
     "oof": {
-      "value": 0.3237,
+      "value": 0.4067,
       "need": 0.2637,
       "pass": true
     },
     "pass_all": false
   },
   "verdict": "reject_by_guard",
-  "total_seconds": 14056.3,
+  "total_seconds": 11301.4,
   "version": "v22",
   "encoder": {
     "dir": "models/rubert-base-cased",
@@ -207,8 +207,8 @@
     "oof": 3,
     "limit": 0,
     "encoder": "DeepPavlov/rubert-base-cased",
-    "runner": "GitHub Actions 1000011651",
+    "runner": "GitHub Actions 1000011657",
     "cpu_count": 4
   },
-  "wall_seconds_v22": 14056.6
+  "wall_seconds_v22": 11301.6
 }
