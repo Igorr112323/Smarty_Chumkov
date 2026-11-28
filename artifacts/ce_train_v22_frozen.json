@@ -1,0 +1,184 @@
+{
+  "rule": "v22: тот же cross-encoder и та же методика, что в v21, но энкодер — rubert-base-cased (178M параметров). Обучение идёт на раннере GitHub Actions (весов в песочнице нет), метрики — только val и OOF по документам; held-out не читается",
+  "device": {
+    "torch": "2.2.2+cpu",
+    "cuda": false,
+    "threads": 4,
+    "note": "GPU нет — обучение на CPU (2 ядра), это offline-процесс"
+  },
+  "window": {
+    "max_len": 192,
+    "doc_tokens": 96,
+    "max_easy_negatives_per_pair": 2,
+    "layout": "[CLS] doc_window [SEP] candidate [SEP]"
+  },
+  "training": {
+    "epochs": 3,
+    "batch": 16,
+    "lr": 0.001
+  },
+  "val_data": {
+    "candidates": 1374,
+    "positives": 98
+  },
+  "arms": {
+    "real": {
+      "pairs": 549,
+      "examples": 1632,
+      "positives": 454,
+      "history": [
+        {
+          "epoch": 0,
+          "loss": 2.7937,
+          "seconds": 819.0,
+          "val_auc": 0.5937,
+          "val_span": 0.2435,
+          "val_pair": 0.4242,
+          "selected": false
+        },
+        {
+          "epoch": 1,
+          "loss": 1.1994,
+          "seconds": 821.7,
+          "val_auc": 0.6144,
+          "val_span": 0.2836,
+          "val_pair": 0.413,
+          "selected": false
+        },
+        {
+          "epoch": 2,
+          "loss": 0.9584,
+          "seconds": 755.5,
+          "val_auc": 0.6171,
+          "val_span": 0.2885,
+          "val_pair": 0.4167,
+          "selected": true
+        }
+      ],
+      "val_auc": 0.6171,
+      "val": {
+        "span": 0.2885,
+        "token": 0.5545,
+        "pair": 0.4167,
+        "fpr": 0.1058,
+        "span_p": 0.3,
+        "span_r": 0.2778,
+        "config": {
+          "mode_cut": 0.6,
+          "gate": 0.3,
+          "threshold": 0.6,
+          "max_spans": 1,
+          "local_threshold": 0.5,
+          "local_max_spans": 3,
+          "nms_iou": 0.1
+        }
+      },
+      "within_pair": 0.5896
+    }
+  },
+  "checkpoint": {
+    "path": "artifacts/ce_model_v22_frozen.pt",
+    "bytes": 711507364,
+    "arm": "real"
+  },
+  "best_arm": "real",
+  "best_span": 0.2885,
+  "oof": {
+    "folds": [
+      {
+        "span": 0.1642,
+        "token": 0.4254,
+        "pair": 0.25,
+        "fpr": 0.209,
+        "span_p": 0.1549,
+        "span_r": 0.1746,
+        "fold": 0,
+        "pairs": 183
+      },
+      {
+        "span": 0.1754,
+        "token": 0.3628,
+        "pair": 0.2419,
+        "fpr": 0.3652,
+        "span_p": 0.1685,
+        "span_r": 0.1829,
+        "fold": 1,
+        "pairs": 182
+      },
+      {
+        "span": 0.2,
+        "token": 0.431,
+        "pair": 0.2903,
+        "fpr": 0.271,
+        "span_p": 0.2,
+        "span_r": 0.2,
+        "fold": 2,
+        "pairs": 184
+      }
+    ],
+    "mean": {
+      "span": 0.1799,
+      "token": 0.4064,
+      "pair": 0.2607,
+      "fpr": 0.2817
+    },
+    "baseline_span": 0.2437,
+    "required": 0.2637,
+    "pass": false
+  },
+  "guard": {
+    "span": {
+      "value": 0.2885,
+      "need": 0.5,
+      "pass": false
+    },
+    "token": {
+      "value": 0.5545,
+      "need": 0.5,
+      "pass": true
+    },
+    "pair": {
+      "value": 0.4167,
+      "need": 0.5,
+      "pass": false
+    },
+    "fpr": {
+      "value": 0.1058,
+      "need": 0.4,
+      "pass": true
+    },
+    "oof": {
+      "value": 0.1799,
+      "need": 0.2637,
+      "pass": false
+    },
+    "pass_all": false
+  },
+  "verdict": "reject_by_guard",
+  "total_seconds": 5101.3,
+  "version": "v22",
+  "encoder": {
+    "dir": "/home/runner/work/Smarty_Chumkov/Smarty_Chumkov/models/rubert-base-cased",
+    "manifest": {
+      "repository": "DeepPavlov/rubert-base-cased",
+      "size": 714355318,
+      "sha256": "e5691c9cb13c98d396ae2e584f4d01a098fc9416a882425ece4359b807730890",
+      "channel": "GitHub Actions runner"
+    },
+    "parameters": {
+      "checkpoint_bytes": 711507364,
+      "state_dict_parameters": 177855747,
+      "fp32_mb": 678.47
+    }
+  },
+  "run_mode": {
+    "mode": "full",
+    "epochs": 6,
+    "oof": 3,
+    "limit": 0,
+    "encoder": "DeepPavlov/rubert-base-cased",
+    "runner": "GitHub Actions 1000011639",
+    "cpu_count": 4
+  },
+  "wall_seconds_v22": 5101.7
+}
