@@ -29,78 +29,78 @@
       "history": [
         {
           "epoch": 0,
-          "loss": 1.1984,
-          "seconds": 1629.8,
-          "val_auc": 0.6778,
-          "val_span": 0.3363,
-          "val_pair": 0.481,
+          "loss": 1.2019,
+          "seconds": 1624.7,
+          "val_auc": 0.6375,
+          "val_span": 0.2683,
+          "val_pair": 0.5,
           "selected": false
         },
         {
           "epoch": 1,
-          "loss": 0.4641,
-          "seconds": 1636.0,
-          "val_auc": 0.6706,
-          "val_span": 0.3411,
-          "val_pair": 0.4681,
-          "selected": true
-        },
-        {
-          "epoch": 2,
-          "loss": 0.3075,
-          "seconds": 1630.0,
-          "val_auc": 0.6561,
-          "val_span": 0.3393,
-          "val_pair": 0.475,
+          "loss": 0.4277,
+          "seconds": 1629.9,
+          "val_auc": 0.662,
+          "val_span": 0.284,
+          "val_pair": 0.4423,
           "selected": false
         },
         {
+          "epoch": 2,
+          "loss": 0.2688,
+          "seconds": 1627.4,
+          "val_auc": 0.6002,
+          "val_span": 0.2857,
+          "val_pair": 0.4615,
+          "selected": true
+        },
+        {
           "epoch": 3,
-          "loss": 0.2035,
-          "seconds": 1630.3,
-          "val_auc": 0.6195,
-          "val_span": 0.2917,
-          "val_pair": 0.525,
+          "loss": 0.2135,
+          "seconds": 1629.6,
+          "val_auc": 0.6102,
+          "val_span": 0.2649,
+          "val_pair": 0.4819,
           "selected": false
         },
         {
           "epoch": 4,
-          "loss": 0.1587,
-          "seconds": 1632.6,
-          "val_auc": 0.6198,
-          "val_span": 0.2742,
-          "val_pair": 0.4533,
+          "loss": 0.1495,
+          "seconds": 1626.7,
+          "val_auc": 0.5989,
+          "val_span": 0.2449,
+          "val_pair": 0.4045,
           "selected": false
         },
         {
           "epoch": 5,
-          "loss": 0.1447,
-          "seconds": 1633.6,
-          "val_auc": 0.5969,
-          "val_span": 0.256,
-          "val_pair": 0.4267,
+          "loss": 0.1543,
+          "seconds": 1622.7,
+          "val_auc": 0.6491,
+          "val_span": 0.2353,
+          "val_pair": 0.3784,
           "selected": false
         }
       ],
-      "val_auc": 0.6706,
+      "val_auc": 0.6002,
       "val": {
-        "span": 0.3411,
-        "token": 0.5755,
-        "pair": 0.4681,
-        "fpr": 0.25,
-        "span_p": 0.2933,
-        "span_r": 0.4074,
+        "span": 0.2857,
+        "token": 0.5765,
+        "pair": 0.4615,
+        "fpr": 0.1346,
+        "span_p": 0.25,
+        "span_r": 0.3333,
         "config": {
-          "mode_cut": 0.6,
-          "gate": 0.4,
-          "threshold": 0.6,
+          "mode_cut": 0.3,
+          "gate": 0.5,
+          "threshold": 0.3,
           "max_spans": 1,
-          "local_threshold": 0.5,
+          "local_threshold": 0.4,
           "local_max_spans": 3,
           "nms_iou": 0.1
         }
       },
-      "within_pair": 0.6459
+      "within_pair": 0.5977
     }
   },
   "checkpoint": {
@@ -109,45 +109,45 @@
     "arm": "real"
   },
   "best_arm": "real",
-  "best_span": 0.3411,
+  "best_span": 0.2857,
   "oof": {
     "folds": [
       {
-        "span": 0.3504,
-        "token": 0.4937,
-        "pair": 0.48,
-        "fpr": 0.2015,
-        "span_p": 0.3243,
-        "span_r": 0.381,
+        "span": 0.327,
+        "token": 0.5495,
+        "pair": 0.5051,
+        "fpr": 0.1866,
+        "span_p": 0.2708,
+        "span_r": 0.4127,
         "fold": 0,
         "pairs": 183
       },
       {
-        "span": 0.4333,
-        "token": 0.5581,
-        "pair": 0.5455,
-        "fpr": 0.3217,
-        "span_p": 0.398,
-        "span_r": 0.4756,
+        "span": 0.3158,
+        "token": 0.5007,
+        "pair": 0.458,
+        "fpr": 0.2957,
+        "span_p": 0.2778,
+        "span_r": 0.3659,
         "fold": 1,
         "pairs": 182
       },
       {
-        "span": 0.5106,
-        "token": 0.6157,
-        "pair": 0.6358,
-        "fpr": 0.243,
-        "span_p": 0.4898,
-        "span_r": 0.5333,
+        "span": 0.3284,
+        "token": 0.5122,
+        "pair": 0.4662,
+        "fpr": 0.2336,
+        "span_p": 0.2973,
+        "span_r": 0.3667,
         "fold": 2,
         "pairs": 184
       }
     ],
     "mean": {
-      "span": 0.4314,
-      "token": 0.5558,
-      "pair": 0.5538,
-      "fpr": 0.2554
+      "span": 0.3237,
+      "token": 0.5208,
+      "pair": 0.4764,
+      "fpr": 0.2386
     },
     "baseline_span": 0.2437,
     "required": 0.2637,
@@ -155,34 +155,34 @@
   },
   "guard": {
     "span": {
-      "value": 0.3411,
+      "value": 0.2857,
       "need": 0.5,
       "pass": false
     },
     "token": {
-      "value": 0.5755,
+      "value": 0.5765,
       "need": 0.5,
       "pass": true
     },
     "pair": {
-      "value": 0.4681,
+      "value": 0.4615,
       "need": 0.5,
       "pass": false
     },
     "fpr": {
-      "value": 0.25,
+      "value": 0.1346,
       "need": 0.4,
       "pass": true
     },
     "oof": {
-      "value": 0.4314,
+      "value": 0.3237,
       "need": 0.2637,
       "pass": true
     },
     "pass_all": false
   },
   "verdict": "reject_by_guard",
-  "total_seconds": 14094.8,
+  "total_seconds": 14056.3,
   "version": "v22",
   "encoder": {
     "dir": "models/rubert-base-cased",
@@ -207,8 +207,8 @@
     "oof": 3,
     "limit": 0,
     "encoder": "DeepPavlov/rubert-base-cased",
-    "runner": "GitHub Actions 1000011639",
+    "runner": "GitHub Actions 1000011651",
     "cpu_count": 4
   },
-  "wall_seconds_v22": 14095.1
+  "wall_seconds_v22": 14056.6
 }
