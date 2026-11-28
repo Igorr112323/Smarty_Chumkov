@@ -69,11 +69,12 @@ def main(argv=None):
     parser.add_argument("--max-len", type=int, default=128)
     parser.add_argument("--doc-tokens", type=int, default=64)
     parser.add_argument("--step", type=float, default=0.1)
+    parser.add_argument("--encoder", default="", help="каталог весов энкодера (v22: rubert-base-cased)")
     args = parser.parse_args(argv)
 
-    tokenizer = load_tokenizer()
+    tokenizer = load_tokenizer(args.encoder or None)
     train_pairs, val_pairs, _ = L.load_all()
-    model = build_model()
+    model = build_model(model_dir=args.encoder or None)
     model.load_state_dict(__import__("torch").load(ROOT / args.checkpoint, map_location="cpu")["state_dict"])
     model.eval()
 

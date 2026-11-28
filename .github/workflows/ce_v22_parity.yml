@@ -1,0 +1,74 @@
+name: CE v22 паритет int8 и скорость
+
+# Отдельный короткий прогон: только экспорт в ONNX + int8 и замер паритета/скорости.
+# Нужен потому, что в основном прогоне паритет считался на батче 2 (вырожденная корреляция),
+# а чекпойнт на раннере не сохраняется между запусками. Паритет fp32↔int8 не зависит от обучения,
+# поэтому здесь достаточно необученной модели — это честный замер качества квантования графа.
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ce_v22_parity.yml"
+
+permissions:
+  contents: write
+
+env:
+  ENCODER: DeepPavlov/rubert-base-cased
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Зависимости
+        run: |
+          python -m pip install --upgrade pip
+          pip install "numpy<2" "torch==2.2.2" --index-url https://download.pytorch.org/whl/cpu
+          pip install "transformers==4.44.2" "onnx==1.16.2" "onnxruntime==1.19.2" "scikit-learn" "huggingface_hub"
+
+      - name: Веса и вспомогательные файлы
+        run: |
+          python - <<'PY'
+          import hashlib, json, shutil
+          from pathlib import Path
+          from huggingface_hub import hf_hub_download
+
+          target = Path("models/rubert-base-cased")
+          target.mkdir(parents=True, exist_ok=True)
+          for name in ("config.json", "tokenizer_config.json", "special_tokens_map.json", "vocab.txt"):
+              shutil.copyfile(Path("weights/rubert-base-cased/curadoria") / name, target / name)
+          cached = Path(hf_hub_download(repo_id="DeepPavlov/rubert-base-cased", filename="pytorch_model.bin"))
+          digest = hashlib.sha256()
+          with cached.open("rb") as handle:
+              for chunk in iter(lambda: handle.read(4 * 1024 * 1024), b""):
+                  digest.update(chunk)
+          shutil.copyfile(cached, target / "pytorch_model.bin")
+          manifest = {"repository": "DeepPavlov/rubert-base-cased", "size": cached.stat().st_size,
+                      "sha256": digest.hexdigest(), "channel": "GitHub Actions runner"}
+          (target / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(manifest)
+          PY
+
+      - name: Экспорт и замер
+        run: |
+          python tools/ce_export_v22.py --encoder models/rubert-base-cased --skip-checkpoint \
+            --report artifacts/speed_v22_parity.json --onnx artifacts/ce_model_v22.onnx \
+            --seq-len 192 --threads 2
+
+      - name: Коммит замера
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f artifacts/speed_v22_parity.json
+          git diff --cached --quiet || git commit -m "v22: паритет int8 (батч 8) и скорость rubert-base [skip ci]"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+          git push origin "HEAD:${GITHUB_REF_NAME}"

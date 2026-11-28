@@ -258,8 +258,14 @@ V19_HELDOUT_LEAK = {
 }
 
 
-def freeze_lower_layers(model, count):
+def freeze_lower_layers(model, count, freeze_encoder=False):
     """Заморозка нижних слоёв энкодера (0 = полное дообучение, как в v21)."""
+    if freeze_encoder:
+        for parameter in model.encoder.parameters():
+            parameter.requires_grad = False
+        trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        print(f"энкодер заморожен целиком, обучаемых параметров: {trainable}", flush=True)
+        return
     if count <= 0:
         return
     layers = getattr(model.encoder, "encoder", None)
@@ -281,7 +287,7 @@ def train_arm_epochs(name, pairs, tokenizer, args, val_pairs, tables_val, val_te
 
     tensors, meta = pack(pairs, tokenizer, args.doc_tokens, args.max_len, args.max_easy)
     model = build_model(model_dir=args.encoder or None)
-    freeze_lower_layers(model, args.freeze_layers)
+    freeze_lower_layers(model, args.freeze_layers, args.freeze_encoder)
     optimizer = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],
                                   lr=args.lr, weight_decay=0.01)
     history, best_state, best_span, best_cell = [], None, -1.0, None
@@ -314,7 +320,7 @@ def train_arm_epochs(name, pairs, tokenizer, args, val_pairs, tables_val, val_te
 def train_arm(name, pairs, tokenizer, args, checkpoint=None):
     tensors, meta = pack(pairs, tokenizer, args.doc_tokens, args.max_len, args.max_easy)
     model = build_model(model_dir=args.encoder or None)
-    freeze_lower_layers(model, args.freeze_layers)
+    freeze_lower_layers(model, args.freeze_layers, args.freeze_encoder)
     if checkpoint and Path(checkpoint).exists():
         model.load_state_dict(torch.load(checkpoint, map_location="cpu")["state_dict"])
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=0.01)
@@ -346,6 +352,8 @@ def main(argv=None):
                         help="каталог с весами энкодера (v22: rubert-base-cased), по умолчанию rubert-tiny2")
     parser.add_argument("--eval-each-epoch", action="store_true",
                         help="v22: проверять val после каждой эпохи и сохранять лучшую по Span эпоху")
+    parser.add_argument("--freeze-encoder", action="store_true",
+                        help="v22: заморозить энкодер целиком (линейный пробник на головах CE)")
     parser.add_argument("--freeze-layers", type=int, default=0,
                         help="заморозить нижние N слоёв энкодера (экономия памяти/времени на CPU)")
     args = parser.parse_args(argv)
@@ -457,7 +465,7 @@ def main(argv=None):
             train_fold = [pair for pair in train_pairs if fold_of[L.doc_key(pair)] != fold]
             extra = [pair for pair in v19] if "v19" in best_arm else []
             model = build_model(model_dir=args.encoder or None)
-            freeze_lower_layers(model, args.freeze_layers)
+            freeze_lower_layers(model, args.freeze_layers, args.freeze_encoder)
             model.load_state_dict(torch.load(ROOT / args.checkpoint, map_location="cpu")["state_dict"])
             optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr / 2, weight_decay=0.01)
             fold_tensors, _ = pack(train_fold + extra, tokenizer, args.doc_tokens, args.max_len,

@@ -1,0 +1,62 @@
+name: CE v22 замороженный энкодер
+
+# Полный прогон v22 показал переобучение: val AUC падает с 0.678 (эпоха 0) до 0.597 (эпоха 5),
+# train loss 1.20 → 0.14 при 549 парах. Этот прогон изолирует причину: ёмкость или нехватка
+# разметки. Два варианта регуляризации на том же энкодере rubert-base-cased:
+#   1) энкодер заморожен целиком (линейный пробник на головах CE), lr 1e-3, 3 эпохи;
+#   2) заморожены нижние 8 из 12 слоёв, lr 3e-5, 3 эпохи.
+# Плюс варианты применения CE в декодере (pair-гейт и blend, как в v21 — лучший приём v21).
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ce_v22_frozen.yml"
+      - "tools/ce_v22_frozen.py"
+
+permissions:
+  contents: write
+
+env:
+  ENCODER: DeepPavlov/rubert-base-cased
+  CE_THREADS: "4"
+
+jobs:
+  frozen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Зависимости
+        run: |
+          python -m pip install --upgrade pip
+          pip install "numpy<2" "torch==2.2.2" --index-url https://download.pytorch.org/whl/cpu
+          pip install "transformers==4.44.2" "onnx==1.16.2" "onnxruntime==1.19.2" "scikit-learn" "huggingface_hub"
+
+      - name: Веса
+        run: python tools/ce_v22_frozen.py weights
+
+      - name: Линейный пробник (энкодер заморожен)
+        run: python tools/ce_v22_frozen.py arm1
+
+      - name: Заморозка нижних 8 слоёв
+        run: python tools/ce_v22_frozen.py arm2
+
+      - name: Варианты применения CE в декодере
+        run: python tools/ce_v22_frozen.py decode
+
+      - name: Коммит артефактов
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f artifacts/ce_train_v22_frozen.json artifacts/ce_train_v22_frozen8.json \
+                     artifacts/ce_decode_v22_frozen.json artifacts/ce_decode_v22_frozen8.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "v22: замороженный энкодер и варианты декодера [skip ci]"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+          git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -121,6 +121,8 @@ def main(argv=None):
     parser.add_argument("--report", default="artifacts/speed_v22.json")
     parser.add_argument("--onnx", default="artifacts/ce_model_v22.onnx")
     parser.add_argument("--threads", type=int, default=0)
+    parser.add_argument("--skip-checkpoint", action="store_true",
+                        help="не загружать чекпойнт голов CE (паритет int8 от обучения не зависит)")
     parser.add_argument("--seq-len", type=int, default=192)
     args = parser.parse_args(argv)
 
@@ -132,12 +134,17 @@ def main(argv=None):
               "encoder_dir": args.encoder, "threads": threads}
 
     model = build_model(model_dir=args.encoder)
-    state = torch.load(args.checkpoint, map_location="cpu")
-    model.load_state_dict(state["state_dict"])
+    if args.skip_checkpoint:
+        report["checkpoint_skipped"] = ("головы CE не обучены: паритет fp32↔int8 и латентность "
+                                        "измеряются на графе, а не на качестве модели")
+    else:
+        state = torch.load(args.checkpoint, map_location="cpu")
+        model.load_state_dict(state["state_dict"])
     model.eval()
     total_parameters = int(sum(tensor.numel() for tensor in model.parameters()))
-    report["model"] = {"checkpoint": args.checkpoint,
-                       "checkpoint_bytes": Path(args.checkpoint).stat().st_size,
+    report["model"] = {"checkpoint": None if args.skip_checkpoint else args.checkpoint,
+                       "checkpoint_bytes": 0 if args.skip_checkpoint
+                       else Path(args.checkpoint).stat().st_size,
                        "parameters": total_parameters,
                        "fp32_mb": round(total_parameters * 4 / 1024 ** 2, 2)}
 
