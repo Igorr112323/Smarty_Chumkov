@@ -1,0 +1,178 @@
+{
+  "rule": "шаг 4.3 v21: CPU-скорость int8 cross-encoder против лимитов §4.1 (0.03 с/1k, 50k <= 1 с, 2M <= 60 с) на 2 ядрах",
+  "setup": {
+    "threads": 2,
+    "provider": "CPUExecutionProvider",
+    "onnx_int8": "artifacts/ce_model_v23_int8.onnx",
+    "bytes": 29285739,
+    "doc_tokens": 200,
+    "note": "документ подаётся префиксом фиксированной длины, кандидат — целиком; цена считается по числу кандидатов ответа"
+  },
+  "latency_per_forward": [
+    {
+      "seq_len": 128,
+      "batch": 1,
+      "median_seconds": 0.0033,
+      "min_seconds": 0.0033
+    },
+    {
+      "seq_len": 192,
+      "batch": 1,
+      "median_seconds": 0.0056,
+      "min_seconds": 0.0054
+    },
+    {
+      "seq_len": 256,
+      "batch": 1,
+      "median_seconds": 0.0085,
+      "min_seconds": 0.0081
+    },
+    {
+      "seq_len": 384,
+      "batch": 1,
+      "median_seconds": 0.0156,
+      "min_seconds": 0.0149
+    }
+  ],
+  "latency_batch8": [
+    {
+      "seq_len": 192,
+      "batch": 8,
+      "median_seconds": 0.0353,
+      "min_seconds": 0.0342
+    },
+    {
+      "seq_len": 384,
+      "batch": 8,
+      "median_seconds": 0.1219,
+      "min_seconds": 0.1123
+    }
+  ],
+  "candidates": {
+    "1k": {
+      "candidates": 8,
+      "answer_chars": 160,
+      "document_chars": 1000
+    },
+    "50k": {
+      "candidates": 12,
+      "answer_chars": 320,
+      "document_chars": 50000
+    },
+    "2M": {
+      "candidates": 19,
+      "answer_chars": 520,
+      "document_chars": 2000000
+    }
+  },
+  "runtime_without_ce": {
+    "1k": 0.0083,
+    "50k": 0.1956,
+    "2M": 10.2027
+  },
+  "cascade_top_k": {
+    "1k_top1": {
+      "total_seconds": 0.0116,
+      "limit_seconds": 0.03,
+      "fits": true,
+      "headroom_x": 2.59
+    },
+    "1k_top3": {
+      "total_seconds": 0.0182,
+      "limit_seconds": 0.03,
+      "fits": true,
+      "headroom_x": 1.65
+    },
+    "1k_top5": {
+      "total_seconds": 0.0248,
+      "limit_seconds": 0.03,
+      "fits": true,
+      "headroom_x": 1.21
+    },
+    "50k_top1": {
+      "total_seconds": 0.1989,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 5.03
+    },
+    "50k_top3": {
+      "total_seconds": 0.2055,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 4.87
+    },
+    "50k_top5": {
+      "total_seconds": 0.2121,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 4.71
+    },
+    "2M_top1": {
+      "total_seconds": 10.206,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 5.88
+    },
+    "2M_top3": {
+      "total_seconds": 10.2126,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 5.88
+    },
+    "2M_top5": {
+      "total_seconds": 10.2192,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 5.87
+    }
+  },
+  "stress_long_answer_50k": {
+    "answer_chars": 50000,
+    "candidates": 1240,
+    "ce_seconds": 10.54,
+    "limit_seconds": 1.0,
+    "fits": false
+  },
+  "totals": {
+    "1k": {
+      "runtime_seconds": 0.0083,
+      "ce_candidates": 8,
+      "ce_seq_len": 128,
+      "ce_seconds": 0.0264,
+      "total_seconds": 0.0347,
+      "limit_seconds": 0.03,
+      "fits": false,
+      "headroom_x": 0.86
+    },
+    "50k": {
+      "runtime_seconds": 0.1956,
+      "ce_candidates": 12,
+      "ce_seq_len": 128,
+      "ce_seconds": 0.0396,
+      "total_seconds": 0.2352,
+      "limit_seconds": 1.0,
+      "fits": true,
+      "headroom_x": 4.25
+    },
+    "2M": {
+      "runtime_seconds": 10.2027,
+      "ce_candidates": 19,
+      "ce_seq_len": 192,
+      "ce_seconds": 0.1064,
+      "total_seconds": 10.3091,
+      "limit_seconds": 60.0,
+      "fits": true,
+      "headroom_x": 5.82
+    }
+  },
+  "verdict": {
+    "stress_note": "при ответе на 50k знаков число кандидатов растёт до сотен, и cross-encoder перестаёт вписываться в лимит даже int8",
+    "all_points_fit": false,
+    "per_point": {
+      "1k": false,
+      "50k": true,
+      "2M": true
+    },
+    "note": "оценка оптимистична для качества: документ урезан до 200 токенов, поэтому cross-encoder видит только префикс; при полном документе цена выросла бы в десятки раз и лимиты §4.1 не выполнялись бы"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "rule": "шаг 4 v21: экспорт cross-encoder в ONNX (opset >= 14) и int8-квантование; продукт использует только ONNX + onnxruntime, torch в рантайм не попадает",
+  "model": {
+    "architecture": "CrossEncoderSpan (rubert-tiny2 + start/end/risk)",
+    "parameters": {
+      "total": 29194707,
+      "trainable": 29194707,
+      "fp32_mb": 111.37,
+      "int8_mb": 27.84
+    },
+    "checkpoint_loaded": "/home/user/Smarty_Chumkov/artifacts/ce_model_cpu_v23.pt",
+    "heads_trained": true,
+    "note": null
+  },
+  "onnx": {
+    "path": "artifacts/ce_model_v23.onnx",
+    "bytes": 116483760,
+    "sha256": "b67950471e8a51d6aa4abed3207f62fb041b824a2a4fa36bca8dbc23e509a562",
+    "opset": 17,
+    "export_seconds": 1.22,
+    "input_names": [
+      "input_ids",
+      "attention_mask",
+      "token_type_ids"
+    ],
+    "dynamic_axes": [
+      "batch",
+      "sequence"
+    ]
+  },
+  "int8": {
+    "path": "artifacts/ce_model_v23_int8.onnx",
+    "bytes": 29285739,
+    "sha256": "34ae58247fc71f01d4630ba255556169f4d894e7f0587608c1dd11530df97083",
+    "weight_type": "QInt8 (dynamic)",
+    "quantize_seconds": 1.55,
+    "compression_ratio": 3.98
+  },
+  "parity_fp32_vs_int8": {
+    "risk_logit": {
+      "max_abs_diff": 0.05035,
+      "mean_abs_diff": 0.05035,
+      "corr": null
+    },
+    "start_logits": {
+      "max_abs_diff": 0.51265,
+      "mean_abs_diff": 0.07641,
+      "corr": 1.0
+    },
+    "end_logits": {
+      "max_abs_diff": 0.31049,
+      "mean_abs_diff": 0.08398,
+      "corr": 1.0
+    }
+  },
+  "sizes_total_mb": {
+    "onnx_fp32": 111.09,
+    "onnx_int8": 27.93
+  },
+  "verdict": "экспорт и int8-квантование работают; веса голов обучены"
+}

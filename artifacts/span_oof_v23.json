@@ -1,0 +1,529 @@
+{
+  "rule": "v23: используем полный FPR-бюджет договора (<= 0.40) и мульти-спан декод. Пороги калибруются только на val, held-out не читается, метрики не правятся",
+  "val": {
+    "pairs": 150,
+    "candidates": 1374,
+    "positives": 98,
+    "ce_auc": 0.7169,
+    "v11_auc": 0.7425,
+    "chosen": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "chosen_variant": "blend_0.4 (v11 + CE 40% в квантильной шкале) × пара-гейт v11"
+  },
+  "ablations": {
+    "v11_alone_best_under_0.40": {
+      "risk": "v11",
+      "gate": "ce_max",
+      "span": 0.3774,
+      "token": 0.6451,
+      "pair": 0.5405,
+      "fpr": 0.0769,
+      "span_p": 0.3846,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.6,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 3,
+        "nms_iou": 0.1
+      }
+    },
+    "ce_alone_best_under_0.40": {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "token": 0.6557,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "v11_plus_ce_best_under_0.40": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "multi_span": {
+      "1": {
+        "span": 0.3958,
+        "token": 0.6663,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.4524,
+        "span_r": 0.3519
+      },
+      "2": {
+        "span": 0.3958,
+        "token": 0.6663,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.4524,
+        "span_r": 0.3519
+      },
+      "3": {
+        "span": 0.3958,
+        "token": 0.6663,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.4524,
+        "span_r": 0.3519
+      },
+      "5": {
+        "span": 0.3958,
+        "token": 0.6663,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.4524,
+        "span_r": 0.3519
+      },
+      "999": {
+        "span": 0.3958,
+        "token": 0.6663,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.4524,
+        "span_r": 0.3519
+      }
+    },
+    "snap_adjuster": {
+      "none": {
+        "span": 0.3958,
+        "token": 0.6663,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.4524,
+        "span_r": 0.3519
+      },
+      "expand": {
+        "span": 0.3958,
+        "token": 0.6663,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.4524,
+        "span_r": 0.3519
+      },
+      "shrink": {
+        "span": 0.375,
+        "token": 0.5974,
+        "pair": 0.4932,
+        "fpr": 0.0865,
+        "span_p": 0.4286,
+        "span_r": 0.3333
+      },
+      "nearest": {
+        "span": 0.3958,
+        "token": 0.6663,
+        "pair": 0.5135,
+        "fpr": 0.0865,
+        "span_p": 0.4524,
+        "span_r": 0.3519
+      }
+    }
+  },
+  "fpr_curve": {
+    "0.10": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.15": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.20": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.25": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.30": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.35": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.40": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    }
+  },
+  "oof": {
+    "folds": [
+      {
+        "fold": 0,
+        "pairs": 183,
+        "auc_ce": 0.9384,
+        "ce_variant": {
+          "span": 0.3471,
+          "token": 0.555,
+          "pair": 0.4468,
+          "fpr": 0.1791,
+          "span_p": 0.3621,
+          "span_r": 0.3333
+        },
+        "v11_reference": {
+          "span": 0.2188,
+          "token": 0.4955,
+          "pair": 0.2979,
+          "fpr": 0.2313,
+          "span_p": 0.2154,
+          "span_r": 0.2222
+        }
+      },
+      {
+        "fold": 1,
+        "pairs": 182,
+        "auc_ce": 0.9193,
+        "ce_variant": {
+          "span": 0.2897,
+          "token": 0.4751,
+          "pair": 0.3684,
+          "fpr": 0.2261,
+          "span_p": 0.3333,
+          "span_r": 0.2561
+        },
+        "v11_reference": {
+          "span": 0.2692,
+          "token": 0.4618,
+          "pair": 0.336,
+          "fpr": 0.3217,
+          "span_p": 0.2838,
+          "span_r": 0.2561
+        }
+      },
+      {
+        "fold": 2,
+        "pairs": 184,
+        "auc_ce": 0.9198,
+        "ce_variant": {
+          "span": 0.3333,
+          "token": 0.5531,
+          "pair": 0.4219,
+          "fpr": 0.2243,
+          "span_p": 0.375,
+          "span_r": 0.3
+        },
+        "v11_reference": {
+          "span": 0.2299,
+          "token": 0.4863,
+          "pair": 0.303,
+          "fpr": 0.3271,
+          "span_p": 0.2381,
+          "span_r": 0.2222
+        }
+      }
+    ],
+    "mean": {
+      "span": 0.3234,
+      "token": 0.5277,
+      "pair": 0.4124,
+      "fpr": 0.2098
+    },
+    "baseline_span": 0.2437,
+    "required": 0.2637,
+    "pass": true
+  },
+  "guard": {
+    "span": {
+      "value": 0.3958,
+      "need": 0.5,
+      "pass": false
+    },
+    "token": {
+      "value": 0.6663,
+      "need": 0.5,
+      "pass": true
+    },
+    "pair": {
+      "value": 0.5135,
+      "need": 0.5,
+      "pass": true
+    },
+    "fpr": {
+      "value": 0.0865,
+      "need": 0.4,
+      "pass": true
+    },
+    "oof": {
+      "value": 0.3234,
+      "need": 0.2637,
+      "pass": true
+    },
+    "pass_all": false,
+    "speed": {
+      "value": {
+        "1k_top5": true,
+        "50k_top5": true,
+        "2M_top5": true
+      },
+      "need": "0.03 / 1 / 60 с",
+      "pass": true
+    }
+  },
+  "verdict": "reject_by_guard",
+  "ceiling_diagnostics": {
+    "gold_spans": 54,
+    "gold_spans_with_matching_candidate": 54,
+    "oracle_recall": 1.0,
+    "unreachable_examples": [],
+    "gate_pass_share": {
+      "0.0": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 147,
+        "share": 1.0
+      },
+      "0.2": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 143,
+        "share": 0.9728
+      },
+      "0.3": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 112,
+        "share": 0.7619
+      },
+      "0.4": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 81,
+        "share": 0.551
+      },
+      "0.5": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 50,
+        "share": 0.3401
+      }
+    },
+    "note": "FPR-бюджет ограничивает ложные срабатывания на ЧИСТЫХ парах, а Span теряется в парах с gold: там лишние спаны сразу становятся FP. Поэтому поднятие бюджета не даёт recall, а только снижает precision"
+  },
+  "speed": {
+    "int8_bytes": 29285739,
+    "compression_ratio": 3.98,
+    "latency_batch1": {
+      "128": 0.0033,
+      "192": 0.0056,
+      "256": 0.0085,
+      "384": 0.0156
+    },
+    "full_sweep": {
+      "1k": {
+        "seconds": 0.0347,
+        "fits": false
+      },
+      "50k": {
+        "seconds": 0.2352,
+        "fits": true
+      },
+      "2M": {
+        "seconds": 10.3091,
+        "fits": true
+      }
+    },
+    "cascade_top5": {
+      "1k_top5": {
+        "seconds": 0.0248,
+        "fits": true
+      },
+      "50k_top5": {
+        "seconds": 0.2121,
+        "fits": true
+      },
+      "2M_top5": {
+        "seconds": 10.2192,
+        "fits": true
+      }
+    },
+    "note": "декодер v23 не меняет число прогонов CE: скорость та же, что в v21 (продуктовая точка — каскад top-5)"
+  },
+  "fpr_budget_finding": {
+    "statement": "FPR-бюджет не является рычагом для Span",
+    "evidence": {
+      "0.10": {
+        "span": 0.3958,
+        "fpr": 0.0865
+      },
+      "0.15": {
+        "span": 0.3958,
+        "fpr": 0.0865
+      },
+      "0.20": {
+        "span": 0.3958,
+        "fpr": 0.0865
+      },
+      "0.25": {
+        "span": 0.3958,
+        "fpr": 0.0865
+      },
+      "0.30": {
+        "span": 0.3958,
+        "fpr": 0.0865
+      },
+      "0.35": {
+        "span": 0.3958,
+        "fpr": 0.0865
+      },
+      "0.40": {
+        "span": 0.3958,
+        "fpr": 0.0865
+      }
+    },
+    "explanation": "при любом бюджете 0.10–0.40 выбирается один и тот же конфиг с FPR 0.0865: дополнительные срабатывания приходятся на чистые пары и на «почти-попадания» в парах с gold, где сразу превращаются в FP",
+    "multi_span_finding": "при рабочем пороге 0.6 в паре выживает максимум один кандидат, поэтому max_spans = 1…999 дают одинаковый Span 0.3958; мульти-спан работает только на низких порогах, где precision падает быстрее, чем растёт recall",
+    "ceiling": {
+      "gold_spans_val": 54,
+      "gold_with_matching_candidate": 54,
+      "oracle_recall": 1.0,
+      "gate_share_at_0.5": 0.3401
+    }
+  },
+  "conclusion": "Span не поднят до 0.50: лучший честный результат 0.3958 (было 0.3818 в v21, +0.014). FPR-бюджет и мульти-спан измерены и не дали: бюджет не влияет (0.3958 при 0.10–0.40), мульти-спан при рабочем пороге вырожден. Осталось качество ранжирования внутри пар с gold (AUC 0.7169–0.7425 против нужных ~0.85) — новые реальные данные разметки или архитектурный прорыв, а не настройка порогов"
+}

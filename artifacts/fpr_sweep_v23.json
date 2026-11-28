@@ -1,0 +1,1091 @@
+{
+  "rule": "v23: используем полный FPR-бюджет договора (<= 0.40) и мульти-спан декод. Пороги калибруются только на val, held-out не читается, метрики не правятся",
+  "checkpoint": "artifacts/ce_model_cpu_v23.pt",
+  "val": {
+    "pairs": 150,
+    "candidates": 1374,
+    "positives": 98,
+    "ce_auc": 0.7169,
+    "v11_auc": 0.7425
+  },
+  "grid": {
+    "size": 7290,
+    "risks": [
+      "v11",
+      "ce",
+      "blend_0.4",
+      "rank_blend",
+      "z_blend",
+      "blend_0.4+local",
+      "ce+local"
+    ],
+    "gates": [
+      "v11",
+      "ce_max",
+      "ce_top3",
+      "mix"
+    ],
+    "thresholds": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6
+    ],
+    "max_spans": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      999
+    ]
+  },
+  "fpr_curve": {
+    "0.10": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.15": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.20": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.25": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.30": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.35": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    },
+    "0.40": {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      }
+    }
+  },
+  "best_under_0.40": {
+    "risk": "blend_0.4",
+    "gate": "v11",
+    "span": 0.3958,
+    "token": 0.6663,
+    "pair": 0.5135,
+    "fpr": 0.0865,
+    "span_p": 0.4524,
+    "span_r": 0.3519,
+    "config": {
+      "mode_cut": 0.7,
+      "gate": 0.5,
+      "threshold": 0.6,
+      "max_spans": 1,
+      "local_threshold": 0.3,
+      "local_max_spans": 1,
+      "nms_iou": 0.1
+    }
+  },
+  "snap_ablation": {
+    "none": {
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519
+    },
+    "expand": {
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519
+    },
+    "shrink": {
+      "span": 0.375,
+      "token": 0.5974,
+      "pair": 0.4932,
+      "fpr": 0.0865,
+      "span_p": 0.4286,
+      "span_r": 0.3333
+    },
+    "nearest": {
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519
+    }
+  },
+  "multi_span_ablation": {
+    "1": {
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519
+    },
+    "2": {
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519
+    },
+    "3": {
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519
+    },
+    "5": {
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519
+    },
+    "999": {
+      "span": 0.3958,
+      "token": 0.6663,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519
+    }
+  },
+  "rows_total": 1680,
+  "rows_top": [
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 5,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 5,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 5,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 10,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 10,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 10,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 999,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 999,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3958,
+      "pair": 0.5135,
+      "fpr": 0.0865,
+      "span_p": 0.4524,
+      "span_r": 0.3519,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 999,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6663
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 5,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 5,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 5,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 10,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 10,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 10,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 999,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 999,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "ce",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5263,
+      "fpr": 0.0962,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.5,
+        "threshold": 0.6,
+        "max_spans": 999,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.6557
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5063,
+      "fpr": 0.125,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.647
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5063,
+      "fpr": 0.125,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.647
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5063,
+      "fpr": 0.125,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 1,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.647
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5063,
+      "fpr": 0.125,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.647
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5063,
+      "fpr": 0.125,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.4,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.647
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5063,
+      "fpr": 0.125,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 2,
+        "local_threshold": 0.5,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.647
+    },
+    {
+      "risk": "blend_0.4",
+      "gate": "v11",
+      "span": 0.3922,
+      "pair": 0.5063,
+      "fpr": 0.125,
+      "span_p": 0.4167,
+      "span_r": 0.3704,
+      "config": {
+        "mode_cut": 0.7,
+        "gate": 0.4,
+        "threshold": 0.6,
+        "max_spans": 3,
+        "local_threshold": 0.3,
+        "local_max_spans": 1,
+        "nms_iou": 0.1
+      },
+      "token": 0.647
+    }
+  ],
+  "reference": {
+    "v11_v21": {
+      "span": 0.3621,
+      "token": 0.6247,
+      "pair": 0.5122,
+      "fpr": 0.1442
+    },
+    "ce_v21_best": {
+      "span": 0.3818,
+      "token": 0.6365,
+      "pair": 0.5455,
+      "fpr": 0.0962
+    },
+    "oracle_ceiling_span": 0.6165
+  },
+  "ceiling_diagnostics": {
+    "gold_spans": 54,
+    "gold_spans_with_matching_candidate": 54,
+    "oracle_recall": 1.0,
+    "unreachable_examples": [],
+    "gate_pass_share": {
+      "0.0": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 147,
+        "share": 1.0
+      },
+      "0.2": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 143,
+        "share": 0.9728
+      },
+      "0.3": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 112,
+        "share": 0.7619
+      },
+      "0.4": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 81,
+        "share": 0.551
+      },
+      "0.5": {
+        "pairs_in_span_mode": 147,
+        "pass_gate": 50,
+        "share": 0.3401
+      }
+    },
+    "note": "FPR-бюджет ограничивает ложные срабатывания на ЧИСТЫХ парах, а Span теряется в парах с gold: там лишние спаны сразу становятся FP. Поэтому поднятие бюджета не даёт recall, а только снижает precision"
+  },
+  "ablation_note": "абляции пересчитаны после восстановления штатного risk_local v11: в первом прогоне local-риск был подменён последним вариантом (ce+local)"
+}
